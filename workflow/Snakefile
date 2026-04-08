@@ -1,0 +1,6 @@
+WDIR        = "/home/daffa/Work/2026/thesis"
+
+rule all:
+    input:
+        expand(f"{WDIR}/results/gvcf/{{sample}}.g.vcf.gz", sample=["SBC4", "SBC10", "SBC11", "SBC23"])
+
