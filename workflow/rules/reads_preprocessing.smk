@@ -2,41 +2,31 @@ WDIR        = "/home/daffa/Work/2026/thesis"
 
 rule all:
     input:
-        expand(f"{WDIR}/resources/align_bam/{{sample}}.aligned.bam", sample=["SBC4", "SBC10", "SBC11", "SBC23"]),
-        expand(f"{WDIR}/resources/align_sam/{{sample}}.aligned.sam", sample=["SBC4", "SBC10", "SBC11", "SBC23"])
+        # aligned bam files
+        expand(
+            f"{WDIR}/resources/align_bam/{{library}}.bam", 
+            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
+            ),
+        # bam files with additional metadata (retrieved from trim_bam, the original bam_file)
+        # expand(
+        #     f"{WDIR}/resources/metadata_bam/{{library}}.bam", 
+        #     library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
+        #     ),
+        # final bam ready for haplotype calling
+        # expand(
+        #     f"{WDIR}/results/bam/{{sample}}.bam", sample=["SBC4", "SBC10", "SBC11", "SBC23"]
+        #     )
 
 
-rule merge_bam_files:
-    # merge bam files for SBC11 only
+rule align_reads:
     input:
-        f"{WDIR}/resources/trim_bam/r0075.bam",
-        f"{WDIR}/resources/trim_bam/r0078.bam",
-        f"{WDIR}/resources/trim_bam/r0078-2.bam"
+        fastq = f"{WDIR}/resources/fastq/{{library}}.fq",
+        ref = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna",
+        fai = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna.fai",
     output:
-        f"{WDIR}/resources/bam/SBC11.bam"
+        align_bam = f"{WDIR}/resources/align_bam/{{library}}.bam",
+    threads: 2
     shell:
         '''
-        samtools merge -u {output} {input}
-        '''
-
-rule align_bam_files:
-    input:
-        bam = f"{WDIR}/resources/bam/{{sample}}.bam",
-        ref = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
-    output:
-        f"{WDIR}/resources/align_bam/{{sample}}.aligned.bam"
-    shell:
-        '''
-        samtools fastq -T '*' {input.bam} | minimap2 -ax map-ont -y --MD -t 8 {input.ref} - | samtools sort -@ 8 -o {output}
-        samtools index {output}
-        '''
-
-rule create_sam_from_bam:
-    input:
-        bam = f"{WDIR}/resources/align_bam/{{sample}}.aligned.bam"
-    output:
-        f"{WDIR}/resources/align_sam/{{sample}}.aligned.sam"
-    shell:
-        '''
-        samtools view -o {output} {input}
+        minimap2 -ax map-ont -t {threads} {input.ref} {input.fastq}
         '''
