@@ -28,5 +28,6 @@ rule align_reads:
     threads: 2
     shell:
         '''
-        minimap2 -ax map-ont -t {threads} {input.ref} {input.fastq}
+        minimap2 -ax map-ont -t {threads} {input.ref} {input.fastq} \
+            | samtools sort -@ {threads} -o {output.align_bam}
         '''
