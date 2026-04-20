@@ -11,7 +11,7 @@ rule all:
             ),
         # coverage depth plots & pickle files
         expand(
-            f"{WDIR}/resources/depth/{{library}}_depth.png",
+            f"{WDIR}/resources/depth/{{library}}_depth.svg",
             library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
             ),
         expand(
@@ -28,7 +28,7 @@ rule just_plot:
     input:
         # coverage depth plots with repetition
         expand(
-            f"{WDIR}/resources/depth/{{library}}_depth_{repetition}.png",
+            f"{WDIR}/resources/depth/{{library}}_depth_{repetition}.svg",
             library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
             ),
 
@@ -71,7 +71,7 @@ rule visualize_depthfile:
     input:
         depth = f"{WDIR}/resources/depth/{{library}}.depth",
     output:
-        plot = f"{WDIR}/resources/depth/{{library}}_depth.png",
+        plot = f"{WDIR}/resources/depth/{{library}}_depth.svg",
         pickle = f"{WDIR}/resources/depth/{{library}}_depth.pkl",
     shell:
         """
@@ -86,7 +86,7 @@ rule bypass_pickle:
     input:
         pickle = f"{WDIR}/resources/depth/{{library}}_depth.pkl",
     output:
-        plot = f"{WDIR}/resources/depth/{{library}}_depth_{repetition}.png",
+        plot = f"{WDIR}/resources/depth/{{library}}_depth_{repetition}.svg",
     shell:
         """
         python {WDIR}/workflow/scripts/visualize_depth.py \
