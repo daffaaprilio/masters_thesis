@@ -40,7 +40,11 @@ done
 ```
 For SBC11 libraries:
 ```shell
+# merge multiple libraries
 samtools merge -r -@ 6 resources/align_bam_sample/SBC11.bam resources/align_bam/r0075.bam resources/align_bam/r0078.bam resources/align_bam/r0078-2.bam
+# sort and index merged bam
+samtools sort -@ 6 -o resources/align_bam_sample/SBC11.bam resources/align_bam_sample/SBC11.bam
+samtools index resources/align_bam_sample/SBC11.bam
 ```
 Continue making depth file and its statistics for SBC11
 ```shell
