@@ -63,6 +63,44 @@ python workflow/scripts/visualize_depth.py \
     --library "r0078, r0075, r0078-2" 
 ```
 
-### Variant calling
+### Variant calling with naive model
+Clair3 is used for variant calling. For the first stage, variant calling is done without pre-training the model on sorghum data. Pre-training the model with sorghum data is also considered.
+
+#### Transferring files from `matsu` to `okadama`
+```shell
+# reference genome
+rsync --dry-run -av -s daffa@matsu:/home/daffa/Work/2026/thesis/resources/ref/* resources/ref/
+# aligned bam (both sample level and library)
+rsync --dry-run -av -s daffa@matsu:/home/daffa/Work/2026/thesis/resources/align_bam/* resources/align_bam/
+rsync --dry-run -av -s daffa@matsu:/home/daffa/Work/2026/thesis/resources/align_bam_sample/* resources/align_bam_sample/
+```
+
+#### Preparing Clair3 in `okadama`
+> References <br> 
+https://github.com/HKU-BAL/Clair3#installation, Option 1. Docker GPU (NVIDIA CUDA on Linux) is preferred <br>
+https://docs.docker.com/get-started/docker_cheatsheet.pdf for list of useful Docker/Podman commands.
+```shell
+# pull Clair3 image
+podman pull docker.io/hkubal/clair3:v2.0.0_gpu
+# check if image is pulled
+podman images
+# run image. Running inside a screen session is recommended
+podman run -it \
+  --device /dev/nvidia0 \
+  --device /dev/nvidiactl \
+  --device /dev/nvidia-uvm \
+  --device /dev/nvidia-uvm-tools \
+  -v ${INPUT_DIR}:${INPUT_DIR} \
+  -v ${OUTPUT_DIR}:${OUTPUT_DIR} \
+  hkubal/clair3:v2.0.0_gpu \
+  /opt/bin/run_clair3.sh \
+    --bam_fn=${INPUT_DIR}/input.bam \
+    --ref_fn=${INPUT_DIR}/ref.fa \
+    --threads=${THREADS} \
+    --platform=ont \
+    --model_path=/opt/models/${MODEL_NAME} \
+    --output=${OUTPUT_DIR} \
+    --use_gpu
+```
 
 ### Draft genome assembly
