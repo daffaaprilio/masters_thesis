@@ -18,6 +18,14 @@ All these jobs are handled/included in `workflow/rules/reads_preprocessing.smk`.
 | r0075 <br> r0078 <br> r0078-2 | SBC11 | - |
 | r0076 | SBC23 | ++ |
 
+### Running `reads_preprocessing.smk` Snakefile
+```shell
+# Running from the beginning
+snakemake -s workflow/rules/reads_preprocessing.smk -c 24 -j 6 -pn
+# Picking up from the pickle file, 
+snakemake -s workflow/rules/reads_preprocessing.smk just_plot -c 24 -j 6 -pn
+```
+
 ### Converting library to sample
 For SBC4, SBC10, and SBC23, use symbolic link to save storage, preventing file duplication.
 ```shell
@@ -41,13 +49,13 @@ samtools depth -a resources/align_bam_sample/SBC11.bam -o resources/depth/SBC11.
 # plot the depth file
 python workflow/scripts/visualize_depth.py \
     --input resources/depth/SBC11.depth \
-    --output resources/depth/SBC11_depth.png \
+    --output resources/depth/SBC11_depth.svg \
     --library "r0078, r0075, r0078-2" \
     --save-pickle resources/depth/SBC11_depth.pkl
 # plot the depth file (by reading existing SBC11_depth.pkl file)
 python workflow/scripts/visualize_depth.py \
-    --load-pickle resources/depth/SBC11_depth.pkl
-    --output resources/depth/SBC11_depth.png \
+    --load-pickle resources/depth/SBC11_depth.pkl \
+    --output resources/depth/SBC11_depth.svg \
     --library "r0078, r0075, r0078-2" 
 ```
 
