@@ -84,23 +84,45 @@ https://docs.docker.com/get-started/docker_cheatsheet.pdf for list of useful Doc
 podman pull docker.io/hkubal/clair3:v2.0.0_gpu
 # check if image is pulled
 podman images
-# run image. Running inside a screen session is recommended
+
+# run image. Trial with just running bash
 podman run -it \
   --device /dev/nvidia0 \
   --device /dev/nvidiactl \
   --device /dev/nvidia-uvm \
   --device /dev/nvidia-uvm-tools \
-  -v ${INPUT_DIR}:${INPUT_DIR} \
-  -v ${OUTPUT_DIR}:${OUTPUT_DIR} \
+  -e CUDA_VISIBLE_DEVICES=0,1,2,3 \
+  -v /home/daffa/Work/2026/thesis/resources/:/home/daffa/Work/2026/thesis/resources/ \
+  -v /home/daffa/Work/2026/thesis/results/variant_calling/SBC10/:/home/daffa/Work/2026/thesis/results/variant_calling/SBC10/ \
+  hkubal/clair3:v2.0.0_gpu \
+  bash
+
+# What to ask sysadmin to run:
+sudo dnf install nvidia-container-toolkit        # RHEL/CentOS
+sudo nvidia-ctk runtime configure --runtime=docker
+# and/or for podman:
+sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
+
+
+# Running inside a screen session is recommended
+podman run -it \
+  --device /dev/nvidia0 \
+  --device /dev/nvidiactl \
+  --device /dev/nvidia-uvm \
+  --device /dev/nvidia-uvm-tools \
+  -e CUDA_VISIBLE_DEVICES=0,1,2,3 \
+  -v /home/daffa/Work/2026/thesis/resources/:/home/daffa/Work/2026/thesis/resources/ \
+  -v /home/daffa/Work/2026/thesis/results/variant_calling/SBC10/:/home/daffa/Work/2026/thesis/results/variant_calling/SBC10/ \
   hkubal/clair3:v2.0.0_gpu \
   /opt/bin/run_clair3.sh \
-    --bam_fn=${INPUT_DIR}/input.bam \
-    --ref_fn=${INPUT_DIR}/ref.fa \
-    --threads=${THREADS} \
+    --bam_fn=/home/daffa/Work/2026/thesis/resources/align_bam_sample/SBC10.bam \
+    --ref_fn=/home/daffa/Work/2026/thesis/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna \
+    --threads=8 \
     --platform=ont \
-    --model_path=/opt/models/${MODEL_NAME} \
-    --output=${OUTPUT_DIR} \
-    --use_gpu
+    --model_path=/opt/models/r1041_e82_400bps_sup_v520_with_mv \
+    --output=/home/daffa/Work/2026/thesis/results/variant_calling/SBC10/ \
+    --use_gpu \
+    --include_all_ctgs
 ```
 
 ### Draft genome assembly
