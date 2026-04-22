@@ -7,22 +7,22 @@ rule all:
         # coverage depth files
         expand(
             f"{WDIR}/resources/depth/{{library}}.depth",
-            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
+            library=glob_wildcards(f"{WDIR}/resources/trim_bam/{{library}}.bam").library
             ),
         # coverage depth plots & pickle files
         expand(
             f"{WDIR}/resources/depth/{{library}}_depth{{ext}}",
-            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library,
+            library=glob_wildcards(f"{WDIR}/resources/trim_bam/{{library}}.bam").library,
             ext=[".png", ".svg", ".pdf"]
             ),
         expand(
             f"{WDIR}/resources/depth/{{library}}_depth.pkl",
-            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
+            library=glob_wildcards(f"{WDIR}/resources/trim_bam/{{library}}.bam").library
             ),
         # aligned bam files
         expand(
             f"{WDIR}/resources/align_bam/{{library}}.bam",
-            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
+            library=glob_wildcards(f"{WDIR}/resources/trim_bam/{{library}}.bam").library
             ),
 
 rule just_plot:
@@ -30,14 +30,14 @@ rule just_plot:
         # coverage depth plots with repetition
         expand(
             f"{WDIR}/resources/depth/{{library}}_depth_{repetition}{{ext}}",
-            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library,
+            library=glob_wildcards(f"{WDIR}/resources/trim_bam/{{library}}.bam").library,
             ext=[".png", ".svg", ".pdf"]
             ),
 
 
 rule align_reads:
     input:
-        fastq = f"{WDIR}/resources/fastq/{{library}}.fq",
+        ubam = f"{WDIR}/resources/trim_bam/{{library}}.bam",
         ref = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna",
         fai = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna.fai",
     output:
@@ -45,7 +45,8 @@ rule align_reads:
     threads: 2
     shell:
         '''
-        minimap2 -ax map-ont -t {threads} {input.ref} {input.fastq} \
+        samtools fastq {input.ubam} \
+            | minimap2 -ax map-ont -t {threads} {input.ref} - \
             | samtools sort -@ {threads} -o {output.align_bam}
         '''
 
