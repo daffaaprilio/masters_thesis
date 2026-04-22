@@ -80,6 +80,13 @@ rsync --dry-run -av -s daffa@matsu:/home/daffa/Work/2026/thesis/resources/align_
 https://github.com/HKU-BAL/Clair3#installation, Option 1. Docker GPU (NVIDIA CUDA on Linux) is preferred <br>
 https://docs.docker.com/get-started/docker_cheatsheet.pdf for list of useful Docker/Podman commands.
 ```shell
+# Install libraries needed for accessing GPU
+## What to ask sysadmin to run:
+sudo dnf install nvidia-container-toolkit        # RHEL/CentOS
+sudo nvidia-ctk runtime configure --runtime=docker
+## and/or for podman:
+sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
+
 # pull Clair3 image
 podman pull docker.io/hkubal/clair3:v2.0.0_gpu
 # check if image is pulled
@@ -96,13 +103,6 @@ podman run -it \
   -v /home/daffa/Work/2026/thesis/results/variant_calling/SBC10/:/home/daffa/Work/2026/thesis/results/variant_calling/SBC10/ \
   hkubal/clair3:v2.0.0_gpu \
   bash
-
-# What to ask sysadmin to run:
-sudo dnf install nvidia-container-toolkit        # RHEL/CentOS
-sudo nvidia-ctk runtime configure --runtime=docker
-# and/or for podman:
-sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
-
 
 # Running inside a screen session is recommended
 podman run -it \
@@ -124,5 +124,23 @@ podman run -it \
     --use_gpu \
     --include_all_ctgs
 ```
+#### Building dockerfile consists of the Clair3 image and includes necessary library, `nvidia-container-toolkit`
+```shell
+podman build -f Dockerfile.clair3 -t clair3-thesis:latest .
 
+podman run -it --rm \
+  --device nvidia.com/gpu=all \
+  -e CUDA_VISIBLE_DEVICES=0,1,2,3 \
+  -v /home/daffa/Work/2026/thesis/resources/:/home/daffa/Work/2026/thesis/resources/ \
+  -v /home/daffa/Work/2026/thesis/results/:/home/daffa/Work/2026/thesis/results/ \
+  clair3-thesis:latest \
+  /opt/bin/run_clair3.sh \
+    --bam_fn=/home/daffa/Work/2026/thesis/resources/align_bam_sample/SBC10.bam \
+    --ref_fn=/home/daffa/Work/2026/thesis/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna \
+    --threads=8 --platform=ont \
+    --model_path=/opt/models/r1041_e82_400bps_sup_v520_with_mv \
+    --output=/home/daffa/Work/2026/thesis/results/variant_calling/SBC10/ \
+    --use_gpu --include_all_ctgs
+
+```
 ### Draft genome assembly
