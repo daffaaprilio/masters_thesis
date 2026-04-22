@@ -25,8 +25,8 @@ rule clair3_cpu:
     shell:
         """
         podman run --rm \
-          -v {WDIR}/resources/:{WDIR}/resources/ \
-          -v {WDIR}/results/:{WDIR}/results/ \
+          -v {WDIR}/resources/:{WDIR}/resources/:z \
+          -v {WDIR}/results/:{WDIR}/results/:z \
           docker.io/hkubal/clair3:latest \
           /opt/bin/run_clair3.sh \
             --bam_fn={input.bam} \
