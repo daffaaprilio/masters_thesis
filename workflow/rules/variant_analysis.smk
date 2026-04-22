@@ -1,22 +1,39 @@
-WDIR        = "/home/daffa/Work/2026/thesis"
+WDIR    = "/home/daffa/Work/2026/thesis"
+SAMPLES = ["SBC4", "SBC10", "SBC11", "SBC23"]
+
+REF     = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
+# MODEL   = "/opt/models/r1041_e82_400bps_sup_v520_with_mv"
+MODEL   = "/opt/models/r1041_e82_400bps_sup_v500"
+
 
 rule all:
     input:
-        expand(f"{WDIR}/results/gvcf/{{sample}}.g.vcf.gz", sample=["SBC4", "SBC10", "SBC11", "SBC23"])
+        expand(
+            f"{WDIR}/results/variant_calling/{{sample}}/merge_output.vcf.gz",
+            sample=SAMPLES
+        )
 
-rule call_variants_per_sample:
+
+rule clair3_cpu:
     input:
-        bam = f"{WDIR}/resources/align_bam/{{sample}}.aligned.bam",
-        ref = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
+        bam = f"{WDIR}/resources/align_bam_sample/{{sample}}.bam",
+        bai = f"{WDIR}/resources/align_bam_sample/{{sample}}.bam.bai",
+        ref = REF,
     output:
-        f"{WDIR}/results/gvcf/{{sample}}.g.vcf.gz"
+        vcf = f"{WDIR}/results/variant_calling/{{sample}}/merge_output.vcf.gz",
+    threads: 8
     shell:
-        '''
+        """
         podman run --rm \
-            -v {WDIR}:{WDIR}:Z -w {WDIR} \
-            broadinstitute/gatk:latest gatk --java-options "-Xmx8g" HaplotypeCaller \
-            -R {input.ref} \
-            -I {input.bam} \
-            -O {output} \
-            -ERC GVCF
-        '''
+          -v {WDIR}/resources/:{WDIR}/resources/ \
+          -v {WDIR}/results/:{WDIR}/results/ \
+          docker.io/hkubal/clair3:latest \
+          /opt/bin/run_clair3.sh \
+            --bam_fn={input.bam} \
+            --ref_fn={input.ref} \
+            --threads={threads} \
+            --platform=ont \
+            --model_path={MODEL} \
+            --output={WDIR}/results/variant_calling/{wildcards.sample}/ \
+            --include_all_ctgs
+        """
