@@ -65,10 +65,16 @@ python workflow/scripts/visualize_depth.py \
 
 ### Variant calling with naive model
 Clair3 is used for variant calling. For the first stage, variant calling is done without pre-training the model on sorghum data. Pre-training the model with sorghum data is also considered.
+
 ### Variant calling using Snakefile
 ```shell
 # designed to run clair3_cpu rule
 snakemake -s workflow/rules/variant_analysis.smk -c 24 -j 4 -p
+# same, but only on 2 top samples
+snakemake --snakefile workflow/rules/variant_analysis.smk \
+  /home/daffa/Work/2026/thesis/results/variant_calling/SBC10/merge_output.vcf.gz \
+  /home/daffa/Work/2026/thesis/results/variant_calling/SBC11/merge_output.vcf.gz \
+  -c 8 -j 2 -pn
 ```
 
 #### Transferring files from `matsu` to `okadama`
