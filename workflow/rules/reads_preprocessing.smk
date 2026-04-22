@@ -11,8 +11,9 @@ rule all:
             ),
         # coverage depth plots & pickle files
         expand(
-            f"{WDIR}/resources/depth/{{library}}_depth.pdf",
-            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
+            f"{WDIR}/resources/depth/{{library}}_depth{{ext}}",
+            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library,
+            ext=[".png", ".svg", ".pdf"]
             ),
         expand(
             f"{WDIR}/resources/depth/{{library}}_depth.pkl",
@@ -28,8 +29,9 @@ rule just_plot:
     input:
         # coverage depth plots with repetition
         expand(
-            f"{WDIR}/resources/depth/{{library}}_depth_{repetition}.pdf",
-            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
+            f"{WDIR}/resources/depth/{{library}}_depth_{repetition}{{ext}}",
+            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library,
+            ext=[".png", ".svg", ".pdf"]
             ),
 
 
@@ -71,13 +73,15 @@ rule visualize_depthfile:
     input:
         depth = f"{WDIR}/resources/depth/{{library}}.depth",
     output:
-        plot = f"{WDIR}/resources/depth/{{library}}_depth.pdf",
-        pickle = f"{WDIR}/resources/depth/{{library}}_depth.pkl",
+        plot_png = f"{WDIR}/resources/depth/{{library}}_depth.png",
+        plot_svg = f"{WDIR}/resources/depth/{{library}}_depth.svg",
+        plot_pdf = f"{WDIR}/resources/depth/{{library}}_depth.pdf",
+        pickle   = f"{WDIR}/resources/depth/{{library}}_depth.pkl",
     shell:
         """
         python {WDIR}/workflow/scripts/visualize_depth.py \
             --input {input.depth} \
-            --output {output.plot} \
+            --output {WDIR}/resources/depth/{wildcards.library}_depth \
             --library {wildcards.library} \
             --save-pickle {output.pickle}
         """
@@ -86,12 +90,14 @@ rule bypass_pickle:
     input:
         pickle = f"{WDIR}/resources/depth/{{library}}_depth.pkl",
     output:
-        plot = f"{WDIR}/resources/depth/{{library}}_depth_{repetition}.pdf",
+        plot_png = f"{WDIR}/resources/depth/{{library}}_depth_{repetition}.png",
+        plot_svg = f"{WDIR}/resources/depth/{{library}}_depth_{repetition}.svg",
+        plot_pdf = f"{WDIR}/resources/depth/{{library}}_depth_{repetition}.pdf",
     shell:
         """
         python {WDIR}/workflow/scripts/visualize_depth.py \
         --load-pickle {input.pickle} \
-        --output {output.plot} \
+        --output {WDIR}/resources/depth/{wildcards.library}_depth_{repetition} \
         --library {wildcards.library}
         """
 

@@ -50,17 +50,17 @@ Continue making depth file and its statistics for SBC11
 ```shell
 # obtain samtools .depth file
 samtools depth -a resources/align_bam_sample/SBC11.bam -o resources/depth/SBC11.depth
-# plot the depth file
+# plot the depth file — saves SBC11_depth.png, .svg, and .pdf
 python workflow/scripts/visualize_depth.py \
     --input resources/depth/SBC11.depth \
-    --output resources/depth/SBC11_depth.svg \
+    --output resources/depth/SBC11_depth \
     --library "r0078, r0075, r0078-2" \
     --save-pickle resources/depth/SBC11_depth.pkl
-# plot the depth file (by reading existing SBC11_depth.pkl file)
+# re-plot from existing pickle — saves SBC11_depth.png, .svg, and .pdf
 python workflow/scripts/visualize_depth.py \
     --load-pickle resources/depth/SBC11_depth.pkl \
-    --output resources/depth/SBC11_depth.svg \
-    --library "r0078, r0075, r0078-2" 
+    --output resources/depth/SBC11_depth \
+    --library "r0078, r0075, r0078-2"
 ```
 
 ### Variant calling with naive model

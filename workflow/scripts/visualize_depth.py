@@ -1,6 +1,7 @@
 #!/home/daffa/Work/2026/thesis/.venv/bin/python
 
 import argparse
+import os
 import pandas as pd
 import matplotlib
 import matplotlib.pyplot as plt
@@ -117,8 +118,11 @@ def visualize_depth(df, library, filename, bin_size=10_000):
 
     fig.tight_layout(rect=[0, 0.06, 1, 1])
 
-    print(f"Saving plot as {filename}")
-    plt.savefig(filename, dpi=150)
+    base = os.path.splitext(filename)[0]
+    for ext in (".png", ".svg", ".pdf"):
+        out = base + ext
+        print(f"Saving plot as {out}")
+        plt.savefig(out, dpi=150)
 
 if __name__ == "__main__":
     main()
