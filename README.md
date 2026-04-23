@@ -18,7 +18,7 @@ All these jobs are handled/included in `workflow/rules/reads_preprocessing.smk`.
 | r0075 <br> r0078 <br> r0078-2 | SBC11 | - |
 | r0076 | SBC23 | ++ |
 
-### Running `reads_preprocessing.smk` Snakefile
+Running `reads_preprocessing.smk` Snakefile
 ```shell
 # Running from the beginning
 snakemake -s workflow/rules/reads_preprocessing.smk -c 24 -j 6 -pn
@@ -26,7 +26,7 @@ snakemake -s workflow/rules/reads_preprocessing.smk -c 24 -j 6 -pn
 snakemake -s workflow/rules/reads_preprocessing.smk just_plot -c 24 -j 6 -pn
 ```
 
-### Converting library to sample
+#### Converting library to sample
 For SBC4, SBC10, and SBC23, use symbolic link to save storage, preventing file duplication.
 ```shell
 declare -A samples=(
@@ -66,10 +66,10 @@ python workflow/scripts/visualize_depth.py \
 ### Variant calling with naive model
 Clair3 is used for variant calling. For the first stage, variant calling is done without pre-training the model on sorghum data. Pre-training the model with sorghum data is also considered.
 
-### Variant calling using Snakefile
+Variant calling using Snakefile
 ```shell
 # designed to run clair3_cpu rule
-snakemake -s workflow/rules/variant_analysis.smk -c 24 -j 4 -p
+snakemake -s workflow/rules/variant_analysis.smk -c 24 -j 4 -pn
 # same, but only on 2 top samples
 snakemake --snakefile workflow/rules/variant_analysis.smk \
   /home/daffa/Work/2026/thesis/results/variant_calling/SBC10/merge_output.vcf.gz \
@@ -77,81 +77,16 @@ snakemake --snakefile workflow/rules/variant_analysis.smk \
   -c 8 -j 2 -pn
 ```
 
-#### Transferring files from `matsu` to `okadama`
+Tidy up `Clair3`'s output directory
 ```shell
-# reference genome
-rsync --dry-run -av -s daffa@matsu:/home/daffa/Work/2026/thesis/resources/ref/* resources/ref/
-# aligned bam (both sample level and library)
-rsync --dry-run -av -s daffa@matsu:/home/daffa/Work/2026/thesis/resources/align_bam/* resources/align_bam/
-rsync --dry-run -av -s daffa@matsu:/home/daffa/Work/2026/thesis/resources/align_bam_sample/* resources/align_bam_sample/
+# symbolic link to results/vcf/SBC10.vcf.gz
+cd /home/daffa/Work/2026/thesis/results/vcf
+ln -s ../variant_calling/SBC10/merge_output.vcf.gz SBC10.vcf.gz
+# index VCF
+bcftools index SBC10.vcf.gz 
 ```
 
-#### Preparing Clair3 in `okadama`
-> References <br> 
-https://github.com/HKU-BAL/Clair3#installation, Option 1. Docker GPU (NVIDIA CUDA on Linux) is preferred <br>
-https://docs.docker.com/get-started/docker_cheatsheet.pdf for list of useful Docker/Podman commands.
+Run Snakefile for VCF file processing
 ```shell
-# Install libraries needed for accessing GPU
-## What to ask sysadmin to run:
-sudo dnf install nvidia-container-toolkit        # RHEL/CentOS
-sudo nvidia-ctk runtime configure --runtime=docker
-## and/or for podman:
-sudo nvidia-ctk cdi generate --output=/etc/cdi/nvidia.yaml
-
-# pull Clair3 image
-podman pull docker.io/hkubal/clair3:v2.0.0_gpu
-# check if image is pulled
-podman images
-
-# run image. Trial with just running bash
-podman run -it \
-  --device /dev/nvidia0 \
-  --device /dev/nvidiactl \
-  --device /dev/nvidia-uvm \
-  --device /dev/nvidia-uvm-tools \
-  -e CUDA_VISIBLE_DEVICES=0,1,2,3 \
-  -v /home/daffa/Work/2026/thesis/resources/:/home/daffa/Work/2026/thesis/resources/ \
-  -v /home/daffa/Work/2026/thesis/results/variant_calling/SBC10/:/home/daffa/Work/2026/thesis/results/variant_calling/SBC10/ \
-  hkubal/clair3:v2.0.0_gpu \
-  bash
-
-# Running inside a screen session is recommended
-podman run -it \
-  --device /dev/nvidia0 \
-  --device /dev/nvidiactl \
-  --device /dev/nvidia-uvm \
-  --device /dev/nvidia-uvm-tools \
-  -e CUDA_VISIBLE_DEVICES=0,1,2,3 \
-  -v /home/daffa/Work/2026/thesis/resources/:/home/daffa/Work/2026/thesis/resources/ \
-  -v /home/daffa/Work/2026/thesis/results/variant_calling/SBC10/:/home/daffa/Work/2026/thesis/results/variant_calling/SBC10/ \
-  hkubal/clair3:v2.0.0_gpu \
-  /opt/bin/run_clair3.sh \
-    --bam_fn=/home/daffa/Work/2026/thesis/resources/align_bam_sample/SBC10.bam \
-    --ref_fn=/home/daffa/Work/2026/thesis/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna \
-    --threads=8 \
-    --platform=ont \
-    --model_path=/opt/models/r1041_e82_400bps_sup_v520_with_mv \
-    --output=/home/daffa/Work/2026/thesis/results/variant_calling/SBC10/ \
-    --use_gpu \
-    --include_all_ctgs
+snakemake --snakefile workflow/rules/vcf_processing.smk
 ```
-#### Building dockerfile consists of the Clair3 image and includes necessary library, `nvidia-container-toolkit`
-```shell
-podman build -f Dockerfile.clair3 -t clair3-thesis:latest .
-
-podman run -it --rm \
-  --device nvidia.com/gpu=all \
-  -e CUDA_VISIBLE_DEVICES=0,1,2,3 \
-  -v /home/daffa/Work/2026/thesis/resources/:/home/daffa/Work/2026/thesis/resources/ \
-  -v /home/daffa/Work/2026/thesis/results/:/home/daffa/Work/2026/thesis/results/ \
-  clair3-thesis:latest \
-  /opt/bin/run_clair3.sh \
-    --bam_fn=/home/daffa/Work/2026/thesis/resources/align_bam_sample/SBC10.bam \
-    --ref_fn=/home/daffa/Work/2026/thesis/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna \
-    --threads=8 --platform=ont \
-    --model_path=/opt/models/r1041_e82_400bps_sup_v520_with_mv \
-    --output=/home/daffa/Work/2026/thesis/results/variant_calling/SBC10/ \
-    --use_gpu --include_all_ctgs
-
-```
-### Draft genome assembly
