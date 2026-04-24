@@ -1,6 +1,13 @@
 # Multi-omics Integration for Sorghum Metabolic Variation Analysis
 Consists of three omics analyses: gene co-expression analysis (transcriptomics), variant analysis (genomics) and methylation analysis (epigenomics).
 
+## Preparation
+Install the following tools:
+- Snakemake
+- Samtools
+- BCFtools
+- HTSlib
+
 ## Genomics
 ### Read data preparation
 Jobs included:
@@ -86,7 +93,16 @@ ln -s ../variant_calling/SBC10/merge_output.vcf.gz SBC10.vcf.gz
 bcftools index SBC10.vcf.gz 
 ```
 
+### VCF postprocessing
 Run Snakefile for VCF file processing
 ```shell
-snakemake --snakefile workflow/rules/vcf_processing.smk
+snakemake --snakefile workflow/rules/vcf_processing.smk -c 24 -j 4 -pn
 ```
+Overview of rules in this file:
+- Preparing GFF (for consequence calling, i.e., which gene does this variant belongs to)
+- Phase (add haplotype information) to filtered VCF
+- Adding SAMPLE information to each VCF
+- Filter VCF, only pass variants from 10 chromosomes with high quality
+- Merge multi sample VCF (SBC4, 10, 11, 23)
+- Intersect VCF (`bcftools isec`)
+- Performs consequences calling (`bcftools csq`)
