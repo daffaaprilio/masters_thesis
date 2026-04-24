@@ -1,4 +1,8 @@
+from datetime import datetime
+
 WDIR        = "/home/daffa/Work/2026/thesis"
+TIMESTAMP   = datetime.now().strftime("%Y%m%d_%H%M%S")
+LOG_DIR     = f"{WDIR}/workflow/logs/reads_preprocessing"
 
 repetition = config.get('repetition', 1)
 
@@ -42,11 +46,15 @@ rule align_reads:
         fai = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna.fai",
     output:
         align_bam = f"{WDIR}/resources/align_bam/{{library}}.bam",
+    log:
+        f"{LOG_DIR}/align_reads/{{library}}.{TIMESTAMP}.log",
     threads: 2
     shell:
         '''
-        minimap2 -ax map-ont -t {threads} {input.ref} {input.fastq} \
-            | samtools sort -@ {threads} -o {output.align_bam}
+        (
+            minimap2 -ax map-ont -t {threads} {input.ref} {input.fastq} \
+                | samtools sort -@ {threads} -o {output.align_bam}
+        ) > {log} 2>&1
         '''
 
 
@@ -55,8 +63,10 @@ rule index_bam:
         bam = f"{WDIR}/resources/align_bam/{{library}}.bam",
     output:
         bai = f"{WDIR}/resources/align_bam/{{library}}.bam.bai",
+    log:
+        f"{LOG_DIR}/index_bam/{{library}}.{TIMESTAMP}.log",
     shell:
-        "samtools index {input.bam}"
+        "samtools index {input.bam} > {log} 2>&1"
 
 
 rule coverage_depth:
@@ -65,8 +75,10 @@ rule coverage_depth:
         bai = f"{WDIR}/resources/align_bam/{{library}}.bam.bai",
     output:
         depth = f"{WDIR}/resources/depth/{{library}}.depth",
+    log:
+        f"{LOG_DIR}/coverage_depth/{{library}}.{TIMESTAMP}.log",
     shell:
-        "samtools depth -a {input.bam} -o {output.depth}"
+        "samtools depth -a {input.bam} -o {output.depth} > {log} 2>&1"
 
 
 rule visualize_depthfile:
@@ -77,13 +89,16 @@ rule visualize_depthfile:
         plot_svg = f"{WDIR}/resources/depth/{{library}}_depth.svg",
         plot_pdf = f"{WDIR}/resources/depth/{{library}}_depth.pdf",
         pickle   = f"{WDIR}/resources/depth/{{library}}_depth.pkl",
+    log:
+        f"{LOG_DIR}/visualize_depthfile/{{library}}.{TIMESTAMP}.log",
     shell:
         """
         python {WDIR}/workflow/scripts/visualize_depth.py \
             --input {input.depth} \
             --output {WDIR}/resources/depth/{wildcards.library}_depth \
             --library {wildcards.library} \
-            --save-pickle {output.pickle}
+            --save-pickle {output.pickle} \
+            > {log} 2>&1
         """
 
 rule bypass_pickle:
@@ -93,11 +108,13 @@ rule bypass_pickle:
         plot_png = f"{WDIR}/resources/depth/{{library}}_depth_{repetition}.png",
         plot_svg = f"{WDIR}/resources/depth/{{library}}_depth_{repetition}.svg",
         plot_pdf = f"{WDIR}/resources/depth/{{library}}_depth_{repetition}.pdf",
+    log:
+        f"{LOG_DIR}/bypass_pickle/{{library}}.{TIMESTAMP}.log",
     shell:
         """
         python {WDIR}/workflow/scripts/visualize_depth.py \
-        --load-pickle {input.pickle} \
-        --output {WDIR}/resources/depth/{wildcards.library}_depth_{repetition} \
-        --library {wildcards.library}
+            --load-pickle {input.pickle} \
+            --output {WDIR}/resources/depth/{wildcards.library}_depth_{repetition} \
+            --library {wildcards.library} \
+            > {log} 2>&1
         """
-

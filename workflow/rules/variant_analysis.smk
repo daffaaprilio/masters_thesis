@@ -1,5 +1,9 @@
-WDIR    = "/home/daffa/Work/2026/thesis"
-SAMPLES = ["SBC4", "SBC10", "SBC11", "SBC23"]
+from datetime import datetime
+
+WDIR      = "/home/daffa/Work/2026/thesis"
+SAMPLES   = ["SBC4", "SBC10", "SBC11", "SBC23"]
+TIMESTAMP = datetime.now().strftime("%Y%m%d_%H%M%S")
+LOG_DIR   = f"{WDIR}/workflow/logs/variant_analysis"
 
 REF     = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
 # MODEL   = "/opt/models/r1041_e82_400bps_sup_v520_with_mv"
@@ -21,6 +25,8 @@ rule clair3_cpu:
         ref = REF,
     output:
         vcf = f"{WDIR}/results/variant_calling/{{sample}}/merge_output.vcf.gz",
+    log:
+        f"{LOG_DIR}/clair3_cpu/{{sample}}.{TIMESTAMP}.log",
     threads: 8
     shell:
         """
@@ -35,5 +41,6 @@ rule clair3_cpu:
             --platform=ont \
             --model_path={MODEL} \
             --output={WDIR}/results/variant_calling/{wildcards.sample}/ \
-            --include_all_ctgs
+            --include_all_ctgs \
+            > {log} 2>&1
         """
