@@ -99,10 +99,7 @@ Run Snakefile for VCF file processing
 snakemake --snakefile workflow/rules/vcf_processing.smk -c 24 -j 4 -pn
 ```
 Overview of rules in this file:
-- Preparing GFF (for consequence calling, i.e., which gene does this variant belongs to)
-- Phase (add haplotype information) to filtered VCF
 - Adding SAMPLE information to each VCF　(`bcftools reheader`)
 - Filter VCF, only pass variants from 10 chromosomes with high quality
-- Merge multi sample VCF (SBC4, 10, 11, 23)
-- Intersect VCF (`bcftools isec`)
-- Performs consequences calling (`bcftools csq`)
+- Phase (add haplotype information) to filtered VCF
+- Performs consequences calling (`snpEff ann`)
