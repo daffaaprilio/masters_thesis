@@ -10,15 +10,8 @@ OUT_DIR     = f"{WDIR}/results/vcf_processing"
 BAM_DIR     = f"{WDIR}/resources/align_bam_sample"
 REF         = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
 GFF_RAW     = f"{WDIR}/resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff.gz"
-SNPEFF_DB   = "Sorghum_bicolor_NCBIv3"
-SNPEFF_DIR  = f"{WDIR}/resources/snpeff"
-SNPEFF_DATA = f"{SNPEFF_DIR}/data/{SNPEFF_DB}"
+SNPEFF_DB   = "Sorghum_bicolor""
 
-# 10 nuclear chromosomes (sorted by size); excludes unplaced scaffolds and organelles
-CHROMS = [
-    "NC_012870.2", "NC_012871.2", "NC_012872.2", "NC_012873.2", "NC_012874.2",
-    "NC_012875.2", "NC_012876.2", "NC_012877.2", "NC_012878.2", "NC_012879.2",
-]
 
 # Filtering thresholds — override at runtime with --config key=value
 QUAL_MIN = 20
@@ -32,44 +25,6 @@ rule all:
         expand(f"{OUT_DIR}/annotated/{{sample}}.stats.html",        sample=SAMPLES),
         expand(f"{OUT_DIR}/annotated/{{sample}}.stats.csv",         sample=SAMPLES),
 
-
-# ── snpEff database build ─────────────────────────────────────────────────────
-
-rule build_snpeff_db:
-    """Build snpEff database from NCBI GFF3 and reference FASTA."""
-    input:
-        gff = GFF_RAW,
-        ref = REF,
-    output:
-        done = f"{SNPEFF_DATA}/snpEffectPredictor.bin",
-    log:
-        f"{LOG_DIR}/build_snpeff_db.{TIMESTAMP}.log",
-    params:
-        db      = SNPEFF_DB,
-        datadir = f"{SNPEFF_DIR}/data",
-        config  = f"{SNPEFF_DIR}/snpEff.config",
-    shell:
-        """
-        (
-            mkdir -p {params.datadir}/{params.db}
-            printf 'data.dir = {params.datadir}\n{params.db}.genome : Sorghum bicolor NCBIv3\n' \
-                > {params.config}
-            ln -sf {input.ref} {params.datadir}/{params.db}/sequences.fa
-            zcat {input.gff} \
-                | grep -v "trans-splicing" \
-                > {params.datadir}/{params.db}/genes.gff
-            snpEff build \
-                -config {params.config} \
-                -dataDir {params.datadir} \
-                -gff3 -v \
-                -noCheckCds \
-                -noCheckProtein \
-                {params.db}
-        ) > {log} 2>&1
-        """
-
-
-# ── Per-sample pipeline: reheader → filter → phase → annotate ────────────────
 
 rule reheader_vcf:
     """Rename the generic SAMPLE column header to the actual sample name."""

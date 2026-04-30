@@ -94,6 +94,11 @@ bcftools index SBC10.vcf.gz
 ```
 
 ### VCF postprocessing
+Download SnpEFF database for Sorghum
+```shell
+snpEff download Sorghum_bicolor
+```
+Downloaded database is saved in `/home/daffa/local/bin/snpEff/data/Sorghum_bicolor/`
 Run Snakefile for VCF file processing
 ```shell
 snakemake --snakefile workflow/rules/vcf_processing.smk -c 24 -j 4 -pn
