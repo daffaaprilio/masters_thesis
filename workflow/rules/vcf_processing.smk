@@ -1,6 +1,6 @@
 from datetime import datetime
 
-WDIR      = "/home/daffa/Work/2026/thesis"
+WDIR      = "/Users/daffa/workspace/infobio/thesis" # "/home/daffa/Work/2026/thesis"
 SAMPLES   = ["SBC10", "SBC11", "SBC4", "SBC23"]
 TIMESTAMP = datetime.now().strftime("%Y%m%d_%H%M%S")
 LOG_DIR   = f"{WDIR}/workflow/logs/vcf_processing"
@@ -10,7 +10,9 @@ OUT_DIR     = f"{WDIR}/results/vcf_processing"
 BAM_DIR     = f"{WDIR}/resources/align_bam_sample"
 REF         = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
 GFF_RAW     = f"{WDIR}/resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff.gz"
-SNPEFF_DB   = "Sorghum_bicolor""
+SNPEFF_DB   = "Sorghum_bicolor"
+SNPEFF_DIR  = "/Users/daffa/local/lib/snpEff"
+SNPEFF_DATA = f"{SNPEFF_DIR}/data/{SNPEFF_DB}"
 
 
 # Filtering thresholds — override at runtime with --config key=value
