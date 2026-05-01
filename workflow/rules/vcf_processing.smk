@@ -20,6 +20,11 @@ QUAL_MIN = 20
 DP_MIN   = 10
 DP_MAX   = 100
 
+# Chromosomes to retain: 10 main nuclear + MT + chloroplast
+KEEP_CHROMS = ",".join(
+    [f"NC_01287{i}.2" for i in range(10)] + ["NC_008360.1", "NC_008602.1"]
+)
+
 
 rule all:
     input:
@@ -69,11 +74,32 @@ rule filter_vcf:
         """
 
 
-rule phase_vcf:
-    """Read-backed haplotype phasing with WhatsHap per sample."""
+rule filter_chromosomes:
+    """Retain only the 10 main nuclear chromosomes, MT, and chloroplast."""
     input:
         vcf = f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz",
         csi = f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz.csi",
+    output:
+        vcf = f"{OUT_DIR}/chr_filtered/{{sample}}.chr_filtered.vcf.gz",
+        csi = f"{OUT_DIR}/chr_filtered/{{sample}}.chr_filtered.vcf.gz.csi",
+    log:
+        f"{LOG_DIR}/filter_chromosomes/{{sample}}.{TIMESTAMP}.log",
+    params:
+        regions = KEEP_CHROMS,
+    shell:
+        """
+        (
+            bcftools view -r {params.regions} -O z -o {output.vcf} {input.vcf}
+            bcftools index {output.vcf}
+        ) > {log} 2>&1
+        """
+
+
+rule phase_vcf:
+    """Read-backed haplotype phasing with WhatsHap per sample."""
+    input:
+        vcf = f"{OUT_DIR}/chr_filtered/{{sample}}.chr_filtered.vcf.gz",
+        csi = f"{OUT_DIR}/chr_filtered/{{sample}}.chr_filtered.vcf.gz.csi",
         bam = f"{BAM_DIR}/{{sample}}.bam",
         bai = f"{BAM_DIR}/{{sample}}.bam.bai",
         ref = REF,
@@ -95,12 +121,32 @@ rule phase_vcf:
         ) > {log} 2>&1
         """
 
+rule rename_chromosomes:
+    """Rename VCF contig names to match SnpEff database chromosome naming."""
+    input:
+        vcf        = f"{OUT_DIR}/phased/{{sample}}.phased.vcf.gz",
+        csi        = f"{OUT_DIR}/phased/{{sample}}.phased.vcf.gz.csi",
+        rename_map = f"{WDIR}/workflow/scripts/synonyms.txt",
+    output:
+        vcf = f"{OUT_DIR}/renamed/{{sample}}.renamed.vcf.gz",
+        csi = f"{OUT_DIR}/renamed/{{sample}}.renamed.vcf.gz.csi",
+    log:
+        f"{LOG_DIR}/rename_chromosomes/{{sample}}.{TIMESTAMP}.log",
+    shell:
+        """
+        (
+            bcftools annotate \
+                --rename-chrs {input.rename_map} \
+                -O z -o {output.vcf} {input.vcf}
+            bcftools index {output.vcf}
+        ) > {log} 2>&1
+        """
 
 rule annotate_vcf:
     """Annotate variants with gene features and predicted consequences via snpEff."""
     input:
-        vcf  = f"{OUT_DIR}/phased/{{sample}}.phased.vcf.gz",
-        csi  = f"{OUT_DIR}/phased/{{sample}}.phased.vcf.gz.csi",
+        vcf  = f"{OUT_DIR}/renamed/{{sample}}.renamed.vcf.gz",
+        csi  = f"{OUT_DIR}/renamed/{{sample}}.renamed.vcf.gz.csi",
         done = f"{SNPEFF_DATA}/snpEffectPredictor.bin",
     output:
         vcf   = f"{OUT_DIR}/annotated/{{sample}}.annotated.vcf.gz",
@@ -136,6 +182,6 @@ rule annotate_vcf:
 rule clean:
     shell:
         """
-        rm -rf {OUT_DIR}/reheadered {OUT_DIR}/filtered {OUT_DIR}/phased \
-               {OUT_DIR}/annotated {SNPEFF_DIR}
+        rm -rf {OUT_DIR}/reheadered {OUT_DIR}/filtered {OUT_DIR}/chr_filtered \
+               {OUT_DIR}/phased {OUT_DIR}/annotated {SNPEFF_DIR}
         """
