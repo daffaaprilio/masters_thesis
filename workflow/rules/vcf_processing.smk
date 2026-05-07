@@ -1,6 +1,7 @@
 from datetime import datetime
+from pathlib import Path
 
-WDIR      = "/Users/daffa/workspace/infobio/thesis" # "/home/daffa/Work/2026/thesis"
+WDIR      = config.get("WDIR", str(Path(workflow.basedir).parent.parent))
 SAMPLES   = ["SBC10", "SBC11", "SBC4", "SBC23"]
 TIMESTAMP = datetime.now().strftime("%Y%m%d_%H%M%S")
 LOG_DIR   = f"{WDIR}/workflow/logs/vcf_processing"
@@ -26,11 +27,11 @@ KEEP_CHROMS = ",".join(
 )
 
 
-rule all:
+rule vcf_all:
     input:
         expand(f"{OUT_DIR}/annotated/{{sample}}.annotated.vcf.gz", sample=SAMPLES),
-        expand(f"{OUT_DIR}/annotated/{{sample}}.stats.html",        sample=SAMPLES),
-        expand(f"{OUT_DIR}/annotated/{{sample}}.stats.csv",         sample=SAMPLES),
+        expand(f"{OUT_DIR}/annotated/{{sample}}.stats.html",       sample=SAMPLES),
+        expand(f"{OUT_DIR}/annotated/{{sample}}.stats.csv",        sample=SAMPLES),
 
 
 rule reheader_vcf:

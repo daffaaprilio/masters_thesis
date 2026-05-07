@@ -1,6 +1,23 @@
-WDIR        = "/home/daffa/Work/2026/thesis"
+from datetime import datetime
+from pathlib import Path
+
+WDIR        = str(Path(workflow.basedir).parent)
+TIMESTAMP   = datetime.now().strftime("%Y%m%d_%H%M%S")
+SAMPLES     = ["SBC4", "SBC10", "SBC11", "SBC23"]
+
+config.setdefault("WDIR",  WDIR)
+config.setdefault("strat", "all_samples")
+STRAT = config["strat"]
 
 rule all:
     input:
-        expand(f"{WDIR}/results/gvcf/{{sample}}.g.vcf.gz", sample=["SBC4", "SBC10", "SBC11", "SBC23"])
+        expand(f"{WDIR}/results/vcf_processing/annotated/{{sample}}.annotated.vcf.gz", sample=SAMPLES),
+        expand(f"{WDIR}/results/vcf_processing/annotated/{{sample}}.stats.html",        sample=SAMPLES),
+        expand(f"{WDIR}/results/vcf_processing/annotated/{{sample}}.stats.csv",         sample=SAMPLES),
+        f"{WDIR}/discussions/{STRAT}/private/README.txt",
+        f"{WDIR}/discussions/{STRAT}/shared/README.txt",
 
+include: "rules/reads_preprocessing.smk"
+include: "rules/variant_analysis.smk"
+include: "rules/vcf_processing.smk"
+include: "rules/intersect_variant.smk"

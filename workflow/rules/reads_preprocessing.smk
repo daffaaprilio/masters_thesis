@@ -1,12 +1,23 @@
 from datetime import datetime
+from pathlib import Path
 
-WDIR        = "/home/daffa/Work/2026/thesis"
+WDIR        = config.get("WDIR", str(Path(workflow.basedir).parent.parent))
 TIMESTAMP   = datetime.now().strftime("%Y%m%d_%H%M%S")
 LOG_DIR     = f"{WDIR}/workflow/logs/reads_preprocessing"
 
 repetition = config.get('repetition', 1)
 
-rule all:
+SAMPLE_LIBRARIES = {
+    "SBC4":  ["r0074"],
+    "SBC10": ["r0066"],
+    "SBC11": ["r0075", "r0078", "r0078-2"],
+    "SBC23": ["r0076"],
+}
+SAMPLES             = list(SAMPLE_LIBRARIES.keys())
+SINGLE_LIB_SAMPLES = {k: v[0] for k, v in SAMPLE_LIBRARIES.items() if len(v) == 1}
+MULTI_LIB_SAMPLES  = {k: v    for k, v in SAMPLE_LIBRARIES.items() if len(v) > 1}
+
+rule reads_all:
     input:
         # coverage depth files
         expand(
@@ -23,10 +34,15 @@ rule all:
             f"{WDIR}/resources/depth/{{library}}_depth.pkl",
             library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
             ),
-        # aligned bam files
+        # aligned bam files (per library)
         expand(
             f"{WDIR}/resources/align_bam/{{library}}.bam",
             library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
+            ),
+        # merged sample-level bam files
+        expand(
+            f"{WDIR}/resources/align_bam_sample/{{sample}}.bam.bai",
+            sample=SAMPLES
             ),
 
 rule just_plot:
@@ -117,4 +133,54 @@ rule bypass_pickle:
             --output {WDIR}/resources/depth/{wildcards.library}_depth_{repetition} \
             --library {wildcards.library} \
             > {log} 2>&1
+        """
+
+
+rule symlink_sample_bam:
+    """Symlink single-library sample BAMs to avoid duplication."""
+    wildcard_constraints:
+        sample = "|".join(SINGLE_LIB_SAMPLES.keys()),
+    input:
+        bam = lambda wc: f"{WDIR}/resources/align_bam/{SINGLE_LIB_SAMPLES[wc.sample]}.bam",
+        bai = lambda wc: f"{WDIR}/resources/align_bam/{SINGLE_LIB_SAMPLES[wc.sample]}.bam.bai",
+    output:
+        bam = f"{WDIR}/resources/align_bam_sample/{{sample}}.bam",
+        bai = f"{WDIR}/resources/align_bam_sample/{{sample}}.bam.bai",
+    log:
+        f"{LOG_DIR}/symlink_sample_bam/{{sample}}.{TIMESTAMP}.log",
+    shell:
+        """
+        (
+            ln -sf {input.bam} {output.bam}
+            ln -sf {input.bai} {output.bai}
+        ) > {log} 2>&1
+        """
+
+
+rule merge_sample_bam:
+    """Merge multiple library BAMs into one sorted sample BAM."""
+    wildcard_constraints:
+        sample = "|".join(MULTI_LIB_SAMPLES.keys()),
+    input:
+        bams = lambda wc: expand(
+            f"{WDIR}/resources/align_bam/{{library}}.bam",
+            library=MULTI_LIB_SAMPLES[wc.sample]
+        ),
+        bais = lambda wc: expand(
+            f"{WDIR}/resources/align_bam/{{library}}.bam.bai",
+            library=MULTI_LIB_SAMPLES[wc.sample]
+        ),
+    output:
+        bam = f"{WDIR}/resources/align_bam_sample/{{sample}}.bam",
+        bai = f"{WDIR}/resources/align_bam_sample/{{sample}}.bam.bai",
+    log:
+        f"{LOG_DIR}/merge_sample_bam/{{sample}}.{TIMESTAMP}.log",
+    threads: 6
+    shell:
+        """
+        (
+            samtools merge -f -r -@ {threads} - {input.bams} \
+                | samtools sort -@ {threads} -o {output.bam}
+            samtools index -@ {threads} {output.bam}
+        ) > {log} 2>&1
         """
