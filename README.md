@@ -12,7 +12,7 @@ Install the following tools:
 
 Tips to print Snakemake's DAG
 ```shell
-snakemake --dag | dot -Tpdf > dag.pdf
+snakemake --dag | dot -Tpdf > dag/dag.pdf
 ```
 
 Tips to run the orchestrator Snakefile
