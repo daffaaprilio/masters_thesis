@@ -5,6 +5,7 @@
 
 import argparse
 import csv
+import gzip
 import sys
 
 
@@ -59,7 +60,8 @@ def main():
     print(f"Loaded {len(mapping):,} LocusTag → GeneID entries", file=sys.stderr)
 
     converted = 0
-    with open(args.input) as vcf_in, open(args.output, "w") as vcf_out:
+    opener = gzip.open(args.input, "rt") if args.input.endswith(".gz") else open(args.input)
+    with opener as vcf_in, open(args.output, "w") as vcf_out:
         for line in vcf_in:
             if line.startswith("#"):
                 vcf_out.write(line)

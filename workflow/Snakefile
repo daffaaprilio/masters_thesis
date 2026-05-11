@@ -9,28 +9,19 @@ config.setdefault("WDIR",  WDIR)
 config.setdefault("strat", "all_samples")
 STRAT_CFG = config["strat"]   # string strategy name, e.g. "all_samples"
 
-# Derive intersection indices from sample count — bcftools isec produces
-# exactly one file per input sample (0000.vcf … 000{N-1}.vcf), so these
-# are known before the pipeline runs and avoid a two-step workflow.
-STRAT_SAMPLES_MAP = {"all_samples": SAMPLES}
-ISEC_SAMPLES  = STRAT_SAMPLES_MAP.get(STRAT_CFG, SAMPLES)
-INTERSECTIONS = [f"{i:04d}" for i in range(len(ISEC_SAMPLES))]
-TYPES         = ["private", "shared"]
-
 rule all:
     input:
         expand(f"{WDIR}/results/vcf_processing/annotated/{{sample}}.annotated.vcf.gz",  sample=SAMPLES),
+        expand(f"{WDIR}/results/vcf_processing/annotated/{{sample}}.annotated_EGI.vcf", sample=SAMPLES),
         expand(f"{WDIR}/results/vcf_processing/annotated/{{sample}}.stats.html",        sample=SAMPLES),
         expand(f"{WDIR}/results/vcf_processing/annotated/{{sample}}.stats.csv",         sample=SAMPLES),
-        f"{WDIR}/discussions/{STRAT_CFG}/private/README.txt",
-        f"{WDIR}/discussions/{STRAT_CFG}/shared/README.txt",
         expand(
-            f"{WDIR}/discussions/{STRAT_CFG}/{{type}}_annotated/{{intersection}}.annotated.vcf.gz",
-            type=TYPES, intersection=INTERSECTIONS,
+            f"{WDIR}/discussions/{STRAT_CFG}/{{type}}_annotated/.done",
+            type=["private", "shared"],
         ),
         expand(
-            f"{WDIR}/discussions/{STRAT_CFG}/{{type}}_annotated/{{intersection}}.annotated_EGI.vcf",
-            type=TYPES, intersection=INTERSECTIONS,
+            f"{WDIR}/discussions/{STRAT_CFG}/{{type}}_annotated/.egi_done",
+            type=["private", "shared"],
         ),
 
 include: "rules/reads_preprocessing.smk"

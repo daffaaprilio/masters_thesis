@@ -17,23 +17,18 @@ SNPEFF_DATA = f"{SNPEFF_DIR}/data/{SNPEFF_DB}"
 
 
 # Filtering thresholds — override at runtime with --config key=value
-QUAL_MIN = 20
-DP_MIN   = 10
-DP_MAX   = 100
-
-# Discover intersected VCFs — must precede any rule that uses these lists.
-# [0-9]+ constraint excludes _EGI-suffixed files.
-STRAT, TYPE, INTERSECTION = glob_wildcards(
-    f"{WDIR}/discussions/{{strat}}/{{type}}/{{intersection,[0-9]+}}.vcf"
-)
+QUAL_MIN  = 20
+DP_MIN    = 10
+DP_MAX    = 100
+STRAT_CFG = config.get("strat", "all_samples")
 
 rule annotate_all:
     input:
         expand(f"{OUT_DIR}/annotated/{{sample}}.stats.html", sample=SAMPLES),
         expand(f"{OUT_DIR}/annotated/{{sample}}.stats.csv", sample=SAMPLES),
         expand(
-            f"{WDIR}/discussions/{{strat}}/{{type}}_annotated/{{intersection}}.annotated.vcf.gz",
-            zip, strat=STRAT, type=TYPE, intersection=INTERSECTION,
+            f"{WDIR}/discussions/{STRAT_CFG}/{{type}}_annotated/.done",
+            type=["private", "shared"],
         ),
 
 rule annotate_vcf:
@@ -102,6 +97,25 @@ rule annotate_intersected:
             bcftools index {output.vcf}
         ) > {log} 2>&1
         """
+
+def get_intersected_vcfs(wc):
+    """Wait for the relevant checkpoint, then return the actual annotated VCF paths."""
+    if wc.type == "private":
+        checkpoints.private_variants.get()
+    else:
+        checkpoints.shared_variants.get()
+    intersections, = glob_wildcards(
+        f"{WDIR}/discussions/{wc.strat}/{wc.type}/{{intersection,[0-9]+}}.vcf"
+    )
+    return expand(
+        f"{WDIR}/discussions/{wc.strat}/{wc.type}_annotated/{{intersection}}.annotated.vcf.gz",
+        intersection=intersections,
+    )
+
+rule collect_annotated_intersected:
+    """Sentinel: all intersected VCFs for a given strat/type have been annotated."""
+    input: get_intersected_vcfs
+    output: touch(f"{WDIR}/discussions/{{strat}}/{{type}}_annotated/.done")
 
 # ── Cleanup ───────────────────────────────────────────────────────────────────
 
