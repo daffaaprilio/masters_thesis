@@ -18,11 +18,8 @@ ISEC_SAMPLES = [
     for s in config.get("isec_samples", ",".join(STRAT_SAMPLES[STRAT])).split(",")
 ]
 
-OUT_DIR = f"{WDIR}/discussions/{STRAT}"
-
-
-ANN_DIR = f"{WDIR}/results/vcf_processing/annotated"
-
+OUT_DIR      = f"{WDIR}/discussions/{STRAT}"
+ISEC_INDICES = [f"{i:04d}" for i in range(len(ISEC_SAMPLES))]
 
 rule isec_all:
     input:
@@ -33,10 +30,11 @@ rule isec_all:
 rule private_variants:
     """Variants private to each individual sample (present in exactly one sample)."""
     input:
-        vcfs = expand(f"{ANN_DIR}/{{sample}}.annotated.vcf.gz",     sample=ISEC_SAMPLES),
-        csis = expand(f"{ANN_DIR}/{{sample}}.annotated.vcf.gz.csi", sample=ISEC_SAMPLES),
+        vcfs = expand(f"{WDIR}/results/vcf_processing/renamed/{{sample}}.renamed.vcf.gz",     sample=ISEC_SAMPLES),
+        csis = expand(f"{WDIR}/results/vcf_processing/renamed/{{sample}}.renamed.vcf.gz.csi", sample=ISEC_SAMPLES),
     output:
         readme = f"{OUT_DIR}/private/README.txt",
+        vcfs   = expand(f"{OUT_DIR}/private/{{isec}}.vcf", isec=ISEC_INDICES),
     log:
         f"{LOG_DIR}/{STRAT}.private.{TIMESTAMP}.log",
     params:
@@ -50,10 +48,11 @@ rule private_variants:
 rule shared_variants:
     """Variants shared across all samples in the strategy."""
     input:
-        vcfs = expand(f"{ANN_DIR}/{{sample}}.annotated.vcf.gz",     sample=ISEC_SAMPLES),
-        csis = expand(f"{ANN_DIR}/{{sample}}.annotated.vcf.gz.csi", sample=ISEC_SAMPLES),
+        vcfs = expand(f"{WDIR}/results/vcf_processing/renamed/{{sample}}.renamed.vcf.gz",     sample=ISEC_SAMPLES),
+        csis = expand(f"{WDIR}/results/vcf_processing/renamed/{{sample}}.renamed.vcf.gz.csi", sample=ISEC_SAMPLES),
     output:
         readme = f"{OUT_DIR}/shared/README.txt",
+        vcfs   = expand(f"{OUT_DIR}/shared/{{isec}}.vcf", isec=ISEC_INDICES),
     log:
         f"{LOG_DIR}/{STRAT}.shared.{TIMESTAMP}.log",
     params:

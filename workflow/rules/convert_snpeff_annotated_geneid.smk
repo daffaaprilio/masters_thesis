@@ -5,17 +5,21 @@ WDIR        = config.get("WDIR", str(Path(workflow.basedir).parent.parent))
 TIMESTAMP   = datetime.now().strftime("%Y%m%d_%H%M%S")
 LOG_DIR     = f"{WDIR}/workflow/logs/convert_annotated_geneid"
 
-TAXID           = config.get("taxid", 4558)
-INPUT_VCF_DIR = config.get("indir", f"{WDIR}/discussions/all_samples/private")
+TAXID = config.get("taxid", 4558)
 
-SAMPLES, = glob_wildcards(f"{INPUT_VCF_DIR}/{{sample}}.vcf")
+# Glob on plain .vcf (always present) to derive wildcard combinations.
+# annotate_intersected must run first; its output is the actual input below.
+STRAT, TYPE, INTERSECTION = glob_wildcards(
+    f"{WDIR}/discussions/{{strat}}/{{type}}/{{intersection,[0-9]+}}.vcf"
+)
 
-ALL_CONVERTED = expand(f"{INPUT_VCF_DIR}/{{sample}}_EGI.vcf", sample=SAMPLES)
-
-rule all:
+rule convert_all:
     input:
         f"{WDIR}/resources/NCBI_FTP/gene_info_{TAXID}",
-        expand(f"{INPUT_VCF_DIR}/{{sample}}_EGI.vcf", sample=SAMPLES),
+        expand(
+            f"{WDIR}/discussions/{{strat}}/{{type}}_annotated/{{intersection}}.annotated_EGI.vcf",
+            zip, strat=STRAT, type=TYPE, intersection=INTERSECTION,
+        ),
 
 rule filter_gene_info:
     """Filter NCBI gene_info for a specific taxon ID using dockerized PySpark."""
@@ -46,15 +50,15 @@ rule filter_gene_info:
         """
 
 rule convert_vcf_annot_geneid:
-    """Convert SnpEff LocusTags to NCBI GeneIDs for a single VCF."""
+    """Convert SnpEff LocusTags to NCBI GeneIDs for an annotated intersected VCF."""
     input:
-        vcf                = f"{INPUT_VCF_DIR}/{{sample}}.vcf",
+        vcf                = f"{WDIR}/discussions/{{strat}}/{{type}}_annotated/{{intersection}}.annotated.vcf.gz",
         script             = f"{WDIR}/workflow/scripts/snpeff_output_convert2EGI.py",
         filtered_gene_info = f"{WDIR}/resources/NCBI_FTP/gene_info_{TAXID}",
     output:
-        output_vcf         = f"{INPUT_VCF_DIR}/{{sample}}_EGI.vcf",
+        output_vcf         = f"{WDIR}/discussions/{{strat}}/{{type}}_annotated/{{intersection}}.annotated_EGI.vcf",
     log:
-        f"{LOG_DIR}/convert_annot_vcf_{{sample}}_{TIMESTAMP}.log",
+        f"{LOG_DIR}/convert_annot_vcf_{{strat}}_{{type}}_{{intersection}}_{TIMESTAMP}.log",
     shell:
         """
         python3 {input.script} \

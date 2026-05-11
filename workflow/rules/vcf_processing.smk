@@ -11,12 +11,12 @@ OUT_DIR     = f"{WDIR}/results/vcf_processing"
 BAM_DIR     = f"{WDIR}/resources/align_bam_sample"
 REF         = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
 GFF_RAW     = f"{WDIR}/resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff.gz"
-SNPEFF_DB   = "Sorghum_bicolor"
-SNPEFF_DIR  = "/Users/daffa/local/lib/snpEff"
-SNPEFF_DATA = f"{SNPEFF_DIR}/data/{SNPEFF_DB}"
+# SNPEFF_DB   = "Sorghum_bicolor"
+# SNPEFF_DIR  = "/Users/daffa/local/lib/snpEff"
+# SNPEFF_DATA = f"{SNPEFF_DIR}/data/{SNPEFF_DB}"
 
 
-# Filtering thresholds — override at runtime with --config key=value
+# Filtering thresholds
 QUAL_MIN = 20
 DP_MIN   = 10
 DP_MAX   = 100
@@ -29,10 +29,11 @@ KEEP_CHROMS = ",".join(
 
 rule vcf_all:
     input:
-        expand(f"{OUT_DIR}/annotated/{{sample}}.annotated.vcf.gz", sample=SAMPLES),
-        expand(f"{OUT_DIR}/annotated/{{sample}}.stats.html",       sample=SAMPLES),
-        expand(f"{OUT_DIR}/annotated/{{sample}}.stats.csv",        sample=SAMPLES),
-
+        # expand(f"{OUT_DIR}/annotated/{{sample}}.annotated.vcf.gz", sample=SAMPLES),
+        # expand(f"{OUT_DIR}/annotated/{{sample}}.stats.html", sample=SAMPLES),
+        # expand(f"{OUT_DIR}/annotated/{{sample}}.stats.csv", sample=SAMPLES),
+        expand(f"{OUT_DIR}/renamed/{{sample}}.renamed.vcf.gz", sample=SAMPLES),
+        expand(f"{OUT_DIR}/renamed/{{sample}}.renamed.vcf.gz.csi", sample=SAMPLES),
 
 rule reheader_vcf:
     """Rename the generic SAMPLE column header to the actual sample name."""
@@ -143,46 +144,53 @@ rule rename_chromosomes:
         ) > {log} 2>&1
         """
 
-rule annotate_vcf:
-    """Annotate variants with gene features and predicted consequences via snpEff."""
-    input:
-        vcf  = f"{OUT_DIR}/renamed/{{sample}}.renamed.vcf.gz",
-        csi  = f"{OUT_DIR}/renamed/{{sample}}.renamed.vcf.gz.csi",
-        done = f"{SNPEFF_DATA}/snpEffectPredictor.bin",
-    output:
-        vcf   = f"{OUT_DIR}/annotated/{{sample}}.annotated.vcf.gz",
-        csi   = f"{OUT_DIR}/annotated/{{sample}}.annotated.vcf.gz.csi",
-        stats = f"{OUT_DIR}/annotated/{{sample}}.stats.html",
-        csv   = f"{OUT_DIR}/annotated/{{sample}}.stats.csv",
-    log:
-        f"{LOG_DIR}/annotate_vcf/{{sample}}.{TIMESTAMP}.log",
-    params:
-        db      = SNPEFF_DB,
-        datadir = f"{SNPEFF_DIR}/data",
-        config  = f"{SNPEFF_DIR}/snpEff.config",
-    shell:
-        """
-        (
-            snpEff ann \
-                -config {params.config} \
-                -dataDir {params.datadir} \
-                -v \
-                -nodownload \
-                -stats {output.stats} \
-                -csvStats {output.csv} \
-                {params.db} \
-                {input.vcf} \
-                | bgzip -c > {output.vcf}
-            bcftools index {output.vcf}
-        ) > {log} 2>&1
-        """
+# rule annotate_vcf:
+#     """Annotate variants with gene features and predicted consequences via snpEff."""
+#     input:
+#         vcf  = f"{OUT_DIR}/renamed/{{sample}}.renamed.vcf.gz",
+#         csi  = f"{OUT_DIR}/renamed/{{sample}}.renamed.vcf.gz.csi",
+#         done = f"{SNPEFF_DATA}/snpEffectPredictor.bin",
+#     output:
+#         vcf   = f"{OUT_DIR}/annotated/{{sample}}.annotated.vcf.gz",
+#         csi   = f"{OUT_DIR}/annotated/{{sample}}.annotated.vcf.gz.csi",
+#         stats = f"{OUT_DIR}/annotated/{{sample}}.stats.html",
+#         csv   = f"{OUT_DIR}/annotated/{{sample}}.stats.csv",
+#     log:
+#         f"{LOG_DIR}/annotate_vcf/{{sample}}.{TIMESTAMP}.log",
+#     params:
+#         db      = SNPEFF_DB,
+#         datadir = f"{SNPEFF_DIR}/data",
+#         config  = f"{SNPEFF_DIR}/snpEff.config",
+#     shell:
+#         """
+#         (
+#             snpEff ann \
+#                 -config {params.config} \
+#                 -dataDir {params.datadir} \
+#                 -v \
+#                 -nodownload \
+#                 -stats {output.stats} \
+#                 -csvStats {output.csv} \
+#                 {params.db} \
+#                 {input.vcf} \
+#                 | bgzip -c > {output.vcf}
+#             bcftools index {output.vcf}
+#         ) > {log} 2>&1
+#         """
 
 
 # ── Cleanup ───────────────────────────────────────────────────────────────────
 
-rule clean:
-    shell:
-        """
-        rm -rf {OUT_DIR}/reheadered {OUT_DIR}/filtered {OUT_DIR}/chr_filtered \
-               {OUT_DIR}/phased {OUT_DIR}/annotated {SNPEFF_DIR}
-        """
+# rule clean:
+#     shell:
+#         """
+#         rm -rf {OUT_DIR}/reheadered {OUT_DIR}/filtered {OUT_DIR}/chr_filtered \
+#                {OUT_DIR}/phased {OUT_DIR}/annotated {SNPEFF_DIR}
+#         """
+
+# rule clean:
+#     shell:
+#         """
+#         rm -rf {OUT_DIR}/reheadered {OUT_DIR}/filtered {OUT_DIR}/chr_filtered \
+#                {OUT_DIR}/phased {SNPEFF_DIR}
+#         """
