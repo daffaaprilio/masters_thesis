@@ -1,4 +1,5 @@
-# Samples Phenotype
+# Analyses to Populate the Results & Discussions Section
+Samples Phenotype
 | Sample | TAA Production | Callus Formation |
 |--------|-----------|-----------------------|
 | SBC4 | ++ | Mid |
@@ -6,12 +7,16 @@
 | SBC11 | - | Mid |
 | SBC23 | ++ | Good |
 
-# Identification of TAA biosynthetic pathway genes
+## Sequencing & data Quality
+
+## Variant landscape
+
+## Epigenomics landscape
+
+## Identification of TAA biosynthetic pathway genes
 Among four samples, SBC11 shows ...
 
-# Exploration of sorgoleone key genes
-
-## Genomics
+## Exploration of sorgoleone key genes
 Key gene sequence information: [Supplementary information](https://onlinelibrary.wiley.com/action/downloadSupplement?doi=10.1111%2Ftpj.16263&file=tpj16263-sup-0002-TableS1-S3.xlsx) of [Maharjan et al. 2023](https://onlinelibrary.wiley.com/doi/10.1111/tpj.16263). <br>
 Sorgoleone biosynthesis pathway key genes/enzymes, obtained from BLAST-ing gene sequences:
 1.  SbDES2 <br>
@@ -25,7 +30,7 @@ Sorgoleone biosynthesis pathway key genes/enzymes, obtained from BLAST-ing gene 
 5.  SbCYP71AM1 <br>
     [Associated gene](https://www.ncbi.nlm.nih.gov/gene?term=XM_002451987[Nucleotide%20Accession]&RID=05BH80V7014&log$=genealign&blast_rank=2): LOC8081692 aka SORBI_3004G139300
 
-### Start exploring
+Exploration steps
 1.  Merging VCF files for all samples, then filter variant sites to only include the following genes. <br>
     ```shell
     ./analysis/03_merge_vcf.sh # merges phased VCF from all 4 samples
@@ -40,5 +45,5 @@ Sorgoleone biosynthesis pathway key genes/enzymes, obtained from BLAST-ing gene 
     -v /Users/daffa/workspace/infobio/thesis/analysis/data/vcf/annotated/merged.annotated.vcf.gz \
     -o /Users/daffa/workspace/infobio/thesis/analysis/data/tsv
     ```
-4.  Analyze in notebook: first, filter variant sites from sorgholeone genes only
-## Epigenomics
+4.  Analyze in notebook: first, filter variant sites from sorgholeone genes only. <br>
+    Group variant sites by [impact, i.e., MODERATE, LOW, MODIFIER, etc.](https://pcingola.github.io/SnpEff/snpeff/inputoutput/#eff-field-vcf-output-files)
