@@ -6,13 +6,13 @@ SNPEFF_DIR="/Users/daffa/local/lib/snpEff"
 SNPEFF_DB="Sorghum_bicolor"
 RENAME_MAP="${WDIR}/workflow/scripts/synonyms.txt"
 
-OUT_DIR="${WDIR}/analysis/data/annotated"
+OUT_DIR="${WDIR}/analysis/data/vcf/annotated"
 
 mkdir -p "${OUT_DIR}" "${WDIR}/analysis/logs"
 
 SAMPLE=$1
 INPUT_VCF=$2
-LOG="${WDIR}/analysis/logs/${SAMPLE}.$(date +%Y%m%d_%H%M%S).log"
+LOG="${WDIR}/analysis/logs/annotate.${SAMPLE}.$(date +%Y%m%d_%H%M%S).log"
 
 (
     echo "[$(date +%T)] Renaming chromosomes and annotating ${SAMPLE}..."
