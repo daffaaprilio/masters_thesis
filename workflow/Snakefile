@@ -9,8 +9,12 @@ config.setdefault("WDIR",  WDIR)
 
 rule all:
     input:
-        expand(f"{WDIR}/results/vcf_processing/phased/{{sample}}.phased.vcf.gz", sample=SAMPLES),
-        expand(f"{WDIR}/results/vcf_processing/phased/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),
+        # main output for direct viewing in IGV
+        expand(f"{WDIR}/results/vcf_processing/{{sample}}.phased.vcf.gz", sample=SAMPLES),
+        expand(f"{WDIR}/results/vcf_processing/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),        
+        # additional output for annotation
+        expand(f"{WDIR}/results/vcf_for_annotation/{{sample}}.renamed.vcf.gz", sample=SAMPLES),
+        expand(f"{WDIR}/results/vcf_for_annotation/{{sample}}.renamed.vcf.gz.csi", sample=SAMPLES),
 
 include: "rules/reads_preprocessing.smk"
 include: "rules/variant_analysis.smk"

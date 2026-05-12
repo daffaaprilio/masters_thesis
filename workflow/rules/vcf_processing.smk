@@ -8,6 +8,7 @@ LOG_DIR   = f"{WDIR}/workflow/logs/vcf_processing"
 
 VCF_DIR     = f"{WDIR}/results/vcf"
 OUT_DIR     = f"{WDIR}/results/vcf_processing"
+ANN_DIR     = f"{WDIR}/results/vcf_for_annotation"
 BAM_DIR     = f"{WDIR}/resources/align_bam_sample"
 REF         = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
 GFF_RAW     = f"{WDIR}/resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff.gz"
@@ -26,8 +27,10 @@ KEEP_CHROMS = ",".join(
 
 rule vcf_all:
     input:
-        expand(f"{OUT_DIR}/phased/{{sample}}.phased.vcf.gz", sample=SAMPLES),
-        expand(f"{OUT_DIR}/phased/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),
+        expand(f"{OUT_DIR}/{{sample}}.phased.vcf.gz", sample=SAMPLES),
+        expand(f"{OUT_DIR}/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),        
+        expand(f"{ANN_DIR}/{{sample}}.renamed.vcf.gz", sample=SAMPLES),
+        expand(f"{ANN_DIR}/{{sample}}.renamed.vcf.gz.csi", sample=SAMPLES),
 
 rule reheader_vcf:
     """Rename the generic SAMPLE column header to the actual sample name."""
@@ -35,8 +38,8 @@ rule reheader_vcf:
         vcf = f"{VCF_DIR}/{{sample}}.vcf.gz",
         csi = f"{VCF_DIR}/{{sample}}.vcf.gz.csi",
     output:
-        vcf = f"{OUT_DIR}/reheadered/{{sample}}.reheadered.vcf.gz",
-        csi = f"{OUT_DIR}/reheadered/{{sample}}.reheadered.vcf.gz.csi",
+        vcf = temp(f"{OUT_DIR}/reheadered/{{sample}}.reheadered.vcf.gz"),
+        csi = temp(f"{OUT_DIR}/reheadered/{{sample}}.reheadered.vcf.gz.csi"),
     log:
         f"{LOG_DIR}/reheader_vcf/{{sample}}.{TIMESTAMP}.log",
     shell:
@@ -54,8 +57,8 @@ rule filter_vcf:
         vcf = f"{OUT_DIR}/reheadered/{{sample}}.reheadered.vcf.gz",
         csi = f"{OUT_DIR}/reheadered/{{sample}}.reheadered.vcf.gz.csi",
     output:
-        vcf = f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz",
-        csi = f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz.csi",
+        vcf = temp(f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz"),
+        csi = temp(f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz.csi"),
     log:
         f"{LOG_DIR}/filter_vcf/{{sample}}.{TIMESTAMP}.log",
     params:
@@ -76,8 +79,8 @@ rule filter_chromosomes:
         vcf = f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz",
         csi = f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz.csi",
     output:
-        vcf = f"{OUT_DIR}/chr_filtered/{{sample}}.chr_filtered.vcf.gz",
-        csi = f"{OUT_DIR}/chr_filtered/{{sample}}.chr_filtered.vcf.gz.csi",
+        vcf = temp(f"{OUT_DIR}/chr_filtered/{{sample}}.chr_filtered.vcf.gz"),
+        csi = temp(f"{OUT_DIR}/chr_filtered/{{sample}}.chr_filtered.vcf.gz.csi"),
     log:
         f"{LOG_DIR}/filter_chromosomes/{{sample}}.{TIMESTAMP}.log",
     params:
@@ -100,8 +103,8 @@ rule phase_vcf:
         bai = f"{BAM_DIR}/{{sample}}.bam.bai",
         ref = REF,
     output:
-        vcf = f"{OUT_DIR}/phased/{{sample}}.phased.vcf.gz",
-        csi = f"{OUT_DIR}/phased/{{sample}}.phased.vcf.gz.csi",
+        vcf = f"{OUT_DIR}/{{sample}}.phased.vcf.gz",
+        csi = f"{OUT_DIR}/{{sample}}.phased.vcf.gz.csi",
     log:
         f"{LOG_DIR}/phase_vcf/{{sample}}.{TIMESTAMP}.log",
     shell:
@@ -113,6 +116,28 @@ rule phase_vcf:
                 --output /dev/stdout \
                 {input.vcf} {input.bam} \
                 | bgzip -c > {output.vcf}
+            bcftools index {output.vcf}
+        ) > {log} 2>&1
+        """
+
+
+rule rename_chromosomes:
+    """Rename VCF contig names to match SnpEff database chromosome naming."""
+    input:
+        vcf        = f"{OUT_DIR}/{{sample}}.phased.vcf.gz",
+        csi        = f"{OUT_DIR}/{{sample}}.phased.vcf.gz.csi",
+        rename_map = f"{WDIR}/workflow/scripts/synonyms.txt",
+    output:
+        vcf = f"{ANN_DIR}/{{sample}}.renamed.vcf.gz",
+        csi = f"{ANN_DIR}/{{sample}}.renamed.vcf.gz.csi",
+    log:
+        f"{LOG_DIR}/rename_chromosomes/{{sample}}.{TIMESTAMP}.log",
+    shell:
+        """
+        (
+            bcftools annotate \
+                --rename-chrs {input.rename_map} \
+                -O z -o {output.vcf} {input.vcf}
             bcftools index {output.vcf}
         ) > {log} 2>&1
         """
