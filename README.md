@@ -149,13 +149,5 @@ Overview of rules in this file:
 - Phase (add haplotype information) to filtered VCF
 - Performs consequences calling (`snpEff ann`)
 
-### Intersecting variant sites using `bcftools isec`
-Variant sites that are:
-- shared across all VCF files <br>
-  Indicate commonality of our samples that is not found in the public reference genome BTx623
-- private to each sample <br>
-  Notably, variant sites exclusive to SBC10. These sites are the candidate for the increased TAA production observed in SBC10 <br>
-  In opposite, those exclusive to SBC11 would also be of interest, with lesser priority
-```shell
-snakemake --snakefile workflow/rules/intersect_variant.smk -c 1 -j 1 -pn
-```
+### Analysis
+Refer to dedicated notebook in the `analysis/` directory.
