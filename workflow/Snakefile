@@ -6,30 +6,12 @@ TIMESTAMP   = datetime.now().strftime("%Y%m%d_%H%M%S")
 SAMPLES     = ["SBC4", "SBC10", "SBC11", "SBC23"]
 
 config.setdefault("WDIR",  WDIR)
-config.setdefault("strat", "all_samples")
-STRAT_CFG = config["strat"]   # string strategy name, e.g. "all_samples"
 
 rule all:
     input:
-        expand(f"{WDIR}/results/vcf_processing/annotated/{{sample}}.annotated.vcf.gz",  sample=SAMPLES),
-        expand(f"{WDIR}/results/vcf_processing/annotated/{{sample}}.annotated_EGI.vcf", sample=SAMPLES),
-        expand(f"{WDIR}/results/vcf_processing/annotated/{{sample}}.stats.html",        sample=SAMPLES),
-        expand(f"{WDIR}/results/vcf_processing/annotated/{{sample}}.stats.csv",         sample=SAMPLES),
-        expand(
-            f"{WDIR}/discussions/{STRAT_CFG}/{{type}}_annotated/.done",
-            type=["private", "shared"],
-        ),
-        expand(
-            f"{WDIR}/discussions/{STRAT_CFG}/{{type}}_annotated/.egi_done",
-            type=["private", "shared"],
-        ),
-        f"{WDIR}/discussions/{STRAT_CFG}/shared_annotated/merged.annotated_EGI.vcf",
-        f"{WDIR}/discussions/{STRAT_CFG}/private_annotated/.filter_done",
+        expand(f"{WDIR}/results/vcf_processing/phased/{{sample}}.phased.vcf.gz", sample=SAMPLES),
+        expand(f"{WDIR}/results/vcf_processing/phased/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),
 
 include: "rules/reads_preprocessing.smk"
 include: "rules/variant_analysis.smk"
 include: "rules/vcf_processing.smk"
-include: "rules/intersect_variant.smk"
-include: "rules/snpeff_annotation.smk"
-include: "rules/convert_snpeff_annotated_geneid.smk"
-include: "rules/filter_candidate_variants.smk"
