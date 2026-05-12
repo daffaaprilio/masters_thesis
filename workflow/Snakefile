@@ -23,6 +23,8 @@ rule all:
             f"{WDIR}/discussions/{STRAT_CFG}/{{type}}_annotated/.egi_done",
             type=["private", "shared"],
         ),
+        f"{WDIR}/discussions/{STRAT_CFG}/shared_annotated/merged.annotated_EGI.vcf",
+        f"{WDIR}/discussions/{STRAT_CFG}/private_annotated/.filter_done",
 
 include: "rules/reads_preprocessing.smk"
 include: "rules/variant_analysis.smk"
@@ -30,3 +32,4 @@ include: "rules/vcf_processing.smk"
 include: "rules/intersect_variant.smk"
 include: "rules/snpeff_annotation.smk"
 include: "rules/convert_snpeff_annotated_geneid.smk"
+include: "rules/filter_candidate_variants.smk"

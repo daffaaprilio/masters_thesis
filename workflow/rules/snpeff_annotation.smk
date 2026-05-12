@@ -65,10 +65,17 @@ rule annotate_vcf:
         ) > {log} 2>&1
         """
 
+def _intersected_vcf(wc):
+    # private variants are uncompressed; shared variants are bgzipped (bcftools isec -O z)
+    ext = ".vcf" if wc.type == "private" else ".vcf.gz"
+    return f"{WDIR}/discussions/{wc.strat}/{wc.type}/{wc.intersection}{ext}"
+
 rule annotate_intersected:
     """Annotate intersected variants with gene features and predicted consequences via snpEff."""
+    wildcard_constraints:
+        intersection = r"[0-9]+",
     input:
-        vcf  = f"{WDIR}/discussions/{{strat}}/{{type}}/{{intersection}}.vcf",
+        vcf  = _intersected_vcf,
         done = f"{SNPEFF_DATA}/snpEffectPredictor.bin",
     output:
         vcf   = f"{WDIR}/discussions/{{strat}}/{{type}}_annotated/{{intersection}}.annotated.vcf.gz",
@@ -102,10 +109,12 @@ def get_intersected_vcfs(wc):
     """Wait for the relevant checkpoint, then return the actual annotated VCF paths."""
     if wc.type == "private":
         checkpoints.private_variants.get()
+        ext = ".vcf"
     else:
         checkpoints.shared_variants.get()
+        ext = ".vcf.gz"
     intersections, = glob_wildcards(
-        f"{WDIR}/discussions/{wc.strat}/{wc.type}/{{intersection,[0-9]+}}.vcf"
+        f"{WDIR}/discussions/{wc.strat}/{wc.type}/{{intersection,[0-9]+}}{ext}"
     )
     return expand(
         f"{WDIR}/discussions/{wc.strat}/{wc.type}_annotated/{{intersection}}.annotated.vcf.gz",
@@ -116,6 +125,40 @@ rule collect_annotated_intersected:
     """Sentinel: all intersected VCFs for a given strat/type have been annotated."""
     input: get_intersected_vcfs
     output: touch(f"{WDIR}/discussions/{{strat}}/{{type}}_annotated/.done")
+
+
+rule annotate_merged_shared:
+    """Annotate the merged multi-sample shared VCF with SnpEff."""
+    input:
+        vcf  = f"{WDIR}/discussions/{{strat}}/shared/merged.vcf.gz",
+        done = f"{SNPEFF_DATA}/snpEffectPredictor.bin",
+    output:
+        vcf   = f"{WDIR}/discussions/{{strat}}/shared_annotated/merged.annotated.vcf.gz",
+        csi   = f"{WDIR}/discussions/{{strat}}/shared_annotated/merged.annotated.vcf.gz.csi",
+        stats = f"{WDIR}/discussions/{{strat}}/shared_annotated/merged.stats.html",
+        csv   = f"{WDIR}/discussions/{{strat}}/shared_annotated/merged.stats.csv",
+    log:
+        f"{LOG_DIR}/annotate_intersected/{{strat}}/shared_annotated/merged.{TIMESTAMP}.log",
+    params:
+        db      = SNPEFF_DB,
+        datadir = f"{SNPEFF_DIR}/data",
+        config  = f"{SNPEFF_DIR}/snpEff.config",
+    shell:
+        """
+        (
+            snpEff ann \
+                -config {params.config} \
+                -dataDir {params.datadir} \
+                -v \
+                -nodownload \
+                -stats {output.stats} \
+                -csvStats {output.csv} \
+                {params.db} \
+                {input.vcf} \
+                | bgzip -c > {output.vcf}
+            bcftools index {output.vcf}
+        ) > {log} 2>&1
+        """
 
 # ── Cleanup ───────────────────────────────────────────────────────────────────
 

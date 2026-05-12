@@ -71,6 +71,8 @@ rule convert_sample_vcf_annot_geneid:
 
 rule convert_vcf_annot_geneid:
     """Convert SnpEff LocusTags to NCBI GeneIDs for an annotated intersected VCF."""
+    wildcard_constraints:
+        intersection = r"[0-9]+",
     input:
         vcf                = f"{WDIR}/discussions/{{strat}}/{{type}}_annotated/{{intersection}}.annotated.vcf.gz",
         script             = f"{WDIR}/workflow/scripts/snpeff_output_convert2EGI.py",
@@ -92,10 +94,12 @@ def get_annotated_intersected_vcfs(wc):
     """Wait for the relevant checkpoint, then return the actual EGI-converted VCF paths."""
     if wc.type == "private":
         checkpoints.private_variants.get()
+        ext = ".vcf"
     else:
         checkpoints.shared_variants.get()
+        ext = ".vcf.gz"
     intersections, = glob_wildcards(
-        f"{WDIR}/discussions/{wc.strat}/{wc.type}/{{intersection,[0-9]+}}.vcf"
+        f"{WDIR}/discussions/{wc.strat}/{wc.type}/{{intersection,[0-9]+}}{ext}"
     )
     return expand(
         f"{WDIR}/discussions/{wc.strat}/{wc.type}_annotated/{{intersection}}.annotated_EGI.vcf",
@@ -106,3 +110,23 @@ rule collect_egi_converted:
     """Sentinel: all intersected VCFs for a given strat/type have been EGI-converted."""
     input: get_annotated_intersected_vcfs
     output: touch(f"{WDIR}/discussions/{{strat}}/{{type}}_annotated/.egi_done")
+
+
+rule convert_merged_shared_vcf_annot_geneid:
+    """Convert SnpEff LocusTags to NCBI GeneIDs for the merged shared annotated VCF."""
+    input:
+        vcf                = f"{WDIR}/discussions/{{strat}}/shared_annotated/merged.annotated.vcf.gz",
+        script             = f"{WDIR}/workflow/scripts/snpeff_output_convert2EGI.py",
+        filtered_gene_info = f"{WDIR}/resources/NCBI_FTP/gene_info_{TAXID}",
+    output:
+        output_vcf         = f"{WDIR}/discussions/{{strat}}/shared_annotated/merged.annotated_EGI.vcf",
+    log:
+        f"{LOG_DIR}/convert_annot_vcf_{{strat}}_shared_merged_{TIMESTAMP}.log",
+    shell:
+        """
+        python3 {input.script} \
+            --input {input.vcf} \
+            --output {output.output_vcf} \
+            --key {input.filtered_gene_info} \
+        2>&1 | tee {log}
+        """
