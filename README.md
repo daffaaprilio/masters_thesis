@@ -113,28 +113,28 @@ snpEff download Sorghum_bicolor
 Downloaded database is saved in `/home/daffa/local/bin/snpEff/data/Sorghum_bicolor/` <br>
 Prepare the chromosome conversion in the database. The trick: create a conversion key by reading the following files:
 - any VCF file, we need the header
-```shell
-bcftools view -h results/vcf/SBC4.vcf.gz | less -S
-```
-This has been done and saved in `workflow/scripts/vcf_chr_list.txt`
-```
-##contig=<ID=NC_012870.2,length=80884392>
-##contig=<ID=NC_012871.2,length=77742459>
-##contig=<ID=NC_012872.2,length=74386277>
-##contig=<ID=NC_012873.2,length=68658214>
-```
+    ```shell
+    bcftools view -h results/vcf/SBC4.vcf.gz | less -S
+    ```
+    This has been done and saved in `workflow/scripts/vcf_chr_list.txt`
+    ```
+    ##contig=<ID=NC_012870.2,length=80884392>
+    ##contig=<ID=NC_012871.2,length=77742459>
+    ##contig=<ID=NC_012872.2,length=74386277>
+    ##contig=<ID=NC_012873.2,length=68658214>
+    ```
 - the SnpEff database
-```shell
-snpEff dump Sorghum_bicolor | less -S
-```
-This, also has been done and saved in `workflow/scripts/snpeff_db_chr_list.txt`, but first, don't forget to trim the unnecessary part (from the last contigs to the end of the file) to prevent the file from bloating.
-```
-#-----------------------------------------------
-# Number of chromosomes      : 867
-# Chromosomes                : Format 'chromo_name size codon_table'
-#		'1'	80884392	Standard
-#		'2'	77742459	Standard
-#		'3'	74386277	Standard
+    ```shell
+    snpEff dump Sorghum_bicolor | less -S
+    ```
+    This, also has been done and saved in `workflow/scripts/snpeff_db_chr_list.txt`, but first, don't forget to trim the unnecessary part (from the last contigs to the end of the file) to prevent the file from bloating.
+    ```
+    #-----------------------------------------------
+    # Number of chromosomes      : 867
+    # Chromosomes                : Format 'chromo_name size codon_table'
+    #		'1'	80884392	Standard
+    #		'2'	77742459	Standard
+    #		'3'	74386277	Standard
 The script below will automatically create the conversion key
 ```shell
 python3 workflow/scripts/creating_synonyms_chr.py
@@ -150,4 +150,4 @@ Overview of rules in this file:
 - Performs consequences calling (`snpEff ann`)
 
 ### Analysis
-Refer to dedicated notebook in the `analysis/` directory.
+Refer to dedicated notebooks in the `analysis/` directory.

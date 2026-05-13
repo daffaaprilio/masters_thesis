@@ -8,7 +8,7 @@ LOG="${WDIR}/analysis/logs/merge_samples.$(date +%Y%m%d_%H%M%S).log"
 
 mkdir -p "${OUT_DIR}" "${WDIR}/analysis/logs"
 
-SAMPLES=(SBC10 SBC11 SBC4 SBC23)
+SAMPLES=(SBC4 SBC10 SBC11 SBC23)
 INPUT_VCFS=("${(@)SAMPLES/#/${IN_DIR}/}" )
 INPUT_VCFS=("${(@)INPUT_VCFS/%/.phased.vcf.gz}")
 

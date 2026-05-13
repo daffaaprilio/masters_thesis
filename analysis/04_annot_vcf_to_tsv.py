@@ -65,9 +65,9 @@ def main():
             "alt":   ",".join(variant.ALT),
             "qual":  variant.QUAL,
             # Genotypes: list of [allele1, allele2, phased] per sample
-            "GT_SBC10": variant.genotypes[0],
-            "GT_SBC11": variant.genotypes[1],
-            "GT_SBC4":  variant.genotypes[2],
+            "GT_SBC4": variant.genotypes[0],
+            "GT_SBC10": variant.genotypes[1],
+            "GT_SBC11":  variant.genotypes[2],
             "GT_SBC23": variant.genotypes[3],
         }
 
