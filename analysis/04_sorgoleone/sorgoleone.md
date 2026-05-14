@@ -31,6 +31,18 @@ Technical steps
 4.  `sorgoleone/sorgoleone.ipynb`: Analyze in notebook: first, filter variant sites from sorgholeone genes only. <br>
     Group variant sites by [impact, i.e., MODERATE, LOW, MODIFIER, etc.](https://pcingola.github.io/SnpEff/snpeff/inputoutput/#eff-field-vcf-output-files)
 
-Biological insights
--   **Frameshift mutation in SbDES2 gene found exclusively in SBC4.** <br>
-    Location (chr:bp): NC_012873.2:60,583,662
+## Gene co-expression analysis
+1.  Listing genes (ready to copy to ATTED-II coexpression network illustrator)
+    ```
+    8066368
+    8079957
+    8080259
+    8081692
+    ```
+2.  Draw co-expression network
+
+## Biological insights
+-   **Functional disruption of SbDES2 and compensatory mechanism in SBC4.** <br>
+    - Comparative genomic analysis revealed a critical structural variant in the SbDES2 gene (SORBI_3004G260600, gene ID: 8066368) within the SBC4 accession. Specifically, a single-nucleotide insertion of guanine at position 60,583,662 on chromosome 4 (Location (chr:bp): NC_012873.2:60,583,662) resulted in a frameshift mutation that is predicted to disrupt normal protein function. 
+    - Gene co-expression network analysis identified a functionally homologous gene (gene ID: 110435045) that exhibits similar expression patterns to SbDES2. Importantly, variant analysis of this homologous locus revealed no high-impact mutations, suggesting that the protein product remains structurally and functionally intact in SBC4.
+    - Experimental validation will be necessary to confirm the predicted loss-of-function in SbDES2 and demonstrate functional compensation by its homolog.
