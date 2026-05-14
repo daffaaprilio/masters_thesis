@@ -33,4 +33,4 @@ Technical steps
 
 Biological insights
 -   **Frameshift mutation in SbDES2 gene found exclusively in SBC4.** <br>
-    Location (bp): 4:60,583,662 (in IGV NC_012873.2:60,583,642-60,583,681)
+    Location (chr:bp): NC_012873.2:60,583,662
