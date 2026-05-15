@@ -12,10 +12,12 @@ rule all:
         # main output for direct viewing in IGV
         expand(f"{WDIR}/results/vcf_processing/{{sample}}.phased.vcf.gz", sample=SAMPLES),
         expand(f"{WDIR}/results/vcf_processing/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),        
-        # additional output for annotation
-        expand(f"{WDIR}/results/vcf_for_annotation/{{sample}}.renamed.vcf.gz", sample=SAMPLES),
-        expand(f"{WDIR}/results/vcf_for_annotation/{{sample}}.renamed.vcf.gz.csi", sample=SAMPLES),
+        # methylation pileup
+        expand(f"{WDIR}/results/methylation/{{sample}}.bedmethyl.gz", sample=SAMPLES),
+        expand(f"{WDIR}/results/methylation/{{sample}}.bedmethyl.gz.tbi", sample=SAMPLES),
+    
 
 include: "rules/reads_preprocessing.smk"
 include: "rules/variant_analysis.smk"
 include: "rules/vcf_processing.smk"
+include: "rules/methylation.smk"

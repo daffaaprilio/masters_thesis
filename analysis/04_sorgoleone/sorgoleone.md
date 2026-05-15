@@ -31,6 +31,10 @@ Technical steps
 4.  `sorgoleone/sorgoleone.ipynb`: Analyze in notebook: first, filter variant sites from sorgholeone genes only. <br>
     Group variant sites by [impact, i.e., MODERATE, LOW, MODIFIER, etc.](https://pcingola.github.io/SnpEff/snpeff/inputoutput/#eff-field-vcf-output-files)
 
+## Comparative epigenomics analysis
+Technical steps
+1.  ... DMR analysis steps ...
+
 ## Gene co-expression analysis
 1.  Listing genes (ready to copy to ATTED-II coexpression network illustrator)
     ```
@@ -56,7 +60,7 @@ Technical steps
         - 8055482 aka SORBI_3008G003200, blastp identity 84.22, coex z-score: 15.5, FA desaturase DES3-like
         - 8079958 aka SORBI_3005G002800, blastp identity 86.56, coex z-score: 15.5, FA desaturase DES3-like
     - A critical SNP was found in 8055482 in the SBC4 sample (chromosome 8, NC_012877.2:284,923, which is a start codon negative direction). A mutated into G, causing the lost of start codon.
--   **Insertion and deletion SbOMT3-like loci**
+-   **Insertion and deletion in SbOMT3-like loci**
     - Gene co-expression network suggests that SbOMT3 (SORBI_3006G007900, gene ID: 8080259) is highly co-expressed with 3 other genes, which are homologous to each other
         - 8076922 aka SORBI_3005G086600, blastp identity 92.51, coex z-score: 8.5, 5-pentadecatrienyl resorcinol O-methyltransferase-like
         - 110436225 aka SORBI_3006G008000, blastp identity 97.86, coex z-score: 8.5, 5-pentadecatrienyl resorcinol O-methyltransferase-like
