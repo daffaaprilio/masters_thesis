@@ -17,32 +17,39 @@ SAMPLES             = list(SAMPLE_LIBRARIES.keys())
 SINGLE_LIB_SAMPLES = {k: v[0] for k, v in SAMPLE_LIBRARIES.items() if len(v) == 1}
 MULTI_LIB_SAMPLES  = {k: v    for k, v in SAMPLE_LIBRARIES.items() if len(v) > 1}
 
+LIBRARIES = glob_wildcards(f"{WDIR}/resources/trim_bam/{{library}}.bam").library
+
 rule reads_all:
     input:
         # coverage depth files
         expand(
             f"{WDIR}/resources/depth/{{library}}.depth",
-            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
+            library=LIBRARIES,
             ),
         # coverage depth plots & pickle files
         expand(
             f"{WDIR}/resources/depth/{{library}}_depth{{ext}}",
-            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library,
+            library=LIBRARIES,
             ext=[".png", ".svg", ".pdf"]
             ),
         expand(
             f"{WDIR}/resources/depth/{{library}}_depth.pkl",
-            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
+            library=LIBRARIES,
             ),
         # aligned bam files (per library)
         expand(
             f"{WDIR}/resources/align_bam/{{library}}.bam",
-            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library
+            library=LIBRARIES,
             ),
         # merged sample-level bam files
         expand(
             f"{WDIR}/resources/align_bam_sample/{{sample}}.bam.bai",
             sample=SAMPLES
+            ),
+        # QC: verify MM/ML tags survived alignment
+        expand(
+            f"{WDIR}/resources/qc/modkit_summary/{{sample}}.txt",
+            sample=SAMPLES,
             ),
 
 rule just_plot:
@@ -50,25 +57,26 @@ rule just_plot:
         # coverage depth plots with repetition
         expand(
             f"{WDIR}/resources/depth/{{library}}_depth_{repetition}{{ext}}",
-            library=glob_wildcards(f"{WDIR}/resources/fastq/{{library}}.fq").library,
+            library=LIBRARIES,
             ext=[".png", ".svg", ".pdf"]
             ),
 
 
 rule align_reads:
     input:
-        fastq = f"{WDIR}/resources/fastq/{{library}}.fq",
+        bam = f"{WDIR}/resources/trim_bam/{{library}}.bam",
         ref = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna",
         fai = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna.fai",
     output:
         align_bam = f"{WDIR}/resources/align_bam/{{library}}.bam",
     log:
         f"{LOG_DIR}/align_reads/{{library}}.{TIMESTAMP}.log",
-    threads: 2
+    threads: 16
     shell:
         '''
         (
-            minimap2 -ax map-ont -t {threads} {input.ref} {input.fastq} \
+            minimap2 -ax map-ont -t {threads} -y --secondary=no \
+                {input.ref} {input.bam} \
                 | samtools sort -@ {threads} -o {output.align_bam}
         ) > {log} 2>&1
         '''
@@ -182,5 +190,29 @@ rule merge_sample_bam:
             samtools merge -f -r -@ {threads} - {input.bams} \
                 | samtools sort -@ {threads} -o {output.bam}
             samtools index -@ {threads} {output.bam}
+        ) > {log} 2>&1
+        """
+
+
+rule validate_mod_tags:
+    """QC: verify MM/ML modification tags survived alignment (Step 5)."""
+    input:
+        bam = f"{WDIR}/resources/align_bam_sample/{{sample}}.bam",
+        bai = f"{WDIR}/resources/align_bam_sample/{{sample}}.bam.bai",
+    output:
+        summary = f"{WDIR}/resources/qc/modkit_summary/{{sample}}.txt",
+    log:
+        f"{LOG_DIR}/validate_mod_tags/{{sample}}.{TIMESTAMP}.log",
+    shell:
+        """
+        (
+            echo "=== MM/ML tag presence (first 1000 reads) ===" > {output.summary}
+            samtools view {input.bam} | head -1000 \
+                | awk '{{found=0; for(i=12;i<=NF;i++) if($i~/^MM:/) found=1; print found}}' \
+                | sort | uniq -c >> {output.summary}
+
+            echo "" >> {output.summary}
+            echo "=== modkit summary ===" >> {output.summary}
+            modkit summary {input.bam} >> {output.summary}
         ) > {log} 2>&1
         """
