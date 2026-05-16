@@ -11,10 +11,9 @@ rule all:
     input:
         # main output for direct viewing in IGV
         expand(f"{WDIR}/results/vcf_processing/{{sample}}.phased.vcf.gz", sample=SAMPLES),
-        expand(f"{WDIR}/results/vcf_processing/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),        
-        # methylation pileup
-        expand(f"{WDIR}/results/methylation/{{sample}}.bedmethyl.gz", sample=SAMPLES),
-        expand(f"{WDIR}/results/methylation/{{sample}}.bedmethyl.gz.tbi", sample=SAMPLES),
+        expand(f"{WDIR}/results/vcf_processing/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),
+        # methylation pileup (filtered bedMethyl, N_valid >= 10)
+        expand(f"{WDIR}/resources/bedmethyl/{{sample}}.filtered.bed", sample=SAMPLES),
     
 
 include: "rules/reads_preprocessing.smk"
