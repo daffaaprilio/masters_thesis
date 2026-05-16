@@ -10,8 +10,8 @@ config.setdefault("WDIR",  WDIR)
 rule all:
     input:
         # main output for direct viewing in IGV
-        expand(f"{WDIR}/results/vcf_processing/{{sample}}.phased.vcf.gz", sample=SAMPLES),
-        expand(f"{WDIR}/results/vcf_processing/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),
+        # expand(f"{WDIR}/results/vcf_processing/{{sample}}.phased.vcf.gz", sample=SAMPLES),
+        # expand(f"{WDIR}/results/vcf_processing/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),
         # methylation pileup (filtered bedMethyl, N_valid >= 10)
         expand(f"{WDIR}/resources/bedmethyl/{{sample}}.filtered.bed", sample=SAMPLES),
     

@@ -66,17 +66,17 @@ rule align_reads:
     input:
         bam = f"{WDIR}/resources/trim_bam/{{library}}.bam",
         ref = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna",
-        fai = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna.fai",
     output:
         align_bam = f"{WDIR}/resources/align_bam/{{library}}.bam",
     log:
         f"{LOG_DIR}/align_reads/{{library}}.{TIMESTAMP}.log",
-    threads: 16
+    threads: 6
     shell:
         '''
         (
-            minimap2 -ax map-ont -t {threads} -y --secondary=no \
-                {input.ref} {input.bam} \
+            samtools fastq -T '*' {input.bam} \
+                | minimap2 -ax map-ont -t {threads} -y --secondary=no \
+                    {input.ref} - \
                 | samtools sort -@ {threads} -o {output.align_bam}
         ) > {log} 2>&1
         '''
