@@ -1,19 +1,21 @@
 # List of Analyses to Populate the Results & Discussions Section
 Samples Phenotype
-| Sample | TAA Production | Callus Formation |
-|--------|-----------|-----------------------|
-| SBC4 | ++ | Mid |
-| SBC10 | +++ | Good |
-| SBC11 | - | Mid |
-| SBC23 | ++ | Good |
+| Sample | TAA Production | TAA Secretion | Callus Formation |
+|--------|-----------|---------------|-----------------------|
+| SBC4 | ++ | High | Mid |
+| SBC10 | +++ | Low | Good |
+| SBC11 | - | High | Mid |
+| SBC23 | ++ | High | Good |
 
 ## Data flow for each analysis
 ```mermaid
 flowchart LR
-    R1[Raw reads] --> REF1[BTx623.fna\nreference genome]
-    R2[Raw reads] --> REF1
-    R3[Raw reads] --> REF1
-    R4[Raw reads] --> REF1
+    R1[Raw reads r0074] --> REF1[BTx623.fna\nreference genome]
+    R2[Raw reads r0066] --> REF1
+    R3[Raw reads r0078] --> REF1
+    R3.1[Raw reads r0078-2] --> REF1
+    R3.2[Raw reads r0075] --> REF1
+    R4[Raw reads r0076] --> REF1
 
     REF1 --> B4[SBC4.bam]
     REF1 --> B10[SBC10.bam]
@@ -50,6 +52,8 @@ flowchart LR
 ```
 
 ## Sequencing & data Quality
+-   Handled by `reads_preprocessing.smk` `visualize_depthfile` rule.
+-   Read depth plots saved in `resources/depth/` directory.
 
 ## Variant landscape
 
