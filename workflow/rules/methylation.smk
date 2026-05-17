@@ -31,7 +31,7 @@ rule modkit_pileup:
         bed = f"{WDIR}/resources/bedmethyl/{{sample}}.bed",
     log:
         snakemake = f"{LOG_DIR}/modkit_pileup/{{sample}}.{TIMESTAMP}.log",
-        modkit    = f"{WDIR}/logs/modkit/{{sample}}.log",
+        modkit    = f"{LOG_DIR}/modkit/{{sample}}.log",
     threads: 24
     shell:
         """
