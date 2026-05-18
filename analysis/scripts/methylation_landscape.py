@@ -28,7 +28,7 @@ BEDMETHYL_COLS = [
     "chrom", "start", "end", "name", "score", "strand",
     "thick_start", "thick_end", "color",
     "N_valid", "pct_mod", "N_mod", "N_canonical",
-    "N_nocall", "N_filtered", "N_diff", "N_delete",
+    "N_other_mod", "N_delete", "N_filtered", "N_diff", "N_nocall",
 ]
 
 CONTEXT_LABELS = {"m": "5mC", "h": "5hmC", "a": "6mA"}
