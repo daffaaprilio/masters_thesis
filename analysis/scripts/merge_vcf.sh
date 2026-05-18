@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-WDIR="$(cd "$(dirname "$0")/.." && pwd)"
+WDIR="$(cd "$(dirname "$0")/../.." && pwd)"
 
 IN_DIR="${WDIR}/results/vcf_processing"
 OUT_DIR="${WDIR}/analysis/data/vcf/merged"

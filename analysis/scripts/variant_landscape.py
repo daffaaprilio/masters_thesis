@@ -24,8 +24,8 @@ from io import StringIO
 from pathlib import Path
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-DATA_DIR = Path(__file__).parent / "data/vcf/annotated"
-OUT_DIR  = Path(__file__).parent / "01_variant_landscape/figures"
+DATA_DIR = Path(__file__).parent.parent / "data/vcf/annotated"
+OUT_DIR  = Path(__file__).parent.parent / "01_variant_landscape/figures"
 OUT_DIR.mkdir(exist_ok=True)
 
 SAMPLES = ["SBC4", "SBC10", "SBC11", "SBC23"]

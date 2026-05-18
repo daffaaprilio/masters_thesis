@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-WDIR="$(cd "$(dirname "$0")/.." && pwd)"
+WDIR="$(cd "$(dirname "$0")/../.." && pwd)"
 
 SNPEFF_DIR="/Users/daffa/local/lib/snpEff"
 SNPEFF_DB="Sorghum_bicolor"

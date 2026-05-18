@@ -14,19 +14,19 @@ Sorgoleone biosynthesis pathway key genes/enzymes, obtained from BLAST-ing gene 
 
 ## Comparative genomics analysis
 Technical steps
-1.  `03_merge_vcf.sh`: Merging VCF files for all samples, then filter variant sites to only include the following genes. <br>
+1.  `merge_vcf.sh`: Merging VCF files for all samples, then filter variant sites to only include the following genes. <br>
     ```shell
-    ./analysis/03_merge_vcf.sh # merges phased VCF from all 4 samples
+    ./docker/run.sh bash analysis/scripts/merge_vcf.sh
     ```
-2.  `01_annotate_vcf.sh`: Annotate (and rename) merged VCF (chromosome names have to be renamed beforehand, so that SnpEFF can correctly annotate them. Yes, SnpEFF database has different chromosome naming system.) <br>
+2.  `annotate_vcf.sh`: Annotate (and rename) merged VCF (chromosome names have to be renamed beforehand, so that SnpEFF can correctly annotate them. Yes, SnpEFF database has different chromosome naming system.) <br>
     ```shell
-    ./analysis/01_annotate_vcf.sh merged /Users/daffa/workspace/infobio/thesis/analysis/data/vcf/merged/merged.phased.vcf.gz
+    ./docker/run.sh bash analysis/scripts/annotate_vcf.sh merged analysis/data/vcf/merged/merged.phased.vcf.gz
     ```
-3.  `04_annot_vcf_to_tsv.py`: Parse VCF into TSV to explore in a notebook environment
+3.  `annot_vcf_to_tsv.py`: Parse VCF into TSV to explore in a notebook environment
     ```shell
-    python3 /Users/daffa/workspace/infobio/thesis/analysis/04_annot_vcf_to_tsv.py \
-    -v /Users/daffa/workspace/infobio/thesis/analysis/data/vcf/annotated/merged.annotated.vcf.gz \
-    -o /Users/daffa/workspace/infobio/thesis/analysis/data/tsv
+    ./docker/run.sh python3 analysis/scripts/annot_vcf_to_tsv.py \
+    -v analysis/data/vcf/annotated/merged.annotated.vcf.gz \
+    -o analysis/data/tsv
     ```
 4.  `sorgoleone/sorgoleone.ipynb`: Analyze in notebook: first, filter variant sites from sorgholeone genes only. <br>
     Group variant sites by [impact, i.e., MODERATE, LOW, MODIFIER, etc.](https://pcingola.github.io/SnpEff/snpeff/inputoutput/#eff-field-vcf-output-files)
@@ -49,7 +49,7 @@ Technical steps
 -   **Functional disruption of SbDES2 and predicted compensatory mechanism in SBC4.** <br>
     - Comparative genomic analysis revealed a critical structural variant in the SbDES2 gene (SORBI_3004G260600, gene ID: 8066368) within the SBC4 accession. Specifically, a single-nucleotide insertion of guanine at position 60,583,662 on chromosome 4 (Location (chr:bp): NC_012873.2:60,583,662) resulted in a frameshift mutation that is predicted to disrupt normal protein function (SnpEFF prediction). 
         - Further prediction, particularly to answer the question whether the mutation actually disrupts the gene's sorgoleone biosynthesis pathway function, is necessary. A good idea might be to check the predicted protein function (i.e., if the mutation happens at the critical domain that catalyzes the fatty acid desaturation function).
-    - Gene co-expression network analysis identified a functionally homologous gene (gene ID: 110435045) that exhibits similar expression patterns to SbDES2 (coexpression z-score: 16.4). Importantly, variant analysis of this homologous locus revealed no high-impact mutations (SnpEFF annotation), suggesting that the protein product remains structurally and functionally intact in SBC4.
+    - Gene co-expression network analysis identified a functionally homologous gene (gene ID: 110435045, blastp identity 89.38) that exhibits similar expression patterns to SbDES2 (coexpression z-score: 16.4). Importantly, variant analysis of this homologous locus revealed no high-impact mutations (SnpEFF annotation), suggesting that the protein product remains structurally and functionally intact in SBC4.
     - Further protein domain prediction, followed by an experimental validation will be necessary to confirm the predicted loss-of-function in SbDES2 (SORBI_3004G260600, gene ID: 8066368) and demonstrate functional compensation by its homolog (SORBI_3004G260800, gene ID: 110435045).
 -   **Gene coexpression calculation returns clusters of highly co-expressed homologous loci**
     - We hypothesized that the four identified key sorgoleone biosnynthesis pathway genes are highly co-expressed (add more proofs, partially its physical interaction in the cell (Maharjan et al. (2023) Interaction between sorgoleone biosynthesis enzymes section, last paragraph)).
@@ -66,4 +66,4 @@ Technical steps
         - 110436225 aka SORBI_3006G008000, blastp identity 97.86, coex z-score: 8.5, 5-pentadecatrienyl resorcinol O-methyltransferase-like
         - 8085153 aka SORBI_3007G074800, blastp identity 70, coex z-score: 8.5, 5-pentadecatrienyl resorcinol O-methyltransferase-like
     - A deletion was found in 110436225 (a heterozygous variant) in SBC11 (NC_012875.2:1,205,067-1,205,117), causing a frameshift mutation
-    - Insertion of a C base in NC_012876.2:8,584,480 was observed in SBC4 and SBC10. This insertion happens in the splice acceptor region and annotated as highly impactful.
+    - Insertion of a C base in NC_012876.2:8,584,480 was observed in SBC4 and SBC10. This insertion happens in the splice acceptor region and annotated as highly impactful. d

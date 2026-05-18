@@ -20,9 +20,9 @@ from pathlib import Path
 # ── Config ─────────────────────────────────────────────────────────────────────
 
 SAMPLES  = ["SBC4", "SBC10", "SBC11", "SBC23"]
-RAW_DIR  = Path(__file__).parent.parent / "results/vcf"
-ANN_DIR  = Path(__file__).parent / "data/vcf/annotated"
-OUT_DIR  = Path(__file__).parent / "01_variant_landscape/figures"
+RAW_DIR  = Path(__file__).parent.parent.parent / "results/vcf"
+ANN_DIR  = Path(__file__).parent.parent / "data/vcf/annotated"
+OUT_DIR  = Path(__file__).parent.parent / "01_variant_landscape/figures"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 MAX_N = 80_000   # reservoir-sample cap per VCF

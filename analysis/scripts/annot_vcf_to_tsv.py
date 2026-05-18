@@ -34,7 +34,7 @@ def main():
 
     stem = Path(args.vcf).name.split(".vcf")[0]
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_dir = Path(__file__).parent / "logs"
+    log_dir = Path(__file__).parent.parent / "logs"
     log_dir.mkdir(parents=True, exist_ok=True)
     log_file = log_dir / f"parse_vcf_to_tsv.{stem}.{timestamp}.log"
 
