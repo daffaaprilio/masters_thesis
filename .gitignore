@@ -17,9 +17,6 @@ analysis/01_variant_landscape/figures/
 .venv/
 .snakemake/
 
-mock*
-align_bam_headers
-
 *.pdf
 *.xlsx
 *.DS_Store
