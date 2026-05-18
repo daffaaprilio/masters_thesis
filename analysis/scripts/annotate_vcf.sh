@@ -2,7 +2,7 @@
 
 WDIR="$(cd "$(dirname "$0")/../.." && pwd)"
 
-SNPEFF_DIR="/Users/daffa/local/lib/snpEff"
+SNPEFF_DIR="${WDIR}/resources/snpeff"
 SNPEFF_DB="Sorghum_bicolor"
 RENAME_MAP="${WDIR}/workflow/scripts/synonyms.txt"
 

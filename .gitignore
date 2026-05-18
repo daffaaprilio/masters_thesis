@@ -1,21 +1,21 @@
 .claude
-rsync*_.sh
+.snakemake/
 
 resources/
 results/
 discussions/
+
 trash/
 backup/
 dag/
 
 workflow/logs/
-analysis/data/
 analysis/logs/
-analysis/00_data_quality/figures/
-analysis/01_variant_landscape/figures/
 
-.venv/
-.snakemake/
+analysis/data/
+analysis/**/figures/
+
+
 
 *.pdf
 *.xlsx
