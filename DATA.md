@@ -6,6 +6,12 @@ All tools run inside the `thesis-tools` Docker image. Build it once before runni
 ./docker/build.sh
 ```
 
+Use `rsync` to transfer file between devices (i.e., MacStudio and lab server)
+```shell
+# operating in MacStudio
+rsync -avn daffa@matsu:/home/daffa/Work/2026/thesis/resources/bedmethyl ./resources/ # copying the whole bedmethyl/ directory from matsu
+```
+
 Use `docker/snakemake.sh` for Snakemake targets and `docker/run.sh` for one-off commands:
 
 ```shell
