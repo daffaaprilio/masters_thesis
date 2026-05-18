@@ -109,10 +109,9 @@ Run on a subset of samples:
 ### Link Clair3 output to the VCF directory
 
 ```shell
-cd results/vcf
 for sample in SBC4 SBC10 SBC11 SBC23; do
-    ln -s ../variant_calling/${sample}/merge_output.vcf.gz ${sample}.vcf.gz
-    bcftools index ${sample}.vcf.gz
+    ln -s results/variant_calling/${sample}/merge_output.vcf.gz results/vcf/${sample}.vcf.gz
+    ./docker/run.sh bcftools index results/vcf/${sample}.vcf.gz
 done
 ```
 

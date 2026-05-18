@@ -1,4 +1,4 @@
-#!/Users/daffa/miniconda3/envs/sbi/bin/python3
+#!/usr/bin/env python3
 
 import cyvcf2
 import pandas as pd

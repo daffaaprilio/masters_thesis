@@ -1,4 +1,4 @@
-#!/Users/daffa/miniconda3/envs/sbi/bin/python
+#!/usr/bin/env python3
 """
 Variant landscape EDA from SnpEff per-sample stats CSVs.
 

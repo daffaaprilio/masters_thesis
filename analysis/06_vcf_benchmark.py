@@ -1,4 +1,4 @@
-#!/Users/daffa/miniconda3/envs/sbi/bin/python
+#!/usr/bin/env python3
 """
 VCF Quality Benchmark: QUAL and DP distributions.
 
