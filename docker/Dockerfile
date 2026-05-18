@@ -2,7 +2,7 @@
 FROM --platform=linux/amd64 docker.io/hkubal/clair3:latest AS clair3-source
 
 # Stage 2: main thesis-tools image
-FROM --platform=linux/amd64 condaforge/miniforge3:latest
+FROM --platform=linux/amd64 docker.io/condaforge/miniforge3:latest
 
 LABEL org.opencontainers.image.title="thesis-tools"
 LABEL org.opencontainers.image.description="ONT sorghum bioinformatics pipeline (minimap2, samtools, bcftools, modkit, whatshap, snpeff, bedtools, clair3, snakemake)"
