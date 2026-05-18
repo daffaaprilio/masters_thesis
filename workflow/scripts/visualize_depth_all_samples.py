@@ -63,8 +63,8 @@ def main():
                 continue
 
             binned = bin_chrom(chrom_df, BIN_SIZE)
-            ax.scatter(binned["bin"] / 1_000_000, binned["depth"],
-                       s=1.5, alpha=0.45, color=color, label=name)
+            ax.plot(binned["bin"] / 1_000_000, binned["depth"],
+                    linewidth=0.9, alpha=0.75, color=color, label=name)
             ax.axhline(chrom_df["depth"].mean(),
                        color=color, linewidth=0.8, linestyle="--", alpha=0.8)
 
