@@ -1,0 +1,22 @@
+# Exclude large data directories from the Docker build context
+resources/
+results/
+trash/
+dag/
+analysis/data/
+.git/
+workflow/logs/
+workflow/.snakemake/
+**/*.bam
+**/*.bai
+**/*.vcf
+**/*.vcf.gz
+**/*.bed
+**/*.fna
+**/*.gff
+**/*.gff.gz
+**/*.depth
+**/*.pkl
+**/*.png
+**/*.svg
+**/*.pdf

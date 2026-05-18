@@ -1,0 +1,34 @@
+name: base
+channels:
+  - conda-forge
+  - bioconda
+  - nanoporetech
+  - defaults
+dependencies:
+  - python=3.11
+  # Alignment
+  - minimap2=2.30
+  # BAM/VCF toolkit (htslib provides bgzip + tabix)
+  - samtools=1.21
+  - bcftools=1.21
+  - htslib=1.21
+  # Genomic intervals
+  - bedtools=2.31.1
+  # Haplotype phasing
+  - whatshap=2.8
+  # ONT methylation
+  - modkit=0.2.6
+  # Variant annotation (Java-based; bioconda wraps the JAR)
+  - snpeff
+  # Variant calling (bioconda provides run_clair3.sh; models come from Docker multi-stage build)
+  - clair3
+  # Workflow engine
+  - snakemake=9.16.3
+  # Python analysis stack
+  - cyvcf2
+  - pandas
+  - matplotlib
+  - seaborn
+  - numpy
+  - pip:
+      - matplotlib-venn==1.1.2
