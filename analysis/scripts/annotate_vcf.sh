@@ -6,12 +6,11 @@ SNPEFF_DIR="${WDIR}/resources/snpeff"
 SNPEFF_DB="Sorghum_bicolor"
 RENAME_MAP="${WDIR}/workflow/scripts/synonyms.txt"
 
-OUT_DIR="${WDIR}/analysis/data/vcf/annotated"
-
-mkdir -p "${OUT_DIR}" "${WDIR}/analysis/logs"
-
 SAMPLE=$1
 INPUT_VCF=$2
+OUT_DIR="${3:-${WDIR}/analysis/data/vcf/annotated}"
+
+mkdir -p "${OUT_DIR}" "${WDIR}/analysis/logs"
 LOG="${WDIR}/analysis/logs/annotate.${SAMPLE}.$(date +%Y%m%d_%H%M%S).log"
 
 (

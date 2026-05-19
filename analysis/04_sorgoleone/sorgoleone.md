@@ -14,21 +14,22 @@ Sorgoleone biosynthesis pathway key genes/enzymes, obtained from BLAST-ing gene 
 
 ## Comparative genomics analysis
 Technical steps
-1.  `merge_vcf.sh`: Merging VCF files for all samples, then filter variant sites to only include the following genes. <br>
+1.  `snpeff_prep.sh`: Run the script to prepare the SnpEff database first <br>
+2.  `merge_vcf.sh`: Merging VCF files for all samples, then filter variant sites to only include the following genes. <br>
     ```shell
     ./docker/run.sh bash analysis/scripts/merge_vcf.sh
     ```
-2.  `annotate_vcf.sh`: Annotate (and rename) merged VCF (chromosome names have to be renamed beforehand, so that SnpEFF can correctly annotate them. Yes, SnpEFF database has different chromosome naming system.) <br>
+3.  `annotate_vcf.sh`: Annotate (and rename) merged VCF (chromosome names have to be renamed beforehand, so that SnpEFF can correctly annotate them. Yes, SnpEFF database has different chromosome naming system.) <br>
     ```shell
     ./docker/run.sh bash analysis/scripts/annotate_vcf.sh merged analysis/data/vcf/merged/merged.phased.vcf.gz analysis/data/vcf/annotated
     ```
-3.  `annot_vcf_to_tsv.py`: Parse VCF into TSV to explore in a notebook environment
+4.  `annot_vcf_to_tsv.py`: Parse VCF into TSV to explore in a notebook environment
     ```shell
     ./docker/run.sh python3 analysis/scripts/annot_vcf_to_tsv.py \
     -v analysis/data/vcf/annotated/merged.annotated.vcf.gz \
     -o analysis/data/tsv
     ```
-4.  `sorgoleone/sorgoleone.ipynb`: Analyze in notebook: first, filter variant sites from sorgholeone genes only. <br>
+5.  `sorgoleone/sorgoleone.ipynb`: Analyze in notebook: first, filter variant sites from sorgholeone genes only. <br>
     Group variant sites by [impact, i.e., MODERATE, LOW, MODIFIER, etc.](https://pcingola.github.io/SnpEff/snpeff/inputoutput/#eff-field-vcf-output-files)
 
 ## Comparative epigenomics analysis
