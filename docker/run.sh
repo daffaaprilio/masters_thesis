@@ -14,7 +14,7 @@ set -euo pipefail
 
 THESIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SNPEFF_DIR="${SNPEFF_DIR:-${THESIS_DIR}/resources/snpeff}"
-IMAGE="${THESIS_IMAGE:-thesis-tools:latest}"
+IMAGE="${THESIS_IMAGE:-localhost/thesis-tools:latest}"
 
 exec docker run --rm \
     --platform linux/amd64 \

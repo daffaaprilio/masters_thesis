@@ -19,7 +19,7 @@ set -euo pipefail
 
 THESIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SNPEFF_DIR="${SNPEFF_DIR:-/Users/daffa/local/lib/snpEff}"
-IMAGE="${THESIS_IMAGE:-thesis-tools:latest}"
+IMAGE="${THESIS_IMAGE:-localhost/thesis-tools:latest}"
 CORES="${CORES:-8}"
 
 exec docker run --rm \

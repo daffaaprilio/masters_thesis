@@ -8,7 +8,7 @@ THESIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 docker build \
     --platform linux/amd64 \
     -f "${THESIS_DIR}/docker/Dockerfile" \
-    -t thesis-tools:latest \
+    -t localhost/thesis-tools:latest \
     "${THESIS_DIR}"
 
-echo "Built thesis-tools:latest"
+echo "Built localhost/thesis-tools:latest"
