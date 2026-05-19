@@ -20,7 +20,7 @@ Technical steps
     ```
 2.  `annotate_vcf.sh`: Annotate (and rename) merged VCF (chromosome names have to be renamed beforehand, so that SnpEFF can correctly annotate them. Yes, SnpEFF database has different chromosome naming system.) <br>
     ```shell
-    ./docker/run.sh bash analysis/scripts/annotate_vcf.sh merged analysis/data/vcf/merged/merged.phased.vcf.gz
+    ./docker/run.sh bash analysis/scripts/annotate_vcf.sh merged analysis/data/vcf/merged/merged.phased.vcf.gz analysis/data/vcf/annotated
     ```
 3.  `annot_vcf_to_tsv.py`: Parse VCF into TSV to explore in a notebook environment
     ```shell
@@ -33,7 +33,17 @@ Technical steps
 
 ## Comparative epigenomics analysis
 Technical steps
-1.  ... DMR analysis steps ...
+1.  `filter_bedmethyl_sorgoleone.py`: Filter bedMethyl files to regions corresponding to the 4 sorgoleone pathway genes (SbDES2, SbDES3, SbOMT3, SbCYP71AM1) and their 7 co-expressed homologs, each extended by a 2000 bp upstream flank (strand-aware) to capture regulatory regions, i.e., promoter. Gene coordinates are extracted from the GFF3 annotation, then `bedtools intersect` is applied to each sample's filtered bedMethyl file. <br>
+    ```shell
+    python analysis/scripts/filter_bedmethyl_sorgoleone.py \
+        --gff resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff \
+        --bedmethyl resources/bedmethyl/SBC4.filtered.bed \
+                    resources/bedmethyl/SBC10.filtered.bed \
+                    resources/bedmethyl/SBC11.filtered.bed \
+                    resources/bedmethyl/SBC23.filtered.bed \
+        --outdir analysis/data/sorgoleone_bedmethyl
+    ```
+2.  Initial check on the methylation status
 
 ## Gene co-expression analysis
 1.  Listing genes (ready to copy to ATTED-II coexpression network illustrator)

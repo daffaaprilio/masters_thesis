@@ -69,14 +69,25 @@ def extract_gene_regions(gff_path, loc_names, flank=0):
     selected = genes[genes["loc_name"].isin(loc_names)].copy()
     selected["label"] = selected["loc_name"].map(loc_names)
 
-    # GFF3 is 1-based inclusive; BED is 0-based half-open
-    selected["bed_start"] = (selected["start"] - 1 - flank).clip(lower=0).astype(int)
-    selected["bed_end"] = (selected["end"] + flank).astype(int)
-
     missing = set(loc_names) - set(selected["loc_name"])
     if missing:
         print(f"  WARNING: {len(missing)} gene(s) not found in GFF3: {', '.join(sorted(missing))}")
 
+    def apply_flank(row, flank):
+        start = row["start"] - 1  # GFF3 → BED 0-based
+        end   = row["end"]
+        if row["strand"] == "+":
+            bed_start = max(0, start - flank)   # upstream = lower coord
+            bed_end   = end                      # no downstream flank
+        else:
+            bed_start = start                    # no downstream flank
+            bed_end   = end + flank              # upstream = higher coord
+        return pd.Series({"bed_start": int(bed_start), "bed_end": int(bed_end)})
+
+    selected[["bed_start", "bed_end"]] = selected.apply(
+        apply_flank, flank=flank, axis=1
+    )
+    
     return selected[["seqname", "bed_start", "bed_end", "label", "loc_name"]]
 
 
