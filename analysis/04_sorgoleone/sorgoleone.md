@@ -72,7 +72,10 @@ Technical steps
         --outdir analysis/data/sorgoleone_bedmethyl
     ```
 
-2.  `modkit summary resources/trim_bam/{library}.bam`: Intial check to confirm modification type (5mC, 4mC, 6mA)  <br>
+2.  `modkit_summary_samples.sh`: Run `modkit summary` on each per-sample BAM in `resources/align_bam_sample/` to confirm modification types present (5mC, 6mA) and collect per-base methylation statistics. Outputs a timestamped TSV (`analysis/data/modkit_summary/modkit_summary_*.tsv`) with columns: sample, base, strand, n_called, n_mod, pct_modified, n_canonical, n_other, n_delete, n_fail, n_diff, n_nocall. <br>
+    ```shell
+    ./docker/run.sh bash analysis/scripts/modkit_summary_samples.sh
+    ```
 
 3.  `validate_bedmethyl_sorgoleone.py`: Another check on the methylation status. Check saved in `analysis/data/sorgoleone_bedmethyl/sorgoleone_bedmethyl_validation.tsv` <br>
     ```shell
