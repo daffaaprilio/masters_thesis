@@ -10,18 +10,33 @@ Output: analysis/02_methylation_landscape/figures/
 """
 
 import sys
+import logging
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from datetime import datetime
 from pathlib import Path
 from pyfaidx import Fasta
 
 # ── Config ──────────────────────────────────────────────────────────────────
 DATA_DIR = Path(__file__).parent.parent.parent / "resources/bedmethyl"
 OUT_DIR  = Path(__file__).parent.parent / "02_methylation_landscape/figures"
+LOG_DIR  = Path(__file__).parent.parent / "logs"
 REF_FA   = Path(__file__).parent.parent.parent / "resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+_log_path  = LOG_DIR / f"methylation_landscape_{_timestamp}.log"
+_root = logging.getLogger()
+_root.setLevel(logging.INFO)
+logging.getLogger().addHandler(logging.StreamHandler())
+logging.getLogger().handlers[0].setFormatter(logging.Formatter("%(message)s"))
+_fh = logging.FileHandler(_log_path)
+_fh.setFormatter(logging.Formatter("%(asctime)s  %(levelname)-8s  %(message)s", datefmt="%Y-%m-%d %H:%M:%S"))
+_root.addHandler(_fh)
+logging.info(f"Log: {_log_path}")
 
 SAMPLES  = ["SBC4", "SBC10", "SBC11", "SBC23"]
 MIN_COV  = 10   # minimum N_valid reads per cytosine position
@@ -58,7 +73,7 @@ def load_bedmethyl(sample: str) -> pd.DataFrame:
             df = df[df["N_valid"] >= MIN_COV].copy()
             df["sample"] = sample
             return df
-    print(f"  [warn] {sample}: no bedMethyl file in {DATA_DIR}", file=sys.stderr)
+    logging.warning(f"{sample}: no bedMethyl file in {DATA_DIR}")
     return pd.DataFrame()
 
 
@@ -66,10 +81,10 @@ data = {s: load_bedmethyl(s) for s in SAMPLES}
 available = {s: df for s, df in data.items() if not df.empty}
 
 if not available:
-    print(
-        f"No bedMethyl data found under {DATA_DIR}.\n"
-        "Run the methylation calling pipeline first:\n"
-        "  ./docker/snakemake.sh methylation_all --cores 24"
+    logging.error(
+        f"No bedMethyl data found under {DATA_DIR}. "
+        "Run the methylation calling pipeline first: "
+        "./docker/snakemake.sh methylation_all --cores 24"
     )
     sys.exit(0)
 
@@ -122,7 +137,7 @@ def save(fig: plt.Figure, name: str) -> None:
     path = OUT_DIR / name
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
-    print(name)
+    logging.info(f"Saved {name}")
 
 
 # ── fig01 – methylation context composition per sample ───────────────────────
@@ -175,12 +190,12 @@ save(fig, "fig01_context_composition.png")
 # Violin plot of methylation frequency (0–1) per context per sample.
 
 if not REF_FA.exists():
-    print(f"  [warn] reference not found at {REF_FA}; skipping fig02", file=sys.stderr)
+    logging.warning(f"reference not found at {REF_FA}; skipping fig02")
 else:
     mc = combined[combined["name"] == "m"].copy()
     mc["freq"] = mc["pct_mod"] / 100.0
 
-    print("  assigning sequence contexts from reference …", file=sys.stderr)
+    logging.info("assigning sequence contexts from reference …")
     fa = Fasta(str(REF_FA), as_raw=True, sequence_always_upper=True)
     mc["seq_ctx"] = assign_seq_context(mc, fa)
 
@@ -297,4 +312,4 @@ else:
         fig.text(0.5, -0.01, cov_note, ha="center", fontsize=7.5, color="#888888")
         save(fig, f"fig03_chrplot_{ctx}.png")
 
-print(f"\nAll figures saved → {OUT_DIR}/")
+logging.info(f"All figures saved → {OUT_DIR}/")

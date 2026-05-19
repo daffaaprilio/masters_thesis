@@ -123,7 +123,7 @@ def main():
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_path = outdir / f"filter_bedmethyl_sorgoleone_{timestamp}.log"
+    log_path = Path(__file__).parent.parent / "logs" / f"filter_bedmethyl_sorgoleone_{timestamp}.log"
     setup_logging(log_path)
 
     logging.info(f"Log: {log_path}")

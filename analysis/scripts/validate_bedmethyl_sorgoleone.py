@@ -113,7 +113,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--indir", default="analysis/data/sorgoleone_bedmethyl",
                         help="Directory containing .sorgoleone.bed files")
-    parser.add_argument("--outdir", default="analysis/qc",
+    parser.add_argument("--outdir", default="analysis/data/sorgoleone_bedmethyl",
                         help="Output directory for the validation TSV and log")
     parser.add_argument("--gff", default=None,
                         help="GFF3 annotation file for per-locus site counts (Check 2)")
@@ -124,7 +124,7 @@ def main():
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_path = outdir / f"validate_bedmethyl_sorgoleone_{timestamp}.log"
+    log_path = Path(__file__).parent.parent / "logs" / f"validate_bedmethyl_sorgoleone_{timestamp}.log"
     setup_logging(log_path)
 
     logging.info(f"Log: {log_path}")

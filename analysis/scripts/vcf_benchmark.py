@@ -10,11 +10,13 @@ Output (analysis/01_variant_landscape/figures/):
 """
 
 import subprocess
+import logging
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.lines as mlines
 import seaborn as sns
+from datetime import datetime
 from pathlib import Path
 
 # ── Config ─────────────────────────────────────────────────────────────────────
@@ -23,7 +25,21 @@ SAMPLES  = ["SBC4", "SBC10", "SBC11", "SBC23"]
 RAW_DIR  = Path(__file__).parent.parent.parent / "results/vcf"
 ANN_DIR  = Path(__file__).parent.parent / "data/vcf/annotated"
 OUT_DIR  = Path(__file__).parent.parent / "01_variant_landscape/figures"
+LOG_DIR  = Path(__file__).parent.parent / "logs"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+_log_path  = LOG_DIR / f"vcf_benchmark_{_timestamp}.log"
+_root = logging.getLogger()
+_root.setLevel(logging.INFO)
+_ch = logging.StreamHandler()
+_ch.setFormatter(logging.Formatter("%(message)s"))
+_root.addHandler(_ch)
+_fh = logging.FileHandler(_log_path)
+_fh.setFormatter(logging.Formatter("%(asctime)s  %(levelname)-8s  %(message)s", datefmt="%Y-%m-%d %H:%M:%S"))
+_root.addHandler(_fh)
+logging.info(f"Log: {_log_path}")
 
 MAX_N = 80_000   # reservoir-sample cap per VCF
 
@@ -186,4 +202,4 @@ ax_d.legend(handles=handles_d[:2] + [dp_min_line, dp_max_line],
 out = OUT_DIR / "fig0_vcf_benchmark.png"
 fig.savefig(out, dpi=150, bbox_inches="tight")
 plt.close(fig)
-print(f"Saved → {out}")
+logging.info(f"Saved → {out}")

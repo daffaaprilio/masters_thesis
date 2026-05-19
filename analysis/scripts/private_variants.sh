@@ -3,6 +3,10 @@ set -euo pipefail
 
 VCF_DIR="results/vcf_processing"
 OUT_DIR="analysis/data/vcf/private_variants"
+LOG_DIR="analysis/logs"
+mkdir -p "${LOG_DIR}"
+LOG="${LOG_DIR}/private_variants.$(date +%Y%m%d_%H%M%S).log"
+exec > >(tee -a "${LOG}") 2>&1
 
 SAMPLES=(SBC4 SBC10 SBC11 SBC23)
 VCFS=()

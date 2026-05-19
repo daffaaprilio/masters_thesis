@@ -12,13 +12,15 @@ suppressPackageStartupMessages({
 # Paths
 # --------------------------------------------------------------------------- #
 DSS_DIR <- "analysis/data/sorgoleone_DSS"
-OUT_DIR <- "analysis/data/sorgoleone_DMR"
-dir.create(OUT_DIR, recursive = TRUE, showWarnings = FALSE)
+OUT_DIR  <- "analysis/data/sorgoleone_DMR"
+LOG_DIR  <- "analysis/logs"
+dir.create(OUT_DIR,  recursive = TRUE, showWarnings = FALSE)
+dir.create(LOG_DIR,  recursive = TRUE, showWarnings = FALSE)
 
 # --------------------------------------------------------------------------- #
 # Logging — tee all cat() output to a timestamped log file
 # --------------------------------------------------------------------------- #
-log_path <- file.path(OUT_DIR, format(Sys.time(), "run_dss_dmr_%Y%m%d_%H%M%S.log"))
+log_path <- file.path(LOG_DIR, format(Sys.time(), "run_dss_dmr_%Y%m%d_%H%M%S.log"))
 log_con  <- file(log_path, open = "wt")
 sink(log_con, split = TRUE)
 on.exit({ sink(); close(log_con) }, add = TRUE)

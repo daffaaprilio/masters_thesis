@@ -15,18 +15,34 @@ Outputs (analysis/01_variant_landscape/figures/):
 """
 
 import re
+import logging
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 import seaborn as sns
+from datetime import datetime
 from io import StringIO
 from pathlib import Path
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 DATA_DIR = Path(__file__).parent.parent / "data/vcf/annotated"
 OUT_DIR  = Path(__file__).parent.parent / "01_variant_landscape/figures"
+LOG_DIR  = Path(__file__).parent.parent / "logs"
 OUT_DIR.mkdir(exist_ok=True)
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+
+_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+_log_path  = LOG_DIR / f"variant_landscape_{_timestamp}.log"
+_root = logging.getLogger()
+_root.setLevel(logging.INFO)
+_ch = logging.StreamHandler()
+_ch.setFormatter(logging.Formatter("%(message)s"))
+_root.addHandler(_ch)
+_fh = logging.FileHandler(_log_path)
+_fh.setFormatter(logging.Formatter("%(asctime)s  %(levelname)-8s  %(message)s", datefmt="%Y-%m-%d %H:%M:%S"))
+_root.addHandler(_fh)
+logging.info(f"Log: {_log_path}")
 
 SAMPLES = ["SBC4", "SBC10", "SBC11", "SBC23"]
 
@@ -197,7 +213,7 @@ def save(fig: plt.Figure, name: str) -> None:
     path = OUT_DIR / name
     fig.savefig(path, dpi=150, bbox_inches="tight")
     plt.close(fig)
-    print(name)
+    logging.info(f"Saved {name}")
 
 
 # ── Colour palettes ────────────────────────────────────────────────────────────
@@ -424,4 +440,4 @@ for idx, s in enumerate(SAMPLES, start=9):
     plt.tight_layout()
     save(fig, f"fig{idx:02d}_base_changes_{s}.png")
 
-print(f"\nAll figures saved -> {OUT_DIR}/")
+logging.info(f"All figures saved -> {OUT_DIR}/")
