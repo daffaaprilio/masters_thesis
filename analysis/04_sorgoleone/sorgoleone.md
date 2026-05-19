@@ -44,7 +44,13 @@ Technical steps
                     resources/bedmethyl/SBC23.filtered.bed \
         --outdir analysis/data/sorgoleone_bedmethyl
     ```
-2.  Initial check on the methylation status
+2.  Initial check on the methylation status. Check saved in `analysis/data/sorgoleone_bedmethyl/sorgoleone_bedmethyl_validation.tsv` <br>
+3.  Conversion of sorgoleone bedmethyl into DSS <br>
+4.  `run_dss_dmr.R`: Run pairwise DSS DMR analysis across all six accession pairs (SBC04 vs SBC10, SBC04 vs SBC11, SBC04 vs SBC23, SBC10 vs SBC11, SBC10 vs SBC23, SBC11 vs SBC23). Each pair is tested with smoothed DML testing (`smoothing.span=500`) followed by DMR calling (`delta=0.2`, `p<0.01`, `minlen=50`, `minCG=3`). Analysis is exploratory (n=1 per group, no replicates). Outputs one DMR and one DML TSV per pair, plus a combined DMR table and summary. <br>
+    ```shell
+    Rscript analysis/scripts/run_dss_dmr.R
+    ```
+
 
 ## Gene co-expression analysis
 1.  Listing genes (ready to copy to ATTED-II coexpression network illustrator)

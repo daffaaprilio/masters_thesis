@@ -4,20 +4,22 @@ Filter bedMethyl files to regions corresponding to sorgoleone
 biosynthesis pathway genes and their co-expressed homologs.
 
 Regions are taken from the GFF3 annotation by gene ID, with an optional
-upstream/downstream flank. bedtools intersect is used for efficient
+upstream flank (strand-aware). bedtools intersect is used for efficient
 filtering of the large bedMethyl files.
 
 Usage:
     python filter_bedmethyl_sorgoleone.py \
         --gff resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff \
-        --bedmethyl resources/bedmethyl/SBC4.filtered.bed resources/bedmethyl/SBC10.filtered.bed ... \
-        --outdir analysis/data/bedmethyl_sorgoleone \
+        --bedmethyl resources/bedmethyl/SBC4.filtered.bed ... \
+        --outdir analysis/data/sorgoleone_bedmethyl \
         [--flank 2000]
 """
 
 import argparse
+import logging
 import subprocess
 import tempfile
+from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
@@ -27,7 +29,6 @@ import pandas as pd
 # Source: analysis/04_sorgoleone/sorgoleone.md
 # --------------------------------------------------------------------------- #
 
-# Gene IDs (numeric) and their labels
 PATHWAY_GENES = {
     8066368: "SbDES2",
     8079957: "SbDES3",
@@ -51,6 +52,20 @@ LOC_NAMES = {f"LOC{gid}": label for gid, label in ALL_GENES.items()}
 GFF3_COLS = ["seqname", "source", "feature", "start", "end", "score", "strand", "frame", "attributes"]
 
 
+def setup_logging(log_path):
+    """Configure root logger to write to console (clean) and log file (timestamped)."""
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    root = logging.getLogger()
+    root.setLevel(logging.INFO)
+    ch = logging.StreamHandler()
+    ch.setFormatter(logging.Formatter("%(message)s"))
+    fh = logging.FileHandler(log_path)
+    fh.setFormatter(logging.Formatter("%(asctime)s  %(levelname)-8s  %(message)s",
+                                      datefmt="%Y-%m-%d %H:%M:%S"))
+    root.addHandler(ch)
+    root.addHandler(fh)
+
+
 def parse_gff_attribute(attrs, key):
     for field in attrs.split(";"):
         if field.startswith(key + "="):
@@ -60,7 +75,7 @@ def parse_gff_attribute(attrs, key):
 
 def extract_gene_regions(gff_path, loc_names, flank=0):
     """Return a BED-format DataFrame for the requested LOC gene names."""
-    print(f"Reading GFF3: {gff_path}")
+    logging.info(f"Reading GFF3: {gff_path}")
     gff = pd.read_csv(gff_path, sep="\t", comment="#", header=None, names=GFF3_COLS)
 
     genes = gff[gff["feature"] == "gene"].copy()
@@ -71,7 +86,7 @@ def extract_gene_regions(gff_path, loc_names, flank=0):
 
     missing = set(loc_names) - set(selected["loc_name"])
     if missing:
-        print(f"  WARNING: {len(missing)} gene(s) not found in GFF3: {', '.join(sorted(missing))}")
+        logging.warning(f"{len(missing)} gene(s) not found in GFF3: {', '.join(sorted(missing))}")
 
     def apply_flank(row, flank):
         start = row["start"] - 1  # GFF3 → BED 0-based
@@ -84,10 +99,8 @@ def extract_gene_regions(gff_path, loc_names, flank=0):
             bed_end   = end + flank              # upstream = higher coord
         return pd.Series({"bed_start": int(bed_start), "bed_end": int(bed_end)})
 
-    selected[["bed_start", "bed_end"]] = selected.apply(
-        apply_flank, flank=flank, axis=1
-    )
-    
+    selected[["bed_start", "bed_end"]] = selected.apply(apply_flank, flank=flank, axis=1)
+
     return selected[["seqname", "bed_start", "bed_end", "label", "loc_name"]]
 
 
@@ -104,32 +117,40 @@ def main():
     parser.add_argument("--bedmethyl", nargs="+", required=True, help="bedMethyl file(s) to filter")
     parser.add_argument("--outdir", required=True, help="Output directory for filtered files")
     parser.add_argument("--flank", type=int, default=2000,
-                        help="Upstream/downstream flank added to each gene region in bp (default: 2000)")
+                        help="Upstream flank added to each gene region in bp (default: 2000)")
     args = parser.parse_args()
+
+    outdir = Path(args.outdir)
+    outdir.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_path = outdir / f"filter_bedmethyl_sorgoleone_{timestamp}.log"
+    setup_logging(log_path)
+
+    logging.info(f"Log: {log_path}")
+    logging.info(f"GFF: {args.gff}")
+    logging.info(f"Flank: {args.flank} bp")
+    logging.info(f"Samples: {len(args.bedmethyl)}")
 
     regions = extract_gene_regions(args.gff, LOC_NAMES, flank=args.flank)
 
-    print(f"\nFound {len(regions)}/{len(LOC_NAMES)} gene regions (flank={args.flank} bp):")
-    print(regions.to_string(index=False))
-    print()
+    logging.info(f"\nFound {len(regions)}/{len(LOC_NAMES)} gene regions (flank={args.flank} bp):")
+    logging.info(regions.to_string(index=False))
 
     with tempfile.NamedTemporaryFile(suffix=".bed", mode="w", delete=False) as tmp:
         regions[["seqname", "bed_start", "bed_end"]].to_csv(tmp, sep="\t", header=False, index=False)
         regions_bed_path = Path(tmp.name)
 
-    outdir = Path(args.outdir)
     for raw_path in args.bedmethyl:
         path = Path(raw_path)
-        # Derive a clean sample name: SBC4.filtered.bed -> SBC4
         sample = path.name.split(".")[0]
         output_path = outdir / f"{sample}.sorgoleone.bed"
-        print(f"Filtering {path.name} -> {output_path.name} ...")
+        logging.info(f"Filtering {path.name} -> {output_path.name} ...")
         filter_bedmethyl(path, regions_bed_path, output_path)
         n_lines = int(subprocess.check_output(["wc", "-l", str(output_path)]).split()[0])
-        print(f"  {n_lines:,} methylation sites retained")
+        logging.info(f"  {n_lines:,} methylation sites retained")
 
     regions_bed_path.unlink()
-    print("\nDone.")
+    logging.info("\nDone.")
 
 
 if __name__ == "__main__":

@@ -5,14 +5,16 @@ Validation script for filtered bedMethyl files from sorgoleone loci.
 Runs 7 QC checks and writes a summary TSV to analysis/qc/.
 
 Usage:
-    python analysis/scripts/validate_bedmethyl_sorgoleone.py \
-        [--indir analysis/data/bedmethyl_sorgoleone] \
+    python analysis/scripts/validate_sorgoleone_bedmethyl.py \
+        [--indir analysis/data/sorgoleone_bedmethyl] \
         [--outdir analysis/qc] \
         [--gff resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff]
 """
 
 import argparse
+import logging
 import sys
+from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
@@ -45,14 +47,28 @@ LOC_LABELS = {
 WARNINGS = []
 
 
+def setup_logging(log_path):
+    """Configure root logger to write to console (clean) and log file (timestamped)."""
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    root = logging.getLogger()
+    root.setLevel(logging.INFO)
+    ch = logging.StreamHandler()
+    ch.setFormatter(logging.Formatter("%(message)s"))
+    fh = logging.FileHandler(log_path)
+    fh.setFormatter(logging.Formatter("%(asctime)s  %(levelname)-8s  %(message)s",
+                                      datefmt="%Y-%m-%d %H:%M:%S"))
+    root.addHandler(ch)
+    root.addHandler(fh)
+
+
 def flag(msg):
     WARNINGS.append(msg)
-    print(f"  *** WARNING: {msg}")
+    logging.warning(f"*** {msg}")
 
 
 def section(title):
     bar = "=" * 62
-    print(f"\n{bar}\n  {title}\n{bar}")
+    logging.info(f"\n{bar}\n  {title}\n{bar}")
 
 
 def parse_gff_attribute(attrs, key):
@@ -95,26 +111,33 @@ def load_sample(path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--indir", default="analysis/data/bedmethyl_sorgoleone",
+    parser.add_argument("--indir", default="analysis/data/sorgoleone_bedmethyl",
                         help="Directory containing .sorgoleone.bed files")
     parser.add_argument("--outdir", default="analysis/qc",
-                        help="Output directory for the validation TSV")
+                        help="Output directory for the validation TSV and log")
     parser.add_argument("--gff", default=None,
                         help="GFF3 annotation file for per-locus site counts (Check 2)")
     parser.add_argument("--flank", type=int, default=2000,
                         help="Flank used during filtering, for GFF region extraction (default: 2000)")
     args = parser.parse_args()
 
-    indir = Path(args.indir)
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_path = outdir / f"validate_bedmethyl_sorgoleone_{timestamp}.log"
+    setup_logging(log_path)
 
+    logging.info(f"Log: {log_path}")
+    logging.info(f"Input dir: {args.indir}")
+
+    indir = Path(args.indir)
     bed_files = sorted(indir.glob("*.sorgoleone.bed"))
     if not bed_files:
-        sys.exit(f"ERROR: No .sorgoleone.bed files found in {indir}")
+        logging.error(f"No .sorgoleone.bed files found in {indir}")
+        sys.exit(1)
 
     samples = {p.name.split(".")[0]: p for p in bed_files}
-    print(f"Samples: {', '.join(samples)}")
+    logging.info(f"Samples: {', '.join(samples)}")
 
     raw  = {s: load_sample(p) for s, p in samples.items()}
     data = {s: df[df["code"] != ARTEFACT_CODE].copy() for s, df in raw.items()}
@@ -130,7 +153,7 @@ def main():
         n_m = (df["code"] == PRIMARY_CODE).sum()
         n_a = (df["code"] == SECONDARY_CODE).sum()
         total = len(df)
-        print(f"  {s}: total={total:,}  5mC={n_m:,}  6mA={n_a:,}")
+        logging.info(f"  {s}: total={total:,}  5mC={n_m:,}  6mA={n_a:,}")
         if total == 0:
             flag(f"{s}: zero sites after artefact exclusion")
         tsv_rows += [
@@ -145,7 +168,7 @@ def main():
     section("CHECK 2: Per-locus 5mC site counts")
     if args.gff:
         regions = load_gene_regions(args.gff, args.flank)
-        print(f"  Loaded {len(regions)}/{len(LOC_LABELS)} gene regions from GFF3.")
+        logging.info(f"  Loaded {len(regions)}/{len(LOC_LABELS)} gene regions from GFF3.")
         locus_counts = {}
         for s, df in mc.items():
             df = df.copy()
@@ -154,7 +177,7 @@ def main():
 
         col_w = max(len(s) for s in samples)
         header = f"  {'Locus':<26}" + "".join(f"{s:>{col_w + 2}}" for s in samples)
-        print(header)
+        logging.info(header)
         for label in sorted(LOC_LABELS.values()):
             row = f"  {label:<26}"
             for s in samples:
@@ -163,9 +186,9 @@ def main():
                 tsv_rows.append({"sample": s, "check": f"locus_5mC_{label}", "value": n})
                 if n == 0:
                     flag(f"{s}: 0 5mC sites at {label} — possible filtering failure")
-            print(row)
+            logging.info(row)
     else:
-        print("  Skipped — provide --gff for per-locus assignment.")
+        logging.info("  Skipped — provide --gff for per-locus assignment.")
 
     # ------------------------------------------------------------------ #
     # Check 3: Coverage distribution (5mC, valid_coverage)
@@ -175,7 +198,7 @@ def main():
         cov = df["valid_coverage"]
         med, mean = cov.median(), cov.mean()
         p10, p90 = cov.quantile(0.10), cov.quantile(0.90)
-        print(f"  {s}: median={med:.1f}  mean={mean:.1f}  p10={p10:.1f}  p90={p90:.1f}")
+        logging.info(f"  {s}: median={med:.1f}  mean={mean:.1f}  p10={p10:.1f}  p90={p90:.1f}")
         if med < 5:
             flag(f"{s}: median coverage {med:.1f} < 5")
         tsv_rows += [
@@ -191,7 +214,7 @@ def main():
     section("CHECK 4: 5mC methylation fraction (frac_modified)")
     for s, df in mc.items():
         mean_frac = df["frac_modified"].mean()
-        print(f"  {s}: mean frac_modified = {mean_frac:.4f}")
+        logging.info(f"  {s}: mean frac_modified = {mean_frac:.4f}")
         if not (0.10 <= mean_frac <= 0.30):
             flag(f"{s}: mean frac_modified {mean_frac:.4f} outside expected range 0.10–0.30")
         tsv_rows.append({"sample": s, "check": "mean_frac_modified_5mC", "value": round(mean_frac, 4)})
@@ -206,7 +229,7 @@ def main():
         n_minus = int(counts.get("-", 0))
         total = n_plus + n_minus
         pct_plus = 100 * n_plus / total if total else 0.0
-        print(f"  {s}: + = {n_plus:,} ({pct_plus:.1f}%)   - = {n_minus:,} ({100-pct_plus:.1f}%)")
+        logging.info(f"  {s}: + = {n_plus:,} ({pct_plus:.1f}%)   - = {n_minus:,} ({100-pct_plus:.1f}%)")
         if total > 0 and not (40 <= pct_plus <= 60):
             flag(f"{s}: strand imbalance — {pct_plus:.1f}% plus-strand")
         tsv_rows.append({"sample": s, "check": "strand_pct_plus", "value": round(pct_plus, 1)})
@@ -223,11 +246,11 @@ def main():
         total = len(df)
         pct_a   = 100 * n_a   / total if total else 0.0
         pct_art = 100 * n_art / total if total else 0.0
-        print(f"  {s}: m={n_m:,}  a={n_a:,} ({pct_a:.2f}%)  21839={n_art:,} ({pct_art:.2f}%)")
+        logging.info(f"  {s}: m={n_m:,}  a={n_a:,} ({pct_a:.2f}%)  21839={n_art:,} ({pct_art:.2f}%)")
         tsv_rows += [
-            {"sample": s, "check": "raw_n_21839",  "value": n_art},
-            {"sample": s, "check": "raw_pct_21839","value": round(pct_art, 3)},
-            {"sample": s, "check": "raw_pct_6mA",  "value": round(pct_a,   3)},
+            {"sample": s, "check": "raw_n_21839",   "value": n_art},
+            {"sample": s, "check": "raw_pct_21839", "value": round(pct_art, 3)},
+            {"sample": s, "check": "raw_pct_6mA",   "value": round(pct_a,   3)},
         ]
 
     # ------------------------------------------------------------------ #
@@ -240,13 +263,13 @@ def main():
         shared = set.intersection(*pos_sets.values())
         union  = set.union(*pos_sets.values())
         pct_shared = 100 * len(shared) / len(union) if union else 0.0
-        print(f"  Shared across all {len(sample_list)} samples : {len(shared):,} sites")
-        print(f"  Union across all samples                  : {len(union):,} sites")
-        print(f"  Jaccard (shared / union)                  : {pct_shared:.1f}%")
+        logging.info(f"  Shared across all {len(sample_list)} samples : {len(shared):,} sites")
+        logging.info(f"  Union across all samples                  : {len(union):,} sites")
+        logging.info(f"  Jaccard (shared / union)                  : {pct_shared:.1f}%")
         others = {s: set.union(*(v for k, v in pos_sets.items() if k != s)) for s in sample_list}
         for s in sample_list:
             private = len(pos_sets[s] - others[s])
-            print(f"  {s}: {len(pos_sets[s]):,} total,  {private:,} private")
+            logging.info(f"  {s}: {len(pos_sets[s]):,} total,  {private:,} private")
             tsv_rows.append({"sample": s, "check": "private_5mC_sites", "value": private})
         if pct_shared < 20:
             flag(f"Very low cross-sample overlap ({pct_shared:.1f}%) — verify filtering used the same reference coordinates")
@@ -256,22 +279,23 @@ def main():
             {"sample": "all", "check": "pct_shared",       "value": round(pct_shared, 1)},
         ]
     else:
-        print("  Skipped — need at least 2 samples for overlap analysis.")
+        logging.info("  Skipped — need at least 2 samples for overlap analysis.")
 
     # ------------------------------------------------------------------ #
     # Summary + TSV output
     # ------------------------------------------------------------------ #
     section("SUMMARY")
     if WARNINGS:
-        print(f"  {len(WARNINGS)} warning(s):")
+        logging.info(f"  {len(WARNINGS)} warning(s):")
         for w in WARNINGS:
-            print(f"    - {w}")
+            logging.info(f"    - {w}")
     else:
-        print("  All checks passed — no warnings.")
+        logging.info("  All checks passed — no warnings.")
 
-    tsv_path = outdir / "bedmethyl_sorgoleone_validation.tsv"
+    tsv_path = outdir / "sorgoleone_bedmethyl_validation.tsv"
     pd.DataFrame(tsv_rows).to_csv(tsv_path, sep="\t", index=False)
-    print(f"\n  Summary saved to: {tsv_path}\n")
+    logging.info(f"\n  Summary saved to: {tsv_path}")
+    logging.info(f"  Log saved to:     {log_path}")
 
 
 if __name__ == "__main__":

@@ -26,6 +26,10 @@ dependencies:
   - snakemake=9.16.3
   # DAG visualization (dot command)
   - graphviz
+  # R + DMR analysis
+  - r-base
+  - bioconductor-dss
+  - r-data.table
   # Python analysis stack
   - cyvcf2
   - pandas

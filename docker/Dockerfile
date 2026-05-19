@@ -23,6 +23,7 @@ RUN minimap2 --version && \
     whatshap --version && \
     bedtools --version | head -1 && \
     run_clair3.sh --help > /dev/null 2>&1 && \
-    snakemake --version
+    snakemake --version && \
+    Rscript -e "library(DSS); library(data.table); cat('R packages OK\n')"
 
 WORKDIR /data
