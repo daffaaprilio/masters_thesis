@@ -159,8 +159,9 @@ rule symlink_sample_bam:
     shell:
         """
         (
-            ln -sf {input.bam} {output.bam}
-            ln -sf {input.bai} {output.bai}
+            out_dir=$(dirname {output.bam})
+            ln -sf "$(realpath --relative-to="$out_dir" {input.bam})" {output.bam}
+            ln -sf "$(realpath --relative-to="$out_dir" {input.bai})" {output.bai}
         ) > {log} 2>&1
         """
 

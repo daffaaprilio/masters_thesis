@@ -55,7 +55,8 @@ rule publish_vcf:
     shell:
         """
         (
-            ln -sf {input.vcf} {output.vcf}
+            out_dir=$(dirname {output.vcf})
+            ln -sf "$(realpath --relative-to="$out_dir" {input.vcf})" {output.vcf}
             bcftools index {output.vcf}
         ) > {log} 2>&1
         """
