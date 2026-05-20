@@ -27,7 +27,7 @@ log "BAM dir: $BAM_DIR"
 log ""
 
 # Write TSV header
-printf "sample\tbase\tstrand\tn_called\tn_mod\tpct_modified\tn_canonical\tn_other\tn_delete\tn_fail\tn_diff\tn_nocall\n" \
+printf "sample\tbase\tcode\tpass_count\tpass_frac\tall_count\tall_frac\n" \
     > "$TSV_FILE"
 
 for bam in "$BAM_DIR"/*.bam; do
@@ -41,20 +41,15 @@ for bam in "$BAM_DIR"/*.bam; do
     log "$summary_output"
     log ""
 
-    # Parse the table lines (skip header and separator lines)
-    # modkit summary table columns (as of modkit 0.2.x):
-    #   base  strand  n_called  n_mod  pct_modified  n_canonical  n_other_mod  n_delete  n_fail  n_diff  n_no_call
+    # Parse data rows: first column is base (A/C uppercase), second is mod code.
+    # modkit summary columns: base  code  pass_count  pass_frac  all_count  all_frac
     echo "$summary_output" | awk -v sample="$sample" '
-        /^[[:space:]]*[mah]/ {
-            # Strip leading whitespace, split on whitespace
-            $0 = $0
+        /^[[:space:]]+[AC][[:space:]]/ {
             gsub(/^[[:space:]]+/, "")
             n = split($0, f, /[[:space:]]+/)
-            if (n >= 7) {
-                printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
-                    sample, f[1], f[2], f[3], f[4], f[5], f[6], f[7],
-                    (n>=8 ? f[8] : "NA"), (n>=9 ? f[9] : "NA"),
-                    (n>=10 ? f[10] : "NA"), (n>=11 ? f[11] : "NA")
+            if (n >= 6) {
+                printf "%s\t%s\t%s\t%s\t%s\t%s\t%s\n",
+                    sample, f[1], f[2], f[3], f[4], f[5], f[6]
             }
         }
     ' >> "$TSV_FILE"
