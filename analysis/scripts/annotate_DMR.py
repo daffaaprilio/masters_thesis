@@ -49,7 +49,8 @@ HOMOLOGS = {
     110436225: "SbOMT3-homolog-2",
     8085153:   "SbOMT3-homolog-3",
 }
-LOC_NAMES = {f"LOC{gid}": label for gid, label in {**PATHWAY_GENES, **HOMOLOGS}.items()}
+LOC_NAMES    = {f"LOC{gid}": label for gid, label in {**PATHWAY_GENES, **HOMOLOGS}.items()}
+LABEL_TO_EGI = {label: str(gid) for gid, label in {**PATHWAY_GENES, **HOMOLOGS}.items()}
 
 GFF3_COLS = ["seqname", "source", "feature", "start", "end",
              "score", "strand", "frame", "attributes"]
@@ -279,6 +280,7 @@ def annotate_dmrs(dmr_df, feature_beds, outdir):
     # Build annotation per DMR row
     features_col   = []
     gene_label_col = []
+    egi_col        = []
 
     for _, row in dmr_df.iterrows():
         key = (row["chr"], int(row["start"]), int(row["end"]))
@@ -290,12 +292,15 @@ def annotate_dmrs(dmr_df, feature_beds, outdir):
                 feat_list.append(feat)
                 label_set |= all_hits[feat][key]
 
+        labels = sorted(label_set)
         features_col.append(";".join(feat_list) if feat_list else "intergenic")
-        gene_label_col.append(";".join(sorted(label_set)))
+        gene_label_col.append(";".join(labels))
+        egi_col.append(";".join(LABEL_TO_EGI.get(lbl, "") for lbl in labels))
 
     dmr_df = dmr_df.copy()
     dmr_df["features"]   = features_col
     dmr_df["gene_label"] = gene_label_col
+    dmr_df["egi"]        = egi_col
     return dmr_df
 
 

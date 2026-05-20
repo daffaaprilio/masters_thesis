@@ -72,28 +72,23 @@ Technical steps
         --outdir analysis/data/sorgoleone_bedmethyl
     ```
 
-2.  `modkit_summary_samples.sh`: Run `modkit summary` on each per-sample BAM in `resources/align_bam_sample/` to confirm modification types present (5mC, 6mA) and collect per-base methylation statistics. Outputs a timestamped TSV (`analysis/data/modkit_summary/modkit_summary_*.tsv`) with columns: sample, base, strand, n_called, n_mod, pct_modified, n_canonical, n_other, n_delete, n_fail, n_diff, n_nocall. <br>
-    ```shell
-    ./docker/run.sh bash analysis/scripts/modkit_summary_samples.sh
-    ```
-
-3.  `validate_bedmethyl_sorgoleone.py`: Another check on the methylation status. Check saved in `analysis/data/sorgoleone_bedmethyl/sorgoleone_bedmethyl_validation.tsv` <br>
+2.  `validate_bedmethyl_sorgoleone.py`: Another check on the methylation status. Check saved in `analysis/data/sorgoleone_bedmethyl/sorgoleone_bedmethyl_validation.tsv` <br>
     ```shell
     ./docker/run.sh python analysis/scripts/validate_bedmethyl_sorgoleone.py \
         --gff resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff
     ```
 
-4.  `bedmethyl_to_dss.py`: Convert filtered bedMethyl files to DSS input format. For 5mC, collapses Watson/Crick CpG strand pairs by summing coverage and modified read counts. For 6mA, keeps strands separate. Excludes artefact code `21839` and sites with `valid_coverage < 5`. Outputs `{sample}.5mC.dss.txt` and `{sample}.6mA.dss.txt`. <br>
+3.  `bedmethyl_to_dss.py`: Convert filtered bedMethyl files to DSS input format. For 5mC, collapses Watson/Crick CpG strand pairs by summing coverage and modified read counts. For 6mA, keeps strands separate. Excludes artefact code `21839` and sites with `valid_coverage < 5`. Outputs `{sample}.5mC.dss.txt` and `{sample}.6mA.dss.txt`. <br>
     ```shell
     ./docker/run.sh python analysis/scripts/bedmethyl_to_dss.py
     ```
 
-5.  `run_dss_dmr.R`: Run pairwise DSS DMR analysis across all six accession pairs (SBC04 vs SBC10, SBC04 vs SBC11, SBC04 vs SBC23, SBC10 vs SBC11, SBC10 vs SBC23, SBC11 vs SBC23). Each pair is tested with smoothed DML testing (`smoothing.span=500`) followed by DMR calling (`delta=0.1`, `p<0.2`, `minlen=50`, `minCG=20`, `dis.merge=300`). Analysis is exploratory (n=1 per group, no replicates). Outputs one DMR and one DML TSV per pair, plus a combined DMR table and summary. <br>
+4.  `run_dss_dmr.R`: Run pairwise DSS DMR analysis across all six accession pairs (SBC04 vs SBC10, SBC04 vs SBC11, SBC04 vs SBC23, SBC10 vs SBC11, SBC10 vs SBC23, SBC11 vs SBC23). Each pair is tested with smoothed DML testing (`smoothing.span=500`) followed by DMR calling (`delta=0.1`, `p<0.2`, `minlen=50`, `minCG=20`, `dis.merge=300`). Analysis is exploratory (n=1 per group, no replicates). Outputs one DMR and one DML TSV per pair, plus a combined DMR table and summary. <br>
     ```shell
     ./docker/run.sh Rscript analysis/scripts/run_dss_dmr.R
     ```
 
-6.  `annotate_DMR.py`: Annotate each DMR with the genomic feature(s) it overlaps — promoter (2 kb strand-aware upstream flank), exon, CDS, or intron. Feature BEDs are derived from the GFF3 via parent-child traversal (`gene → mRNA → exon/CDS`) scoped to the 11 target genes. Introns are computed per gene as gene body minus merged exons (`bedtools subtract`). UTR features are absent from this NCBI annotation. Outputs `DMR_annotated.tsv` with two added columns: `features` (semicolon-separated overlap types, or `intergenic`) and `gene_label`. <br>
+5.  `annotate_DMR.py`: Annotate each DMR with the genomic feature(s) it overlaps — promoter (2 kb strand-aware upstream flank), exon, CDS, or intron. Feature BEDs are derived from the GFF3 via parent-child traversal (`gene → mRNA → exon/CDS`) scoped to the 11 target genes. Introns are computed per gene as gene body minus merged exons (`bedtools subtract`). UTR features are absent from this NCBI annotation. Outputs `DMR_annotated.tsv` with two added columns: `features` (semicolon-separated overlap types, or `intergenic`) and `gene_label`. <br>
     ```shell
     ./docker/run.sh python analysis/scripts/annotate_DMR.py
     ```
@@ -143,4 +138,14 @@ Technical steps
         - 110436225 aka SORBI_3006G008000, blastp identity 97.86, coex z-score: 8.5, 5-pentadecatrienyl resorcinol O-methyltransferase-like
         - 8085153 aka SORBI_3007G074800, blastp identity 70, coex z-score: 8.5, 5-pentadecatrienyl resorcinol O-methyltransferase-like
     - A 50 bp-long deletion was found in 110436225 (a heterozygous variant) in SBC11 (NC_012875.2:1,205,067-1,205,117), causing a frameshift mutation
-    - Insertion of a C base in NC_012876.2:8,584,480 was observed in SBC4 and SBC10. This insertion happens in the splice acceptor region and annotated as highly impactful. d
+    - Insertion of a C base in NC_012876.2:8,584,480 was observed in SBC4 and SBC10. This insertion happens in the splice acceptor region and annotated as highly impactful.
+
+-   **Hypermethylated regions in the promoter of SbDES2-homolog (gene ID 110435045) of SBC10 and SBC11**
+    - SBC10 & SBC11's SbDES2-homolog gene's promoter region is shown to be hypermethylated, compared to SBC23. This suggests that either the expression of the SbDES2-homolog gene (gene ID 110435045) in SBC10 & SBC11 is suppressed or the expression of that gene is high in SBC23.
+
+
+-   **Hypermethylated region in the promoter of SbOMT3-homolog (gene ID 8085153) of SBC10**
+    - Hypermethylation in the promoter region of the SbOMT3-homolog gene (gene ID 8085153) in SBC10, compared to SBC23, suggests that either the expression of one (gene ID 8085153) of the SbOMT3-homolog genes in SBC10 is suppressed or the expression of that gene is high in SBC23.
+
+### Summary on gene level
+-   ...
