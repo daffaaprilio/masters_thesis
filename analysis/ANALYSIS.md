@@ -17,23 +17,31 @@ Downstream analyses performed on the processed data. Each section corresponds to
 flowchart LR
     R[BTx623 reference genome] --> B4
 
-    R1 --> B4["BAM (per sample)"]
+    R1["Raw reads (.bam)"] --> B4["BAM (per sample)"]
 
     B4 --> BED["BEDMethyl (per sample)"]
 
     B4 --> V4["VCF (per sample)"]
+    V4 --> BCFI["Intersect variants"]
+    BCFI --> TAA["TAA key genes identification"]
 
-    V4 --> VL["(1) Variant landscape"]
+    V4 --> VL["Variant landscape"]
 
     V4 --> MRG["VCF (all samples merged)"]
 
     MRG --> ANN["Annotated VCF (all samples merged)"]
     SNPEFF[SnpEff database] --> ANN
 
-    ANN --> SKG["(4) Sorgoleone key genes"]
+    ANN --> SKG["Sorgoleone key genes"]
+
+    BED --> ML["Methylation landscape"]
+    BED --> FSG["Filter to sorgoleone genes region"]
+    FSG --> SKG
 
     style VL fill:#3b2f6b,stroke:#7c6fcf,color:#fff
     style SKG fill:#3b2f6b,stroke:#7c6fcf,color:#fff
+    style ML fill:#3b2f6b,stroke:#7c6fcf,color:#fff
+    style TAA fill:#3b2f6b,stroke:#7c6fcf,color:#fff
 ```
 
 ---
