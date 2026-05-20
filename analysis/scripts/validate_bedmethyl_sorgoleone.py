@@ -2,19 +2,19 @@
 """
 Validation script for filtered bedMethyl files from sorgoleone loci.
 
-Runs 7 QC checks and writes a summary TSV to analysis/qc/.
+Runs 7 QC checks and writes:
+  - sorgoleone_bedmethyl_validation.tsv  (structured data)
+  - sorgoleone_bedmethyl_validation.txt  (CHECK 1-7 human-readable report)
 
 Usage:
     python analysis/scripts/validate_sorgoleone_bedmethyl.py \
         [--indir analysis/data/sorgoleone_bedmethyl] \
-        [--outdir analysis/qc] \
+        [--outdir analysis/data/sorgoleone_bedmethyl] \
         [--gff resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff]
 """
 
 import argparse
-import logging
 import sys
-from datetime import datetime
 from pathlib import Path
 
 import pandas as pd
@@ -44,31 +44,31 @@ LOC_LABELS = {
     "LOC8085153":   "SbOMT3-homolog-3",
 }
 
-WARNINGS = []
 
+class Report:
+    """Accumulates report lines and warnings; writes to file and stdout."""
 
-def setup_logging(log_path):
-    """Configure root logger to write to console (clean) and log file (timestamped)."""
-    log_path.parent.mkdir(parents=True, exist_ok=True)
-    root = logging.getLogger()
-    root.setLevel(logging.INFO)
-    ch = logging.StreamHandler()
-    ch.setFormatter(logging.Formatter("%(message)s"))
-    fh = logging.FileHandler(log_path)
-    fh.setFormatter(logging.Formatter("%(asctime)s  %(levelname)-8s  %(message)s",
-                                      datefmt="%Y-%m-%d %H:%M:%S"))
-    root.addHandler(ch)
-    root.addHandler(fh)
+    def __init__(self):
+        self._lines = []
+        self.warnings = []
 
+    def section(self, title):
+        bar = "=" * 62
+        self._emit(f"\n{bar}\n  {title}\n{bar}")
 
-def flag(msg):
-    WARNINGS.append(msg)
-    logging.warning(f"*** {msg}")
+    def info(self, msg=""):
+        self._emit(msg)
 
+    def warn(self, msg):
+        self.warnings.append(msg)
+        self._emit(f"  *** WARNING: {msg}")
 
-def section(title):
-    bar = "=" * 62
-    logging.info(f"\n{bar}\n  {title}\n{bar}")
+    def _emit(self, msg):
+        print(msg)
+        self._lines.append(msg)
+
+    def write(self, path: Path):
+        path.write_text("\n".join(self._lines) + "\n")
 
 
 def parse_gff_attribute(attrs, key):
@@ -90,7 +90,6 @@ def load_gene_regions(gff_path, flank):
 
 
 def assign_locus(df, regions):
-    """Assign each site to a gene locus; unassigned if outside all regions."""
     result = pd.Series("unassigned", index=df.index, dtype=str)
     for _, reg in regions.iterrows():
         mask = (
@@ -114,7 +113,7 @@ def main():
     parser.add_argument("--indir", default="analysis/data/sorgoleone_bedmethyl",
                         help="Directory containing .sorgoleone.bed files")
     parser.add_argument("--outdir", default="analysis/data/sorgoleone_bedmethyl",
-                        help="Output directory for the validation TSV and log")
+                        help="Output directory for the validation TSV and report")
     parser.add_argument("--gff", default=None,
                         help="GFF3 annotation file for per-locus site counts (Check 2)")
     parser.add_argument("--flank", type=int, default=2000,
@@ -123,21 +122,18 @@ def main():
 
     outdir = Path(args.outdir)
     outdir.mkdir(parents=True, exist_ok=True)
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_path = Path(__file__).parent.parent / "logs" / f"validate_bedmethyl_sorgoleone_{timestamp}.log"
-    setup_logging(log_path)
-
-    logging.info(f"Log: {log_path}")
-    logging.info(f"Input dir: {args.indir}")
 
     indir = Path(args.indir)
     bed_files = sorted(indir.glob("*.sorgoleone.bed"))
     if not bed_files:
-        logging.error(f"No .sorgoleone.bed files found in {indir}")
+        print(f"ERROR: No .sorgoleone.bed files found in {indir}", file=sys.stderr)
         sys.exit(1)
 
     samples = {p.name.split(".")[0]: p for p in bed_files}
-    logging.info(f"Samples: {', '.join(samples)}")
+
+    rep = Report()
+    rep.info(f"Input dir : {indir}")
+    rep.info(f"Samples   : {', '.join(samples)}")
 
     raw  = {s: load_sample(p) for s, p in samples.items()}
     data = {s: df[df["code"] != ARTEFACT_CODE].copy() for s, df in raw.items()}
@@ -148,14 +144,14 @@ def main():
     # ------------------------------------------------------------------ #
     # Check 1: Per-file site counts
     # ------------------------------------------------------------------ #
-    section("CHECK 1: Per-file site counts")
+    rep.section("CHECK 1: Per-file site counts")
     for s, df in data.items():
         n_m = (df["code"] == PRIMARY_CODE).sum()
         n_a = (df["code"] == SECONDARY_CODE).sum()
         total = len(df)
-        logging.info(f"  {s}: total={total:,}  5mC={n_m:,}  6mA={n_a:,}")
+        rep.info(f"  {s}: total={total:,}  5mC={n_m:,}  6mA={n_a:,}")
         if total == 0:
-            flag(f"{s}: zero sites after artefact exclusion")
+            rep.warn(f"{s}: zero sites after artefact exclusion")
         tsv_rows += [
             {"sample": s, "check": "site_count_total", "value": total},
             {"sample": s, "check": "site_count_5mC",   "value": int(n_m)},
@@ -165,10 +161,10 @@ def main():
     # ------------------------------------------------------------------ #
     # Check 2: Per-locus 5mC site counts
     # ------------------------------------------------------------------ #
-    section("CHECK 2: Per-locus 5mC site counts")
+    rep.section("CHECK 2: Per-locus 5mC site counts")
     if args.gff:
         regions = load_gene_regions(args.gff, args.flank)
-        logging.info(f"  Loaded {len(regions)}/{len(LOC_LABELS)} gene regions from GFF3.")
+        rep.info(f"  Loaded {len(regions)}/{len(LOC_LABELS)} gene regions from GFF3.")
         locus_counts = {}
         for s, df in mc.items():
             df = df.copy()
@@ -177,7 +173,7 @@ def main():
 
         col_w = max(len(s) for s in samples)
         header = f"  {'Locus':<26}" + "".join(f"{s:>{col_w + 2}}" for s in samples)
-        logging.info(header)
+        rep.info(header)
         for label in sorted(LOC_LABELS.values()):
             row = f"  {label:<26}"
             for s in samples:
@@ -185,22 +181,22 @@ def main():
                 row += f"{n:>{col_w + 2},}"
                 tsv_rows.append({"sample": s, "check": f"locus_5mC_{label}", "value": n})
                 if n == 0:
-                    flag(f"{s}: 0 5mC sites at {label} — possible filtering failure")
-            logging.info(row)
+                    rep.warn(f"{s}: 0 5mC sites at {label} — possible filtering failure")
+            rep.info(row)
     else:
-        logging.info("  Skipped — provide --gff for per-locus assignment.")
+        rep.info("  Skipped — provide --gff for per-locus assignment.")
 
     # ------------------------------------------------------------------ #
     # Check 3: Coverage distribution (5mC, valid_coverage)
     # ------------------------------------------------------------------ #
-    section("CHECK 3: 5mC coverage distribution (valid_coverage)")
+    rep.section("CHECK 3: 5mC coverage distribution (valid_coverage)")
     for s, df in mc.items():
         cov = df["valid_coverage"]
         med, mean = cov.median(), cov.mean()
         p10, p90 = cov.quantile(0.10), cov.quantile(0.90)
-        logging.info(f"  {s}: median={med:.1f}  mean={mean:.1f}  p10={p10:.1f}  p90={p90:.1f}")
+        rep.info(f"  {s}: median={med:.1f}  mean={mean:.1f}  p10={p10:.1f}  p90={p90:.1f}")
         if med < 5:
-            flag(f"{s}: median coverage {med:.1f} < 5")
+            rep.warn(f"{s}: median coverage {med:.1f} < 5")
         tsv_rows += [
             {"sample": s, "check": "cov_median", "value": round(med,  2)},
             {"sample": s, "check": "cov_mean",   "value": round(mean, 2)},
@@ -211,33 +207,33 @@ def main():
     # ------------------------------------------------------------------ #
     # Check 4: Methylation fraction distribution (5mC)
     # ------------------------------------------------------------------ #
-    section("CHECK 4: 5mC methylation fraction (frac_modified)")
+    rep.section("CHECK 4: 5mC methylation fraction (frac_modified)")
     for s, df in mc.items():
         mean_frac = df["frac_modified"].mean()
-        logging.info(f"  {s}: mean frac_modified = {mean_frac:.4f}")
+        rep.info(f"  {s}: mean frac_modified = {mean_frac:.4f}")
         if not (0.10 <= mean_frac <= 0.30):
-            flag(f"{s}: mean frac_modified {mean_frac:.4f} outside expected range 0.10–0.30")
+            rep.warn(f"{s}: mean frac_modified {mean_frac:.4f} outside expected range 0.10–0.30")
         tsv_rows.append({"sample": s, "check": "mean_frac_modified_5mC", "value": round(mean_frac, 4)})
 
     # ------------------------------------------------------------------ #
     # Check 5: Strand balance
     # ------------------------------------------------------------------ #
-    section("CHECK 5: Strand balance (5mC sites)")
+    rep.section("CHECK 5: Strand balance (5mC sites)")
     for s, df in mc.items():
         counts = df["strand"].value_counts()
         n_plus  = int(counts.get("+", 0))
         n_minus = int(counts.get("-", 0))
         total = n_plus + n_minus
         pct_plus = 100 * n_plus / total if total else 0.0
-        logging.info(f"  {s}: + = {n_plus:,} ({pct_plus:.1f}%)   - = {n_minus:,} ({100-pct_plus:.1f}%)")
+        rep.info(f"  {s}: + = {n_plus:,} ({pct_plus:.1f}%)   - = {n_minus:,} ({100-pct_plus:.1f}%)")
         if total > 0 and not (40 <= pct_plus <= 60):
-            flag(f"{s}: strand imbalance — {pct_plus:.1f}% plus-strand")
+            rep.warn(f"{s}: strand imbalance — {pct_plus:.1f}% plus-strand")
         tsv_rows.append({"sample": s, "check": "strand_pct_plus", "value": round(pct_plus, 1)})
 
     # ------------------------------------------------------------------ #
     # Check 6: Code composition (raw, before artefact exclusion)
     # ------------------------------------------------------------------ #
-    section("CHECK 6: Modification code composition (raw, pre-exclusion)")
+    rep.section("CHECK 6: Modification code composition (raw, pre-exclusion)")
     for s, df in raw.items():
         counts = df["code"].value_counts()
         n_m   = int(counts.get(PRIMARY_CODE,   0))
@@ -246,7 +242,7 @@ def main():
         total = len(df)
         pct_a   = 100 * n_a   / total if total else 0.0
         pct_art = 100 * n_art / total if total else 0.0
-        logging.info(f"  {s}: m={n_m:,}  a={n_a:,} ({pct_a:.2f}%)  21839={n_art:,} ({pct_art:.2f}%)")
+        rep.info(f"  {s}: m={n_m:,}  a={n_a:,} ({pct_a:.2f}%)  21839={n_art:,} ({pct_art:.2f}%)")
         tsv_rows += [
             {"sample": s, "check": "raw_n_21839",   "value": n_art},
             {"sample": s, "check": "raw_pct_21839", "value": round(pct_art, 3)},
@@ -256,46 +252,53 @@ def main():
     # ------------------------------------------------------------------ #
     # Check 7: Cross-sample 5mC position overlap
     # ------------------------------------------------------------------ #
-    section("CHECK 7: Cross-sample 5mC position overlap")
+    rep.section("CHECK 7: Cross-sample 5mC position overlap")
     pos_sets = {s: set(zip(df["chrom"], df["start"])) for s, df in mc.items()}
     sample_list = list(pos_sets)
     if len(sample_list) >= 2:
         shared = set.intersection(*pos_sets.values())
         union  = set.union(*pos_sets.values())
         pct_shared = 100 * len(shared) / len(union) if union else 0.0
-        logging.info(f"  Shared across all {len(sample_list)} samples : {len(shared):,} sites")
-        logging.info(f"  Union across all samples                  : {len(union):,} sites")
-        logging.info(f"  Jaccard (shared / union)                  : {pct_shared:.1f}%")
+        rep.info(f"  Shared across all {len(sample_list)} samples : {len(shared):,} sites")
+        rep.info(f"  Union across all samples                  : {len(union):,} sites")
+        rep.info(f"  Jaccard (shared / union)                  : {pct_shared:.1f}%")
         others = {s: set.union(*(v for k, v in pos_sets.items() if k != s)) for s in sample_list}
         for s in sample_list:
             private = len(pos_sets[s] - others[s])
-            logging.info(f"  {s}: {len(pos_sets[s]):,} total,  {private:,} private")
+            rep.info(f"  {s}: {len(pos_sets[s]):,} total,  {private:,} private")
             tsv_rows.append({"sample": s, "check": "private_5mC_sites", "value": private})
         if pct_shared < 20:
-            flag(f"Very low cross-sample overlap ({pct_shared:.1f}%) — verify filtering used the same reference coordinates")
+            rep.warn(f"Very low cross-sample overlap ({pct_shared:.1f}%) — verify filtering used the same reference coordinates")
         tsv_rows += [
             {"sample": "all", "check": "shared_5mC_sites", "value": len(shared)},
             {"sample": "all", "check": "union_5mC_sites",  "value": len(union)},
             {"sample": "all", "check": "pct_shared",       "value": round(pct_shared, 1)},
         ]
     else:
-        logging.info("  Skipped — need at least 2 samples for overlap analysis.")
+        rep.info("  Skipped — need at least 2 samples for overlap analysis.")
 
     # ------------------------------------------------------------------ #
-    # Summary + TSV output
+    # Summary
     # ------------------------------------------------------------------ #
-    section("SUMMARY")
-    if WARNINGS:
-        logging.info(f"  {len(WARNINGS)} warning(s):")
-        for w in WARNINGS:
-            logging.info(f"    - {w}")
+    rep.section("SUMMARY")
+    if rep.warnings:
+        rep.info(f"  {len(rep.warnings)} warning(s):")
+        for w in rep.warnings:
+            rep.info(f"    - {w}")
     else:
-        logging.info("  All checks passed — no warnings.")
+        rep.info("  All checks passed — no warnings.")
 
+    # ------------------------------------------------------------------ #
+    # Write outputs
+    # ------------------------------------------------------------------ #
     tsv_path = outdir / "sorgoleone_bedmethyl_validation.tsv"
+    txt_path = outdir / "sorgoleone_bedmethyl_validation.txt"
+
     pd.DataFrame(tsv_rows).to_csv(tsv_path, sep="\t", index=False)
-    logging.info(f"\n  Summary saved to: {tsv_path}")
-    logging.info(f"  Log saved to:     {log_path}")
+    rep.write(txt_path)
+
+    print(f"\n  TSV  : {tsv_path}")
+    print(f"  Report: {txt_path}")
 
 
 if __name__ == "__main__":
