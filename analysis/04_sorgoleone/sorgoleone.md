@@ -147,5 +147,64 @@ Technical steps
 -   **Hypermethylated region in the promoter of SbOMT3-homolog (gene ID 8085153) of SBC10**
     - Hypermethylation in the promoter region of the SbOMT3-homolog gene (gene ID 8085153) in SBC10, compared to SBC23, suggests that either the expression of one (gene ID 8085153) of the SbOMT3-homolog genes in SBC10 is suppressed or the expression of that gene is high in SBC23.
 
-### Summary on gene level
--   ...
+### Summary
+
+**SBC4**
+| Gene | Gene ID | Locus Name | High-impact variants | DMR |
+|------|---------|------------|----------------------|-----|
+| SbDES2 | 8066368 | SORBI_3004G260600 | Frameshift — insertion G at NC_012873.2:60,583,662 | — |
+| SbDES2-homolog | 110435045 | SORBI_3004G260800 | — | — |
+| SbDES3 | 8079957 | SORBI_3005G002700 | — | — |
+| SbDES3-homolog-1 | 8072903 | SORBI_3008G002800 | — | — |
+| SbDES3-homolog-2 | 8055482 | SORBI_3008G003200 | Start codon loss — A→G at NC_012877.2:284,923 | — |
+| SbDES3-homolog-3 | 8079958 | SORBI_3005G002800 | — | — |
+| SbOMT3 | 8080259 | SORBI_3006G007900 | — | — |
+| SbOMT3-homolog-1 | 8076922 | SORBI_3005G086600 | — | — |
+| SbOMT3-homolog-2 | 110436225 | SORBI_3006G008000 | — | — |
+| SbOMT3-homolog-3 | 8085153 | SORBI_3007G074800 | Splice acceptor insertion — C at NC_012876.2:8,584,480 | — |
+| SbCYP71AM1 | 8081692 | SORBI_3004G139300 | — | — |
+
+**SBC10**
+| Gene | Gene ID | Locus Name | High-impact variants | DMR |
+|------|---------|------------|----------------------|-----|
+| SbDES2 | 8066368 | SORBI_3004G260600 | — | — |
+| SbDES2-homolog | 110435045 | SORBI_3004G260800 | — | Hypermethylated promoter vs SBC23 |
+| SbDES3 | 8079957 | SORBI_3005G002700 | — | — |
+| SbDES3-homolog-1 | 8072903 | SORBI_3008G002800 | — | — |
+| SbDES3-homolog-2 | 8055482 | SORBI_3008G003200 | — | — |
+| SbDES3-homolog-3 | 8079958 | SORBI_3005G002800 | — | — |
+| SbOMT3 | 8080259 | SORBI_3006G007900 | — | — |
+| SbOMT3-homolog-1 | 8076922 | SORBI_3005G086600 | — | — |
+| SbOMT3-homolog-2 | 110436225 | SORBI_3006G008000 | — | — |
+| SbOMT3-homolog-3 | 8085153 | SORBI_3007G074800 | Splice acceptor insertion — C at NC_012876.2:8,584,480 | Hypermethylated promoter vs SBC23 |
+| SbCYP71AM1 | 8081692 | SORBI_3004G139300 | — | — |
+
+**SBC11**
+| Gene | Gene ID | Locus Name | High-impact variants | DMR |
+|------|---------|------------|----------------------|-----|
+| SbDES2 | 8066368 | SORBI_3004G260600 | — | — |
+| SbDES2-homolog | 110435045 | SORBI_3004G260800 | — | Hypermethylated promoter vs SBC23 |
+| SbDES3 | 8079957 | SORBI_3005G002700 | — | — |
+| SbDES3-homolog-1 | 8072903 | SORBI_3008G002800 | — | — |
+| SbDES3-homolog-2 | 8055482 | SORBI_3008G003200 | — | — |
+| SbDES3-homolog-3 | 8079958 | SORBI_3005G002800 | — | — |
+| SbOMT3 | 8080259 | SORBI_3006G007900 | — | — |
+| SbOMT3-homolog-1 | 8076922 | SORBI_3005G086600 | — | — |
+| SbOMT3-homolog-2 | 110436225 | SORBI_3006G008000 | Frameshift — 50 bp deletion at NC_012875.2:1,205,067–1,205,117 | — |
+| SbOMT3-homolog-3 | 8085153 | SORBI_3007G074800 | — | — |
+| SbCYP71AM1 | 8081692 | SORBI_3004G139300 | — | — |
+
+**SBC23**
+| Gene | Gene ID | Locus Name | High-impact variants | DMR |
+|------|---------|------------|----------------------|-----|
+| SbDES2 | 8066368 | SORBI_3004G260600 | — | — |
+| SbDES2-homolog | 110435045 | SORBI_3004G260800 | — | — |
+| SbDES3 | 8079957 | SORBI_3005G002700 | — | — |
+| SbDES3-homolog-1 | 8072903 | SORBI_3008G002800 | — | — |
+| SbDES3-homolog-2 | 8055482 | SORBI_3008G003200 | — | — |
+| SbDES3-homolog-3 | 8079958 | SORBI_3005G002800 | — | — |
+| SbOMT3 | 8080259 | SORBI_3006G007900 | — | — |
+| SbOMT3-homolog-1 | 8076922 | SORBI_3005G086600 | — | — |
+| SbOMT3-homolog-2 | 110436225 | SORBI_3006G008000 | — | — |
+| SbOMT3-homolog-3 | 8085153 | SORBI_3007G074800 | — | — |
+| SbCYP71AM1 | 8081692 | SORBI_3004G139300 | — | — |
