@@ -26,8 +26,11 @@ CONFIG="${SNPEFF_DIR}/snpEff.config"
 mkdir -p "${DATA_DIR}"
 
 # Minimal config so snpEff knows where to place the downloaded database.
+# The genome entry is required by snpEff ann even when using a prebuilt DB.
 cat > "${CONFIG}" <<EOF
 data.dir = ${SNPEFF_DIR}/data
+
+${DB}.genome : ${DB}
 EOF
 
 echo "[snpeff_prep] downloading prebuilt SnpEff database for ${DB}"
