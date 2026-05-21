@@ -27,7 +27,8 @@ mkdir -p "$OUT_DIR"
 echo "Running bcftools isec for private variants..."
 bcftools isec -n =1 -p "$OUT_DIR" "${VCFS[@]}"
 
-# Rename outputs to sample names for clarity
+# Renames its outputs 0000.vcf, 0001.vcf, … in the same order as the input VCFs.
+# based on the sorting of samples and the numbering in README.txt, BUT without actually reading it
 for i in "${!SAMPLES[@]}"; do
     idx=$(printf "%04d" "$i")
     src="${OUT_DIR}/${idx}.vcf"
