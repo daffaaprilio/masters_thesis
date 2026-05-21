@@ -15,28 +15,30 @@ Downstream analyses performed on the processed data. Each section corresponds to
 
 ```mermaid
 flowchart LR
-    R[BTx623 reference genome] --> B4
+    REF[BTx623 reference genome]
+    READS["Raw reads (.bam)"]
+    SNPEFF[SnpEff database]
 
-    R1["Raw reads (.bam)"] --> B4["BAM (per sample)"]
+    REF   --> BAM["BAM (per sample)"]
+    READS --> BAM
 
-    B4 --> BED["BEDMethyl (per sample)"]
+    BAM --> VCF["VCF (per sample)"]
+    BAM --> BED["BEDMethyl (per sample)"]
 
-    B4 --> V4["VCF (per sample)"]
-    V4 --> BCFI["Intersect variants"]
-    BCFI --> TAA["TAA key genes identification"]
+    VCF --> VL["Variant landscape"]
+    VCF --> ISEC["Intersect variants"]
+    VCF --> MRG["VCF (all samples merged)"]
 
-    V4 --> VL["Variant landscape"]
+    ISEC --> PRIV["Annotated VCF (private)"]
+    SNPEFF --> PRIV
+    PRIV --> TAA["TAA key genes identification"]
 
-    V4 --> MRG["VCF (all samples merged)"]
-
-    MRG --> ANN["Annotated VCF (all samples merged)"]
-    SNPEFF[SnpEff database] --> ANN
-
+    MRG --> ANN["Annotated VCF (merged)"]
+    SNPEFF --> ANN
     ANN --> SKG["Sorgoleone key genes"]
 
     BED --> ML["Methylation landscape"]
-    BED --> FSG["Filter to sorgoleone genes region"]
-    FSG --> SKG
+    BED --> SKG
 
     style VL fill:#3b2f6b,stroke:#7c6fcf,color:#fff
     style SKG fill:#3b2f6b,stroke:#7c6fcf,color:#fff
