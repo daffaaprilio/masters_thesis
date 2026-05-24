@@ -28,6 +28,44 @@ Sorgoleone biosynthesis pathway key genes/enzymes, obtained from BLAST-ing gene 
 | ↳ *SbOMT3-homolog-3* | 8085153 | SORBI_3007G074800 | Chr7 NC_012876.2: 8,583,133–8,585,000 | + |
 | **SbCYP71AM1** | 8081692 | SORBI_3004G139300 | Chr4 NC_012873.2: 39,976,273–39,978,067 | + |
 
+## Study Design
+### Data Preparation
+```mermaid
+---
+config:
+  layout: elk
+---
+flowchart TB
+ subgraph ACC["Four sorghum accessions"]
+        SBC04["SBC04"]
+        SBC10["SBC10"]
+        SBC11["SBC11"]
+        SBC23["SBC23"]
+  end
+    SBC04 -- "ONT R10.4.1 duplex" --> SEQ["Long-read sequencing\n(Dorado v1.3.0, SUP model)"]
+    SBC10 -- "ONT R10.4.1 duplex" --> SEQ
+    SBC11 -- "ONT R10.4.1 duplex" --> SEQ
+    SBC23 -- "ONT R10.4.1 duplex" --> SEQ
+    SEQ -- BTx623 reference genome --> VAR["Variant calling\n(Clair3)"]
+    SEQ --> METH["Methylation profiling\n(modkit pileup)"]
+    VAR --> VCFP["VCF processing\n(filtering, WhatsHap phasing)"]
+    METH --> FILT["Region filtering\nsorgoleone genes + 2 kb promoter\n(filter_bedmethyl_sorgoleone.py)"]
+    FILT --> DMR["Pairwise DMR analysis\nall 6 accession pairs\n(R DSS package)"]
+    LIT["Sorgoleone pathway\ngene IDs (literature)"] --> ATTED["Co-expression network\n(ATTED-II)"]
+    ATTED -->  SORGGENES["Sorgoleone key genes"]
+    VCFP --> MERGE["Multi-sample VCF merge"]
+    MERGE --> FILTER["Filter to sorgoleone genes\n(merge_vcf.sh)"]
+    FILTER --> |"SnpEFF annotation"| ANNOT["Annotated 4-sample VCF"]
+    SORGGENES --> FILTER & FILT
+
+ subgraph ANALYSIS["Sorgoleone key genes analysis"]
+        ANNOT
+        DMR
+ end
+
+    style ACC fill:#e6e6e6
+```
+
 ## Comparative genomics analysis
 Technical steps
 1.  `snpeff_prep.sh`: Run the script to prepare the SnpEff database first <br>

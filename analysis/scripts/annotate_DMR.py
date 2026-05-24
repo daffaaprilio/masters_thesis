@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Annotate DMRs with overlapping genomic features for sorgoleone target genes.
+Annotate DMRs with overlapping genomic features.
 
-Builds per-feature BED files from the GFF3 (scoped to the 11 target genes):
+Builds per-feature BED files from the GFF3:
   promoter  — strand-aware upstream flank before TSS
   exon      — exon features from GFF3
   CDS       — CDS features from GFF3
@@ -11,13 +11,22 @@ Builds per-feature BED files from the GFF3 (scoped to the 11 target genes):
 Then intersects each DMR against all feature BEDs using bedtools and
 assembles an annotated output table.
 
-Note: UTR features are absent from this NCBI annotation for the target genes.
+By default the GFF3 is scoped to the 11 sorgoleone target genes.
+Pass --all-genes to annotate against every gene in the GFF3 (e.g. for TAA).
 
-Usage:
+Usage — sorgoleone (default):
     python analysis/scripts/annotate_DMR.py \\
-        --dmr  analysis/data/sorgoleone_DMR/DMR_all_pairs_combined.tsv \\
-        --gff  resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff \\
+        --dmr    analysis/data/sorgoleone_DMR/DMR_all_pairs_combined.tsv \\
+        --gff    resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff \\
         --outdir analysis/data/sorgoleone_DMR \\
+        [--flank 2000]
+
+Usage — TAA (all genes):
+    python analysis/scripts/annotate_DMR.py \\
+        --dmr       analysis/data/taa_DMR/DMR_all_combined.tsv \\
+        --gff       resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff \\
+        --outdir    analysis/data/taa_DMR \\
+        --all-genes \\
         [--flank 2000]
 """
 
@@ -88,7 +97,10 @@ def parse_attr(attrs, key):
 
 def build_feature_beds(gff_path, loc_names, flank, feature_dir):
     """
-    Parse GFF3 and write one BED file per feature type, scoped to target genes.
+    Parse GFF3 and write one BED file per feature type.
+
+    When loc_names is None all genes in the GFF3 are used; otherwise only genes
+    whose Name attribute appears in loc_names are included.
 
     Parent-child traversal:
       gene (Name=LOC...) → mRNA (Parent=gene-LOC...) → exon / CDS (Parent=mRNA-id)
@@ -106,12 +118,19 @@ def build_feature_beds(gff_path, loc_names, flank, feature_dir):
     # ── Step 1: target gene rows ──────────────────────────────────────────
     gene_rows = gff[gff["feature"] == "gene"].copy()
     gene_rows["loc_name"] = gene_rows["attributes"].apply(lambda a: parse_attr(a, "Name"))
-    target = gene_rows[gene_rows["loc_name"].isin(loc_names)].copy()
-    target["label"] = target["loc_name"].map(loc_names)
 
-    if len(target) < len(loc_names):
-        missing = set(loc_names) - set(target["loc_name"])
-        logging.warning(f"{len(missing)} gene(s) not found: {', '.join(sorted(missing))}")
+    if loc_names is None:
+        # All-genes mode: use every gene; label = Name attribute (LOC... or raw ID)
+        target = gene_rows.copy()
+        target["label"] = target["loc_name"].where(
+            target["loc_name"].notna(), target["gff_id"])
+    else:
+        target = gene_rows[gene_rows["loc_name"].isin(loc_names)].copy()
+        target["label"] = target["loc_name"].map(loc_names)
+
+        if len(target) < len(loc_names):
+            missing = set(loc_names) - set(target["loc_name"])
+            logging.warning(f"{len(missing)} gene(s) not found: {', '.join(sorted(missing))}")
 
     gene_id_to_label = dict(zip(target["gff_id"], target["label"]))
     logging.info(f"  {len(target)} target genes found\n")
@@ -171,6 +190,10 @@ def build_feature_beds(gff_path, loc_names, flank, feature_dir):
     # ── Intron: gene body − merged exons, per gene ────────────────────────
     exon_rows = child_rows[child_rows["feature"] == "exon"]
     intron_records = []
+
+    if loc_names is None:
+        logging.info("  intron   : skipped in --all-genes mode (would require ~34k subprocesses)")
+        return beds
 
     for _, g in target.iterrows():
         gid    = g["gff_id"]
@@ -255,13 +278,14 @@ def intersect_feature(dmr_bed_path, feature_bed_path, feature_type):
     return hits
 
 
-def annotate_dmrs(dmr_df, feature_beds, outdir):
+def annotate_dmrs(dmr_df, feature_beds, outdir, label_to_egi=None):
     """
     Intersect DMRs against each feature BED and attach annotation columns.
 
     Added columns:
       features   — semicolon-separated overlapping feature types, or 'intergenic'
-      gene_label — semicolon-separated target gene name(s)
+      gene_label — semicolon-separated gene name(s)
+      egi        — semicolon-separated gene IDs (only when label_to_egi is provided)
     """
     # Write DMR BED (no header)
     dmr_bed_path = Path(outdir) / "_dmrs_tmp.bed"
@@ -280,7 +304,7 @@ def annotate_dmrs(dmr_df, feature_beds, outdir):
     # Build annotation per DMR row
     features_col   = []
     gene_label_col = []
-    egi_col        = []
+    egi_col        = [] if label_to_egi is not None else None
 
     for _, row in dmr_df.iterrows():
         key = (row["chr"], int(row["start"]), int(row["end"]))
@@ -295,12 +319,14 @@ def annotate_dmrs(dmr_df, feature_beds, outdir):
         labels = sorted(label_set)
         features_col.append(";".join(feat_list) if feat_list else "intergenic")
         gene_label_col.append(";".join(labels))
-        egi_col.append(";".join(LABEL_TO_EGI.get(lbl, "") for lbl in labels))
+        if egi_col is not None:
+            egi_col.append(";".join(label_to_egi.get(lbl, "") for lbl in labels))
 
     dmr_df = dmr_df.copy()
     dmr_df["features"]   = features_col
     dmr_df["gene_label"] = gene_label_col
-    dmr_df["egi"]        = egi_col
+    if egi_col is not None:
+        dmr_df["egi"] = egi_col
     return dmr_df
 
 
@@ -344,8 +370,12 @@ def main():
                         help="GFF3 annotation file")
     parser.add_argument("--outdir", default="analysis/data/sorgoleone_DMR",
                         help="Output directory (annotated TSV written here)")
+    parser.add_argument("--out", default=None,
+                        help="Output TSV filename (default: DMR_annotated.tsv inside --outdir)")
     parser.add_argument("--flank", type=int, default=2000,
                         help="Promoter flank in bp upstream of TSS (default: 2000)")
+    parser.add_argument("--all-genes", action="store_true",
+                        help="Annotate against all genes in the GFF3 instead of sorgoleone targets")
     args = parser.parse_args()
 
     outdir = Path(args.outdir)
@@ -356,20 +386,24 @@ def main():
 
     logging.info(f"DMR input : {args.dmr}")
     logging.info(f"GFF3      : {args.gff}")
-    logging.info(f"Flank     : {args.flank} bp\n")
+    logging.info(f"Flank     : {args.flank} bp")
+    logging.info(f"Gene scope: {'all genes' if args.all_genes else 'sorgoleone targets'}\n")
 
     dmr_df = pd.read_csv(args.dmr, sep="\t")
     logging.info(f"Loaded {len(dmr_df)} DMRs from {args.dmr}\n")
 
+    loc_names   = None if args.all_genes else LOC_NAMES
+    label_to_egi = None if args.all_genes else LABEL_TO_EGI
+
     feature_dir = outdir / "features"
-    feature_beds = build_feature_beds(args.gff, LOC_NAMES, args.flank, feature_dir)
+    feature_beds = build_feature_beds(args.gff, loc_names, args.flank, feature_dir)
 
     logging.info(f"\nIntersecting {len(dmr_df)} DMRs against {len(feature_beds)} feature types...")
-    dmr_annotated = annotate_dmrs(dmr_df, feature_beds, outdir)
+    dmr_annotated = annotate_dmrs(dmr_df, feature_beds, outdir, label_to_egi=label_to_egi)
 
     print_summary(dmr_annotated)
 
-    out_path = outdir / "DMR_annotated.tsv"
+    out_path = Path(args.out) if args.out else outdir / "DMR_annotated.tsv"
     dmr_annotated.to_csv(out_path, sep="\t", index=False)
     logging.info(f"\nAnnotated DMR table saved to: {out_path}")
 

@@ -13,6 +13,10 @@ Functional genomics and epigenomics, both enhanced with gene co-expression analy
 ## Study Design
 ### Data Preparation
 ```mermaid
+---
+config:
+  layout: elk
+---
 flowchart TD
     subgraph ACC["Four sorghum accessions"]
         SBC04["SBC04"]
@@ -46,6 +50,10 @@ flowchart TD
 
 ### Analysis Overview
 ```mermaid
+---
+config:
+  layout: elk
+---
 flowchart TD
  subgraph s1["Genomics approach"]
         VARPSBC10["SBC10-private variants"]
@@ -57,18 +65,35 @@ flowchart TD
         SBC10DMR["Differential methylation\nSBC10 vs others"]
         DMRGENES["Genes with\nDMR-ed promoter"]
   end
+ subgraph s3["Refining search with co-expression data"]
+        TIER1R["Refined Tier 1"]
+        TIER2R["Refined Tier 2"]
+        TIER3AR["Refined Tier 3A"]
+        TIER3BR["Refined Tier 3B"]
+        TIER4R["Refined Tier 4"]
+  end
     VARPSBC10 -- SnpEFF annotation --> ANNOTVARPSBC10
     ANNOTVARPSBC10 -- "HIGH-impact filter" --> HIGHGENES
     ANNOTVARPSBC10 -- Other variants --> OTHERGENES
     SBC10DMR -- "Promoter annotation\n(2 kbp upstream, strand-aware)" --> DMRGENES
-    HIGHGENES --> TIER1["Tier 1\nHIGH-impact variant + DMR"] & TIER2A["Tier 2\nHIGH-impact variant only"]
-    DMRGENES --> TIER1 & TIER2B["Tier 2\nDMR only"] & TIER3["Tier 3\nnon-HIGH variant + DMR"]
-    OTHERGENES --> TIER3 & TIER4["Tier 4\nnon-HIGH variant only"]
+    HIGHGENES --> TIER1["Tier 1\nGenes with both HIGH-impact variant & DMR"] & TIER2["Tier 2\nGenes with HIGH-impact variant only"]
+    DMRGENES --> TIER1 & TIER3A["Tier 3\nGenes with non-HIGH variant & DMR"] & TIER3B["Tier 3\nGenes with DMR only"]
+    OTHERGENES --> TIER3A & TIER4["Tier 4\nGenes with non-HIGH variant only"]
+    TIER1 --> TIER1R
+    TIER2 --> TIER2R
+    TIER3A --> TIER3AR
+    TIER3B --> TIER3BR
+    TIER4 --> TIER4R
 
+    style TIER1R fill:#5594dc
+    style TIER2R  fill:#BBDEFB
+    style TIER3AR  fill:#dff0ff
+    style TIER3BR  fill:#dff0ff
+    style TIER4R  fill:#f5f5f5
     style TIER1  fill:#5594dc
-    style TIER2A fill:#BBDEFB
-    style TIER2B fill:#BBDEFB
-    style TIER3  fill:#dff0ff
+    style TIER2  fill:#BBDEFB
+    style TIER3A  fill:#dff0ff
+    style TIER3B  fill:#dff0ff
     style TIER4  fill:#f5f5f5
 ```
 
@@ -104,16 +129,31 @@ Technical steps
     ```
     Output: `analysis/data/taa_DSS/{sample}.5mC.dss.txt`
 
-2.  `run_dss_dmr_taa.R`: Run DSS DML test and DMR calling for SBC10 vs each other accession. SBC10 is fixed as group1 so `diff.Methy > 0` means hypermethylated in SBC10. <br>
+2.  `run_dss_dmr_taa.R`: Run DSS DML test and DMR calling for SBC10 vs each other accession. <br>
+    > Caution:
+    Don't execute all 3 scripts simultaneously. <br>
+    When the computation where parallelization (when `top` shows all threads loaded with processes) finishes for one pair, then start running the other one.
     ```shell
-    ./docker/run.sh Rscript analysis/scripts/run_dss_dmr_taa.R
+    ./docker/run.sh Rscript analysis/scripts/run_dss_dmr_taa.R SBC10_vs_SBC4
+    ./docker/run.sh Rscript analysis/scripts/run_dss_dmr_taa.R SBC10_vs_SBC11
+    ./docker/run.sh Rscript analysis/scripts/run_dss_dmr_taa.R SBC10_vs_SBC23
     ```
     Output: `analysis/data/taa_DMR/{pair}.5mC.DML.tsv`, `{pair}.5mC.DMR.tsv`, `DMR_summary.tsv`
 
-3.  `annotate_DMR.py`: Annotate DMRs with overlapping genes, using strand-aware 2 kbp upstream promoter regions. <br>
+3.  `summarise_dss_dmr_taa.R`: Run script to combine and summarize DMRs across all pairs
     ```shell
-    ./docker/run.sh python3 analysis/scripts/annotate_DMR.py
+    ./docker/run.sh Rscript analysis/scripts/summarise_dss_dmr_taa.R
     ```
+    Output: `DMR_summary.tsv`
+
+4.  `annotate_DMR.py`: Annotate DMRs with overlapping genes, using strand-aware 2 kbp upstream promoter regions. <br>
+    ```shell
+    ./docker/run.sh python3 analysis/scripts/annotate_DMR.py \
+        --dmr    analysis/data/taa_DMR/DMR_all_combined.tsv \
+        --gff    resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff \
+        --outdir analysis/data/taa_DMR \
+        --all-genes
+      ```
     Output: `analysis/data/taa_DMR/{pair}.5mC.DMR.annotated.tsv`
 
-4.  `03_TAA/TAA.ipynb`: Integrate DMR gene lists with private variant gene lists to classify candidates by tier.
+5.  `03_TAA/TAA.ipynb`: Integrate DMR gene lists with private variant gene lists to classify candidates by tier.

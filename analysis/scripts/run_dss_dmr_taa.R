@@ -6,13 +6,40 @@
 #
 # Results are exploratory — no biological replicates available (n=1 per group).
 #
-# Run via:
-#   ./docker/run.sh Rscript analysis/scripts/run_dss_dmr_taa.R
+# Run one comparison at a time (can be launched in parallel):
+#   ./docker/run.sh Rscript analysis/scripts/run_dss_dmr_taa.R SBC10_vs_SBC4
+#   ./docker/run.sh Rscript analysis/scripts/run_dss_dmr_taa.R SBC10_vs_SBC11
+#   ./docker/run.sh Rscript analysis/scripts/run_dss_dmr_taa.R SBC10_vs_SBC23
 
 suppressPackageStartupMessages({
   library(DSS)
   library(data.table)
 })
+
+# --------------------------------------------------------------------------- #
+# Pair selection via command-line argument  (must come before logging)
+# --------------------------------------------------------------------------- #
+ALL_PAIRS <- list(
+  SBC10_vs_SBC4  = c("SBC10", "SBC4"),
+  SBC10_vs_SBC11 = c("SBC10", "SBC11"),
+  SBC10_vs_SBC23 = c("SBC10", "SBC23")
+)
+
+args <- commandArgs(trailingOnly = TRUE)
+if (length(args) == 0) {
+  stop("Usage: Rscript run_dss_dmr_taa.R <pair>\n",
+       "  where <pair> is one of: ", paste(names(ALL_PAIRS), collapse = ", "))
+}
+if (!args[1] %in% names(ALL_PAIRS)) {
+  stop("Unknown pair '", args[1], "'. Choose from: ",
+       paste(names(ALL_PAIRS), collapse = ", "))
+}
+
+PAIR_NAME <- args[1]
+
+# Only the 10 main sorghum chromosomes — excludes unplaced scaffolds (NW_*)
+# which would inflate runtime without contributing to gene-level analysis.
+MAIN_CHROMS <- paste0("NC_01287", 0:9, ".2")
 
 # --------------------------------------------------------------------------- #
 # Paths
@@ -26,7 +53,8 @@ dir.create(LOG_DIR, recursive = TRUE, showWarnings = FALSE)
 # --------------------------------------------------------------------------- #
 # Logging
 # --------------------------------------------------------------------------- #
-log_path <- file.path(LOG_DIR, format(Sys.time(), "run_dss_dmr_taa_%Y%m%d_%H%M%S.log"))
+log_path <- file.path(LOG_DIR, sprintf("run_dss_dmr_taa_%s_%s.log",
+                                       PAIR_NAME, format(Sys.time(), "%Y%m%d_%H%M%S")))
 log_con  <- file(log_path, open = "wt")
 sink(log_con, split = TRUE)
 on.exit({ sink(); close(log_con) }, add = TRUE)
@@ -43,12 +71,8 @@ DMR_MINLEN    <- 50    # bp
 DMR_MINCG     <- 20    # CpG sites per DMR
 DMR_DIS_MERGE <- 300   # bp gap to merge neighbouring DMRs
 
-# SBC10 is fixed as group1; comparators are group2
-PAIRS <- list(
-  c("SBC10", "SBC4"),
-  c("SBC10", "SBC11"),
-  c("SBC10", "SBC23")
-)
+PAIRS <- ALL_PAIRS[PAIR_NAME]
+cat(sprintf("Running comparison: %s\n\n", PAIR_NAME))
 
 # --------------------------------------------------------------------------- #
 # Load all DSS input files
@@ -62,7 +86,8 @@ dss_data <- lapply(samples_needed, function(s) {
   df <- fread(path, header = TRUE, sep = "\t",
               colClasses = c(chr = "character", pos = "integer",
                              N   = "integer",   X   = "integer"))
-  cat(sprintf("  %-8s %d sites\n", s, nrow(df)))
+  df <- df[df$chr %in% MAIN_CHROMS, ]
+  cat(sprintf("  %-8s %d sites (main chromosomes only)\n", s, nrow(df)))
   as.data.frame(df)
 })
 names(dss_data) <- samples_needed
@@ -70,9 +95,6 @@ names(dss_data) <- samples_needed
 # --------------------------------------------------------------------------- #
 # SBC10 vs others loop
 # --------------------------------------------------------------------------- #
-summary_rows <- list()
-all_dmrs     <- list()
-
 sep_line <- strrep("─", 60)
 
 for (pair in PAIRS) {
@@ -134,17 +156,6 @@ for (pair in PAIRS) {
 
   if (is.null(dmr) || nrow(dmr) == 0) {
     cat(sprintf("  *** No DMRs found for %s\n", pair_name))
-    summary_rows[[pair_name]] <- data.frame(
-      pair              = pair_name,
-      n_DML_tested      = n_tested,
-      n_DML_significant = ifelse(is.na(n_sig), NA_integer_, as.integer(n_sig)),
-      n_DMR             = 0L,
-      n_hyper_SBC10     = NA_integer_,
-      n_hyper_other     = NA_integer_,
-      mean_diff         = NA_real_,
-      mean_length_bp    = NA_real_,
-      mean_nCG          = NA_real_
-    )
     next
   }
 
@@ -176,45 +187,7 @@ for (pair in PAIRS) {
   fwrite(as.data.table(dmr_out), dmr_path, sep = "\t")
   cat(sprintf("  DMR table → %s\n", basename(dmr_path)))
 
-  all_dmrs[[pair_name]] <- dmr_out
-
-  n_hyper_sbc10 <- sum(dmr$direction == paste0("hyper_", sA), na.rm = TRUE)
-  n_hyper_other <- sum(dmr$direction == paste0("hyper_", sB), na.rm = TRUE)
-
-  summary_rows[[pair_name]] <- data.frame(
-    pair              = pair_name,
-    n_DML_tested      = n_tested,
-    n_DML_significant = ifelse(is.na(n_sig), NA_integer_, as.integer(n_sig)),
-    n_DMR             = n_dmr,
-    n_hyper_SBC10     = n_hyper_sbc10,
-    n_hyper_other     = n_hyper_other,
-    mean_diff         = round(mean_diff, 4),
-    mean_length_bp    = round(mean(dmr$length, na.rm = TRUE), 1),
-    mean_nCG          = round(mean(dmr$nCG,    na.rm = TRUE), 1)
-  )
-}
-
-# --------------------------------------------------------------------------- #
-# Summary outputs
-# --------------------------------------------------------------------------- #
-cat(sprintf("\n%s\n  Summary\n%s\n", sep_line, sep_line))
-
-if (length(summary_rows) > 0) {
-  summary_df <- do.call(rbind, summary_rows)
-  rownames(summary_df) <- NULL
-  fwrite(summary_df, file.path(OUT_DIR, "DMR_summary.tsv"), sep = "\t")
-  cat("  DMR_summary.tsv written\n\n")
-  print(summary_df, row.names = FALSE)
-}
-
-if (length(all_dmrs) > 0) {
-  combined <- rbindlist(lapply(all_dmrs, as.data.table), fill = TRUE)
-  fwrite(combined, file.path(OUT_DIR, "DMR_all_combined.tsv"), sep = "\t")
-  cat(sprintf("\n  DMR_all_combined.tsv written (%d total DMRs across %d pairs)\n",
-              nrow(combined), length(all_dmrs)))
-} else {
-  cat("\n  No DMRs found in any pair.\n")
 }
 
 cat(sprintf("\nFinished: %s\n", format(Sys.time(), "%Y-%m-%d %H:%M:%S")))
-cat("Done.\n")
+cat(sprintf("Done. Run summarise_dss_dmr_taa.R once all three comparisons complete.\n"))

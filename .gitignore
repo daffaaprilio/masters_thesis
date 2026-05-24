@@ -12,10 +12,9 @@ dag/
 workflow/logs/
 analysis/logs/
 
-analysis/data/
 analysis/**/figures/
 
-
+analysis/**/data/*
 
 *.pdf
 *.xlsx
