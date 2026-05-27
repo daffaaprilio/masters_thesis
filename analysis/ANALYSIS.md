@@ -4,51 +4,27 @@ Downstream analyses performed on the processed data. Each section corresponds to
 
 ## Sample Phenotypes
 
-| Sample | TAA Production | TAA Secretion | Callus Formation |
+| Sample | Juice Amount | TAA Accumulation | Callus Formation |
 |--------|---------------|---------------|-----------------|
 | SBC4 | ++ | High | Mid |
 | SBC10 | +++ | Low | Good |
 | SBC11 | - | High | Mid |
 | SBC23 | ++ | High | Good |
 
-## Data Flow
+---
 
-```mermaid
-flowchart LR
-    REF[BTx623 reference genome]
-    READS["Raw reads (.bam)"]
-    SNPEFF[SnpEff database]
+## Dedicated notebooks for each story
 
-    REF   --> BAM["BAM (per sample)"]
-    READS --> BAM
+### [Narrowing down TAA-related genes](03_TAA/TAA.md)
 
-    BAM --> VCF["VCF (per sample)"]
-    BAM --> BED["BEDMethyl (per sample)"]
+### [Validating genotype of stem juiciness](05_juicy/juiciness.md)
 
-    VCF --> VL["Variant landscape"]
-    VCF --> ISEC["Intersect variants"]
-    VCF --> MRG["VCF (all samples merged)"]
-
-    ISEC --> PRIV["Annotated VCF (private)"]
-    SNPEFF --> PRIV
-    PRIV --> TAA["TAA key genes identification"]
-
-    MRG --> ANN["Annotated VCF (merged)"]
-    SNPEFF --> ANN
-    ANN --> SKG["Sorgoleone key genes"]
-
-    BED --> ML["Methylation landscape"]
-    BED --> SKG
-
-    style VL fill:#3b2f6b,stroke:#7c6fcf,color:#fff
-    style SKG fill:#3b2f6b,stroke:#7c6fcf,color:#fff
-    style ML fill:#3b2f6b,stroke:#7c6fcf,color:#fff
-    style TAA fill:#3b2f6b,stroke:#7c6fcf,color:#fff
-```
+### [Exploration of sorgoleone genes](04_sorgoelone/sorgoleone.md)
 
 ---
 
-## 00 — Data Quality
+## Additional scripts for ...
+### Visualizing Data Quality
 
 **Directory:** `analysis/00_data_quality/`
 **Input:** `resources/depth/*.depth`, `resources/depth/*.pkl`
@@ -60,9 +36,7 @@ To regenerate VCF benchmark figures:
 ./docker/run.sh python3 analysis/scripts/vcf_benchmark.py
 ```
 
----
-
-## 01 — Variant Landscape
+### Variant Landscape Statistics
 
 **Script:** `analysis/scripts/variant_landscape.py`
 **Input:** SnpEff per-sample stats CSVs in `analysis/data/`
@@ -87,9 +61,7 @@ Figures produced:
 | fig08 | Chromosomal density |
 | fig09–10 | Base changes per sample |
 
----
-
-## 02 — Private Variants
+### Intersecting Private Variants
 
 **Script:** `analysis/scripts/private_variants.sh`
 **Input:** `results/vcf_processing/*.phased.vcf.gz`
@@ -100,9 +72,7 @@ Uses `bcftools isec` to identify variants private to each sample (not shared wit
 ./docker/run.sh bash analysis/scripts/private_variants.sh
 ```
 
----
-
-## 03 — VCF Merging
+### VCF Merging
 
 **Script:** `analysis/scripts/merge_vcf.sh`
 **Input:** `results/vcf_processing/*.phased.vcf.gz`
@@ -113,9 +83,7 @@ Merges per-sample phased VCFs into a single multi-sample VCF for cross-sample co
 ./docker/run.sh bash analysis/scripts/merge_vcf.sh
 ```
 
----
-
-## 04 — VCF to TSV Conversion
+### VCF to TSV Conversion
 
 **Script:** `analysis/scripts/annot_vcf_to_tsv.py`
 **Input:** annotated merged VCF
@@ -127,18 +95,3 @@ Converts the annotated VCF into tabular TSV format for use in downstream noteboo
 ./docker/run.sh python3 analysis/scripts/annot_vcf_to_tsv.py -v <vcf> -o analysis/data/tsv/
 ```
 
----
-
-## 04 — Sorgoleone Key Genes
-
-**Directory:** `analysis/04_sorgoleone/`
-**Notebook:** `analysis/04_sorgoleone/sorgoleone.ipynb`
-**Input:** `analysis/data/tsv/`, `analysis/04_sorgoleone/sorgoleone_key_genes.fna`
-
-Explores variants in genes of the sorgoleone biosynthetic pathway across all four samples. Reference sequences were sourced from the supplementary material of the key publication (`tpj16263-sup-0002-tables1-s3.xlsx`).
-
-```shell
-jupyter notebook analysis/04_sorgoleone/sorgoleone.ipynb
-```
-
-Notes are in `analysis/04_sorgoleone/sorgoleone.md`.

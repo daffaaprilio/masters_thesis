@@ -3,7 +3,7 @@ Functional genomics and epigenomics, both enhanced with gene co-expression analy
 
 ## Sample Phenotypes
 
-| Sample | TAA Production | TAA Secretion | Callus Formation |
+| Sample | Juice Amount | TAA Accumulation | Callus Formation |
 |--------|---------------|---------------|-----------------|
 | SBC4 | ++ | High | Mid |
 | SBC10 | +++ | Low | Good |
@@ -52,9 +52,9 @@ flowchart TD
 ```mermaid
 ---
 config:
-  layout: elk
+  layout: dagre
 ---
-flowchart TD
+flowchart TB
  subgraph s1["Genomics approach"]
         VARPSBC10["SBC10-private variants"]
         ANNOTVARPSBC10["Annotated variant sites\n(SBC10-private)"]
@@ -66,35 +66,25 @@ flowchart TD
         DMRGENES["Genes with\nDMR-ed promoter"]
   end
  subgraph s3["Refining search with co-expression data"]
-        TIER1R["Refined Tier 1"]
-        TIER2R["Refined Tier 2"]
-        TIER3AR["Refined Tier 3A"]
-        TIER3BR["Refined Tier 3B"]
-        TIER4R["Refined Tier 4"]
+        KNOWNGENE["Known genes whose expression pattern mirrors TAA accumulation across specific conditions"]
+        LIT["Literature"]
+        KNOWNCOEX["Genes co-expressed with those known genes"]
   end
+    LIT --> KNOWNGENE
+    KNOWNGENE -- "ATTED-II" --> KNOWNCOEX
+    KNOWNCOEX --> INTERSECT["Intersect these two groups of genes"]
     VARPSBC10 -- SnpEFF annotation --> ANNOTVARPSBC10
     ANNOTVARPSBC10 -- "HIGH-impact filter" --> HIGHGENES
     ANNOTVARPSBC10 -- Other variants --> OTHERGENES
     SBC10DMR -- "Promoter annotation\n(2 kbp upstream, strand-aware)" --> DMRGENES
-    HIGHGENES --> TIER1["Tier 1\nGenes with both HIGH-impact variant & DMR"] & TIER2["Tier 2\nGenes with HIGH-impact variant only"]
-    DMRGENES --> TIER1 & TIER3A["Tier 3\nGenes with non-HIGH variant & DMR"] & TIER3B["Tier 3\nGenes with DMR only"]
-    OTHERGENES --> TIER3A & TIER4["Tier 4\nGenes with non-HIGH variant only"]
-    TIER1 --> TIER1R
-    TIER2 --> TIER2R
-    TIER3A --> TIER3AR
-    TIER3B --> TIER3BR
-    TIER4 --> TIER4R
+    DMRGENES --> TIER["Candidate genes with different priorities"]
+    HIGHGENES --> TIER
+    OTHERGENES --> TIER
+    TIER --> INTERSECT
+    INTERSECT --> REFINED["Refined candidate genes with different priorities"]
 
-    style TIER1R fill:#5594dc
-    style TIER2R  fill:#BBDEFB
-    style TIER3AR  fill:#dff0ff
-    style TIER3BR  fill:#dff0ff
-    style TIER4R  fill:#f5f5f5
-    style TIER1  fill:#5594dc
-    style TIER2  fill:#BBDEFB
-    style TIER3A  fill:#dff0ff
-    style TIER3B  fill:#dff0ff
-    style TIER4  fill:#f5f5f5
+    style TIER fill:#dff0ff
+    style REFINED fill:#BBDEFB
 ```
 
 ## Comparative genomics analysis
