@@ -1,0 +1,115 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global/global}
+    \entry{bruni_aconitic_2022}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=0914dfa5a1f55ec2aacb3b324d937610}{%
+           family={Bruni},
+           familyi={B\bibinitperiod},
+           given={Gillian\bibnamedelima O.},
+           giveni={G\bibinitperiod\bibinitdelim O\bibinitperiod}}}%
+        {{hash=06a952dec71f4fb622ccb30a9c36857f}{%
+           family={Klasson},
+           familyi={K\bibinitperiod},
+           given={K.\bibnamedelimi Thomas},
+           giveni={K\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{a5e2359866537e20d96dfae2a87af415}
+      \strng{fullhash}{a5e2359866537e20d96dfae2a87af415}
+      \strng{fullhashraw}{a5e2359866537e20d96dfae2a87af415}
+      \strng{bibnamehash}{a5e2359866537e20d96dfae2a87af415}
+      \strng{authorbibnamehash}{a5e2359866537e20d96dfae2a87af415}
+      \strng{authornamehash}{a5e2359866537e20d96dfae2a87af415}
+      \strng{authorfullhash}{a5e2359866537e20d96dfae2a87af415}
+      \strng{authorfullhashraw}{a5e2359866537e20d96dfae2a87af415}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Aconitic acid (propene-1,2,3-tricarboxylic acid) is the most prevalent 6-carbon organic acid that accumulates in sugarcane and sweet sorghum. As a top value-added chemical, aconitic acid may function as a chemical precursor or intermediate for high-value downstream industrial and biological applications. These downstream applications include use as a bio-based plasticizer, cross-linker, and the formation of valuable and multi-functional polyesters that have also been used in tissue engineering. Aconitic acid also plays various biological roles within cells as an intermediate in the tricarboxylic acid cycle and in conferring unique survival advantages to some plants as an antifeedant, antifungal, and means of storing ﬁxed pools of carbon. Aconitic acid has also been reported as a fermentation inhibitor, anti-inﬂammatory, and a potential nematicide. Since aconitic acid can be sustainably sourced from renewable, inexpensive sources such as sugarcane, molasses, and sweet sorghum syrup, there is enormous potential to provide multiple streams of additional income to the sugar industry through downstream industrial and biological applications that we discuss in this review.}
+      \field{issn}{2304-8158}
+      \field{journaltitle}{Foods}
+      \field{month}{2}
+      \field{number}{4}
+      \field{title}{Aconitic {Acid} {Recovery} from {Renewable} {Feedstock} and {Review} of {Chemical} and {Biological} {Applications}}
+      \field{urlday}{28}
+      \field{urlmonth}{5}
+      \field{urlyear}{2026}
+      \field{volume}{11}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \field{pages}{573}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/foods11040573
+      \endverb
+      \verb{file}
+      \verb PDF:/Users/daffa/Zotero/storage/DKL6PS8Q/Bruni and Klasson - 2022 - Aconitic Acid Recovery from Renewable Feedstock and Review of Chemical and Biological Applications.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.mdpi.com/2304-8158/11/4/573
+      \endverb
+      \verb{url}
+      \verb https://www.mdpi.com/2304-8158/11/4/573
+      \endverb
+    \endentry
+    \entry{guo_efficient_2026}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=679db2f94589601ca543b352a85b856e}{%
+           family={Guo},
+           familyi={G\bibinitperiod},
+           given={Leilei},
+           giveni={L\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{679db2f94589601ca543b352a85b856e}
+      \strng{fullhash}{679db2f94589601ca543b352a85b856e}
+      \strng{fullhashraw}{679db2f94589601ca543b352a85b856e}
+      \strng{bibnamehash}{679db2f94589601ca543b352a85b856e}
+      \strng{authorbibnamehash}{679db2f94589601ca543b352a85b856e}
+      \strng{authornamehash}{679db2f94589601ca543b352a85b856e}
+      \strng{authorfullhash}{679db2f94589601ca543b352a85b856e}
+      \strng{authorfullhashraw}{679db2f94589601ca543b352a85b856e}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Efficient trans-aconitic acid production using systematically metabolic engineered {Escherichia} coli}
+      \field{year}{2026}
+      \verb{file}
+      \verb PDF:/Users/daffa/Zotero/storage/3HMN29H2/Guo - 2026 - Efficient trans-aconitic acid production using systematically metabolic engineered Escherichia coli.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://pmc.ncbi.nlm.nih.gov/articles/PMC12492653/
+      \endverb
+      \verb{url}
+      \verb https://pmc.ncbi.nlm.nih.gov/articles/PMC12492653/
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

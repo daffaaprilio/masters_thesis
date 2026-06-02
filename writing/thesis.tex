@@ -1,0 +1,31 @@
+\documentclass[11pt, a4paper, twocolumn]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}      % figures
+\usepackage{amsmath}       % math
+\usepackage{hyperref}      % clickable links/TOC
+\usepackage[backend=biber, style=ieee]{biblatex}
+\addbibresource{references.bib}
+\usepackage{booktabs}      % nice tables
+\usepackage{geometry}      % margins
+\usepackage{titlesec}       % customizing sections text formatting
+\usepackage{microtype}      % for 2-column layout page (idk how it works tho)
+\usepackage{parskip}        % avoid the underfull hbox badness kind of warning
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\titleformat{\chapter}{\normalfont\bfseries}{}{0pt}{\huge}
+\titleformat{\section}{\normalfont\itshape}{}{0pt}{\large}
+\geometry{margin=1.2cm}
+
+\begin{document}
+
+\include{chapters/00_title}
+\tableofcontents
+\include{chapters/01_introduction}
+\include{chapters/02_methods}
+\include{chapters/03_results}
+\include{chapters/04_discussion}
+\include{chapters/05_conclusion}
+
+\end{document}
