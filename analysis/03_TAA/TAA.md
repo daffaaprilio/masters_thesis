@@ -88,6 +88,14 @@ flowchart TB
 ```
 
 ## Comparative genomics analysis
+> **Tip:** Steps 1–4 are automated by `analysis/03_TAA/taa_analysis.smk`.
+> Run all at once from the repo root (dry-run first):
+> ```shell
+> ./docker/run.sh snakemake --snakefile analysis/03_TAA/taa_analysis.smk -n -c 8 taa_all
+> ./docker/run.sh snakemake --snakefile analysis/03_TAA/taa_analysis.smk -c 8 taa_all
+> ```
+> Individual targets: `snpeff_prep`, `private_variants`, `annotate_vcf`, `vcf_to_tsv`
+
 Technical steps
 1.  `snpeff_prep.sh`: Run the script to prepare the SnpEff database first <br>
     ```shell
@@ -101,7 +109,7 @@ Technical steps
 
 3.  `annotate_vcf.sh`: Annotate private variants using SnpEFF. <br>
     ```shell
-    ./docker/run.sh analysis/scripts/annotate_vcf.sh SBC10.private analysis/data/vcf/private_variants/SBC10.private.vcf.gz analysis/data/vcf/private_variants
+    ./docker/run.sh bash analysis/scripts/annotate_vcf.sh SBC10.private analysis/data/vcf/private_variants/SBC10.private.vcf.gz analysis/data/vcf/private_variants
     ```
 
 4.  `annot_single_vcf_to_tsv.py`: Parse single-sampled VCF into TSV to explore in a notebook environment. The other file is designed to parse multi-sample (4 samples merged) VCF. <br>
