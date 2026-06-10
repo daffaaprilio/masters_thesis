@@ -12,6 +12,8 @@
 \usepackage{titlesec}       % customizing sections text formatting
 \usepackage{microtype}      % for 2-column layout page (idk how it works tho)
 \usepackage{parskip}        % avoid the underfull hbox badness kind of warning
+\raggedbottom          % fixes vbox warnings
+\hbadness=10000        % suppress residual hbox noise while writing
 \usepackage[english]{babel}
 \usepackage{csquotes}
 \titleformat{\chapter}{\normalfont\bfseries}{}{0pt}{\huge}

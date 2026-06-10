@@ -109,6 +109,433 @@
       \verb https://pmc.ncbi.nlm.nih.gov/articles/PMC12492653/
       \endverb
     \endentry
+    \entry{igamberdiev_organic_2016}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=cd183d219a34652b52acd7bccd24e369}{%
+           family={Igamberdiev},
+           familyi={I\bibinitperiod},
+           given={Abir\bibnamedelima U.},
+           giveni={A\bibinitperiod\bibinitdelim U\bibinitperiod}}}%
+        {{hash=f9d479c58bb80ff2417276d0b41d07a9}{%
+           family={Eprintsev},
+           familyi={E\bibinitperiod},
+           given={Alexander\bibnamedelima T.},
+           giveni={A\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{86c0d5087c5638b1511874d0fb6e181e}
+      \strng{fullhash}{86c0d5087c5638b1511874d0fb6e181e}
+      \strng{fullhashraw}{86c0d5087c5638b1511874d0fb6e181e}
+      \strng{bibnamehash}{86c0d5087c5638b1511874d0fb6e181e}
+      \strng{authorbibnamehash}{86c0d5087c5638b1511874d0fb6e181e}
+      \strng{authornamehash}{86c0d5087c5638b1511874d0fb6e181e}
+      \strng{authorfullhash}{86c0d5087c5638b1511874d0fb6e181e}
+      \strng{authorfullhashraw}{86c0d5087c5638b1511874d0fb6e181e}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Organic acids are synthesized in plants as a result of the incomplete oxidation of photosynthetic products and represent the stored pools of ﬁxed carbon accumulated due to different transient times of conversion of carbon compounds in metabolic pathways. When redox level in the cell increases, e.g., in conditions of active photosynthesis, the tricarboxylic acid (TCA) cycle in mitochondria is transformed to a partial cycle supplying citrate for the synthesis of 2-oxoglutarate and glutamate (citrate valve), while malate is accumulated and participates in the redox balance in different cell compartments (via malate valve). This results in malate and citrate frequently being the most accumulated acids in plants. However, the intensity of reactions linked to the conversion of these compounds can cause preferential accumulation of other organic acids, e.g., fumarate or isocitrate, in higher concentrations than malate and citrate. The secondary reactions, associated with the central metabolic pathways, in particularly with the TCA cycle, result in accumulation of other organic acids that are derived from the intermediates of the cycle. They form the additional pools of ﬁxed carbon and stabilize the TCA cycle. Trans-aconitate is formed from citrate or cis-aconitate, accumulation of hydroxycitrate can be linked to metabolism of 2-oxoglutarate, while 4-hydroxy-2oxoglutarate can be formed from pyruvate and glyoxylate. Glyoxylate, a product of either glycolate oxidase or isocitrate lyase, can be converted to oxalate. Malonate is accumulated at high concentrations in legume plants. Organic acids play a role in plants in providing redox equilibrium, supporting ionic gradients on membranes, and acidiﬁcation of the extracellular medium.}
+      \field{issn}{1664-462X}
+      \field{journaltitle}{Frontiers in Plant Science}
+      \field{month}{7}
+      \field{shorttitle}{Organic {Acids}}
+      \field{title}{Organic {Acids}: {The} {Pools} of {Fixed} {Carbon} {Involved} in {Redox} {Regulation} and {Energy} {Balance} in {Higher} {Plants}}
+      \field{urlday}{29}
+      \field{urlmonth}{5}
+      \field{urlyear}{2026}
+      \field{volume}{7}
+      \field{year}{2016}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.3389/fpls.2016.01042
+      \endverb
+      \verb{file}
+      \verb PDF:/Users/daffa/Zotero/storage/XKVHJQVU/Igamberdiev and Eprintsev - 2016 - Organic Acids The Pools of Fixed Carbon Involved in Redox Regulation and Energy Balance in Higher P.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://journal.frontiersin.org/Article/10.3389/fpls.2016.01042/abstract
+      \endverb
+      \verb{url}
+      \verb http://journal.frontiersin.org/Article/10.3389/fpls.2016.01042/abstract
+      \endverb
+    \endentry
+    \entry{igamberdiev_citrate_2020}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=cd183d219a34652b52acd7bccd24e369}{%
+           family={Igamberdiev},
+           familyi={I\bibinitperiod},
+           given={Abir\bibnamedelima U.},
+           giveni={A\bibinitperiod\bibinitdelim U\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{cd183d219a34652b52acd7bccd24e369}
+      \strng{fullhash}{cd183d219a34652b52acd7bccd24e369}
+      \strng{fullhashraw}{cd183d219a34652b52acd7bccd24e369}
+      \strng{bibnamehash}{cd183d219a34652b52acd7bccd24e369}
+      \strng{authorbibnamehash}{cd183d219a34652b52acd7bccd24e369}
+      \strng{authornamehash}{cd183d219a34652b52acd7bccd24e369}
+      \strng{authorfullhash}{cd183d219a34652b52acd7bccd24e369}
+      \strng{authorfullhashraw}{cd183d219a34652b52acd7bccd24e369}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{While in heterotrophic cells and in darkness mitochondria serve as main producers of energy, during photosynthesis this function is transferred to chloroplasts and the main role of mitochondria in bioenergetics turns to be the balance of the level of phosphorylation of adenylates and of reduction of pyridine nucleotides to avoid over-energization of the cell and optimize major metabolic ﬂuxes. This is achieved via the establishment and regulation of local equilibria of the tricarboxylic acid (TCA) cycle enzymes malate dehydrogenase and fumarase in one branch and aconitase and isocitrate dehydrogenase in another branch. In the conditions of elevation of redox level, the TCA cycle is transformed into a non-cyclic open structure (hemicycle) leading to the export of the tricarboxylic acid (citrate) to the cytosol and to the accumulation of the dicarboxylic acids (malate and fumarate). While the buildup of NADPH in chloroplasts provides operation of the malate valve leading to establishment of NADH/NAD+ ratios in diﬀerent cell compartments, the production of NADH by mitochondria drives citrate export by establishing conditions for the operation of the citrate valve. The latter regulates the intercompartmental NADPH/NADP+ ratio and contributes to the biosynthesis of amino acids and other metabolic products during photosynthesis.}
+      \field{issn}{15677249}
+      \field{journaltitle}{Mitochondrion}
+      \field{month}{5}
+      \field{title}{Citrate valve integrates mitochondria into photosynthetic metabolism}
+      \field{urlday}{3}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{volume}{52}
+      \field{year}{2020}
+      \field{urldateera}{ce}
+      \field{pages}{218\bibrangedash 230}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1016/j.mito.2020.04.003
+      \endverb
+      \verb{file}
+      \verb PDF:/Users/daffa/Zotero/storage/WKMIWFWT/Igamberdiev - 2020 - Citrate valve integrates mitochondria into photosynthetic metabolism.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S1567724919303423
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S1567724919303423
+      \endverb
+    \endentry
+    \entry{igamberdiev_mitochondria_2023}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=cd183d219a34652b52acd7bccd24e369}{%
+           family={Igamberdiev},
+           familyi={I\bibinitperiod},
+           given={Abir\bibnamedelima U},
+           giveni={A\bibinitperiod\bibinitdelim U\bibinitperiod}}}%
+        {{hash=e130f2f3836f8869b223474fb5ed8c05}{%
+           family={Bykova},
+           familyi={B\bibinitperiod},
+           given={Natalia\bibnamedelima V},
+           giveni={N\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{7c902d6520d46545210373958136b202}
+      \strng{fullhash}{7c902d6520d46545210373958136b202}
+      \strng{fullhashraw}{7c902d6520d46545210373958136b202}
+      \strng{bibnamehash}{7c902d6520d46545210373958136b202}
+      \strng{authorbibnamehash}{7c902d6520d46545210373958136b202}
+      \strng{authornamehash}{7c902d6520d46545210373958136b202}
+      \strng{authorfullhash}{7c902d6520d46545210373958136b202}
+      \strng{authorfullhashraw}{7c902d6520d46545210373958136b202}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{In photosynthetic tissues in the light, the function of energy production is associated primarily with chloroplasts, while mitochondrial metabolism adjusts to balance ATP supply, regulate the reduction level of pyridine nucleotides, and optimize major metabolic fluxes. The tricarboxylic acid cycle in the light transforms into a noncyclic open structure (hemicycle) maintained primarily by the influx of malate and the export of citrate to the cytosol. The exchange of malate and citrate forms the basis of feeding redox energy from the chloroplast into the cytosolic pathways. This supports the level of NADPH in different compartments, contributes to the biosynthesis of amino acids, and drives secondary metabolism via a supply of substrates for 2-oxoglutarate-dependent dioxygenase and for cytochrome P450-catalyzed monooxygenase reactions. This results in the maintenance of redox and energy balance in photosynthetic plant cells and in the formation of numerous bioactive compounds specific to any particular plant species. The noncoupled mitochondrial respiration operates in coordination with the malate and citrate valves and supports intensive fluxes of respiration and photorespiration. The metabolic system of plants has features associated with the remarkable metabolic plasticity of mitochondria that permit the use of energy accumulated during photosynthesis in a way that all anabolic and catabolic pathways become optimized and coordinated.}
+      \field{issn}{0032-0889, 1532-2548}
+      \field{journaltitle}{Plant Physiology}
+      \field{month}{4}
+      \field{number}{4}
+      \field{shorttitle}{Mitochondria in photosynthetic cells}
+      \field{title}{Mitochondria in photosynthetic cells: {Coordinating} redox control and energy balance}
+      \field{urlday}{2}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{volume}{191}
+      \field{year}{2023}
+      \field{urldateera}{ce}
+      \field{pages}{2104\bibrangedash 2119}
+      \range{pages}{16}
+      \verb{doi}
+      \verb 10.1093/plphys/kiac541
+      \endverb
+      \verb{file}
+      \verb PDF:/Users/daffa/Zotero/storage/P8PRMJ4R/Igamberdiev and Bykova - 2023 - Mitochondria in photosynthetic cells Coordinating redox control and energy balance.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://academic.oup.com/plphys/article/191/4/2104/6849551
+      \endverb
+      \verb{url}
+      \verb https://academic.oup.com/plphys/article/191/4/2104/6849551
+      \endverb
+    \endentry
+    \entry{remus-borel_aconitate_2009}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=ab749ec50fb1efbc2281842dc1e92b03}{%
+           family={Rémus-Borel},
+           familyi={R\bibinithyphendelim B\bibinitperiod},
+           given={Wilfried},
+           giveni={W\bibinitperiod}}}%
+        {{hash=df41076b76421fbde8d521f624a65f46}{%
+           family={Menzies},
+           familyi={M\bibinitperiod},
+           given={James\bibnamedelima G.},
+           giveni={J\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=fc6fe402dbd2e42337307efae763ed6f}{%
+           family={Bélanger},
+           familyi={B\bibinitperiod},
+           given={Richard\bibnamedelima R.},
+           giveni={R\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{5439d2cefd5cc91fe8002bbc5f54b4b1}
+      \strng{fullhash}{ce54160ba66c89bb61da7521dc30feaa}
+      \strng{fullhashraw}{ce54160ba66c89bb61da7521dc30feaa}
+      \strng{bibnamehash}{ce54160ba66c89bb61da7521dc30feaa}
+      \strng{authorbibnamehash}{ce54160ba66c89bb61da7521dc30feaa}
+      \strng{authornamehash}{5439d2cefd5cc91fe8002bbc5f54b4b1}
+      \strng{authorfullhash}{ce54160ba66c89bb61da7521dc30feaa}
+      \strng{authorfullhashraw}{ce54160ba66c89bb61da7521dc30feaa}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The accumulation of 5,6-O-methyl trans-aconitate in wheat was previously found to be linked with the presence of powdery mildew (Blumeria graminis) and silicon (Si) feeding. In this work, we sought to determine if trans-aconitate (TA) could act as a precursor of methylated forms of TA in wheat and if a relationship existed between Si treatment, disease development, TA and methyl TA concentration within wheat leaves. In absence of infection, TA concentration increased over time regardless of Si feeding. By contrast, TA concentration remained fairly constant over time in both Si and Si+-infected plants but Si+ plants had a signiﬁcantly lower level than Si plants. Conversely, methyl TA concentration increased in wheat leaves in response to infection and was linked to wheat’s increased resistance induced by Si. The effect of Si feeding was only noticeable on methyl TA concentration in presence of the fungus. This suggests that Si does not act directly on TA concentration in leaves but somehow accentuate the production of methyl TA in stressed plants. Based on the concurrent increase in methyl TA and leveling off of TA concentration, it appears that the latter, instead of accumulating, is used by diseased plants to produce antifungal methylated forms of TA that would act as phytoalexins to limit disease development, a phenomenon more pronounced in plants treated with Si.}
+      \field{issn}{01761617}
+      \field{journaltitle}{Journal of Plant Physiology}
+      \field{month}{9}
+      \field{number}{13}
+      \field{title}{Aconitate and methyl aconitate are modulated by silicon in powdery mildew-infected wheat plants}
+      \field{urlday}{29}
+      \field{urlmonth}{5}
+      \field{urlyear}{2026}
+      \field{volume}{166}
+      \field{year}{2009}
+      \field{urldateera}{ce}
+      \field{pages}{1413\bibrangedash 1422}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1016/j.jplph.2009.02.011
+      \endverb
+      \verb{file}
+      \verb PDF:/Users/daffa/Zotero/storage/N9BMHAMX/Rémus-Borel et al. - 2009 - Aconitate and methyl aconitate are modulated by silicon in powdery mildew-infected wheat plants.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0176161709000972
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0176161709000972
+      \endverb
+    \endentry
+    \entry{hattori_probing_2001}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=151d46b13e689b36cb4a5f82745164e3}{%
+           family={Hattori},
+           familyi={H\bibinitperiod},
+           given={Makoto},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{151d46b13e689b36cb4a5f82745164e3}
+      \strng{fullhash}{151d46b13e689b36cb4a5f82745164e3}
+      \strng{fullhashraw}{151d46b13e689b36cb4a5f82745164e3}
+      \strng{bibnamehash}{151d46b13e689b36cb4a5f82745164e3}
+      \strng{authorbibnamehash}{151d46b13e689b36cb4a5f82745164e3}
+      \strng{authornamehash}{151d46b13e689b36cb4a5f82745164e3}
+      \strng{authorfullhash}{151d46b13e689b36cb4a5f82745164e3}
+      \strng{authorfullhashraw}{151d46b13e689b36cb4a5f82745164e3}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{The feeding activity of Nilaparvata lugens (Stål) (Homoptera: Delphacidae) was compared on the barnyard grass, Echinochloa Crus-galli var. oryzicola, which contains an antifeedant, (E)-aconitic acid, and on resistant (bph4) and susceptible rice varieties using an AC electronic monitoring system (EMS). N. lugens made more frequent probes on the barnyard grass and the resistant rice than on the susceptible rice. Mean duration of probes tended to be the shortest and the percentage of probes that consisted of the primarily salivation phase only was the highest on the barnyard grass, followed by the resistant rice. The most distinct difference in N. lugens feeding activities between the barnyard grass and the resistant rice was the frequency of the primarily ingestion phase. On the barnyard grass, the insect was rarely successful in achieving the primarily ingestion phase, indicating that probing was interrupted before the arrival of the stylets at the sieve elements. On the other hand, on the resistant rice the primarily ingestion phase was observed as frequently as it was on the susceptible rice. However, it stopped within 5 min on the resistant rice in most cases. Probing activities were strongly inhibited by 1\% (E)-aconitic acid diluted with distilled water. The inhibitory effect was considerably mitigated when diluted with 15\% sucrose. These results suggest that on the barnyard grass, interruption of probing activity by (E)-aconitic acid can occur in stylet pathway tissues rather than in ingestion tissues (e.g. the phloem where sucrose is located).}
+      \field{issn}{0003-6862, 1347-605X}
+      \field{journaltitle}{Applied Entomology and Zoology}
+      \field{number}{1}
+      \field{shorttitle}{Probing behavior of the brown planthopper, {Nilaparvata} lugens {Stal}({Homoptera}}
+      \field{title}{Probing behavior of the brown planthopper, {Nilaparvata} lugens {Stal}({Homoptera}: {Delphacidae}) on a non-host barnyard grass, and resistant and susceptible varieties of rice.}
+      \field{urlday}{31}
+      \field{urlmonth}{5}
+      \field{urlyear}{2026}
+      \field{volume}{36}
+      \field{year}{2001}
+      \field{urldateera}{ce}
+      \field{pages}{83\bibrangedash 89}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1303/aez.2001.83
+      \endverb
+      \verb{file}
+      \verb PDF:/Users/daffa/Zotero/storage/8EK8D6XA/Hattori - 2001 - Probing behavior of the brown planthopper, Nilaparvata lugens Stal(Homoptera Delphacidae) on a non-.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://www.jstage.jst.go.jp/article/aez/36/1/36_1_83/_article
+      \endverb
+      \verb{url}
+      \verb http://www.jstage.jst.go.jp/article/aez/36/1/36_1_83/_article
+      \endverb
+    \endentry
+    \entry{bortolo_trans-aconitic_2018}{article}{}{}
+      \name{author}{10}{}{%
+        {{hash=5086a02b951835530d690ff8dc54f736}{%
+           family={Bortolo},
+           familyi={B\bibinitperiod},
+           given={Tiara\bibnamedelimb Da\bibnamedelimb Silva\bibnamedelima Coelho},
+           giveni={T\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=7ea966eaa739e4ba2fc0b75264d81b53}{%
+           family={Marchiosi},
+           familyi={M\bibinitperiod},
+           given={Rogério},
+           giveni={R\bibinitperiod}}}%
+        {{hash=b859a3444361aa47500a8a8b654f3ac6}{%
+           family={Viganó},
+           familyi={V\bibinitperiod},
+           given={Joselaine},
+           giveni={J\bibinitperiod}}}%
+        {{hash=bd4b89c6033ff867609172d4422e5f87}{%
+           family={Siqueira-Soares},
+           familyi={S\bibinithyphendelim S\bibinitperiod},
+           given={Rita\bibnamedelimb De\bibnamedelima Cássia},
+           giveni={R\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+        {{hash=b6a3df22cb8a5e258dd141b0719d754c}{%
+           family={Ferro},
+           familyi={F\bibinitperiod},
+           given={Ana\bibnamedelima Paula},
+           giveni={A\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=3d5234fdac8a650dd9cf7ed7e3e6816f}{%
+           family={Barreto},
+           familyi={B\bibinitperiod},
+           given={Gabriela\bibnamedelima Elen},
+           giveni={G\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+        {{hash=3d53b5b84da68d98704671e3a5b2ab0f}{%
+           family={Bido},
+           familyi={B\bibinitperiod},
+           given={Graciene\bibnamedelimb De\bibnamedelima Souza},
+           giveni={G\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=e52692a370d4f9e709af1975428e6637}{%
+           family={Abrahão},
+           familyi={A\bibinitperiod},
+           given={Josielle},
+           giveni={J\bibinitperiod}}}%
+        {{hash=f3885d3ee54baa9f71f9d9147d4340f8}{%
+           family={Dos\bibnamedelima Santos},
+           familyi={D\bibinitperiod\bibinitdelim S\bibinitperiod},
+           given={Wanderley\bibnamedelima Dantas},
+           giveni={W\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=1d5d9fc5185e6f7ee9dd781c8f8d888c}{%
+           family={Ferrarese-Filho},
+           familyi={F\bibinithyphendelim F\bibinitperiod},
+           given={Osvaldo},
+           giveni={O\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{4346af2414ceedac85c75f11b45a8906}
+      \strng{fullhash}{155c952e18450a679849c0b1b84f64b2}
+      \strng{fullhashraw}{155c952e18450a679849c0b1b84f64b2}
+      \strng{bibnamehash}{4346af2414ceedac85c75f11b45a8906}
+      \strng{authorbibnamehash}{4346af2414ceedac85c75f11b45a8906}
+      \strng{authornamehash}{4346af2414ceedac85c75f11b45a8906}
+      \strng{authorfullhash}{155c952e18450a679849c0b1b84f64b2}
+      \strng{authorfullhashraw}{155c952e18450a679849c0b1b84f64b2}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Grasses producing trans-aconitic acid, a geometric isomer of cis-aconitic acid, are often used in Glycine max rotation systems. However, the eﬀects of trans-aconitic acid on Glycine max are unknown. We conducted a hydroponic experiment to evaluate the eﬀects of 2.5–10 mM trans-aconitic acid on Glycine max growth and photosynthesis. The results revealed that the enhanced H2O2 production in the roots increased the membrane permeability and reduced the water uptake. These eﬀects culminated with a reduced stomatal conductance (gs), which seems to be the main cause for a decreased photosynthetic rate (A). Due to low gs, the limited CO2 assimilation may have overexcited the photosystems, as indicated by the high production of H2O2 in leaves. After 96 h of incubation, and due to H2O2-induced damage to photosystems, a probable non-stomatal limitation for photosynthesis contributed to reducing A. This is corroborated by the signiﬁcant decrease in the quantum yield of electron ﬂow through photosystem II in vivo (ΦPSII) and the chlorophyll content. Taken together, the damage to the root system and photosynthetic apparatus caused by trans-aconitic acid signiﬁcantly reduced the Glycine max plant growth.}
+      \field{issn}{09819428}
+      \field{journaltitle}{Plant Physiology and Biochemistry}
+      \field{month}{11}
+      \field{title}{Trans-aconitic acid inhibits the growth and photosynthesis of {Glycine} max}
+      \field{urlday}{31}
+      \field{urlmonth}{5}
+      \field{urlyear}{2026}
+      \field{volume}{132}
+      \field{year}{2018}
+      \field{urldateera}{ce}
+      \field{pages}{490\bibrangedash 496}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.1016/j.plaphy.2018.09.036
+      \endverb
+      \verb{file}
+      \verb PDF:/Users/daffa/Zotero/storage/355HHSTU/Bortolo et al. - 2018 - Trans-aconitic acid inhibits the growth and photosynthesis of Glycine max.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0981942818304352
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0981942818304352
+      \endverb
+    \endentry
+    \entry{eprintsev_aconitate_2021}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=f9d479c58bb80ff2417276d0b41d07a9}{%
+           family={Eprintsev},
+           familyi={E\bibinitperiod},
+           given={Alexander\bibnamedelima T.},
+           giveni={A\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=8419ee77366958fbe89c91d46fe7cade}{%
+           family={Fedorin},
+           familyi={F\bibinitperiod},
+           given={Dmitry\bibnamedelima N.},
+           giveni={D\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=4666f40dde5ba22c1e1751f180551681}{%
+           family={Dobychina},
+           familyi={D\bibinitperiod},
+           given={Maria\bibnamedelima A.},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
+        {{hash=cd183d219a34652b52acd7bccd24e369}{%
+           family={Igamberdiev},
+           familyi={I\bibinitperiod},
+           given={Abir\bibnamedelima U.},
+           giveni={A\bibinitperiod\bibinitdelim U\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{dfbe94bd89495b468fdb1bbb7e46b317}
+      \strng{fullhash}{4a8ff9f05cb1c9de0cb5269387a21baa}
+      \strng{fullhashraw}{4a8ff9f05cb1c9de0cb5269387a21baa}
+      \strng{bibnamehash}{4a8ff9f05cb1c9de0cb5269387a21baa}
+      \strng{authorbibnamehash}{4a8ff9f05cb1c9de0cb5269387a21baa}
+      \strng{authornamehash}{dfbe94bd89495b468fdb1bbb7e46b317}
+      \strng{authorfullhash}{4a8ff9f05cb1c9de0cb5269387a21baa}
+      \strng{authorfullhashraw}{4a8ff9f05cb1c9de0cb5269387a21baa}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Aconitate isomerase (EC 5.3.3.7) interconverts cis- and trans-isomers of aconitic acid. Expression of the gene encoding this enzyme was studied in maize (Zea mays L.) leaves depending on light regime. Aconitate isomerase was induced by white and by red light indicating the involvement of phytochrome in the regulation of gene expression. The enzyme was partially purified from maize leaves. The value of Km was 0.75 mM with cis-aconitate and 0.92 mM with trans-aconitate, pH optimum was 8.0–8.2 with both substrates, citrate and malate suppressed its activity. It is concluded that aconitate isomerase actively participates in the interconversion of cisand trans-aconitate in the light providing a possibility of using the pool of trans-aconitate for the regulation of the tricarboxylic acid cycle activity and mediating citrate/isocitrate supply for the biosynthetic and signaling purposes in photosynthetic cells.}
+      \field{issn}{01761617}
+      \field{journaltitle}{Journal of Plant Physiology}
+      \field{month}{2}
+      \field{shorttitle}{Aconitate isomerase from maize leaves}
+      \field{title}{Aconitate isomerase from maize leaves: {Light}-dependent expression and kinetic properties}
+      \field{urlday}{1}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{volume}{257}
+      \field{year}{2021}
+      \field{urldateera}{ce}
+      \field{pages}{153350}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.jplph.2020.153350
+      \endverb
+      \verb{file}
+      \verb PDF:/Users/daffa/Zotero/storage/SH9AHEMW/Eprintsev et al. - 2021 - Aconitate isomerase from maize leaves Light-dependent expression and kinetic properties.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0176161720302406
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0176161720302406
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

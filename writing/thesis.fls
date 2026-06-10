@@ -297,7 +297,12 @@ OUTPUT chapters/04_discussion.aux
 INPUT ./chapters/04_discussion.tex
 INPUT ./chapters/04_discussion.tex
 INPUT chapters/04_discussion.tex
+INPUT ./chapters/05_conclusion.tex
+INPUT ./chapters/05_conclusion.tex
 OUTPUT chapters/05_conclusion.aux
+INPUT ./chapters/05_conclusion.tex
+INPUT ./chapters/05_conclusion.tex
+INPUT chapters/05_conclusion.tex
 INPUT thesis.aux
 INPUT ./chapters/00_title.aux
 INPUT ./chapters/00_title.aux
