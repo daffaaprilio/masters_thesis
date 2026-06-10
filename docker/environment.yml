@@ -30,6 +30,11 @@ dependencies:
   - r-base
   - bioconductor-dss
   - r-data.table
+  # Perl modules for SIFT4G_Create_Genomic_DB (must install into conda's Perl, not system Perl)
+  # perl-bioperl (full) conflicts via perl-bio-samtools → old libzlib; use core split instead
+  - perl-bioperl-core   # Bio::SeqIO, Bio::DB::Fasta (no samtools dep, no zlib conflict)
+  - perl-dbi            # DBI
+  - perl-app-cpanminus  # cpanm — used in Dockerfile to install Switch (not in conda)
   # Python analysis stack
   - cyvcf2
   - pandas

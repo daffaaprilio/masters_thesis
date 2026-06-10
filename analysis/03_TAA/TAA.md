@@ -86,16 +86,22 @@ flowchart TB
     style TIER fill:#dff0ff
     style REFINED fill:#BBDEFB
 ```
+## Snakefile for automating analysis pipeline
+Run all at once from the repo root (dry-run first):
+```shell
+./docker/run.sh snakemake --snakefile analysis/03_TAA/taa_analysis.smk -n -c 8 taa_all
+./docker/run.sh snakemake --snakefile analysis/03_TAA/taa_analysis.smk -c 8 taa_all
+```
+SIFT4G paths default to `resources/sift4g/SIFT4G_Annotator.jar` and `resources/sift4g/db/`.
+Override at runtime if placed elsewhere:
+```shell
+./docker/run.sh snakemake --snakefile analysis/03_TAA/taa_analysis.smk -c 8 taa_all \
+    --config SIFT4G_JAR=/path/to/SIFT4G_Annotator.jar SIFT4G_DB=/path/to/db
+```
+Individual targets: `snpeff_prep`, `private_variants`, `annotate_vcf`, `vcf_to_tsv`, `sift4g_annotate`
 
 ## Comparative genomics analysis
-> **Tip:** Steps 1–4 are automated by `analysis/03_TAA/taa_analysis.smk`.
-> Run all at once from the repo root (dry-run first):
-> ```shell
-> ./docker/run.sh snakemake --snakefile analysis/03_TAA/taa_analysis.smk -n -c 8 taa_all
-> ./docker/run.sh snakemake --snakefile analysis/03_TAA/taa_analysis.smk -c 8 taa_all
-> ```
-> Individual targets: `snpeff_prep`, `private_variants`, `annotate_vcf`, `vcf_to_tsv`
-
+> **Tip:** Steps 1–5 are automated by `analysis/03_TAA/taa_analysis.smk` (Step 5 requires a one-time DB download first — see below).
 Technical steps
 1.  `snpeff_prep.sh`: Run the script to prepare the SnpEff database first <br>
     ```shell
@@ -117,7 +123,28 @@ Technical steps
     ./docker/run.sh python3 analysis/scripts/annot_single_vcf_to_tsv.py -v analysis/data/vcf/private_variants/SBC10.private.annotated.vcf.gz -o analysis/data/tsv
     ```
 
-5.  `03_TAA/TAA.ipynb`: Analyze in notebook.
+5.  `sift4g_annotate` (Snakemake rule): Annotate SnpEff-annotated private variants with SIFT4G functional scores.
+    Output VCF carries both `ANN=` (SnpEff) and `SIFT_SCORE`/`SIFT_PRED` in INFO. SIFT score < 0.05 = DAMAGING. <br>
+    **One-time setup** — download the JAR and Sorghum bicolor database before the first run:
+    ```shell
+    # SIFT4G Annotator JAR
+    mkdir -p resources/sift4g
+    wget -P resources/sift4g \
+        https://github.com/pauline-ng/SIFT4G_Annotator/releases/download/v2.4/SIFT4G_Annotator.jar
+
+    # Sorghum bicolor BTx623 v3 database
+    # Browse http://sift.bii.a-star.edu.sg/sift4g/ for the correct assembly.
+    # Unzip into resources/sift4g/db/ so the directory contains the species subdirectory.
+    ```
+    Then run (all four samples in parallel, Snakemake manages the rest):
+    ```shell
+    ./docker/run.sh snakemake --snakefile analysis/03_TAA/taa_analysis.smk -c 8 sift4g_annotate
+    ```
+    Outputs per sample in `analysis/data/vcf/sift4g/{sample}/`:
+    - `{sample}.private.annotated_SIFTannotations.txt` — per-variant score table (SIFT_SCORE, SIFT_PREDICTION, SIFT_MEDIAN, NUM_SEQS)
+    - `{sample}.private.sift4g.vcf.gz` — bgzipped VCF ready for `bcftools filter`
+
+6.  `03_TAA/TAA.ipynb`: Analyze in notebook.
 
 ## Comparative epigenomics analysis
 Technical steps
