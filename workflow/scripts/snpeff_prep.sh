@@ -13,10 +13,6 @@ set -euo pipefail
 
 THESIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 SNPEFF_DIR="${THESIS_DIR}/resources/snpeff"
-LOG_DIR="${THESIS_DIR}/analysis/logs"
-mkdir -p "${LOG_DIR}"
-LOG="${LOG_DIR}/snpeff_prep.$(date +%Y%m%d_%H%M%S).log"
-exec > >(tee -a "${LOG}") 2>&1
 
 DB="Sorghum_bicolor"
 

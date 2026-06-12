@@ -1,6 +1,11 @@
 # DMR analysis rules:
 # bedMethyl → DSS format conversion → DSS DMR calling → DMR annotation.
 
+GFF           = f"{WDIR}/resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff"
+BEDMETHYL_DIR = f"{WDIR}/resources/bedmethyl"
+DSS_DIR       = f"{WDIR}/results/DSS"
+DMR_DIR       = f"{WDIR}/results/DMR"
+
 rule prepare_dss:
     """Convert filtered bedMethyl files to DSS input format (collapses Watson/Crick CpG pairs)."""
     input:
@@ -9,7 +14,7 @@ rule prepare_dss:
         dss     = expand(f"{DSS_DIR}/{{sample}}.5mC.dss.txt", sample=SAMPLES),
         summary = f"{DSS_DIR}/conversion_summary.tsv",
     log:
-        f"{LOG_DIR}/prepare_dss.{TIMESTAMP}.log",
+        f"{WDIR}/workflow/logs/prepare_dss.{TIMESTAMP}.log",
     shell:
         """
         python3 {WDIR}/workflow/scripts/prepare_taa_dss.py > {log} 2>&1
@@ -29,7 +34,7 @@ rule run_dss_pair:
         dml = f"{DMR_DIR}/{{pair}}.5mC.DML.tsv",
         dmr = f"{DMR_DIR}/{{pair}}.5mC.DMR.tsv",
     log:
-        f"{LOG_DIR}/run_dss_{{pair}}.{TIMESTAMP}.log",
+        f"{WDIR}/workflow/logs/run_dss_{{pair}}.{TIMESTAMP}.log",
     threads: 32
     shell:
         """
@@ -45,7 +50,7 @@ rule summarise_dmr:
         summary  = f"{DMR_DIR}/DMR_summary.tsv",
         combined = f"{DMR_DIR}/DMR_all_combined.tsv",
     log:
-        f"{LOG_DIR}/summarise_dmr.{TIMESTAMP}.log",
+        f"{WDIR}/workflow/logs/summarise_dmr.{TIMESTAMP}.log",
     shell:
         """
         cd {WDIR} && Rscript workflow/scripts/summarise_dss_dmr_taa.R > {log} 2>&1
@@ -60,7 +65,7 @@ rule annotate_dmr:
     output:
         f"{DMR_DIR}/DMR_annotated.tsv",
     log:
-        f"{LOG_DIR}/annotate_dmr.{TIMESTAMP}.log",
+        f"{WDIR}/workflow/logs/annotate_dmr.{TIMESTAMP}.log",
     shell:
         """
         python3 {WDIR}/workflow/scripts/annotate_DMR.py \

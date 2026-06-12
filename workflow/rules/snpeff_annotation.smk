@@ -1,12 +1,14 @@
 # SnpEff annotation rules:
-# private variant extraction per sample → SnpEff annotation → VCF-to-TSV conversion.
+# private variant extraction per sample → SnpEff annotation.
+
+SNPEFF_DIR = f"{WDIR}/resources/snpeff"
 
 rule snpeff_prep:
     """Download prebuilt SnpEff database for Sorghum bicolor (one-time setup)."""
     output:
         f"{SNPEFF_DIR}/data/Sorghum_bicolor/sequence.1.bin",
     log:
-        f"{LOG_DIR}/snpeff_prep.{TIMESTAMP}.log",
+        f"{WDIR}/workflow/logs/vcf_annotation/snpeff_prep.{TIMESTAMP}.log",
     shell:
         """
         bash {WDIR}/workflow/scripts/snpeff_prep.sh > {log} 2>&1
@@ -22,7 +24,7 @@ rule private_variants:
         vcfs = expand(f"{PRIVATE_DIR}/{{sample}}.private.vcf.gz", sample=SAMPLES),
         tbis = expand(f"{PRIVATE_DIR}/{{sample}}.private.vcf.gz.tbi", sample=SAMPLES),
     log:
-        f"{LOG_DIR}/private_variants.{TIMESTAMP}.log",
+        f"{WDIR}/workflow/logs/vcf_annotation/private_variants.{TIMESTAMP}.log",
     params:
         out_dir = PRIVATE_DIR,
         samples = " ".join(SAMPLES),
@@ -55,33 +57,33 @@ rule annotate_vcf:
         tbi     = f"{PRIVATE_DIR}/{{sample}}.private.vcf.gz.tbi",
         db_flag = f"{SNPEFF_DIR}/data/Sorghum_bicolor/sequence.1.bin",
     output:
-        vcf = f"{PRIVATE_DIR}/{{sample}}.private.annotated.vcf.gz",
-        csi = f"{PRIVATE_DIR}/{{sample}}.private.annotated.vcf.gz.csi",
+        vcf = f"{SNPEFF_ANNOT_DIR}/{{sample}}.private.annotated.vcf.gz",
+        csi = f"{SNPEFF_ANNOT_DIR}/{{sample}}.private.annotated.vcf.gz.csi",
     log:
-        f"{LOG_DIR}/annotate_vcf.{{sample}}.{TIMESTAMP}.log",
+        f"{WDIR}/workflow/logs/vcf_annotation/annotate_vcf.{{sample}}.{TIMESTAMP}.log",
     shell:
         """
         bash {WDIR}/workflow/scripts/annotate_vcf.sh \
             {wildcards.sample}.private \
             {input.vcf} \
-            {PRIVATE_DIR} \
+            {SNPEFF_ANNOT_DIR} \
             > {log} 2>&1
         """
 
 
-rule vcf_to_tsv:
-    """Convert annotated private VCF to TSV for notebook exploration."""
-    input:
-        vcf = f"{PRIVATE_DIR}/{{sample}}.private.annotated.vcf.gz",
-        csi = f"{PRIVATE_DIR}/{{sample}}.private.annotated.vcf.gz.csi",
-    output:
-        f"{TSV_DIR}/{{sample}}.private.annotated.tsv",
-    log:
-        f"{LOG_DIR}/vcf_to_tsv.{{sample}}.{TIMESTAMP}.log",
-    shell:
-        """
-        python3 {WDIR}/workflow/scripts/annot_single_vcf_to_tsv.py \
-            -v {input.vcf} \
-            -o {TSV_DIR} \
-            > {log} 2>&1
-        """
+# rule vcf_to_tsv:
+#     """Convert annotated private VCF to TSV for notebook exploration."""
+#     input:
+#         vcf = f"{PRIVATE_DIR}/{{sample}}.private.annotated.vcf.gz",
+#         csi = f"{PRIVATE_DIR}/{{sample}}.private.annotated.vcf.gz.csi",
+#     output:
+#         f"{TSV_DIR}/{{sample}}.private.annotated.tsv",
+#     log:
+#         f"{WDIR}/workflow/logs/vcf_annotation/vcf_to_tsv.{{sample}}.{TIMESTAMP}.log",
+#     shell:
+#         """
+#         python3 {WDIR}/workflow/scripts/annot_single_vcf_to_tsv.py \
+#             -v {input.vcf} \
+#             -o {TSV_DIR} \
+#             > {log} 2>&1
+#         """

@@ -5,35 +5,26 @@ WDIR        = str(Path(workflow.basedir).parent)
 TIMESTAMP   = datetime.now().strftime("%Y%m%d_%H%M%S")
 SAMPLES     = ["SBC4", "SBC10", "SBC11", "SBC23"]
 PAIRS       = ["SBC10_vs_SBC4", "SBC10_vs_SBC11", "SBC10_vs_SBC23"]
-LOG_DIR     = f"{WDIR}/analysis/logs"
+LOG_DIR     = f"{WDIR}/workflow/logs"
 
 config.setdefault("WDIR", WDIR)
 
-# ── Paths shared across TAA rules ──────────────────────────────────────────────
+# ── Paths shared across multiple rule files ────────────────────────────────────
 PHASED_VCF_DIR   = f"{WDIR}/results/vcf_processing"
 PRIVATE_DIR      = f"{WDIR}/results/private_variants"
-TSV_DIR          = f"{WDIR}/results/private_variants_annotated"
-SNPEFF_DIR       = f"{WDIR}/resources/snpeff"
-REF              = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
-GTF              = f"{WDIR}/resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gtf"
-GFF              = f"{WDIR}/resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff"
-UNIREF90         = f"{WDIR}/resources/UNIPROT_FTP/uniref90.fasta"
-SIFT4G_BUILD_DIR = f"{WDIR}/resources/sift4g/sorghum_db"
-SIFT4G_DB        = f"{SIFT4G_BUILD_DIR}/NCBIv3"
-SORGHUM_CHROMS   = [f"NC_01287{i}.2" for i in range(10)] + ["NC_008360.1", "NC_008602.1"]
+SNPEFF_ANNOT_DIR = f"{WDIR}/results/snpeff"
 SIFT_DIR         = f"{WDIR}/results/sift4g"
-BEDMETHYL_DIR    = f"{WDIR}/resources/bedmethyl"
-DSS_DIR          = f"{WDIR}/results/DSS"
-DMR_DIR          = f"{WDIR}/results/DMR"
+REF              = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
 
 rule all:
     input:
         # expand(f"{PHASED_VCF_DIR}/{{sample}}.phased.vcf.gz", sample=SAMPLES),
         # expand(f"{PHASED_VCF_DIR}/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),
-        # expand(f"{DMR_DIR}/{{pair}}.5mC.DMR.tsv", pair=PAIRS),
-        expand(f"{TSV_DIR}/{{sample}}.private.annotated.tsv", sample=SAMPLES),
-        expand(f"{SIFT_DIR}/{{sample}}/{{sample}}.private.sift4g.vcf.gz", sample=SAMPLES),
-        expand(f"{SIFT_DIR}/{{sample}}/{{sample}}.private.sift4g.vcf.gz.tbi", sample=SAMPLES),
+        # expand(f"{DMR_DIR}/{{pair}}.5mC.DMR.tsv", pair=PAIRS),         # dmr_analysis.smk
+        # expand(f"{SIFT_DIR}/{{sample}}.private.sift4g.vcf.gz", sample=SAMPLES),   # sift_annotation.smk
+        # expand(f"{SIFT_DIR}/{{sample}}.private.sift4g.vcf.gz.tbi", sample=SAMPLES),
+        f"{WDIR}/results/ranked_genes_lists/SBC10.multiomics_ranked.tsv",
+
 
 include: "rules/reads_preprocessing.smk"
 include: "rules/variant_analysis.smk"
@@ -42,3 +33,4 @@ include: "rules/methylation.smk"
 include: "rules/snpeff_annotation.smk"
 include: "rules/sift_annotation.smk"
 include: "rules/dmr_analysis.smk"
+include: "rules/ranked_genes.smk"

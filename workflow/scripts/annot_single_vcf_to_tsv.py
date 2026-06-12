@@ -4,7 +4,6 @@ import cyvcf2
 import pandas as pd
 import argparse
 import logging
-from datetime import datetime
 from pathlib import Path
 
 ANN_FIELDS = [
@@ -30,20 +29,10 @@ def main():
     parser.add_argument("-o", "--outdir", help="Path of the output file")
     args = parser.parse_args()
 
-    stem = Path(args.vcf).name.split(".vcf")[0]
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    log_dir = Path(__file__).parent.parent / "logs"
-    log_dir.mkdir(parents=True, exist_ok=True)
-    log_file = log_dir / f"parse_vcf_to_tsv.{stem}.{timestamp}.log"
-
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s %(levelname)s %(message)s",
         datefmt="%H:%M:%S",
-        handlers=[
-            logging.FileHandler(log_file),
-            logging.StreamHandler(),
-        ],
     )
     log = logging.getLogger(__name__)
     log.info("Input:  %s", args.vcf)
@@ -79,7 +68,6 @@ def main():
     out_path.parent.mkdir(parents=True, exist_ok=True)
     pd.DataFrame(rows).to_csv(out_path, sep="\t", index=False)
     log.info("Saved %d rows to %s", len(rows), out_path)
-    log.info("Log written to %s", log_file)
 
 if __name__ == "__main__":
     main()
