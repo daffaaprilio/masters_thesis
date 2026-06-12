@@ -24,7 +24,7 @@ import pandas as pd
 # ── Config ─────────────────────────────────────────────────────────────────────
 ROOT      = Path(__file__).resolve().parent.parent.parent
 BED_DIR   = ROOT / "resources/bedmethyl"
-OUT_DIR   = ROOT / "analysis/data/taa_DSS"
+OUT_DIR   = ROOT / "results/DSS"
 LOG_DIR   = ROOT / "analysis/logs"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 LOG_DIR.mkdir(parents=True, exist_ok=True)

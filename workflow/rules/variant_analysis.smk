@@ -46,7 +46,7 @@ rule clair3_cpu:
 rule publish_vcf:
     """Symlink Clair3 merge output to the canonical results/vcf/ location."""
     input:
-        vcf = f"{WDIR}/results/variant_calling/{{sample}}/merge_output.vcf.gz",
+        vcf = ancient(f"{WDIR}/results/variant_calling/{{sample}}/merge_output.vcf.gz"),
     output:
         vcf = f"{WDIR}/results/vcf/{{sample}}.vcf.gz",
         csi = f"{WDIR}/results/vcf/{{sample}}.vcf.gz.csi",

@@ -11,7 +11,7 @@ suppressPackageStartupMessages({
 # --------------------------------------------------------------------------- #
 # Paths
 # --------------------------------------------------------------------------- #
-OUT_DIR <- "analysis/data/taa_DMR"
+OUT_DIR <- "results/DMR"
 LOG_DIR <- "analysis/logs"
 dir.create(LOG_DIR, recursive = TRUE, showWarnings = FALSE)
 

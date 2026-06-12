@@ -44,8 +44,8 @@ MAIN_CHROMS <- paste0("NC_01287", 0:9, ".2")
 # --------------------------------------------------------------------------- #
 # Paths
 # --------------------------------------------------------------------------- #
-DSS_DIR <- "analysis/data/taa_DSS"
-OUT_DIR <- "analysis/data/taa_DMR"
+DSS_DIR <- "results/DSS"
+OUT_DIR <- "results/DMR"
 LOG_DIR <- "analysis/logs"
 dir.create(OUT_DIR, recursive = TRUE, showWarnings = FALSE)
 dir.create(LOG_DIR, recursive = TRUE, showWarnings = FALSE)

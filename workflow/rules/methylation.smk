@@ -24,8 +24,8 @@ rule methylation_all:
 rule modkit_pileup:
     """Step 6 — aggregate per-read mod probabilities into per-position bedMethyl."""
     input:
-        bam = f"{WDIR}/resources/align_bam_sample/{{sample}}.bam",
-        bai = f"{WDIR}/resources/align_bam_sample/{{sample}}.bam.bai",
+        bam = ancient(f"{WDIR}/resources/align_bam_sample/{{sample}}.bam"),
+        bai = ancient(f"{WDIR}/resources/align_bam_sample/{{sample}}.bam.bai"),
         ref = REF,
     output:
         bed = f"{WDIR}/resources/bedmethyl/{{sample}}.bed",

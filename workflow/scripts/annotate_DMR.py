@@ -280,20 +280,25 @@ def intersect_feature(dmr_bed_path, feature_bed_path, feature_type):
 
 def annotate_dmrs(dmr_df, feature_beds, outdir, label_to_egi=None):
     """
-    Intersect DMRs against each feature BED and attach annotation columns.
+    Intersect DMRs against each feature BED and expand to one row per
+    (DMR × feature × gene_label) combination.
 
     Added columns:
-      features   — semicolon-separated overlapping feature types, or 'intergenic'
-      gene_label — semicolon-separated gene name(s)
-      egi        — semicolon-separated gene IDs (only when label_to_egi is provided)
+      feature    — single overlapping feature type, or 'intergenic'
+      gene_label — single gene name for this (DMR, feature) pair
+      egi        — gene ID (only when label_to_egi is provided)
+
+    A DMR that overlaps N features across M genes yields up to N×M rows.
+    Intergenic DMRs (no overlap with any feature) produce one row with
+    feature='intergenic' and an empty gene_label.
     """
     # Write DMR BED (no header)
     dmr_bed_path = Path(outdir) / "_dmrs_tmp.bed"
     dmr_df[["chr", "start", "end"]].to_csv(
         dmr_bed_path, sep="\t", header=False, index=False)
 
-    # Collect overlaps per feature type
-    all_hits = {}   # feature_type → {key → set(labels)}
+    # Collect overlaps per feature type: {feature → {(chr,start,end) → set(labels)}}
+    all_hits = {}
     for feat in FEATURE_ORDER:
         if feat not in feature_beds:
             continue
@@ -301,33 +306,30 @@ def annotate_dmrs(dmr_df, feature_beds, outdir, label_to_egi=None):
 
     dmr_bed_path.unlink()
 
-    # Build annotation per DMR row
-    features_col   = []
-    gene_label_col = []
-    egi_col        = [] if label_to_egi is not None else None
-
+    expanded = []
     for _, row in dmr_df.iterrows():
         key = (row["chr"], int(row["start"]), int(row["end"]))
-        feat_list  = []
-        label_set  = set()
+        base = row.to_dict()
 
+        pairs = []   # (feature, gene_label) for this DMR
         for feat in FEATURE_ORDER:
             if feat in all_hits and key in all_hits[feat]:
-                feat_list.append(feat)
-                label_set |= all_hits[feat][key]
+                for label in sorted(all_hits[feat][key]):
+                    pairs.append((feat, label))
 
-        labels = sorted(label_set)
-        features_col.append(";".join(feat_list) if feat_list else "intergenic")
-        gene_label_col.append(";".join(labels))
-        if egi_col is not None:
-            egi_col.append(";".join(label_to_egi.get(lbl, "") for lbl in labels))
+        if not pairs:
+            new_row = {**base, "feature": "intergenic", "gene_label": ""}
+            if label_to_egi is not None:
+                new_row["egi"] = ""
+            expanded.append(new_row)
+        else:
+            for feat, label in pairs:
+                new_row = {**base, "feature": feat, "gene_label": label}
+                if label_to_egi is not None:
+                    new_row["egi"] = label_to_egi.get(label, "")
+                expanded.append(new_row)
 
-    dmr_df = dmr_df.copy()
-    dmr_df["features"]   = features_col
-    dmr_df["gene_label"] = gene_label_col
-    if egi_col is not None:
-        dmr_df["egi"] = egi_col
-    return dmr_df
+    return pd.DataFrame(expanded)
 
 
 # --------------------------------------------------------------------------- #
@@ -335,24 +337,30 @@ def annotate_dmrs(dmr_df, feature_beds, outdir, label_to_egi=None):
 # --------------------------------------------------------------------------- #
 
 def print_summary(dmr_df):
+    dmr_id = ["chr", "start", "end"]
+
     logging.info("\n── Feature overlap summary ──────────────────────────────────")
     for feat in FEATURE_ORDER + ["intergenic"]:
-        mask = dmr_df["features"].str.contains(feat, regex=False)
-        logging.info(f"  {feat:<12}: {mask.sum():>3} DMRs")
+        n = dmr_df.loc[dmr_df["feature"] == feat, dmr_id].drop_duplicates().shape[0]
+        logging.info(f"  {feat:<12}: {n:>3} DMRs")
 
     logging.info("\n── Per-gene DMR count ───────────────────────────────────────")
     gene_counts = (
-        dmr_df["gene_label"]
-        .str.split(";").explode()
-        .replace("", pd.NA).dropna()
-        .value_counts()
+        dmr_df[dmr_df["gene_label"] != ""]
+        .drop_duplicates(subset=dmr_id + ["gene_label"])
+        .groupby("gene_label")
+        .size()
         .sort_index()
     )
     for gene, n in gene_counts.items():
         logging.info(f"  {gene:<24}: {n:>3} DMRs")
 
     logging.info("\n── Per-pair DMR count ───────────────────────────────────────")
-    pair_counts = dmr_df.groupby(["sample_a", "sample_b"]).size()
+    pair_counts = (
+        dmr_df.drop_duplicates(subset=dmr_id + ["sample_a", "sample_b"])
+        .groupby(["sample_a", "sample_b"])
+        .size()
+    )
     for (sa, sb), n in pair_counts.items():
         logging.info(f"  {sa} vs {sb:<8}: {n:>3} DMRs")
 

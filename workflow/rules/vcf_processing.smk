@@ -35,8 +35,8 @@ rule reheader_vcf:
         vcf = f"{VCF_DIR}/{{sample}}.vcf.gz",
         csi = f"{VCF_DIR}/{{sample}}.vcf.gz.csi",
     output:
-        vcf = temp(f"{OUT_DIR}/reheadered/{{sample}}.reheadered.vcf.gz"),
-        csi = temp(f"{OUT_DIR}/reheadered/{{sample}}.reheadered.vcf.gz.csi"),
+        vcf = f"{OUT_DIR}/reheadered/{{sample}}.reheadered.vcf.gz",
+        csi = f"{OUT_DIR}/reheadered/{{sample}}.reheadered.vcf.gz.csi",
     log:
         f"{LOG_DIR}/reheader_vcf/{{sample}}.{TIMESTAMP}.log",
     shell:
@@ -54,8 +54,8 @@ rule filter_vcf:
         vcf = f"{OUT_DIR}/reheadered/{{sample}}.reheadered.vcf.gz",
         csi = f"{OUT_DIR}/reheadered/{{sample}}.reheadered.vcf.gz.csi",
     output:
-        vcf = temp(f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz"),
-        csi = temp(f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz.csi"),
+        vcf = f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz",
+        csi = f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz.csi",
     log:
         f"{LOG_DIR}/filter_vcf/{{sample}}.{TIMESTAMP}.log",
     params:
@@ -76,8 +76,8 @@ rule filter_chromosomes:
         vcf = f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz",
         csi = f"{OUT_DIR}/filtered/{{sample}}.filtered.vcf.gz.csi",
     output:
-        vcf = temp(f"{OUT_DIR}/chr_filtered/{{sample}}.chr_filtered.vcf.gz"),
-        csi = temp(f"{OUT_DIR}/chr_filtered/{{sample}}.chr_filtered.vcf.gz.csi"),
+        vcf = f"{OUT_DIR}/chr_filtered/{{sample}}.chr_filtered.vcf.gz",
+        csi = f"{OUT_DIR}/chr_filtered/{{sample}}.chr_filtered.vcf.gz.csi",
     log:
         f"{LOG_DIR}/filter_chromosomes/{{sample}}.{TIMESTAMP}.log",
     params:
