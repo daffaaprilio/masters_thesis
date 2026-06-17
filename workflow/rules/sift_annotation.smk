@@ -1,6 +1,8 @@
 # SIFT4G annotation rules:
 # build the Sorghum bicolor prediction database (one-time) → annotate per-sample variants.
 
+# if you want to redo the process, remove the sentinel file first (f"{SIFT4G_BUILD_DIR}/.setup_done")
+
 GTF              = f"{WDIR}/resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gtf"
 UNIREF90         = f"{WDIR}/resources/UNIPROT_FTP/uniref90.fasta"
 SIFT4G_BUILD_DIR = f"{WDIR}/resources/sift4g/sorghum_db"
