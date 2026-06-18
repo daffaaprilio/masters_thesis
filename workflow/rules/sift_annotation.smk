@@ -107,15 +107,13 @@ rule annotate_sift:
     SIFT-annotated VCF. The VCF is sorted, bgzipped, and indexed.
     SIFT score < 0.05 = DAMAGING.
 
-    Chromosome renaming: SnpEff outputs simple names (1–10); the SIFT4G DB was
-    built with NCBI IDs (NC_012870.2 etc.).  We reverse-map before annotating
-    so the VCF chromosomes match the DB .regions files.
+    SnpEff now uses a custom DB built from the same NCBI GTF as SIFT4G, so both
+    tools share NCBI chromosome IDs (NC_012870.2 etc.) — no rename step needed.
     """
     input:
         vcf      = f"{SNPEFF_ANNOT_DIR}/{{sample}}.private.annotated.vcf.gz",
         csi      = f"{SNPEFF_ANNOT_DIR}/{{sample}}.private.annotated.vcf.gz.csi",
         db_flag  = f"{SIFT4G_BUILD_DIR}/.db_built",
-        synonyms = f"{WDIR}/workflow/scripts/synonyms.txt",
     output:
         xls = f"{SIFT_DIR}/{{sample}}.private.annotated_SIFTannotations.xls",
         vcf = f"{SIFT_DIR}/{{sample}}.private.sift4g.vcf.gz",
@@ -133,12 +131,8 @@ rule annotate_sift:
             stem={wildcards.sample}.private.annotated
             mkdir -p "$out_dir" "$tmp_dir"
 
-            # Reverse the synonym map: SnpEff names (col 2) → NCBI IDs (col 1)
-            awk '{{print $2"\t"$1}}' {input.synonyms} > "$tmp_dir/chrom_rename_rev.txt"
-
-            # Rename chromosomes back to NCBI IDs so they match the SIFT DB
-            bcftools annotate --rename-chrs "$tmp_dir/chrom_rename_rev.txt" \
-                {input.vcf} -O v -o "$tmp_dir/$stem.vcf"
+            # Decompress for SIFT4G_Annotator (requires uncompressed VCF)
+            bcftools view {input.vcf} -O v -o "$tmp_dir/$stem.vcf"
 
             java -jar {params.jar} -c \
                 -i "$tmp_dir/$stem.vcf" \

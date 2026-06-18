@@ -1,38 +1,44 @@
 #!/usr/bin/env bash
-# Download the prebuilt SnpEff database for Sorghum bicolor.
-#
-# Uses `snpEff download` to fetch the prebuilt database from the SnpEff
-# repository rather than building from local FASTA/GFF files.
+# Build a custom SnpEff database for Sorghum bicolor from the same NCBI GTF
+# used by SIFT4G, ensuring consistent gene models between the two tools.
 #
 # Usage (from any directory within the repo):
-#   bash analysis/scripts/snpeff_prep.sh
-#
-# To verify the exact genome name available in the SnpEff repo:
-#   bash docker/run.sh snpEff databases | grep -i sorghum
+#   bash workflow/scripts/snpeff_prep.sh
 set -euo pipefail
 
 THESIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 SNPEFF_DIR="${THESIS_DIR}/resources/snpeff"
 
-DB="Sorghum_bicolor"
+DB="Sorghum_bicolor_NCBIv3"
+GTF="${THESIS_DIR}/resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gtf"
+REF="${THESIS_DIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
 
 DATA_DIR="${SNPEFF_DIR}/data"
+DB_DIR="${DATA_DIR}/${DB}"
 CONFIG="${SNPEFF_DIR}/snpEff.config"
 
-mkdir -p "${DATA_DIR}"
+mkdir -p "${DB_DIR}"
 
-# Minimal config so snpEff knows where to place the downloaded database.
-# The genome entry is required by snpEff ann even when using a prebuilt DB.
+echo "[snpeff_prep] copying GTF annotation..."
+cp "${GTF}" "${DB_DIR}/genes.gtf"
+
+echo "[snpeff_prep] linking genome FASTA..."
+ln -sf "${REF}" "${DB_DIR}/sequences.fa"
+
+echo "[snpeff_prep] writing snpEff.config..."
 cat > "${CONFIG}" <<EOF
-data.dir = ${SNPEFF_DIR}/data
+data.dir = ${DATA_DIR}
 
-${DB}.genome : ${DB}
+${DB}.genome : Sorghum bicolor NCBIv3
 EOF
 
-echo "[snpeff_prep] downloading prebuilt SnpEff database for ${DB}"
-snpEff download \
-    -dataDir "${DATA_DIR}" \
+echo "[snpeff_prep] building SnpEff database from GTF..."
+snpEff build \
+    -gtf22 \
     -v \
+    -noCheckCds \
+    -noCheckProtein \
+    -config "${CONFIG}" \
     "${DB}"
 
-echo "[snpeff_prep] done — database written to ${DATA_DIR}/${DB}"
+echo "[snpeff_prep] done — database written to ${DB_DIR}"

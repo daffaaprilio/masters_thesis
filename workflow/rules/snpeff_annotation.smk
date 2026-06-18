@@ -4,9 +4,9 @@
 SNPEFF_DIR = f"{WDIR}/resources/snpeff"
 
 rule snpeff_prep:
-    """Download prebuilt SnpEff database for Sorghum bicolor (one-time setup)."""
+    """Build custom SnpEff database for Sorghum bicolor from the NCBI GTF (one-time setup)."""
     output:
-        f"{SNPEFF_DIR}/data/Sorghum_bicolor/sequence.1.bin",
+        f"{SNPEFF_DIR}/data/Sorghum_bicolor_NCBIv3/sequence.NC_012870.2.bin",
     log:
         f"{WDIR}/workflow/logs/vcf_annotation/snpeff_prep.{TIMESTAMP}.log",
     shell:
@@ -55,7 +55,7 @@ rule annotate_vcf:
     input:
         vcf     = f"{PRIVATE_DIR}/{{sample}}.private.vcf.gz",
         tbi     = f"{PRIVATE_DIR}/{{sample}}.private.vcf.gz.tbi",
-        db_flag = f"{SNPEFF_DIR}/data/Sorghum_bicolor/sequence.1.bin",
+        db_flag = f"{SNPEFF_DIR}/data/Sorghum_bicolor_NCBIv3/sequence.NC_012870.2.bin",
     output:
         vcf = f"{SNPEFF_ANNOT_DIR}/{{sample}}.private.annotated.vcf.gz",
         csi = f"{SNPEFF_ANNOT_DIR}/{{sample}}.private.annotated.vcf.gz.csi",

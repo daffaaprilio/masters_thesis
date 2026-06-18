@@ -3,8 +3,7 @@
 WDIR="$(cd "$(dirname "$0")/../.." && pwd)"
 
 SNPEFF_DIR="${WDIR}/resources/snpeff"
-SNPEFF_DB="Sorghum_bicolor"
-RENAME_MAP="${WDIR}/workflow/scripts/synonyms.txt"
+SNPEFF_DB="Sorghum_bicolor_NCBIv3"
 
 SAMPLE=$1
 INPUT_VCF=$2
@@ -12,18 +11,16 @@ OUT_DIR="${3:-${WDIR}/analysis/data/vcf/annotated}"
 
 mkdir -p "${OUT_DIR}"
 
-echo "[$(date +%T)] Renaming chromosomes and annotating ${SAMPLE}..."
-bcftools annotate \
-    --rename-chrs "${RENAME_MAP}" \
-    -O v "${INPUT_VCF}" \
-    | snpEff ann \
-        -config  "${SNPEFF_DIR}/snpEff.config" \
-        -dataDir "${SNPEFF_DIR}/data" \
-        -v \
-        -nodownload \
-        -stats   "${OUT_DIR}/${SAMPLE}.stats.html" \
-        -csvStats "${OUT_DIR}/${SAMPLE}.stats.csv" \
-        "${SNPEFF_DB}" \
+echo "[$(date +%T)] Annotating ${SAMPLE}..."
+snpEff ann \
+    -config  "${SNPEFF_DIR}/snpEff.config" \
+    -dataDir "${SNPEFF_DIR}/data" \
+    -v \
+    -nodownload \
+    -stats   "${OUT_DIR}/${SAMPLE}.stats.html" \
+    -csvStats "${OUT_DIR}/${SAMPLE}.stats.csv" \
+    "${SNPEFF_DB}" \
+    "${INPUT_VCF}" \
     | bgzip -c > "${OUT_DIR}/${SAMPLE}.annotated.vcf.gz"
 
 bcftools index "${OUT_DIR}/${SAMPLE}.annotated.vcf.gz"

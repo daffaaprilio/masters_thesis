@@ -21,9 +21,9 @@ rule all:
         # expand(f"{PHASED_VCF_DIR}/{{sample}}.phased.vcf.gz", sample=SAMPLES),
         # expand(f"{PHASED_VCF_DIR}/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),
         # expand(f"{DMR_DIR}/{{pair}}.5mC.DMR.tsv", pair=PAIRS),         # dmr_analysis.smk
-        # expand(f"{SIFT_DIR}/{{sample}}.private.sift4g.vcf.gz", sample=SAMPLES),   # sift_annotation.smk
-        # expand(f"{SIFT_DIR}/{{sample}}.private.sift4g.vcf.gz.tbi", sample=SAMPLES),
-        f"{WDIR}/results/ranked_genes_lists/SBC10.multiomics_ranked.tsv",
+        expand(f"{SIFT_DIR}/{{sample}}.private.sift4g.vcf.gz", sample=SAMPLES),   # sift_annotation.smk
+        expand(f"{SIFT_DIR}/{{sample}}.private.sift4g.vcf.gz.tbi", sample=SAMPLES),
+        # f"{WDIR}/results/ranked_genes_lists/SBC10.multiomics_ranked.tsv",
 
 
 include: "rules/reads_preprocessing.smk"
