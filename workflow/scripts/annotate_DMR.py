@@ -373,7 +373,7 @@ def main():
     parser = argparse.ArgumentParser(
         description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--dmr", default="analysis/data/sorgoleone_DMR/DMR_all_pairs_combined.tsv",
-                        help="Combined DMR TSV from run_dss_dmr.R")
+                        help="Combined DMR TSV from summarise_dss_dmr.R")
     parser.add_argument("--gff", default="resources/annot/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.gff",
                         help="GFF3 annotation file")
     parser.add_argument("--outdir", default="analysis/data/sorgoleone_DMR",

@@ -1,15 +1,15 @@
 #!/usr/bin/env Rscript
-# DSS DMR analysis: SBC10 vs each other accession (TAA contrast)
+# DSS DMR analysis: one pairwise comparison between two accessions.
 #
-# SBC10 is the high-TAA-producer (TAA +++, low secretion) and is always
-# group1 so that diff.Methy > 0 means hypermethylated in SBC10.
+# For a pair sA_vs_sB, sA is group1 so that diff.Methy > 0 means
+# hypermethylated in sA (sample_a).
 #
 # Results are exploratory — no biological replicates available (n=1 per group).
 #
 # Run one comparison at a time (can be launched in parallel):
-#   ./docker/run.sh Rscript analysis/scripts/run_dss_dmr_taa.R SBC10_vs_SBC4
-#   ./docker/run.sh Rscript analysis/scripts/run_dss_dmr_taa.R SBC10_vs_SBC11
-#   ./docker/run.sh Rscript analysis/scripts/run_dss_dmr_taa.R SBC10_vs_SBC23
+#   ./docker/run.sh Rscript workflow/scripts/run_dss_dmr.R SBC10_vs_SBC4
+#   ./docker/run.sh Rscript workflow/scripts/run_dss_dmr.R SBC11_vs_SBC23
+#   ./docker/run.sh Rscript workflow/scripts/run_dss_dmr.R SBC4_vs_SBC23
 
 suppressPackageStartupMessages({
   library(DSS)
@@ -22,12 +22,15 @@ suppressPackageStartupMessages({
 ALL_PAIRS <- list(
   SBC10_vs_SBC4  = c("SBC10", "SBC4"),
   SBC10_vs_SBC11 = c("SBC10", "SBC11"),
-  SBC10_vs_SBC23 = c("SBC10", "SBC23")
+  SBC10_vs_SBC23 = c("SBC10", "SBC23"),
+  SBC11_vs_SBC4  = c("SBC11", "SBC4"),
+  SBC11_vs_SBC23 = c("SBC11", "SBC23"),
+  SBC4_vs_SBC23  = c("SBC4",  "SBC23")
 )
 
 args <- commandArgs(trailingOnly = TRUE)
 if (length(args) == 0) {
-  stop("Usage: Rscript run_dss_dmr_taa.R <pair>\n",
+  stop("Usage: Rscript run_dss_dmr.R <pair>\n",
        "  where <pair> is one of: ", paste(names(ALL_PAIRS), collapse = ", "))
 }
 if (!args[1] %in% names(ALL_PAIRS)) {
@@ -53,7 +56,7 @@ dir.create(LOG_DIR, recursive = TRUE, showWarnings = FALSE)
 # --------------------------------------------------------------------------- #
 # Logging
 # --------------------------------------------------------------------------- #
-log_path <- file.path(LOG_DIR, sprintf("run_dss_dmr_taa_%s_%s.log",
+log_path <- file.path(LOG_DIR, sprintf("run_dss_dmr_%s_%s.log",
                                        PAIR_NAME, format(Sys.time(), "%Y%m%d_%H%M%S")))
 log_con  <- file(log_path, open = "wt")
 sink(log_con, split = TRUE)
@@ -93,12 +96,12 @@ dss_data <- lapply(samples_needed, function(s) {
 names(dss_data) <- samples_needed
 
 # --------------------------------------------------------------------------- #
-# SBC10 vs others loop
+# Pairwise DMR loop
 # --------------------------------------------------------------------------- #
 sep_line <- strrep("─", 60)
 
 for (pair in PAIRS) {
-  sA        <- pair[1]   # always SBC10
+  sA        <- pair[1]   # group1 (sample_a)
   sB        <- pair[2]
   pair_name <- paste0(sA, "_vs_", sB)
 
@@ -166,7 +169,7 @@ for (pair in PAIRS) {
     cat(sprintf("  *** WARNING: %d DMR(s) have nCG < %d\n",
                 sum(dmr$nCG < DMR_MINCG, na.rm = TRUE), DMR_MINCG))
 
-  # diff.Methy > 0 → hypermethylated in SBC10 (group1)
+  # diff.Methy > 0 → hypermethylated in group1 (sample_a)
   dmr$sample_a  <- sA
   dmr$sample_b  <- sB
   dmr$direction <- ifelse(dmr$diff.Methy > 0,
@@ -190,4 +193,4 @@ for (pair in PAIRS) {
 }
 
 cat(sprintf("\nFinished: %s\n", format(Sys.time(), "%Y-%m-%d %H:%M:%S")))
-cat(sprintf("Done. Run summarise_dss_dmr_taa.R once all three comparisons complete.\n"))
+cat(sprintf("Done. Run summarise_dss_dmr.R once all comparisons complete.\n"))

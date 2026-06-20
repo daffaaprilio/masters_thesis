@@ -17,12 +17,12 @@ rule prepare_dss:
         f"{WDIR}/workflow/logs/prepare_dss.{TIMESTAMP}.log",
     shell:
         """
-        python3 {WDIR}/workflow/scripts/prepare_taa_dss.py > {log} 2>&1
+        python3 {WDIR}/workflow/scripts/prepare_dss.py > {log} 2>&1
         """
 
 
 rule run_dss_pair:
-    """Run DSS DML/DMR calling for one SBC10 vs other pair (5mC only).
+    """Run DSS DML/DMR calling for one pairwise comparison (5mC only).
 
     threads: 32 — each DSS run saturates all cores internally; this prevents
     Snakemake from launching more than one pair in parallel on a 32-core host.
@@ -38,7 +38,7 @@ rule run_dss_pair:
     threads: 32
     shell:
         """
-        cd {WDIR} && Rscript workflow/scripts/run_dss_dmr_taa.R {wildcards.pair} > {log} 2>&1
+        cd {WDIR} && Rscript workflow/scripts/run_dss_dmr.R {wildcards.pair} > {log} 2>&1
         """
 
 
@@ -53,7 +53,7 @@ rule summarise_dmr:
         f"{WDIR}/workflow/logs/summarise_dmr.{TIMESTAMP}.log",
     shell:
         """
-        cd {WDIR} && Rscript workflow/scripts/summarise_dss_dmr_taa.R > {log} 2>&1
+        cd {WDIR} && Rscript workflow/scripts/summarise_dss_dmr.R > {log} 2>&1
         """
 
 

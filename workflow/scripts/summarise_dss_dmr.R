@@ -1,8 +1,8 @@
 #!/usr/bin/env Rscript
-# Summarise TAA DMR results across all three SBC10 comparisons.
+# Summarise DMR results across all pairwise comparisons.
 #
-# Run after all three run_dss_dmr_taa.R jobs have finished:
-#   ./docker/run.sh Rscript analysis/scripts/summarise_dss_dmr_taa.R
+# Run after all run_dss_dmr.R jobs have finished:
+#   ./docker/run.sh Rscript workflow/scripts/summarise_dss_dmr.R
 
 suppressPackageStartupMessages({
   library(data.table)
@@ -15,14 +15,15 @@ OUT_DIR <- "results/DMR"
 LOG_DIR <- "analysis/logs"
 dir.create(LOG_DIR, recursive = TRUE, showWarnings = FALSE)
 
-log_path <- file.path(LOG_DIR, format(Sys.time(), "summarise_dss_dmr_taa_%Y%m%d_%H%M%S.log"))
+log_path <- file.path(LOG_DIR, format(Sys.time(), "summarise_dss_dmr_%Y%m%d_%H%M%S.log"))
 log_con  <- file(log_path, open = "wt")
 sink(log_con, split = TRUE)
 on.exit({ sink(); close(log_con) }, add = TRUE)
 cat(sprintf("Log: %s\n", log_path))
 cat(sprintf("Started: %s\n\n", format(Sys.time(), "%Y-%m-%d %H:%M:%S")))
 
-PAIRS <- c("SBC10_vs_SBC4", "SBC10_vs_SBC11", "SBC10_vs_SBC23")
+PAIRS <- c("SBC10_vs_SBC4", "SBC10_vs_SBC11", "SBC10_vs_SBC23",
+           "SBC11_vs_SBC4", "SBC11_vs_SBC23", "SBC4_vs_SBC23")
 
 sep_line <- strrep("─", 60)
 
@@ -50,8 +51,8 @@ for (pair_name in PAIRS) {
     summary_rows[[pair_name]] <- data.frame(
       pair           = pair_name,
       n_DMR          = 0L,
-      n_hyper_SBC10  = NA_integer_,
-      n_hyper_other  = NA_integer_,
+      n_hyper_a      = NA_integer_,
+      n_hyper_b      = NA_integer_,
       mean_diff      = NA_real_,
       mean_length_bp = NA_real_,
       mean_nCG       = NA_real_
@@ -62,18 +63,18 @@ for (pair_name in PAIRS) {
   sA <- sub("_vs_.*", "", pair_name)
   sB <- sub(".*_vs_", "", pair_name)
 
-  n_hyper_sbc10 <- sum(dmr$direction == paste0("hyper_", sA), na.rm = TRUE)
-  n_hyper_other <- sum(dmr$direction == paste0("hyper_", sB), na.rm = TRUE)
-  mean_diff     <- mean(dmr$diff.Methy, na.rm = TRUE)
+  n_hyper_a <- sum(dmr$direction == paste0("hyper_", sA), na.rm = TRUE)
+  n_hyper_b <- sum(dmr$direction == paste0("hyper_", sB), na.rm = TRUE)
+  mean_diff <- mean(dmr$diff.Methy, na.rm = TRUE)
 
-  cat(sprintf("  hyper_SBC10: %d  |  hyper_%s: %d  |  mean diff: %.3f\n",
-              n_hyper_sbc10, sB, n_hyper_other, mean_diff))
+  cat(sprintf("  hyper_%s: %d  |  hyper_%s: %d  |  mean diff: %.3f\n",
+              sA, n_hyper_a, sB, n_hyper_b, mean_diff))
 
   summary_rows[[pair_name]] <- data.frame(
     pair           = pair_name,
     n_DMR          = n_dmr,
-    n_hyper_SBC10  = n_hyper_sbc10,
-    n_hyper_other  = n_hyper_other,
+    n_hyper_a      = n_hyper_a,
+    n_hyper_b      = n_hyper_b,
     mean_diff      = round(mean_diff, 4),
     mean_length_bp = round(mean(dmr$length, na.rm = TRUE), 1),
     mean_nCG       = round(mean(dmr$nCG,    na.rm = TRUE), 1)

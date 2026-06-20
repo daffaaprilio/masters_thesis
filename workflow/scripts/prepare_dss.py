@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """
-Convert whole-genome filtered bedMethyl files to DSS input format for TAA DMR analysis.
+Convert whole-genome filtered bedMethyl files to DSS input format for DMR analysis.
 
 Reads resources/bedmethyl/{sample}.filtered.bed (already filtered for ≥10
 valid reads by modkit) for each of the four sorghum accessions, collapses
 Watson/Crick CpG strand pairs for 5mC, and writes DSS-ready text files.
 
 Run via:
-    ./docker/run.sh python3 analysis/scripts/prepare_taa_dss.py
+    ./docker/run.sh python3 workflow/scripts/prepare_dss.py
 
-Output: analysis/data/taa_DSS/{sample}.5mC.dss.txt
-        analysis/data/taa_DSS/{sample}.6mA.dss.txt
-        analysis/data/taa_DSS/conversion_summary.tsv
+Output: results/DSS/{sample}.5mC.dss.txt
+        results/DSS/{sample}.6mA.dss.txt
+        results/DSS/conversion_summary.tsv
 """
 
 import logging
@@ -49,7 +49,7 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler(LOG_DIR / f"prepare_taa_dss_{_ts}.log"),
+        logging.FileHandler(LOG_DIR / f"prepare_dss_{_ts}.log"),
     ],
 )
 
