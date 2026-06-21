@@ -20,8 +20,9 @@ rule ranked_genes:
     Output is sorted by genomic_score DESC, epigenomic_score DESC.
     """
     input:
-        vcf       = f"{SIFT_DIR}/{{sample}}.private.sift4g.vcf.gz",
-        tbi       = f"{SIFT_DIR}/{{sample}}.private.sift4g.vcf.gz.tbi",
+        # size-1 variant group == sample-private variants
+        vcf       = f"{SIFT_DIR}/{{sample}}.sift4g.vcf.gz",
+        tbi       = f"{SIFT_DIR}/{{sample}}.sift4g.vcf.gz.tbi",
         dmr       = f"{DMR_DIR}/DMR_annotated.tsv",
         gene_info = GENE_INFO,
     output:

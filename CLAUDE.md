@@ -48,8 +48,9 @@ SBC11 is special: its three libraries must be merged with `samtools merge` befor
 
 Key outputs:
 - `results/vcf_processing/{sample}.phased.vcf.gz` — phased VCFs
-- `results/snpeff/{sample}.private.snpeff.vcf.gz` — SnpEff-annotated private variants
-- `results/sift4g/{sample}.private.sift4g.vcf.gz` — SIFT4G-annotated private variants
+- `results/variant_groups/{group}.vcf.gz` — variants per sample-sharing group. `{group}` is an underscore-joined subset of samples in canonical order (`SBC4`, `SBC4_SBC11_SBC23`, `SBC4_SBC10_SBC11_SBC23`, …); all 15 non-empty subsets. Single-sample groups (e.g. `SBC10`) are the old sample-private variants.
+- `results/snpeff/{group}.annotated.vcf.gz` — SnpEff-annotated group variants
+- `results/sift4g/{group}.sift4g.vcf.gz` — SIFT4G-annotated group variants
 - `resources/bedmethyl/{sample}.bed` — raw 5mC pileup
 - `resources/bedmethyl/{sample}.filtered.bed` — positions with ≥ 10 valid reads
 - `results/DMR/{pair}.5mC.DMR.tsv` — annotated DMRs per TAA contrast pair
@@ -73,9 +74,9 @@ resources/          # input data and intermediates
 results/            # final pipeline outputs
   variant_calling/  # Clair3 output directories
   vcf_processing/   # filtered, phased VCFs
+  variant_groups/   # bcftools isec outputs, one VCF per sample-sharing group
   snpeff/           # SnpEff-annotated VCFs
   sift4g/           # SIFT4G-annotated VCFs
-  private_variants/ # bcftools isec outputs
   DSS/              # per-pair DSS input files
   DMR/              # DSS DMR calls and annotations
   ranked_genes_lists/ # multi-omics gene ranking outputs
@@ -101,10 +102,10 @@ All scripts live in `workflow/scripts/`. Run via `./docker/run.sh python3 workfl
 | Script | Purpose |
 |--------|---------|
 | `variant_landscape.py` | Generates variant landscape figures from SnpEff stats CSVs |
+| `variant_upset.py` | UpSet plot of variant set intersections, reading the `results/variant_groups/{group}.vcf.gz` counts (does not run `bcftools isec`) |
 | `methylation_landscape.py` | Methylation landscape plots |
 | `vcf_benchmark.py` | VCF benchmark figure |
 | `annot_vcf_to_tsv.py` | Converts annotated VCF → TSV for notebooks |
-| `private_variants.sh` | `bcftools isec` to find sample-private variants |
 | `merge_vcf.sh` | Merges per-sample phased VCFs into multi-sample VCF |
 | `rank_dmr_genes.py` | Ranks genes by DMR proximity for multi-omics integration |
 | `build_ranked_genes.py` | Builds final multi-omics ranked gene list |

@@ -2,41 +2,45 @@
 """
 Variant intersection UpSet plot across four sorghum samples.
 
-Runs bcftools isec on all four phased VCFs (no -n filter) to capture every
-combination of sample overlap, parses sites.txt for the membership pattern,
-and generates an UpSet plot.
+Reads the intersected variant groups produced by the main pipeline
+(rule intersect_group → results/variant_groups/{group}.vcf.gz). Each group VCF
+is one UpSet cell: its member samples define the membership and its record count
+(read straight from the VCF index — no decompression) is the intersection size.
+This script does NOT run bcftools isec itself; run the pipeline first so the
+group VCFs exist.
 
 Run via:
-    ./docker/run.sh python3 analysis/scripts/variant_venn.py
+    ./docker/run.sh python3 workflow/scripts/variant_upset.py
 
-Output: analysis/03_TAA/figures/variant_upset.png
+Output: analysis/figures/variant_upset.png
 """
 
 import subprocess
-import tempfile
 import logging
 import warnings
-from collections import Counter
 from datetime import datetime
+from itertools import combinations
 from pathlib import Path
 
 import matplotlib.pyplot as plt
 from upsetplot import UpSet, from_memberships
 
 # ── Config ─────────────────────────────────────────────────────────────────────
-ROOT    = Path(__file__).resolve().parent.parent.parent
-VCF_DIR = ROOT / "results/vcf_processing"
-OUT_DIR = ROOT / "analysis/03_TAA/figures"
-LOG_DIR = ROOT / "analysis/logs"
+ROOT         = Path(__file__).resolve().parent.parent.parent
+VARGROUP_DIR = ROOT / "results/variant_groups"
+OUT_DIR      = ROOT / "analysis/figures"
+LOG_DIR      = ROOT / "analysis/logs"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 LOG_DIR.mkdir(parents=True, exist_ok=True)
 
+# Canonical sample order — must match the pipeline (workflow/Snakefile SAMPLES),
+# because group labels are the member samples joined with "_" in this order.
 SAMPLES = ["SBC4", "SBC10", "SBC11", "SBC23"]
 SAMPLE_LABELS = {
-    "SBC4":  "SBC4 (TAA ++, high sec.)",
-    "SBC10": "SBC10 (TAA +++, low sec.)",
-    "SBC11": "SBC11 (TAA −, high sec.)",
-    "SBC23": "SBC23 (TAA ++, high sec.)",
+    "SBC4":  "SBC4 (TAA High, Juice ++)",
+    "SBC10": "SBC10 (TAA Low, Juice +++)",
+    "SBC11": "SBC11 (TAA High, Juice -)",
+    "SBC23": "SBC23 (TAA High, Juice ++)",
 }
 
 _ts = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -46,7 +50,7 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S",
     handlers=[
         logging.StreamHandler(),
-        logging.FileHandler(LOG_DIR / f"variant_venn_{_ts}.log"),
+        logging.FileHandler(LOG_DIR / f"variant_upset_{_ts}.log"),
     ],
 )
 
@@ -60,51 +64,59 @@ plt.rcParams.update({
     "figure.dpi":     150,
 })
 
-# ── Run bcftools isec ──────────────────────────────────────────────────────────
-vcfs = [str(VCF_DIR / f"{s}.phased.vcf.gz") for s in SAMPLES]
-logging.info("Running bcftools isec on phased VCFs…")
 
-memberships: list[list[str]] = []
-with tempfile.TemporaryDirectory() as tmp:
+# ── Read intersection sizes from the pipeline's group VCFs ──────────────────────
+def count_records(vcf: Path) -> int:
+    """Number of variant records in a bgzipped+indexed VCF, read from its index."""
     result = subprocess.run(
-        ["bcftools", "isec", "-p", tmp] + vcfs,
+        ["bcftools", "index", "--nrecords", str(vcf)],
         check=True, capture_output=True, text=True,
     )
-    if result.stderr:
-        logging.info(result.stderr.strip())
+    return int(result.stdout.strip())
 
-    sites_path = Path(tmp) / "sites.txt"
-    with open(sites_path) as fh:
-        for line in fh:
-            if line.startswith("#"):
-                continue
-            # columns: CHROM  POS  REF  ALT  <binary pattern>
-            pattern = line.rstrip().split("\t")[4]
-            members = [SAMPLES[i] for i, c in enumerate(pattern) if c == "1"]
-            if members:
-                memberships.append(members)
 
-total = len(memberships)
-logging.info(f"Total variant sites parsed: {total:,}")
+logging.info(f"Reading intersected variant groups from {VARGROUP_DIR}")
 
-# Log per-combination counts for quick review
-pattern_counts = Counter(tuple(sorted(m)) for m in memberships)
-for combo, cnt in sorted(pattern_counts.items(), key=lambda x: -x[1]):
-    logging.info(f"  {' & '.join(combo):<45}  {cnt:>7,}")
+memberships: list[list[str]] = []
+counts: list[int] = []
+missing: list[Path] = []
+
+# Every non-empty subset of SAMPLES, in canonical order — mirrors VARGROUPS in
+# workflow/Snakefile so the {group}.vcf.gz filenames line up.
+for k in range(1, len(SAMPLES) + 1):
+    for combo in combinations(range(len(SAMPLES)), k):
+        members = [SAMPLES[i] for i in combo]
+        label   = "_".join(members)
+        vcf     = VARGROUP_DIR / f"{label}.vcf.gz"
+        if not vcf.exists():
+            missing.append(vcf)
+            continue
+        n = count_records(vcf)
+        memberships.append([SAMPLE_LABELS[s] for s in members])
+        counts.append(n)
+        logging.info(f"  {label:<28}  {n:>10,}")
+
+if missing:
+    listing = "\n".join(f"  - {p}" for p in missing)
+    raise SystemExit(
+        f"Missing {len(missing)} group VCF(s):\n{listing}\n"
+        "Run the pipeline first to produce them, e.g.:\n"
+        "  ./docker/run.sh snakemake <results/variant_groups/{group}.vcf.gz ...>"
+    )
+
+total = sum(counts)
+logging.info(f"Total variant sites across all groups: {total:,}")
 
 # ── Build UpSet data ───────────────────────────────────────────────────────────
-labeled = [
-    [SAMPLE_LABELS[s] for s in members]
-    for members in memberships
-]
-data = from_memberships(labeled)
+# One row per membership combination; the value is that combination's site count.
+data = from_memberships(memberships, data=counts)
 
 # ── Plot ───────────────────────────────────────────────────────────────────────
 # Let upsetplot own the figure to avoid GridSpec conflicts with a pre-created fig.
-# show_counts=False avoids a matplotlib text-annotation bug (0-d array → float).
+# subset_size="sum" sums each combination's site count (one row per combination).
 upset = UpSet(
     data,
-    subset_size="count",
+    subset_size="sum",
     sort_by="cardinality",
     show_counts=False,
     totals_plot_elements=4,

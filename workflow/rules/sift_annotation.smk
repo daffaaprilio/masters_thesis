@@ -101,7 +101,7 @@ rule build_sift_db:
 
 
 rule annotate_sift:
-    """Annotate SnpEff-private variants with SIFT4G functional scores (per sample).
+    """Annotate a SnpEff-annotated variant group with SIFT4G functional scores.
 
     SIFT4G_Annotator.jar outputs {stem}_SIFTannotations.xls alongside a
     SIFT-annotated VCF. The VCF is sorted, bgzipped, and indexed.
@@ -111,15 +111,15 @@ rule annotate_sift:
     tools share NCBI chromosome IDs (NC_012870.2 etc.) — no rename step needed.
     """
     input:
-        vcf      = f"{SNPEFF_ANNOT_DIR}/{{sample}}.private.annotated.vcf.gz",
-        csi      = f"{SNPEFF_ANNOT_DIR}/{{sample}}.private.annotated.vcf.gz.csi",
+        vcf      = f"{SNPEFF_ANNOT_DIR}/{{group}}.annotated.vcf.gz",
+        csi      = f"{SNPEFF_ANNOT_DIR}/{{group}}.annotated.vcf.gz.csi",
         db_flag  = f"{SIFT4G_BUILD_DIR}/.db_built",
     output:
-        xls = f"{SIFT_DIR}/{{sample}}.private.annotated_SIFTannotations.xls",
-        vcf = f"{SIFT_DIR}/{{sample}}.private.sift4g.vcf.gz",
-        tbi = f"{SIFT_DIR}/{{sample}}.private.sift4g.vcf.gz.tbi",
+        xls = f"{SIFT_DIR}/{{group}}.annotated_SIFTannotations.xls",
+        vcf = f"{SIFT_DIR}/{{group}}.sift4g.vcf.gz",
+        tbi = f"{SIFT_DIR}/{{group}}.sift4g.vcf.gz.tbi",
     log:
-        f"{WDIR}/workflow/logs/vcf_annotation/annotate_sift.{{sample}}.{TIMESTAMP}.log",
+        f"{WDIR}/workflow/logs/vcf_annotation/annotate_sift.{{group}}.{TIMESTAMP}.log",
     params:
         jar = "/opt/SIFT4G_Annotator.jar",
         db  = SIFT4G_DB,
@@ -127,8 +127,8 @@ rule annotate_sift:
         """
         (
             out_dir={SIFT_DIR}
-            tmp_dir={SIFT_DIR}/{wildcards.sample}_tmp
-            stem={wildcards.sample}.private.annotated
+            tmp_dir={SIFT_DIR}/{wildcards.group}_tmp
+            stem={wildcards.group}.annotated
             mkdir -p "$out_dir" "$tmp_dir"
 
             # Decompress for SIFT4G_Annotator (requires uncompressed VCF)
