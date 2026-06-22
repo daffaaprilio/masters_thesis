@@ -185,21 +185,26 @@ def scoring(df):
     df["score"] = score
     return df
 
+# Columns that survive a gene-level merge: gene identity only. Every other
+# parsed column (pos, ref, alt, qual, gt, ann_effect/impact/hgvs*, sift_*) is
+# variant/transcript-scoped and must NOT ride along on a per-gene row -- its
+# scope would not match the aggregated score (most clearly in the SUM case,
+# where no single variant corresponds to the gene total).
+GENE_LEVEL_COLS = ["ann_gene_id", "ann_gene_name", "ann_biotype", "chrom"]
+
+
 def merge_to_gene_max(df_scored: pd.DataFrame, gene_key: str = "ann_gene_id") -> pd.DataFrame:
     """Collapse variant/transcript rows to one row per gene.
 
-    Maximum / worst-variant approach: each gene keeps the single annotation
-    with the highest ``score``, so the gene-level risk equals its most
-    damaging variant. The full worst-variant row is retained (effect, impact,
-    SIFT, position) for context. Rows with no gene id are dropped.
+    Maximum / worst-variant approach: each gene's ``score`` is the score of its
+    single most damaging variant. Only gene-level columns (GENE_LEVEL_COLS) are
+    emitted; variant-level fields are dropped because the output is a per-gene
+    product. Rows with no gene id are dropped.
     """
     scored = df_scored[df_scored[gene_key].fillna("").ne("")]
     idx = scored.groupby(gene_key)["score"].idxmax()       # worst variant per gene
-    return (
-        scored.loc[idx]
-        .sort_values("score", ascending=False)
-        .reset_index(drop=True)
-    )
+    out = scored.loc[idx, GENE_LEVEL_COLS + ["score"]]
+    return out.sort_values("score", ascending=False).reset_index(drop=True)
 
 def merge_to_gene_sum(df_scored: pd.DataFrame, gene_key: str = "ann_gene_id") -> pd.DataFrame:
     """Collapse variant/transcript rows to one row per gene by summing scores.
@@ -207,23 +212,25 @@ def merge_to_gene_sum(df_scored: pd.DataFrame, gene_key: str = "ann_gene_id") ->
     Sum approach: a gene's risk is the total of every annotation score it
     carries, so it rewards genes hit by many and/or more damaging variants
     (unlike the max approach, which only looks at the single worst variant).
-    n_rows is kept alongside for context. Rows with no gene id are dropped.
+
+    Schema mirrors merge_to_gene_max: only gene-level columns (GENE_LEVEL_COLS)
+    are emitted, plus the per-gene ``score`` (the sum) and ``n_rows``. No
+    variant-level fields are kept -- the sum spans many variants, so no single
+    variant's position/effect/SIFT could describe it. Rows with no gene id are
+    dropped.
 
     Note: SnpEff emits one row per transcript, so multi-transcript genes
     accumulate more rows; the sum reflects that transcript multiplicity.
     """
     scored = df_scored[df_scored[gene_key].fillna("").ne("")]
-    return (
-        scored.groupby(gene_key)
-        .agg(
-            score=("score", "sum"),
-            n_rows=("score", "size"),
-            ann_gene_name=("ann_gene_name", "first"),
-        )
-        .reset_index()
-        .sort_values("score", ascending=False)
-        .reset_index(drop=True)
-    )
+    grouped = scored.groupby(gene_key)["score"]
+    gene_sum = grouped.sum()
+    gene_n = grouped.size()
+    idx = grouped.idxmax()                                  # any row carries the gene-level fields
+    out = scored.loc[idx, GENE_LEVEL_COLS].copy()
+    out["score"] = out[gene_key].map(gene_sum)
+    out["n_rows"] = out[gene_key].map(gene_n)
+    return out.sort_values("score", ascending=False).reset_index(drop=True)
 
 def load_gene_length(gff_path: str) -> dict:
     """Map gene Name (LOC...) -> genomic length in bp, from an NCBI GFF3.
@@ -251,7 +258,7 @@ def merge_to_gene_max_norm(df_scored: pd.DataFrame, gene_length: dict,
                            gene_key: str = "ann_gene_id", per_kb: bool = True) -> pd.DataFrame:
     """MAX gene score divided by genomic gene length (default: score per kb).
 
-    Reuses merge_to_gene_max (full worst-variant row), then normalizes. The
+    Reuses merge_to_gene_max (gene-level columns), then normalizes. The
     normalized value is named ``score`` (so plot_kdeplot works); the raw max is
     kept as score_raw. Genes with no length match (tRNA '_N', combo keys) ->
     NaN score.
