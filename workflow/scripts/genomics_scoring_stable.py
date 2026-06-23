@@ -168,31 +168,20 @@ def parse_vcf(vcf_path: str) -> pd.DataFrame:
     df["sift_score_c"] = 1 - df["sift_score"]
     return df
 
-# Severity bands: the SnpEff impact tier is an ordinal backbone that places each
-# variant in a FIXED, NON-OVERLAPPING interval on [0, 1]. Ordering the bands
-# MODIFIER < LOW < MODERATE < HIGH makes severity monotonic by construction -- a
-# HIGH variant always outranks any MODERATE one, which outranks any LOW one, and
-# so on, regardless of SIFT. SIFT only refines position WITHIN the MODERATE band
-# (the missense tier where it is defined); nothing is imputed across the SIFT
-# missingness boundary.
-IMPACT_BANDS = {
-    "MODIFIER": (0.00, 0.25),
-    "LOW":      (0.25, 0.50),
-    "MODERATE": (0.50, 0.75),
-    "HIGH":     (0.75, 1.00),
-}
+def arbitrary_score(df):
+    """
+    Obtain arbitrary score for rows with SnpEff input but no SIFT output
+    For HIGH, though, ignore the average SIFT score.
+    SIFT score for HIGH SnpEff sites are misleadingly low, due to NA-by-0-imputation
+    """
+    scores = df["sift_score_c"].fillna(0)
+    return scores.groupby(df["ann_impact"]).mean().to_dict()
 
-
-def scoring(df: pd.DataFrame) -> pd.DataFrame:
-    lo = df["ann_impact"].map(lambda i: IMPACT_BANDS.get(i, (np.nan, np.nan))[0])
-    hi = df["ann_impact"].map(lambda i: IMPACT_BANDS.get(i, (np.nan, np.nan))[1])
-    width = hi - lo
-
-    score = lo + 0.5 * width # band midpoint default
-
-    refine = df["ann_impact"].eq("MODERATE") & df["sift_score_c"].notna()
-    score = score.mask(refine, lo + df["sift_score_c"] * width) # SIFT within MODERATE only
-
+def scoring(df):
+    impact_default = arbitrary_score(df)
+    score = df["ann_impact"].map(impact_default)
+    score = score.mask(df["sift_score_c"].notna(), df["sift_score_c"])
+    score = score.mask(df["ann_impact"] == "HIGH", 1.0)
     df["score"] = score
     return df
 
@@ -300,15 +289,14 @@ def merge_to_gene_sum_norm(df_scored: pd.DataFrame, gene_length: dict,
 def plot_kdeplot(df: pd.DataFrame, title: str, ax=None, clip=None):
     """KDE of the per-row/per-gene ``score`` column (mirrors the notebook helper).
 
-    The x-axis starts at the LOW band floor so the spike of MODIFIER scores
-    (all pinned at the MODIFIER band midpoint) doesn't flatten the rest of the
-    distribution.
+    The x-axis starts at 0.129 (the LOW impact floor) so the dense pile-up of
+    near-zero MODIFIER scores doesn't flatten the rest of the distribution.
     """
     own_fig = ax is None
     if own_fig:
         fig, ax = plt.subplots(figsize=(8, 5))
 
-    x_min = IMPACT_BANDS["LOW"][0]
+    x_min = 0.129
     x_max = clip[1] if clip is not None else df["score"].max()
     effective_clip = (x_min, x_max)
 
@@ -330,22 +318,6 @@ def plot_kdeplot(df: pd.DataFrame, title: str, ax=None, clip=None):
     if own_fig:
         fig.tight_layout()
     return ax
-
-def raw_variant_plotting(df: pd.DataFrame, sample: str, out_path: str) -> str:
-    """Render the KDE of the raw, variant-level ``score`` column and save it.
-
-    Unlike plotting_summary (which plots the gene-collapsed MAX/SUM tables), this
-    plots every (variant, gene) row's severity score straight from scoring() --
-    the input distribution before any gene-level aggregation or length
-    normalization. Saves the figure to ``out_path`` and returns that path.
-    """
-    fig, ax = plt.subplots(figsize=(8, 5))
-    plot_kdeplot(df, "variant", ax=ax)
-    fig.suptitle(f"{sample}: variant-level score distribution", y=1.02)
-    fig.tight_layout()
-    fig.savefig(out_path, dpi=150, bbox_inches="tight")
-    plt.close(fig)
-    return out_path
 
 
 def plotting_summary(gene_tables: dict, sample: str, out_path: str) -> str:
@@ -404,10 +376,6 @@ def main():
     fig_path = os.path.join(args.output, f"{sample}.scores_summary.png")
     plotting_summary(gene_tables, sample, fig_path)
     print(f"[genomics_scoring] Written → {fig_path}", file=sys.stderr)
-
-    raw_fig_path = os.path.join(args.output, f"{sample}.variant_scores.png")
-    raw_variant_plotting(df_scored, sample, raw_fig_path)
-    print(f"[genomics_scoring] Written → {raw_fig_path}", file=sys.stderr)
 
 
 if __name__ == "__main__":
