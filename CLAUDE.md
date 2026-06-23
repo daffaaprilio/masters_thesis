@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Multi-omics analysis of four *Sorghum bicolor* samples (BTx623 reference, `GCF_000003195.3`) with contrasting TAA (trans-aconitic acid) production phenotypes. Other phenotypes, i.e., Sorgoleone production, are also included to the story. Sequenced with ONT R10.4.1 duplex 400 bps SUP (Dorado v1.3.0).
+Multi-omics analysis of four *Sorghum bicolor* samples (BTx623 reference, `GCF_000003195.3`) with contrasting TAA (trans-aconitic acid) production phenotypes. Another phenotype, stem juiciness, that is regulated by D-gene transcription factor, is also included to the story, mainly as the positive control. Samples are sequenced with ONT R10.4.1 duplex 400 bps SUP (Dorado v1.3.0). For gene co-expression analysis, use data from ATTED-II database.
 
 Samples:
 

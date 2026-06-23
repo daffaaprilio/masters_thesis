@@ -1,5 +1,8 @@
 \babel@toc {english}{}\relax 
 \contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Background \& Motivation}{2}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Sorghum and trans-aconitic acid}{2}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Role of TAA in plant physiology}{2}{subsection.1.1.2}%
 \contentsline {chapter}{\numberline {2}Materials and Methods}{4}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Plant Material and Sampling}{4}{section.2.1}%
 \contentsline {section}{\numberline {2.2}ONT Sequencing}{4}{section.2.2}%
