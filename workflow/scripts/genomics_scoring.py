@@ -204,6 +204,22 @@ def scoring(df: pd.DataFrame) -> pd.DataFrame:
 GENE_LEVEL_COLS = ["ann_gene_id", "ann_gene_name", "ann_biotype", "chrom"]
 
 
+def _append_rank(out: pd.DataFrame) -> pd.DataFrame:
+    """Insert ``percentile`` and ``rank`` columns immediately right of ``score``.
+
+    ``rank`` is 1 = highest score (dense ranking on ties); ``percentile`` is the
+    score's position in [0, 100], higher score -> higher percentile. NaN scores
+    (no length/effect match) get NaN rank and percentile. Assumes ``out`` is
+    already sorted by score descending.
+    """
+    percentile = out["score"].rank(ascending=True, pct=True) * 100
+    rank = out["score"].rank(ascending=False, method="dense").astype("Int64")
+    pos = out.columns.get_loc("score") + 1
+    out.insert(pos, "percentile", percentile)
+    out.insert(pos + 1, "rank", rank)
+    return out
+
+
 def merge_to_gene_max(df_scored: pd.DataFrame, gene_key: str = "ann_gene_id") -> pd.DataFrame:
     """Collapse variant/transcript rows to one row per gene.
 
@@ -215,7 +231,7 @@ def merge_to_gene_max(df_scored: pd.DataFrame, gene_key: str = "ann_gene_id") ->
     scored = df_scored[df_scored[gene_key].fillna("").ne("")]
     idx = scored.groupby(gene_key)["score"].idxmax()       # worst variant per gene
     out = scored.loc[idx, GENE_LEVEL_COLS + ["score"]]
-    return out.sort_values("score", ascending=False).reset_index(drop=True)
+    return _append_rank(out.sort_values("score", ascending=False))
 
 def merge_to_gene_sum(df_scored: pd.DataFrame, gene_key: str = "ann_gene_id") -> pd.DataFrame:
     """Collapse variant/transcript rows to one row per gene by summing scores.
@@ -241,7 +257,7 @@ def merge_to_gene_sum(df_scored: pd.DataFrame, gene_key: str = "ann_gene_id") ->
     out = scored.loc[idx, GENE_LEVEL_COLS].copy()
     out["score"] = out[gene_key].map(gene_sum)
     out["n_rows"] = out[gene_key].map(gene_n)
-    return out.sort_values("score", ascending=False).reset_index(drop=True)
+    return _append_rank(out.sort_values("score", ascending=False))
 
 def load_gene_length(gff_path: str) -> dict:
     """Map gene Name (LOC...) -> genomic length in bp, from an NCBI GFF3.
@@ -277,9 +293,10 @@ def merge_to_gene_max_norm(df_scored: pd.DataFrame, gene_length: dict,
     Note: max / length mostly re-ranks equal-max genes inversely by length.
     """
     g = merge_to_gene_max(df_scored, gene_key).rename(columns={"score": "score_raw"})
+    g = g.drop(columns=["percentile", "rank"])
     g["gene_length"] = g[gene_key].map(gene_length)
     g["score"] = g["score_raw"] / g["gene_length"] * (1000 if per_kb else 1)
-    return g.sort_values("score", ascending=False).reset_index(drop=True)
+    return _append_rank(g.sort_values("score", ascending=False))
 
 def merge_to_gene_sum_norm(df_scored: pd.DataFrame, gene_length: dict,
                            gene_key: str = "ann_gene_id", per_kb: bool = True) -> pd.DataFrame:
@@ -293,9 +310,10 @@ def merge_to_gene_sum_norm(df_scored: pd.DataFrame, gene_length: dict,
     method's transcript-multiplicity inflation (see n_rows).
     """
     g = merge_to_gene_sum(df_scored, gene_key).rename(columns={"score": "score_raw"})
+    g = g.drop(columns=["percentile", "rank"])
     g["gene_length"] = g[gene_key].map(gene_length)
     g["score"] = g["score_raw"] / g["gene_length"] * (1000 if per_kb else 1)
-    return g.sort_values("score", ascending=False).reset_index(drop=True)
+    return _append_rank(g.sort_values("score", ascending=False))
 
 def plot_kdeplot(df: pd.DataFrame, title: str, ax=None, clip=None):
     """KDE of the per-row/per-gene ``score`` column (mirrors the notebook helper).
@@ -384,6 +402,9 @@ def main():
     print(f"[genomics_scoring]   {len(df):,} (variant, gene) rows", file=sys.stderr)
 
     df_scored = scoring(df)
+    variants_tsv = os.path.join(args.output, f"{sample}.variant.tsv")
+    df_scored.to_csv(variants_tsv, sep="\t", index=False)
+    print(f"[genomics_scoring] Written → {variants_tsv}  ({len(df_scored):,} variant annotations)", file=sys.stderr)
 
     print(f"[genomics_scoring] Loading gene lengths: {args.gff}", file=sys.stderr)
     gene_length = load_gene_length(args.gff)
