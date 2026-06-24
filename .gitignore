@@ -11,10 +11,8 @@ dag/
 
 workflow/logs/
 analysis/logs/
-
-analysis/**/figures/
-
-analysis/**/data/*
+analysis/figures/
+analysis/.trash/
 
 *.pdf
 *.xlsx
