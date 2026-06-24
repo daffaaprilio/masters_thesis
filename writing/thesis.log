@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.30)  23 JUN 2026 18:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.30)  24 JUN 2026 10:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -480,53 +480,72 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count424
 \@lastruleclass=\count425
 \@thisrulewidth=\dimen169
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/tools/tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/tools/array.sty
+Package: array 2024/10/17 v2.6g Tabular extension package (FMi)
+\col@sep=\dimen170
+\ar@mcellbox=\box55
+\extrarowheight=\dimen171
+\NC@list=\toks25
+\extratabsurround=\skip77
+\backup@length=\skip78
+\ar@cellbox=\box56
+)
+\TX@col@width=\dimen172
+\TX@old@table=\dimen173
+\TX@old@col=\dimen174
+\TX@target=\dimen175
+\TX@delta=\dimen176
+\TX@cols=\count426
+\TX@ftn=\toks26
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
  (/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count426
-\Gm@cntv=\count427
-\c@Gm@tempcnt=\count428
-\Gm@bindingoffset=\dimen170
-\Gm@wd@mp=\dimen171
-\Gm@odd@mp=\dimen172
-\Gm@even@mp=\dimen173
-\Gm@layoutwidth=\dimen174
-\Gm@layoutheight=\dimen175
-\Gm@layouthoffset=\dimen176
-\Gm@layoutvoffset=\dimen177
-\Gm@dimlist=\toks25
+\Gm@cnth=\count427
+\Gm@cntv=\count428
+\c@Gm@tempcnt=\count429
+\Gm@bindingoffset=\dimen177
+\Gm@wd@mp=\dimen178
+\Gm@odd@mp=\dimen179
+\Gm@even@mp=\dimen180
+\Gm@layoutwidth=\dimen181
+\Gm@layoutheight=\dimen182
+\Gm@layouthoffset=\dimen183
+\Gm@layoutvoffset=\dimen184
+\Gm@dimlist=\toks27
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
-\ttl@box=\box55
-\beforetitleunit=\skip77
-\aftertitleunit=\skip78
-\ttl@plus=\dimen178
-\ttl@minus=\dimen179
-\ttl@toksa=\toks26
-\titlewidth=\dimen180
-\titlewidthlast=\dimen181
-\titlewidthfirst=\dimen182
+\ttl@box=\box57
+\beforetitleunit=\skip79
+\aftertitleunit=\skip80
+\ttl@plus=\dimen185
+\ttl@minus=\dimen186
+\ttl@toksa=\toks28
+\titlewidth=\dimen187
+\titlewidthlast=\dimen188
+\titlewidthfirst=\dimen189
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype.sty
 Package: microtype 2025/02/11 v3.2a Micro-typographical refinements (RS)
-\MT@toks=\toks27
-\MT@tempbox=\box56
-\MT@count=\count429
+\MT@toks=\toks29
+\MT@tempbox=\box58
+\MT@count=\count430
 LaTeX Info: Redefining \noprotrusionifhmode on input line 1087.
 LaTeX Info: Redefining \leftprotrusion on input line 1088.
-\MT@prot@toks=\toks28
+\MT@prot@toks=\toks30
 LaTeX Info: Redefining \rightprotrusion on input line 1107.
 LaTeX Info: Redefining \textls on input line 1449.
-\MT@outer@kern=\dimen183
+\MT@outer@kern=\dimen190
 LaTeX Info: Redefining \microtypecontext on input line 2053.
 LaTeX Info: Redefining \textmicrotypecontext on input line 2070.
-\MT@listname@count=\count430
+\MT@listname@count=\count431
  (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype-pdftex.def
 File: microtype-pdftex.def 2025/02/11 v3.2a Definitions specific to pdftex (RS)
 LaTeX Info: Redefining \lsstyle on input line 944.
 LaTeX Info: Redefining \lslig on input line 944.
-\MT@outer@space=\skip79
+\MT@outer@space=\skip81
 )
 Package microtype Info: Loading configuration file microtype.cfg.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype.cfg
@@ -537,12 +556,12 @@ LaTeX Info: Redefining \microtypesetup on input line 3065.
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 ) (/usr/local/texlive/2025/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2025/02/14 v25.4 The multilingual framework for pdfLaTeX, LuaLaTeX and XeLaTeX
-\babel@savecnt=\count431
-\U@D=\dimen184
+\babel@savecnt=\count432
+\U@D=\dimen191
 \l@unhyphenated=\language91
  (/usr/local/texlive/2025/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read3
-\bbl@dirlevel=\count432
+\bbl@dirlevel=\count433
  (/usr/local/texlive/2025/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
@@ -556,13 +575,13 @@ Package babel Info: Importing font and identification data for english
 (babel)             from babel-en.ini. Reported on input line 11.
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/csquotes/csquotes.sty
 Package: csquotes 2024-04-04 v5.2o context-sensitive quotations (JAW)
-\csq@reset=\count433
-\csq@gtype=\count434
-\csq@glevel=\count435
-\csq@qlevel=\count436
-\csq@maxlvl=\count437
-\csq@tshold=\count438
-\csq@ltx@everypar=\toks29
+\csq@reset=\count434
+\csq@gtype=\count435
+\csq@glevel=\count436
+\csq@qlevel=\count437
+\csq@maxlvl=\count438
+\csq@tshold=\count439
+\csq@ltx@everypar=\toks31
  (/usr/local/texlive/2025/texmf-dist/tex/latex/csquotes/csquotes.def
 File: csquotes.def 2024-04-04 v5.2o csquotes generic definitions (JAW)
 )
@@ -578,44 +597,44 @@ Package csquotes Info: Redefining alias 'default' -> 'english'.
  (./thesis.aux (./chapters/00_title.aux) (./chapters/01_introduction.aux) (./chapters/02_methods.aux) (./chapters/03_results.aux) (./chapters/04_discussion.aux) (./chapters/05_conclusion.aux))
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 24.
-LaTeX Font Info:    ... okay on input line 24.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 25.
+LaTeX Font Info:    ... okay on input line 25.
  (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count439
-\scratchdimen=\dimen185
-\scratchbox=\box57
-\nofMPsegments=\count440
-\nofMParguments=\count441
-\everyMPshowfont=\toks30
-\MPscratchCnt=\count442
-\MPscratchDim=\dimen186
-\MPnumerator=\count443
-\makeMPintoPDFobject=\count444
-\everyMPtoPDFconversion=\toks31
+\scratchcounter=\count440
+\scratchdimen=\dimen192
+\scratchbox=\box59
+\nofMPsegments=\count441
+\nofMParguments=\count442
+\everyMPshowfont=\toks32
+\MPscratchCnt=\count443
+\MPscratchDim=\dimen193
+\MPnumerator=\count444
+\makeMPintoPDFobject=\count445
+\everyMPtoPDFconversion=\toks33
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 24.
+Package hyperref Info: Link coloring OFF on input line 25.
  (./thesis.out) (./thesis.out)
 \@outlinefile=\write4
 \openout4 = `thesis.out'.
@@ -633,8 +652,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'thesis.bbl' found.
  (./thesis.bbl)
-Package biblatex Info: Reference section=0 on input line 24.
-Package biblatex Info: Reference segment=0 on input line 24.
+Package biblatex Info: Reference section=0 on input line 25.
+Package biblatex Info: Reference segment=0 on input line 25.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -656,7 +675,7 @@ Package biblatex Info: Reference segment=0 on input line 24.
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=11.0pt
-* \footskip=30.0pt
+* \footskip=17.07182pt
 * \marginparwidth=4.0pt
 * \marginparsep=10.0pt
 * \columnsep=10.0pt
@@ -670,20 +689,20 @@ Package biblatex Info: Reference segment=0 on input line 24.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \microtypecontext on input line 24.
-Package microtype Info: Applying patch `item' on input line 24.
-Package microtype Info: Applying patch `toc' on input line 24.
-Package microtype Info: Applying patch `eqnum' on input line 24.
-Package microtype Info: Applying patch `footnote' on input line 24.
-Package microtype Info: Applying patch `verbatim' on input line 24.
-LaTeX Info: Redefining \microtypesetup on input line 24.
+LaTeX Info: Redefining \microtypecontext on input line 25.
+Package microtype Info: Applying patch `item' on input line 25.
+Package microtype Info: Applying patch `toc' on input line 25.
+Package microtype Info: Applying patch `eqnum' on input line 25.
+Package microtype Info: Applying patch `footnote' on input line 25.
+Package microtype Info: Applying patch `verbatim' on input line 25.
+LaTeX Info: Redefining \microtypesetup on input line 25.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 24.
+LaTeX Info: Redefining \showhyphens on input line 25.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -708,7 +727,7 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.27 \tableofcontents
+l.28 \tableofcontents
                       [1
 
 
@@ -736,14 +755,16 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 
 
-[3
-
-]
+[3]
 \openout2 = `chapters/02_methods.aux'.
 
  (./chapters/02_methods.tex
 Chapter 2.
-)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
 
 
 
@@ -752,6 +773,11 @@ Chapter 2.
 
 
 
+])
+
+
+
+[5
 
 ]
 \openout2 = `chapters/03_results.aux'.
@@ -762,7 +788,7 @@ Chapter 3.
 
 
 
-[5
+[6
 
 
 
@@ -777,7 +803,7 @@ Chapter 4.
 
 
 
-[6
+[7
 
 
 
@@ -789,7 +815,7 @@ Chapter 5.
 
 
 
-[7
+[8
 
 
 ]
@@ -801,7 +827,7 @@ Chapter 6.
 
 
 
-[8
+[9
 
 
 
@@ -813,19 +839,22 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: CC2B56D77BF31244ABA386E5EF586C41;6647.
+(rerunfilecheck)             Checksum: 2CF8040206C83982FBC14EE6E9B6A085;6054.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21526 strings out of 473190
- 377645 string characters out of 5715800
- 1271277 words of memory out of 5000000
- 44299 multiletter control sequences out of 15000+600000
- 580597 words of font info for 148 fonts, out of 8000000 for 9000
+ 21684 strings out of 473190
+ 380080 string characters out of 5715800
+ 1273916 words of memory out of 5000000
+ 44433 multiletter control sequences out of 15000+600000
+ 580595 words of font info for 156 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,5n,81p,1926b,1844s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,8n,81p,2467b,1844s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{cite.0@fujimoto_transcriptional_2018} has been referenced but does not exist, replaced by a fixed one
+
 
 pdfTeX warning (dest): name{cite.0@eprintsev_aconitate_2021} has been referenced but does not exist, replaced by a fixed one
 
@@ -853,11 +882,11 @@ pdfTeX warning (dest): name{cite.0@guo_efficient_2026} has been referenced but d
 
 pdfTeX warning (dest): name{cite.0@bruni_aconitic_2022} has been referenced but does not exist, replaced by a fixed one
 
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbi1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb>
-Output written on thesis.pdf (9 pages, 233178 bytes).
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbi1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on thesis.pdf (10 pages, 299025 bytes).
 PDF statistics:
- 335 PDF objects out of 1000 (max. 8388607)
- 297 compressed objects within 3 object streams
- 55 named destinations out of 1000 (max. 500000)
- 47393 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 358 PDF objects out of 1000 (max. 8388607)
+ 310 compressed objects within 4 object streams
+ 57 named destinations out of 1000 (max. 500000)
+ 45849 words of extra memory for PDF output out of 51595 (max. 10000000)
 

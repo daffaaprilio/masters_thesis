@@ -536,6 +536,149 @@
       \verb https://linkinghub.elsevier.com/retrieve/pii/S0176161720302406
       \endverb
     \endentry
+    \entry{fujimoto_transcriptional_2018}{article}{}{}
+      \name{author}{20}{}{%
+        {{hash=73ce26b4903d26685ab932d36d513d90}{%
+           family={Fujimoto},
+           familyi={F\bibinitperiod},
+           given={Masaru},
+           giveni={M\bibinitperiod}}}%
+        {{hash=7ec7216fae8bdce44c8cb37d83e12ef4}{%
+           family={Sazuka},
+           familyi={S\bibinitperiod},
+           given={Takashi},
+           giveni={T\bibinitperiod}}}%
+        {{hash=6ab6875640f8f7db8a5e24316af431b6}{%
+           family={Oda},
+           familyi={O\bibinitperiod},
+           given={Yoshihisa},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=0443b0ba767e3246d074ade83fb605ea}{%
+           family={Kawahigashi},
+           familyi={K\bibinitperiod},
+           given={Hiroyuki},
+           giveni={H\bibinitperiod}}}%
+        {{hash=b073f89db58ae3c5b1dae8829473a4b6}{%
+           family={Wu},
+           familyi={W\bibinitperiod},
+           given={Jianzhong},
+           giveni={J\bibinitperiod}}}%
+        {{hash=02be6f0c9cd227efde74630933a0749e}{%
+           family={Takanashi},
+           familyi={T\bibinitperiod},
+           given={Hideki},
+           giveni={H\bibinitperiod}}}%
+        {{hash=2e8b9fd8d9d2f080bcd8db4831dc28aa}{%
+           family={Ohnishi},
+           familyi={O\bibinitperiod},
+           given={Takayuki},
+           giveni={T\bibinitperiod}}}%
+        {{hash=4fb63af5bea1ed9c73f3717fe37f65ae}{%
+           family={Yoneda},
+           familyi={Y\bibinitperiod},
+           given={Jun-ichi},
+           giveni={J\bibinithyphendelim i\bibinitperiod}}}%
+        {{hash=2f55c167ef87acdf6ebbbeeadf9b023e}{%
+           family={Ishimori},
+           familyi={I\bibinitperiod},
+           given={Motoyuki},
+           giveni={M\bibinitperiod}}}%
+        {{hash=93c67c945b8414023fed45e64ad5341e}{%
+           family={Kajiya-Kanegae},
+           familyi={K\bibinithyphendelim K\bibinitperiod},
+           given={Hiromi},
+           giveni={H\bibinitperiod}}}%
+        {{hash=ae6508dac73584f951de218dcf1cb6d2}{%
+           family={Hibara},
+           familyi={H\bibinitperiod},
+           given={Ken-ichiro},
+           giveni={K\bibinithyphendelim i\bibinitperiod}}}%
+        {{hash=b8e615edefcee69c9c4fd45dcb321555}{%
+           family={Ishizuna},
+           familyi={I\bibinitperiod},
+           given={Fumiko},
+           giveni={F\bibinitperiod}}}%
+        {{hash=c03850a450ffbafa1ca570e35cb486ab}{%
+           family={Ebine},
+           familyi={E\bibinitperiod},
+           given={Kazuo},
+           giveni={K\bibinitperiod}}}%
+        {{hash=7aec9b43aa676c1e978bceab1155c7c2}{%
+           family={Ueda},
+           familyi={U\bibinitperiod},
+           given={Takashi},
+           giveni={T\bibinitperiod}}}%
+        {{hash=748d411a93c888ce683bf7cb3a21281a}{%
+           family={Tokunaga},
+           familyi={T\bibinitperiod},
+           given={Tsuyoshi},
+           giveni={T\bibinitperiod}}}%
+        {{hash=afa3c5e3af3ea95faaa4bc5042ce1a2b}{%
+           family={Iwata},
+           familyi={I\bibinitperiod},
+           given={Hiroyoshi},
+           giveni={H\bibinitperiod}}}%
+        {{hash=dde4aec5bf565bc60d4eae1d48156f42}{%
+           family={Matsumoto},
+           familyi={M\bibinitperiod},
+           given={Takashi},
+           giveni={T\bibinitperiod}}}%
+        {{hash=174f0caf1f5101b24b6b1bc7f9c2a4cd}{%
+           family={Kasuga},
+           familyi={K\bibinitperiod},
+           given={Shigemitsu},
+           giveni={S\bibinitperiod}}}%
+        {{hash=a692c6cffbfbb8e270c6c9e5cede6a3b}{%
+           family={Yonemaru},
+           familyi={Y\bibinitperiod},
+           given={Jun-ichi},
+           giveni={J\bibinithyphendelim i\bibinitperiod}}}%
+        {{hash=3050db64eae50c9e7085feaea0c496a5}{%
+           family={Tsutsumi},
+           familyi={T\bibinitperiod},
+           given={Nobuhiro},
+           giveni={N\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{a62bca18614b7ffb27ca67061408a24e}
+      \strng{fullhash}{511a227ea603a8bc5a5380d176cd422b}
+      \strng{fullhashraw}{511a227ea603a8bc5a5380d176cd422b}
+      \strng{bibnamehash}{a62bca18614b7ffb27ca67061408a24e}
+      \strng{authorbibnamehash}{a62bca18614b7ffb27ca67061408a24e}
+      \strng{authornamehash}{a62bca18614b7ffb27ca67061408a24e}
+      \strng{authorfullhash}{511a227ea603a8bc5a5380d176cd422b}
+      \strng{authorfullhashraw}{511a227ea603a8bc5a5380d176cd422b}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Significance Sugar and ethanol productivity from the sugar juice of grass stems depends on their water content. Pith parenchyma cells function as a water storage tissue in plant stems, and the death of these cells reduces stem water content. In this study, we identified a gene, long referred to as D , in a promising energy grass, Sorghum bicolor , that is responsible for reducing stem water content. D and its Arabidopsis ortholog encode master transcriptional switches that induce programmed death of stem pith parenchyma cells by activating autolytic enzymes. Identifying D as the gene involved in programmed death of plant pith parenchyma cells will provide an approach to breeding crops for sugar and ethanol production. , Pith parenchyma cells store water in various plant organs. These cells are especially important for producing sugar and ethanol from the sugar juice of grass stems. In many plants, the death of pith parenchyma cells reduces their stem water content. Previous studies proposed that a hypothetical D gene might be responsible for the death of stem pith parenchyma cells in Sorghum bicolor , a promising energy grass, although its identity and molecular function are unknown. Here, we identify the D gene and note that it is located on chromosome 6 in agreement with previous predictions. Sorghum varieties with a functional D allele had stems enriched with dry, dead pith parenchyma cells, whereas those with each of six independent nonfunctional D alleles had stems enriched with juicy, living pith parenchyma cells. D expression was spatiotemporally coupled with the appearance of dead, air-filled pith parenchyma cells in sorghum stems. Among D homologs that are present in flowering plants, Arabidopsis ANAC074 also is required for the death of stem pith parenchyma cells. D and ANAC074 encode previously uncharacterized NAC transcription factors and are sufficient to ectopically induce programmed death of Arabidopsis culture cells via the activation of autolytic enzymes. Taken together, these results indicate that D and its Arabidopsis ortholog, ANAC074 , are master transcriptional switches that induce programmed death of stem pith parenchyma cells. Thus, targeting the D gene will provide an approach to breeding crops for sugar and ethanol production.}
+      \field{issn}{0027-8424, 1091-6490}
+      \field{journaltitle}{Proceedings of the National Academy of Sciences}
+      \field{month}{9}
+      \field{number}{37}
+      \field{title}{Transcriptional switch for programmed cell death in pith parenchyma of sorghum stems}
+      \field{urlday}{22}
+      \field{urlmonth}{5}
+      \field{urlyear}{2026}
+      \field{volume}{115}
+      \field{year}{2018}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1073/pnas.1807501115
+      \endverb
+      \verb{file}
+      \verb PDF:/Users/daffa/Zotero/storage/P38GFXJ5/Fujimoto et al. - 2018 - Transcriptional switch for programmed cell death in pith parenchyma of sorghum stems.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://pnas.org/doi/full/10.1073/pnas.1807501115
+      \endverb
+      \verb{url}
+      \verb https://pnas.org/doi/full/10.1073/pnas.1807501115
+      \endverb
+    \endentry
   \enddatalist
 \endrefsection
 \endinput

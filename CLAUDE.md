@@ -13,7 +13,7 @@ Samples:
 | r0075, r0078, r0078-2 | SBC11 | High | - | Mid |
 | r0076 | SBC23 | High | ++ | Good |
 
-SBC11 is special: its three libraries must be merged with `samtools merge` before use (see DATA.md).
+SBC11 is special: its three libraries must be merged with `samtools merge` before use (see README.md Step 1).
 
 ## Running Commands
 
@@ -90,7 +90,7 @@ minimap2 2.30, samtools 1.21, bcftools 1.21, htslib 1.21, bedtools 2.31.1, whats
 
 ## Key Gotchas
 
-- **SBC11 BAM must be manually merged** from three libraries before the variant calling and methylation steps. See DATA.md Step 1.
+- **SBC11 BAM must be manually merged** from three libraries before the variant calling and methylation steps. See README.md Step 1.
 - **SnpEff chromosome synonyms**: VCF contig IDs (e.g. `NC_012870.2`) differ from SnpEff names (`1`, `2`, …). The synonym file at `workflow/scripts/creating_synonyms_chr.py` bridges this.
 - **Methylation requires MM/ML tags**: BAMs must be basecalled with Dorado `--modified-bases`. Verify with `modkit summary`; if 0 modified bases reported, re-basecall.
 - **SnpEff database**: must be downloaded once with `./docker/run.sh snpEff download Sorghum_bicolor` before running `annotate_vcf`.
@@ -112,4 +112,12 @@ All scripts live in `workflow/scripts/`. Run via `./docker/run.sh python3 workfl
 
 ## Reference Docs
 
-- `DATA.md` — full data generation pipeline with exact commands
+- `README.md` — full data generation pipeline with exact commands
+
+# Thesis Narrative
+
+Sorghum (*Sorghum bicolor*) is a resilient, multipurpose crop with agronomic value beyond its grain. Among its secondary metabolites is trans-aconitic acid (TAA), a tricarboxylic acid that accumulates in the stem juice and has attracted industrial interest as a bio-based plasticizer precursor, a sustainable alternative to chemically hazardous synthetic compounds such as DEHP. Compared to other TAA sources, including bioengineered microbial strains and sugarcane, sorghum stands out as the most practical feedstock: its grain and stem serve independent purposes, allowing TAA extraction from the stem without competing with food production. Within the plant, TAA accumulates as a stable carbon pool derived from the TCA cycle intermediate cis-aconitate, with its biosynthesis coupled to photosynthetic activity. TAA also serves as a chemical defence compound, functioning as an antifungal phytoalexin precursor in wheat and as an antifeedant against insect herbivores in grasses, and exerts allelopathic suppression of neighbouring plants when released into soil. Despite these documented roles, the gene encoding the primary biosynthetic enzyme, aconitate isomerase (EC 5.3.3.7), remains unidentified in any plant species, and the downstream transport and methylation steps are equally uncharacterized.
+
+Closing this gap calls for a strategy that does not depend on sequence similarity to the characterized microbial and fungal orthologs. Forward genomics offers such a route: by exploiting the natural variation in TAA accumulation and secretion across *Sorghum bicolor* accessions, candidate genes can be prioritized directly from genotype–phenotype associations rather than from homology. To this end, we construct a multi-omics platform that integrates genomic, epigenomic, and transcriptomic evidence into a ranked list of candidate genes underlying metabolic variation in sorghum. TAA biosynthesis and secretion serve as the primary application of the platform. In parallel, the D-gene, a well-characterized transcription factor controlling stem juiciness, serves as a positive control: recovering this known gene validates that the platform behaves as intended before it is trusted on the unresolved TAA pathway.
+
+The platform integrates three omics layers, all anchored on four sorghum accessions of contrasting phenotypes sequenced with Oxford Nanopore (ONT) long-read sequencing. At the genomic layer, variants are called for each accession against the reference genome, yielding accession-specific variant sites. At the epigenomic layer, DNA methylation is profiled and used to identify differentially methylated regions (DMRs) between each pair of accessions, producing six pairwise comparisons. At the transcriptomic layer, a gene co-expression network is constructed following the ATTED-II framework from publicly available expression data. Evidence from these three layers is then combined to rank candidate genes, with the goal of identifying the gene encoding aconitate isomerase — the first committed step of TAA biosynthesis — in *Sorghum bicolor*.

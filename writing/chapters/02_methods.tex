@@ -1,22 +1,45 @@
 \chapter{Materials and Methods}
 
 \section{Plant Material and Sampling}
+\hspace{1em}Four \textit{Sorghum bicolor} accessions with contrasting phenotypes were analysed in this study: SBC4, SBC10, SBC11, and SBC23. The accessions differ in their trans-aconitic acid (TAA) concentration in stem juice and juice production capacity (Table~\ref{tab:samples}). The BTx623 inbred line (\texttt{GCF\_000003195.3}, assembly Sorghum\_bicolor\_NCBIv3) served as the reference genome for all downstream analyses. Genomic DNA was extracted from leaf tissue of each accession.
 
-\section{ONT Sequencing}
-% R10.4.1 duplex 400 bps SUP, Dorado v1.3.0
+\begin{table*}[t]
+    \centering
+    \caption{The four \textit{Sorghum bicolor} accessions analysed in this study and their contrasting phenotypes.}
+    \label{tab:samples}
+    \begin{tabularx}{\textwidth}{c c c c c c}
+        \toprule
+        Library & Sample & Cultivar & TAA conc. in juice & Juice production \\
+        \midrule
+        r0074 & SBC4 & IS32787 & High & ++ \\
+        r0066 & SBC10 & IS20956 & Low & +++ \\
+        r0075, r0078, r0078-2 & SBC11 & S.\ vulgare 72-726-7 & High & -- \\
+        r0076 & SBC23 & 240 Wad Umm Benein & High & ++ \\
+        \bottomrule
+    \end{tabularx}
+\end{table*}
 
-\section{Read Preprocessing and Alignment}
-% minimap2 2.30, samtools 1.21
+\section{Sequencing}
+\hspace{1em}Genomic DNA from each accession was sequenced on the Oxford Nanopore Technologies (ONT) R10.4.1 platform in duplex mode at 400~bps. Raw signal data were basecalled with Dorado v1.3.0 using the super-accurate (SUP) duplex model, with modified-base calling enabled (\texttt{--modified-bases}) to retain 5-methylcytosine (5mC) information in the \texttt{MM}/\texttt{ML} BAM tags required for downstream methylation analysis.
 
-\section{Variant Calling and Phasing}
-% Clair3, WhatsHap 2.8
+\hspace{1em}Basecalled reads were aligned to the BTx623 reference genome with minimap2 v2.30, and the resulting alignments were coordinate-sorted and indexed with samtools v1.21. SBC4, SBC10, and SBC23 were each derived from a single sequencing library, whereas SBC11 was sequenced across three libraries (r0075, r0078, and r0078-2) that were merged with \texttt{samtools merge} and re-sorted prior to analysis. Per-position read depth was computed with \texttt{samtools depth} for each accession.
 
 \section{Variant Annotation}
-% SnpEff, chromosome synonym mapping
+\hspace{1em}Small variants (SNVs and indels) were called for each accession against the reference genome using Clair3 with the ONT R10.4.1 super-accurate (SUP) model, yielding accession-specific variant call sets. Raw calls were filtered with bcftools v1.21 to retain high-confidence variants (QUAL $\geq$ 20, read depth between 10 and 100) located on the ten nuclear chromosomes and the mitochondrial and chloroplast contigs, and the filtered variants were phased into haplotypes with WhatsHap v2.8.
 
-\section{Methylation Calling}
-% modkit 0.2.6, 5mC pileup
+\hspace{1em}Prior to annotation, the phased call sets were decomposed by their presence/absence pattern across the four accessions using \texttt{bcftools isec}, producing one variant set for each of the fifteen non-empty accession subsets (each corresponding to a single cell of the sample-sharing UpSet); single-accession subsets represent accession-private variants. Each variant group was then annotated for functional consequences with SnpEff, using a custom \textit{Sorghum bicolor} (NCBIv3) database built from the NCBI gene annotation. SnpEff assigns each variant a predicted effect (e.g.\ missense, synonymous, or stop-gain) together with a putative impact category. Because the VCF contig identifiers (e.g.\ \texttt{NC\_012870.2}) differ from the numeric chromosome names used by SnpEff, a chromosome synonym mapping was applied to reconcile the two naming schemes. To further assess the functional severity of amino-acid-changing variants, coding substitutions were scored with SIFT4G against a \textit{Sorghum bicolor} (NCBIv3) prediction database built from the reference genome and gene models, using UniRef90 as the homology protein database, classifying each substitution as tolerated or deleterious.
 
-\section{Differential Methylation Analysis}
+\section{DMR Analysis}
+\hspace{1em}Per-accession 5mC methylation was quantified from the \texttt{MM}/\texttt{ML}-tagged alignments using modkit v0.2.6, producing CpG bedMethyl pileups with strands combined. The presence of modified-base tags was verified with \texttt{modkit summary} prior to pileup, and positions covered by at least ten valid reads were retained for differential analysis.
+
+\hspace{1em}Differentially methylated regions (DMRs) were identified with the DSS package (R/Bioconductor) from the filtered 5mC profiles, restricted to the ten main sorghum chromosomes. DMRs were called for each pairwise comparison of accessions, yielding six comparisons in total, which were grouped according to the TAA phenotype contrast. For each comparison, differential methylation was tested at single-CpG resolution with \texttt{DMLtest} using smoothing (\texttt{smoothing.span}~$=500$), and DMRs were subsequently called with \texttt{callDMR} requiring a minimum methylation difference of 0.1, a p-value threshold of 0.2, a minimum region length of 50~bp, and at least 20 CpG sites per region; neighbouring regions separated by less than 300~bp were merged. The relaxed p-value threshold reflects the exploratory, single-replicate design ($n=1$ per accession), and the resulting DMRs were treated as exploratory rather than statistically definitive. The per-comparison DMR tables were combined and annotated against the BTx623 gene models (NCBIv3 GFF) by overlap with four genomic feature types: promoters, exons, CDS, and introns. Promoters were defined in a strand-aware manner as the 2~kbp region immediately upstream of each gene's transcription start site. Each DMR was assigned to every feature it overlapped, with overlaps resolved against all annotated genes; DMRs overlapping no feature were labelled intergenic.
+
+\section{Co-expression data}
+\hspace{1em}Gene co-expression relationships were obtained following the framework of the ATTED-II database, using publicly available \textit{Sorghum bicolor} expression data.
+% TODO (ask author): which ATTED-II release/dataset was used, how the co-expression network or
+% gene neighbourhoods were derived, and what co-expression metric/threshold was applied.
 
 \section{Candidate Gene Prioritisation}
+\hspace{1em}Evidence from the three omics layers was integrated to rank candidate genes underlying the metabolic phenotype of interest. For each gene, signals from variant impact (SnpEff/SIFT4G), proximity to phenotype-associated DMRs, and co-expression with marker genes were combined into a single ranked list. The ranking was implemented with the \texttt{rank\_dmr\_genes.py} and \texttt{build\_ranked\_genes.py} scripts.
+% TODO (ask author): the exact scoring scheme — how each omics layer is weighted/normalised and
+% combined into the final rank.
