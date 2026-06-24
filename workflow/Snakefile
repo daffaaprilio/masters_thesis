@@ -17,12 +17,23 @@ config.setdefault("WDIR", WDIR)
 # samples joined with "_" in canonical SAMPLES order, and carries the bcftools
 # isec presence pattern (1=present/0=absent, positional over SAMPLES) plus the
 # 1-based -w write index (first member) used to emit the records.
-VARGROUPS = {}   # label -> {"pattern": "1011", "w": 1}
-for _k in range(1, len(SAMPLES) + 1):
-    for _combo in combinations(range(len(SAMPLES)), _k):
-        _label   = "_".join(SAMPLES[i] for i in _combo)
-        _pattern = "".join("1" if i in _combo else "0" for i in range(len(SAMPLES)))
-        VARGROUPS[_label] = {"pattern": _pattern, "w": _combo[0] + 1}
+def _build_vargroups(samples):
+    """label -> {"pattern": "1011", "w": 1} for all 15 non-empty subsets.
+
+    Defined as a function so loop temporaries (notably ``_pattern``) do not leak
+    into the workflow's global namespace — a leaked ``_pattern`` global collides
+    with the reserved first argument of Snakemake's internal ``format()`` and
+    breaks shell-command formatting in every rule.
+    """
+    groups = {}
+    for k in range(1, len(samples) + 1):
+        for combo in combinations(range(len(samples)), k):
+            label   = "_".join(samples[i] for i in combo)
+            pattern = "".join("1" if i in combo else "0" for i in range(len(samples)))
+            groups[label] = {"pattern": pattern, "w": combo[0] + 1}
+    return groups
+
+VARGROUPS       = _build_vargroups(SAMPLES)   # label -> {"pattern": "1011", "w": 1}
 VARGROUP_LABELS = list(VARGROUPS)
 
 # ── Paths shared across multiple rule files ────────────────────────────────────
@@ -43,9 +54,9 @@ rule all:
     input:
         # expand(f"{PHASED_VCF_DIR}/{{sample}}.phased.vcf.gz", sample=SAMPLES),
         # expand(f"{PHASED_VCF_DIR}/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),
-        expand(f"{SIFT_DIR}/{{group}}.sift4g.vcf.gz", group=VARGROUP_LABELS),   # sift_annotation.smk
-        expand(f"{DMR_DIR}/{{pair}}.5mC.DMR.tsv", pair=PAIRS),         # dmr_analysis.smk
-        # f"{DMR_DIR}/DMR_annotated.tsv",
+        # expand(f"{SIFT_DIR}/{{group}}.sift4g.vcf.gz", group=VARGROUP_LABELS),   # sift_annotation.smk
+        # expand(f"{DMR_DIR}/{{pair}}.5mC.DMR.tsv", pair=PAIRS),         # dmr_analysis.smk
+        f"{DMR_DIR}/DMR_annotated.tsv",
 
 
 include: "rules/reads_preprocessing.smk"
