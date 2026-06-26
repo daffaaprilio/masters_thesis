@@ -41,6 +41,23 @@ def load_sorbi_to_loc(gene_info_path: str) -> dict:
     return gi.set_index("LocusTag")["Symbol"].to_dict()
 
 
+def resolve_gene_label(gene_raw: str, sorbi_to_loc: dict, valid_symbols: set) -> str | None:
+    """Resolve a SnpEff ANN Gene_Name to the LOC* symbol used across the pipeline.
+
+    The SnpEff DB was rebuilt (2026-06-17) and now emits NCBI LOC* symbols in the
+    ANN Gene_Name field; older annotations carried SORBI_* locus tags. Accept both,
+    and reject compound names (gene fusions / intergenic, e.g. "LOCa-LOCb") that are
+    not a single known gene.
+    """
+    if not gene_raw:
+        return None
+    if gene_raw.startswith("SORBI_"):
+        return sorbi_to_loc.get(gene_raw)
+    if gene_raw in valid_symbols:
+        return gene_raw
+    return None
+
+
 def parse_vcf(vcf_path: str, sorbi_to_loc: dict):
     """
     Returns:
@@ -49,6 +66,7 @@ def parse_vcf(vcf_path: str, sorbi_to_loc: dict):
     """
     snpeff_hits: dict[str, list] = {}
     sift_hits:   dict[str, list] = {}
+    valid_symbols = set(sorbi_to_loc.values())
 
     vcf = cyvcf2.VCF(vcf_path)
     for variant in vcf:
@@ -61,12 +79,9 @@ def parse_vcf(vcf_path: str, sorbi_to_loc: dict):
                 if len(parts) < 4:
                     continue
                 impact   = parts[2]
-                sorbi_id = parts[3]
                 if impact not in IMPACT_SCORE:
                     continue
-                if not sorbi_id.startswith("SORBI_"):
-                    continue
-                loc_id = sorbi_to_loc.get(sorbi_id)
+                loc_id = resolve_gene_label(parts[3], sorbi_to_loc, valid_symbols)
                 if loc_id:
                     snpeff_hits.setdefault(loc_id, []).append(impact)
 

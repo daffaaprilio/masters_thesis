@@ -248,20 +248,18 @@ Outputs:
 
 ---
 
-## Step 9 — Structural Variant Calling (parallel track)
+## Step 9 — Structural Variant Calling (Sniffles2, vanilla)
 
 **Snakefile:** `workflow/rules/sv_analysis.smk` | **Target:** `sv_all`
 
 Calls structural variants (large deletions, insertions, duplications, inversions,
 breakends) that Clair3 cannot see, using **Sniffles2** on the per-sample BAMs from
-Step 1. This is a standalone track: it does **not** feed the SNV+methylation
-`genomic_score`. SVs are merged across samples with Sniffles2's own `.snf`
-population mode (not `bcftools isec`, which fragments SV breakpoints), annotated
-with the existing SnpEff database (reusing `annotate_vcf.sh`), and assembled into a
-parallel candidate table that cross-references the ranked gene lists.
+Step 1. The output is kept **vanilla**: raw per-sample VCFs plus a combined
+multi-sample VCF — no filtering, no annotation, no downstream integration. How to
+filter/process these is decided after reviewing the raw calls.
 
-SVs intentionally **skip SIFT4G** (substitution-scoring only) and **WhatsHap
-phasing**.
+Cross-sample merging uses Sniffles2's own `.snf` population mode (not
+`bcftools isec`, whose exact POS/REF/ALT matching fragments SV breakpoints).
 
 ### Run SV calling
 
@@ -270,16 +268,8 @@ phasing**.
 ```
 
 Pipeline: `sniffles_call` (per-sample VCF + `.snf`) → `sniffles_combine`
-(force-genotyped multi-sample VCF) → `filter_sv` (PASS, |SVLEN| ≥ 50 bp, 12
-retained contigs) → `annotate_sv` (SnpEff) → `build_sv_table`.
+(force-genotyped multi-sample VCF).
 
 Outputs:
 - `results/sv_calling/{sample}.sniffles.vcf.gz`, `{sample}.snf` — per-sample SV calls
-- `results/sv_calling/combined.annotated.vcf.gz` — SnpEff-annotated multi-sample SV VCF
-- `results/sv_candidates/sv_candidate_table.tsv` — gene-associated SVs with per-sample
-  genotypes, a TAA-segregation pattern (`high-specific` / `low-specific` / `mixed`),
-  and cross-reference columns (`in_ranked_list`, `best_rank`, `best_variant_score`,
-  `best_methylation_score`) into `results/ranked_genes_lists/`
-
-The candidate table is meant to be read alongside the multi-omics ranking: an SV
-whose gene also ranks highly in the SNV+methylation list is a strong candidate.
+- `results/sv_calling/combined.sniffles.vcf.gz` — combined multi-sample SV VCF (raw)

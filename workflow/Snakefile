@@ -57,9 +57,9 @@ rule all:
         # expand(f"{SIFT_DIR}/{{group}}.sift4g.vcf.gz", group=VARGROUP_LABELS),   # sift_annotation.smk
         # expand(f"{DMR_DIR}/{{pair}}.5mC.DMR.tsv", pair=PAIRS),         # dmr_analysis.smk
         f"{DMR_DIR}/DMR_annotated.tsv",
-        # SV candidate table is a path string here (not SV_CAND_DIR): sv_analysis.smk
-        # is included below this rule, so its constants are not yet in scope.
-        f"{WDIR}/results/sv_candidates/sv_candidate_table.tsv",   # sv_analysis.smk
+        # Vanilla Sniffles2 SV result (combined multi-sample VCF; pulls in the
+        # per-sample calls). Path string because sv_analysis.smk is included below.
+        f"{WDIR}/results/sv_calling/combined.sniffles.vcf.gz",   # sv_analysis.smk
 
 
 include: "rules/reads_preprocessing.smk"
@@ -70,7 +70,4 @@ include: "rules/snpeff_annotation.smk"
 include: "rules/sift_annotation.smk"
 include: "rules/dmr_analysis.smk"
 include: "rules/ranked_genes.smk"
-# sv_analysis.smk must come last: it reuses KEEP_CHROMS (vcf_processing.smk),
-# SNPEFF_DIR (snpeff_annotation.smk), and GENE_INFO + RANKED_GENES_DIR
-# (ranked_genes.smk) from earlier-included files.
 include: "rules/sv_analysis.smk"
