@@ -117,6 +117,7 @@ All scripts live in `workflow/scripts/`. Run via `./docker/run.sh python3 workfl
 | `merge_vcf.sh` | Merges per-sample phased VCFs into multi-sample VCF |
 | `rank_dmr_genes.py` | Ranks genes by DMR proximity for multi-omics integration |
 | `build_ranked_genes.py` | Builds final multi-omics ranked gene list |
+| `sv_gene_mapping.py` | Maps each SV in a `results/sv_groups/{group}.vcf.gz` to the gene(s) it overlaps (GFF interval overlap, no scoring); long-format one-row-per-SV–gene TSV → `results/sv_genes/{group}.sv_genes.tsv` |
 
 ## Reference Docs
 
