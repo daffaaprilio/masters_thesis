@@ -268,8 +268,15 @@ Cross-sample merging uses Sniffles2's own `.snf` population mode (not
 ```
 
 Pipeline: `sniffles_call` (per-sample VCF + `.snf`) → `sniffles_combine`
-(force-genotyped multi-sample VCF).
+(force-genotyped multi-sample VCF) → `sv_group` (split into sample-sharing groups).
+
+The `sv_group` step splits the combined VCF into the 15 sample-sharing groups — the
+SV counterpart of `variant_groups/`, with the same `{group}` labels. Membership is
+**GT-based** (`GT[i]="alt"` / `!="alt"`), the SV analog of the SNP `intersect_group`
+exact-membership split — not `bcftools isec` (SV breakpoints wobble) and not
+`SUPP_VEC` (read-support based, looser).
 
 Outputs:
 - `results/sv_calling/{sample}.sniffles.vcf.gz`, `{sample}.snf` — per-sample SV calls
 - `results/sv_calling/combined.sniffles.vcf.gz` — combined multi-sample SV VCF (raw)
+- `results/sv_groups/{group}.vcf.gz` — combined SV VCF split into the 15 sample-sharing groups

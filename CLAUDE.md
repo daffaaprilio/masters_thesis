@@ -58,6 +58,7 @@ Key outputs:
 - `results/ranked_genes_lists/SBC10.multiomics_ranked.tsv` — final multi-omics gene ranking
 - `results/sv_calling/{sample}.sniffles.vcf.gz` — per-sample Sniffles2 SV calls (+ `.snf`)
 - `results/sv_calling/combined.sniffles.vcf.gz` — combined multi-sample SV VCF (Sniffles2 `.snf` merge); vanilla, unfiltered and unannotated
+- `results/sv_groups/{group}.vcf.gz` — combined SV VCF split into the 15 sample-sharing groups (the SV counterpart of `variant_groups/`); GT-based exact membership, same `{group}` labels
 
 ## Repository Layout
 
@@ -84,6 +85,7 @@ results/            # final pipeline outputs
   DMR/              # DSS DMR calls and annotations
   ranked_genes_lists/ # multi-omics gene ranking outputs
   sv_calling/       # vanilla Sniffles2 SV VCFs (per-sample + combined) + .snf files
+  sv_groups/        # combined SV VCF split into the 15 sample-sharing groups
 docker/             # Dockerfile, environment.yml, helper shell scripts
 dag/                # Snakemake DAG PDFs
 ```
@@ -99,6 +101,7 @@ minimap2 2.30, samtools 1.21, bcftools 1.21, htslib 1.21, bedtools 2.31.1, whats
 - **Methylation requires MM/ML tags**: BAMs must be basecalled with Dorado `--modified-bases`. Verify with `modkit summary`; if 0 modified bases reported, re-basecall.
 - **SnpEff database**: must be downloaded once with `./docker/run.sh snpEff download Sorghum_bicolor` before running `annotate_vcf`.
 - **SVs use a separate merge path**: structural variants are merged across samples with Sniffles2's `.snf` population mode, **not** `bcftools isec` (exact POS/REF/ALT matching fragments SV breakpoints). The Sniffles2 output is kept **vanilla** (raw per-sample + combined VCFs); filtering/annotation/downstream processing is decided after reviewing the raw calls.
+- **SV sample-sharing groups** (`results/sv_groups/`) are produced by splitting the combined VCF on **GT presence** (`GT[i]="alt"` / `!="alt"`), not `bcftools isec` and not `SUPP_VEC` (which is read-support based and looser). Same 15 `{group}` labels as `variant_groups/`, so SV and SNP groups line up 1:1.
 
 ## Analysis Scripts
 
