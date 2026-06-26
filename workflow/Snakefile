@@ -67,3 +67,7 @@ include: "rules/snpeff_annotation.smk"
 include: "rules/sift_annotation.smk"
 include: "rules/dmr_analysis.smk"
 include: "rules/ranked_genes.smk"
+# sv_analysis.smk must come last: it reuses KEEP_CHROMS (vcf_processing.smk),
+# SNPEFF_DIR (snpeff_annotation.smk), and GENE_INFO + RANKED_GENES_DIR
+# (ranked_genes.smk) from earlier-included files.
+include: "rules/sv_analysis.smk"

@@ -22,6 +22,8 @@ dependencies:
   - snpeff
   # Variant calling (bioconda provides run_clair3.sh; models come from Docker multi-stage build)
   - clair3
+  # Structural variant calling (long-read; per-sample VCF + .snf population merge)
+  - sniffles=2.4
   # Workflow engine
   - snakemake=9.16.3
   # DAG visualization (dot command)

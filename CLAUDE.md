@@ -45,6 +45,7 @@ SBC11 is special: its three libraries must be merged with `samtools merge` befor
 | 6 — Methylation calling | `methylation_all` | `workflow/rules/methylation.smk` |
 | 7 — DMR analysis (TAA) | `annotate_dmr` | `workflow/rules/dmr_analysis.smk` |
 | 8 — Multi-omics gene ranking | `ranked_genes` | `workflow/rules/ranked_genes.smk` |
+| 9 — Structural variant calling (parallel track) | `sv_all` | `workflow/rules/sv_analysis.smk` |
 
 Key outputs:
 - `results/vcf_processing/{sample}.phased.vcf.gz` — phased VCFs
@@ -55,6 +56,8 @@ Key outputs:
 - `resources/bedmethyl/{sample}.filtered.bed` — positions with ≥ 10 valid reads
 - `results/DMR/{pair}.5mC.DMR.tsv` — annotated DMRs per TAA contrast pair
 - `results/ranked_genes_lists/SBC10.multiomics_ranked.tsv` — final multi-omics gene ranking
+- `results/sv_calling/combined.annotated.vcf.gz` — SnpEff-annotated multi-sample SV VCF (Sniffles2 `.snf` merge)
+- `results/sv_candidates/sv_candidate_table.tsv` — parallel SV candidate table, gene-associated SVs cross-referenced against the ranked gene lists (does **not** feed the genomic score)
 
 ## Repository Layout
 
@@ -80,13 +83,15 @@ results/            # final pipeline outputs
   DSS/              # per-pair DSS input files
   DMR/              # DSS DMR calls and annotations
   ranked_genes_lists/ # multi-omics gene ranking outputs
+  sv_calling/       # Sniffles2 SV VCFs + .snf files, filtered + SnpEff-annotated
+  sv_candidates/    # parallel SV candidate table (cross-referenced to ranked genes)
 docker/             # Dockerfile, environment.yml, helper shell scripts
 dag/                # Snakemake DAG PDFs
 ```
 
 ## Toolchain (inside Docker image `thesis-tools:latest`)
 
-minimap2 2.30, samtools 1.21, bcftools 1.21, htslib 1.21, bedtools 2.31.1, whatshap 2.8, modkit 0.2.6, snpEff (bioconda), SIFT4G, DSS (R/Bioconductor), clair3 (models at `/opt/models/`), snakemake 9.16.3, Python 3.11 (pandas, matplotlib, seaborn, cyvcf2, matplotlib-venn).
+minimap2 2.30, samtools 1.21, bcftools 1.21, htslib 1.21, bedtools 2.31.1, whatshap 2.8, modkit 0.2.6, snpEff (bioconda), SIFT4G, DSS (R/Bioconductor), clair3 (models at `/opt/models/`), sniffles2 2.4 (structural variants), snakemake 9.16.3, Python 3.11 (pandas, matplotlib, seaborn, cyvcf2, matplotlib-venn).
 
 ## Key Gotchas
 
@@ -94,6 +99,7 @@ minimap2 2.30, samtools 1.21, bcftools 1.21, htslib 1.21, bedtools 2.31.1, whats
 - **SnpEff chromosome synonyms**: VCF contig IDs (e.g. `NC_012870.2`) differ from SnpEff names (`1`, `2`, …). The synonym file at `workflow/scripts/creating_synonyms_chr.py` bridges this.
 - **Methylation requires MM/ML tags**: BAMs must be basecalled with Dorado `--modified-bases`. Verify with `modkit summary`; if 0 modified bases reported, re-basecall.
 - **SnpEff database**: must be downloaded once with `./docker/run.sh snpEff download Sorghum_bicolor` before running `annotate_vcf`.
+- **SVs use a separate merge path**: structural variants are merged across samples with Sniffles2's `.snf` population mode, **not** `bcftools isec` (exact POS/REF/ALT matching fragments SV breakpoints). SVs are annotated with SnpEff but **skip SIFT4G** (substitution-scoring only) and **WhatsHap phasing**. The SV candidate table is a parallel artifact that cross-references the ranked gene lists; it does not change the SNV+methylation ranking.
 
 ## Analysis Scripts
 
@@ -109,6 +115,7 @@ All scripts live in `workflow/scripts/`. Run via `./docker/run.sh python3 workfl
 | `merge_vcf.sh` | Merges per-sample phased VCFs into multi-sample VCF |
 | `rank_dmr_genes.py` | Ranks genes by DMR proximity for multi-omics integration |
 | `build_ranked_genes.py` | Builds final multi-omics ranked gene list |
+| `build_sv_table.py` | Builds the parallel SV candidate table from the annotated Sniffles2 VCF, cross-referencing the ranked gene lists |
 
 ## Reference Docs
 
