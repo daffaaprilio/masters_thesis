@@ -18,3 +18,7 @@ analysis/.trash/
 *.xlsx
 *.DS_Store
 *.fna
+
+# Python bytecode
+__pycache__/
+*.pyc
