@@ -5,10 +5,17 @@
 # annotation, or downstream integration — how to process these is decided after
 # reviewing the raw calls.
 
-ALIGN_BAM_DIR = f"{WDIR}/resources/align_bam_sample"
-SV_DIR        = f"{WDIR}/results/sv_calling"
-SV_GROUP_DIR  = f"{WDIR}/results/sv_groups"
-SV_LOG_DIR    = f"{WDIR}/workflow/logs/sv_analysis"
+ALIGN_BAM_DIR  = f"{WDIR}/resources/align_bam_sample"
+SV_DIR         = f"{WDIR}/results/sv_calling"
+SV_GROUP_DIR   = f"{WDIR}/results/sv_groups"
+SV_SNPEFF_DIR  = f"{WDIR}/results/snpeff_sv"
+SV_GENE_DIR    = f"{WDIR}/results/sv_genes"
+SV_LOG_DIR     = f"{WDIR}/workflow/logs/sv_analysis"
+
+# SnpEff DB build flag (same one annotate_vcf depends on; defined here as a path so
+# this file does not depend on snpeff_annotation.smk's include order).
+SNPEFF_DB_FLAG = f"{WDIR}/resources/snpeff/data/Sorghum_bicolor_NCBIv3/sequence.NC_012870.2.bin"
+GENE_INFO_FILE = f"{WDIR}/resources/NCBI_FTP/gene_info_4558"
 
 
 def _sv_group_expr(pattern):
@@ -33,6 +40,7 @@ rule sv_all:
         expand(f"{SV_DIR}/{{sample}}.sniffles.vcf.gz", sample=SAMPLES),
         f"{SV_DIR}/combined.sniffles.vcf.gz",
         expand(f"{SV_GROUP_DIR}/{{group}}.vcf.gz", group=VARGROUP_LABELS),
+        expand(f"{SV_GENE_DIR}/{{group}}.sv_genes.tsv", group=VARGROUP_LABELS),
 
 
 rule sniffles_call:
@@ -106,4 +114,52 @@ rule sv_group:
             bcftools view -i '{params.expr}' -O z -o {output.vcf} {input.vcf}
             bcftools index -t {output.vcf}
         ) > {log} 2>&1
+        """
+
+
+rule annotate_sv:
+    """SnpEff-annotate a sample-sharing SV group VCF (reuses annotate_vcf.sh, the
+    same script + DB used for the SNP groups, so SV ANN gene IDs are LOC* and line
+    up with the SNP track). SnpEff classifies each SV's per-gene consequence
+    (transcript_ablation, exon_loss, feature_fusion, duplication/inversion, …)."""
+    input:
+        vcf     = f"{SV_GROUP_DIR}/{{group}}.vcf.gz",
+        tbi     = f"{SV_GROUP_DIR}/{{group}}.vcf.gz.tbi",
+        db_flag = SNPEFF_DB_FLAG,
+    output:
+        vcf = f"{SV_SNPEFF_DIR}/{{group}}.annotated.vcf.gz",
+        csi = f"{SV_SNPEFF_DIR}/{{group}}.annotated.vcf.gz.csi",
+    log:
+        f"{SV_LOG_DIR}/annotate_sv/{{group}}.{TIMESTAMP}.log",
+    shell:
+        """
+        mkdir -p {SV_SNPEFF_DIR} $(dirname {log})
+        bash {WDIR}/workflow/scripts/annotate_vcf.sh \
+            {wildcards.group} \
+            {input.vcf} \
+            {SV_SNPEFF_DIR} \
+            > {log} 2>&1
+        """
+
+
+rule sv_gene_table:
+    """Map each SV in a SnpEff-annotated group to the gene(s) it affects, via the
+    ANN field (no scoring). Long format: one row per SV–gene. See
+    workflow/scripts/sv_gene_mapping.py."""
+    input:
+        vcf       = f"{SV_SNPEFF_DIR}/{{group}}.annotated.vcf.gz",
+        csi       = f"{SV_SNPEFF_DIR}/{{group}}.annotated.vcf.gz.csi",
+        gene_info = GENE_INFO_FILE,
+    output:
+        tsv = f"{SV_GENE_DIR}/{{group}}.sv_genes.tsv",
+    log:
+        f"{SV_LOG_DIR}/sv_gene_table/{{group}}.{TIMESTAMP}.log",
+    shell:
+        """
+        mkdir -p {SV_GENE_DIR} $(dirname {log})
+        python3 {WDIR}/workflow/scripts/sv_gene_mapping.py \
+            -i {input.vcf} \
+            --gene-info {input.gene_info} \
+            -o {SV_GENE_DIR} \
+            > {log} 2>&1
         """

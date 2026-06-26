@@ -45,7 +45,7 @@ SBC11 is special: its three libraries must be merged with `samtools merge` befor
 | 6 — Methylation calling | `methylation_all` | `workflow/rules/methylation.smk` |
 | 7 — DMR analysis (TAA) | `annotate_dmr` | `workflow/rules/dmr_analysis.smk` |
 | 8 — Multi-omics gene ranking | `ranked_genes` | `workflow/rules/ranked_genes.smk` |
-| 9 — Structural variant calling (Sniffles2, vanilla) | `sv_all` | `workflow/rules/sv_analysis.smk` |
+| 9 — SV calling + SnpEff SV→gene table | `sv_all` | `workflow/rules/sv_analysis.smk` |
 
 Key outputs:
 - `results/vcf_processing/{sample}.phased.vcf.gz` — phased VCFs
@@ -59,6 +59,8 @@ Key outputs:
 - `results/sv_calling/{sample}.sniffles.vcf.gz` — per-sample Sniffles2 SV calls (+ `.snf`)
 - `results/sv_calling/combined.sniffles.vcf.gz` — combined multi-sample SV VCF (Sniffles2 `.snf` merge); vanilla, unfiltered and unannotated
 - `results/sv_groups/{group}.vcf.gz` — combined SV VCF split into the 15 sample-sharing groups (the SV counterpart of `variant_groups/`); GT-based exact membership, same `{group}` labels
+- `results/snpeff_sv/{group}.annotated.vcf.gz` — SnpEff-annotated SV groups (SV counterpart of `results/snpeff/`)
+- `results/sv_genes/{group}.sv_genes.tsv` — SV→gene table from the SnpEff `ANN` field; long format, one row per SV–gene with effect/impact, no scoring
 
 ## Repository Layout
 
@@ -86,6 +88,8 @@ results/            # final pipeline outputs
   ranked_genes_lists/ # multi-omics gene ranking outputs
   sv_calling/       # vanilla Sniffles2 SV VCFs (per-sample + combined) + .snf files
   sv_groups/        # combined SV VCF split into the 15 sample-sharing groups
+  snpeff_sv/        # SnpEff-annotated SV groups
+  sv_genes/         # SV→gene tables (one row per SV–gene, from SnpEff ANN)
 docker/             # Dockerfile, environment.yml, helper shell scripts
 dag/                # Snakemake DAG PDFs
 ```
@@ -102,6 +106,7 @@ minimap2 2.30, samtools 1.21, bcftools 1.21, htslib 1.21, bedtools 2.31.1, whats
 - **SnpEff database**: must be downloaded once with `./docker/run.sh snpEff download Sorghum_bicolor` before running `annotate_vcf`.
 - **SVs use a separate merge path**: structural variants are merged across samples with Sniffles2's `.snf` population mode, **not** `bcftools isec` (exact POS/REF/ALT matching fragments SV breakpoints). The Sniffles2 output is kept **vanilla** (raw per-sample + combined VCFs); filtering/annotation/downstream processing is decided after reviewing the raw calls.
 - **SV sample-sharing groups** (`results/sv_groups/`) are produced by splitting the combined VCF on **GT presence** (`GT[i]="alt"` / `!="alt"`), not `bcftools isec` and not `SUPP_VEC` (which is read-support based and looser). Same 15 `{group}` labels as `variant_groups/`, so SV and SNP groups line up 1:1.
+- **SV→gene uses SnpEff `ANN`, not GFF overlap**: `annotate_sv` runs the same `annotate_vcf.sh` + DB as the SNP groups, then `sv_gene_mapping.py` parses the `ANN` field (one entry per gene, worst impact wins). SnpEff classifies the per-gene consequence (`transcript_ablation`, `feature_ablation`, `exon_loss_variant`, `feature_fusion` for BND, `duplication`/`inversion` for DUP/INV) and also tags upstream/downstream genes within ~5 kb as MODIFIER. It does **not** cap multi-gene SVs — a multi-megabase DUP/INV still emits one ANN per spanned gene, so **mega-SV artifacts (|SVLEN| in the tens of Mb, ≈ whole chromosome arms) dominate `sv_genes/` row counts (~90%+)**; filter by `svlen`/`impact`/`effect` downstream. SnpEff also emits a gene-less chromosome-level summary entry per DUP/INV (dropped by the mapper).
 
 ## Analysis Scripts
 
@@ -117,7 +122,7 @@ All scripts live in `workflow/scripts/`. Run via `./docker/run.sh python3 workfl
 | `merge_vcf.sh` | Merges per-sample phased VCFs into multi-sample VCF |
 | `rank_dmr_genes.py` | Ranks genes by DMR proximity for multi-omics integration |
 | `build_ranked_genes.py` | Builds final multi-omics ranked gene list |
-| `sv_gene_mapping.py` | Maps each SV in a `results/sv_groups/{group}.vcf.gz` to the gene(s) it overlaps (GFF interval overlap, no scoring); long-format one-row-per-SV–gene TSV → `results/sv_genes/{group}.sv_genes.tsv` |
+| `sv_gene_mapping.py` | Maps each SV in a **SnpEff-annotated** SV group VCF (`results/snpeff_sv/{group}.annotated.vcf.gz`) to the gene(s) it affects, by parsing the `ANN` field (one ANN per gene, worst impact wins); long-format one-row-per-SV–gene TSV with effect/impact, **no scoring** → `results/sv_genes/{group}.sv_genes.tsv` |
 
 ## Reference Docs
 

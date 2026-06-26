@@ -88,7 +88,7 @@ Print the DAG:
 | 6 — Methylation calling | `methylation_all` | `methylation.smk` |
 | 7 — DMR analysis (TAA) | `annotate_dmr` | `dmr_analysis.smk` |
 | 8 — Multi-omics gene ranking | `ranked_genes` | `ranked_genes.smk` |
-| 9 — Structural variant calling (parallel track) | `sv_all` | `sv_analysis.smk` |
+| 9 — SV calling + SnpEff SV→gene table | `sv_all` | `sv_analysis.smk` |
 
 ---
 
@@ -248,35 +248,46 @@ Outputs:
 
 ---
 
-## Step 9 — Structural Variant Calling (Sniffles2, vanilla)
+## Step 9 — Structural Variants (Sniffles2 → SnpEff SV→gene table)
 
 **Snakefile:** `workflow/rules/sv_analysis.smk` | **Target:** `sv_all`
 
 Calls structural variants (large deletions, insertions, duplications, inversions,
 breakends) that Clair3 cannot see, using **Sniffles2** on the per-sample BAMs from
-Step 1. The output is kept **vanilla**: raw per-sample VCFs plus a combined
-multi-sample VCF — no filtering, no annotation, no downstream integration. How to
-filter/process these is decided after reviewing the raw calls.
+Step 1, then splits, annotates, and maps them to genes.
 
 Cross-sample merging uses Sniffles2's own `.snf` population mode (not
 `bcftools isec`, whose exact POS/REF/ALT matching fragments SV breakpoints).
 
-### Run SV calling
+### Run the SV pipeline
 
 ```shell
-./docker/run.sh snakemake sv_all --cores 8
+# SnpEff is a memory-hungry JVM; on a low-RAM host run sequentially (--cores 1).
+./docker/run.sh snakemake sv_all --cores 1
 ```
 
 Pipeline: `sniffles_call` (per-sample VCF + `.snf`) → `sniffles_combine`
-(force-genotyped multi-sample VCF) → `sv_group` (split into sample-sharing groups).
+(force-genotyped multi-sample VCF) → `sv_group` (split into sample-sharing groups)
+→ `annotate_sv` (SnpEff) → `sv_gene_table` (SV→gene mapping).
 
-The `sv_group` step splits the combined VCF into the 15 sample-sharing groups — the
-SV counterpart of `variant_groups/`, with the same `{group}` labels. Membership is
+`sv_group` splits the combined VCF into the 15 sample-sharing groups — the SV
+counterpart of `variant_groups/`, with the same `{group}` labels. Membership is
 **GT-based** (`GT[i]="alt"` / `!="alt"`), the SV analog of the SNP `intersect_group`
 exact-membership split — not `bcftools isec` (SV breakpoints wobble) and not
 `SUPP_VEC` (read-support based, looser).
+
+`annotate_sv` reuses the same `annotate_vcf.sh` + SnpEff DB as the SNP groups, so SV
+ANN gene IDs are `LOC*` and line up with the SNP track. `sv_gene_table` then runs
+`sv_gene_mapping.py`, which parses the SnpEff `ANN` field (one entry per gene, worst
+impact wins) and emits a long-format table — **one row per SV–gene**, with the SV's
+per-gene effect and impact, **no scoring**. SnpEff does not cap multi-gene SVs, so a
+multi-megabase DUP/INV (≈ whole chromosome arm) still produces one row per spanned
+gene; these mega-SV artifacts dominate the row counts and should be filtered by
+`svlen`/`impact`/`effect` downstream.
 
 Outputs:
 - `results/sv_calling/{sample}.sniffles.vcf.gz`, `{sample}.snf` — per-sample SV calls
 - `results/sv_calling/combined.sniffles.vcf.gz` — combined multi-sample SV VCF (raw)
 - `results/sv_groups/{group}.vcf.gz` — combined SV VCF split into the 15 sample-sharing groups
+- `results/snpeff_sv/{group}.annotated.vcf.gz` — SnpEff-annotated SV groups
+- `results/sv_genes/{group}.sv_genes.tsv` — SV→gene table (one row per SV–gene, effect/impact, no scoring)
