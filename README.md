@@ -4,12 +4,12 @@ Genomics (variant calling), transcriptomics (gene co-expression), and epigenomic
 
 ## Samples
 
-| Library | Sample | TAA conc. in juice | Juice Production | Callus Formation |
-|---------|--------|---------------|---------------|-----------------|
-| r0074 | SBC4 | High | ++ | Mid |
-| r0066 | SBC10 | Low | +++ | Good |
-| r0075, r0078, r0078-2 | SBC11 | High | - | Mid |
-| r0076 | SBC23 | High | ++ | Good |
+| Cultivar name (Region) | Library | Sample | TAA conc. in juice | Juice Production | Callus Formation |
+|--|--------|--------|---------------|---------------|-----------------|
+| IS32787 (Somalia) | r0074 | SBC4 | High | ++ | Mid |
+| IS20956 (Indonesia) | r0066 | SBC10 | Low | +++ | Good |
+| S. VULGARE 72-726-7 (Uganda) | r0075, r0078, r0078-2 | SBC11 | High | - | Mid |
+| 240 WAD UMM BENEIN (Sudan) | r0076 | SBC23 | High | ++ | Good |
 
 Reference genome: `GCF_000003195.3` (BTx623, NCBIv3)
 Sequencing: ONT R10.4.1 duplex, 400 bps SUP (Dorado v1.3.0)
@@ -27,8 +27,7 @@ thesis/
 │   │   ├── snpeff_annotation.smk     # SnpEff annotation, private variants
 │   │   ├── sift_annotation.smk       # SIFT4G functional annotation
 │   │   ├── methylation.smk           # modkit 5mC pileup
-│   │   ├── dmr_analysis.smk          # DSS DMR calling (TAA contrast)
-│   │   └── ranked_genes.smk          # multi-omics gene ranking
+│   │   └── dmr_analysis.smk          # DSS DMR calling (TAA contrast)
 │   └── scripts/        # helper scripts used by workflows and analysis
 ├── analysis/           # downstream analysis notebooks and figures
 ├── resources/          # input data and intermediate files
@@ -87,8 +86,7 @@ Print the DAG:
 | 5 — SIFT4G annotation | `annotate_sift` | `sift_annotation.smk` |
 | 6 — Methylation calling | `methylation_all` | `methylation.smk` |
 | 7 — DMR analysis (TAA) | `annotate_dmr` | `dmr_analysis.smk` |
-| 8 — Multi-omics gene ranking | `ranked_genes` | `ranked_genes.smk` |
-| 9 — SV calling + SnpEff SV→gene table | `sv_all` | `sv_analysis.smk` |
+| 8 — SV calling + SnpEff SV→gene table | `sv_all` | `sv_analysis.smk` |
 
 ---
 

@@ -6,12 +6,12 @@ Multi-omics analysis of four *Sorghum bicolor* samples (BTx623 reference, `GCF_0
 
 Samples:
 
-| Library | Sample | TAA conc. in juice | Juice Production | Callus Formation |
-|---------|--------|---------------|---------------|-----------------|
-| r0074 | SBC4 | High | ++ | Mid |
-| r0066 | SBC10 | Low | +++ | Good |
-| r0075, r0078, r0078-2 | SBC11 | High | - | Mid |
-| r0076 | SBC23 | High | ++ | Good |
+| Cultivar name (Region) | Library | Sample | TAA conc. in juice | Juice Production | Callus Formation |
+|--|--------|--------|---------------|---------------|-----------------|
+| IS32787 (Somalia) | r0074 | SBC4 | High | ++ | Mid |
+| IS20956 (Indonesia) | r0066 | SBC10 | Low | +++ | Good |
+| S. VULGARE 72-726-7 (Uganda) | r0075, r0078, r0078-2 | SBC11 | High | - | Mid |
+| 240 WAD UMM BENEIN (Sudan) | r0076 | SBC23 | High | ++ | Good |
 
 SBC11 is special: its three libraries must be merged with `samtools merge` before use (see README.md Step 1).
 
@@ -44,8 +44,9 @@ SBC11 is special: its three libraries must be merged with `samtools merge` befor
 | 5 — SIFT4G annotation | `annotate_sift` | `workflow/rules/sift_annotation.smk` |
 | 6 — Methylation calling | `methylation_all` | `workflow/rules/methylation.smk` |
 | 7 — DMR analysis (TAA) | `annotate_dmr` | `workflow/rules/dmr_analysis.smk` |
-| 8 — Multi-omics gene ranking | `ranked_genes` | `workflow/rules/ranked_genes.smk` |
-| 9 — SV calling + SnpEff SV→gene table | `sv_all` | `workflow/rules/sv_analysis.smk` |
+| 8 — SV calling + SnpEff SV→gene table | `sv_all` | `workflow/rules/sv_analysis.smk` |
+
+> Multi-omics gene ranking is **not** part of the Snakemake pipeline — it is performed manually in a notebook environment from the layer outputs above (SnpEff/SIFT variant annotations, DMRs, co-expression).
 
 Key outputs:
 - `results/vcf_processing/{sample}.phased.vcf.gz` — phased VCFs
@@ -55,7 +56,6 @@ Key outputs:
 - `resources/bedmethyl/{sample}.bed` — raw 5mC pileup
 - `resources/bedmethyl/{sample}.filtered.bed` — positions with ≥ 10 valid reads
 - `results/DMR/{pair}.5mC.DMR.tsv` — annotated DMRs per TAA contrast pair
-- `results/ranked_genes_lists/SBC10.multiomics_ranked.tsv` — final multi-omics gene ranking
 - `results/sv_calling/{sample}.sniffles.vcf.gz` — per-sample Sniffles2 SV calls (+ `.snf`)
 - `results/sv_calling/combined.sniffles.vcf.gz` — combined multi-sample SV VCF (Sniffles2 `.snf` merge); vanilla, unfiltered and unannotated
 - `results/sv_groups/{group}.vcf.gz` — combined SV VCF split into the 15 sample-sharing groups (the SV counterpart of `variant_groups/`); GT-based exact membership, same `{group}` labels
@@ -85,7 +85,6 @@ results/            # final pipeline outputs
   sift4g/           # SIFT4G-annotated VCFs
   DSS/              # per-pair DSS input files
   DMR/              # DSS DMR calls and annotations
-  ranked_genes_lists/ # multi-omics gene ranking outputs
   sv_calling/       # vanilla Sniffles2 SV VCFs (per-sample + combined) + .snf files
   sv_groups/        # combined SV VCF split into the 15 sample-sharing groups
   snpeff_sv/        # SnpEff-annotated SV groups
@@ -120,8 +119,8 @@ All scripts live in `workflow/scripts/`. Run via `./docker/run.sh python3 workfl
 | `vcf_benchmark.py` | VCF benchmark figure |
 | `annot_vcf_to_tsv.py` | Converts annotated VCF → TSV for notebooks |
 | `merge_vcf.sh` | Merges per-sample phased VCFs into multi-sample VCF |
-| `rank_dmr_genes.py` | Ranks genes by DMR proximity for multi-omics integration |
-| `build_ranked_genes.py` | Builds final multi-omics ranked gene list |
+| `rank_dmr_genes.py` | Ranks genes by DMR proximity (standalone helper for the manual notebook-based gene ranking; not wired into Snakemake) |
+| `genomics_scoring.py`, `genomics_scoring_stable.py` | Per-gene genomic scoring from annotated VCFs (standalone helpers for the manual notebook-based gene ranking; not wired into Snakemake) |
 | `sv_gene_mapping.py` | Maps each SV in a **SnpEff-annotated** SV group VCF (`results/snpeff_sv/{group}.annotated.vcf.gz`) to the gene(s) it affects, by parsing the `ANN` field (one ANN per gene, worst impact wins); long-format one-row-per-SV–gene TSV with effect/impact, **no scoring** → `results/sv_genes/{group}.sv_genes.tsv` |
 
 ## Reference Docs
