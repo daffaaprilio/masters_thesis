@@ -176,46 +176,85 @@ done
 
 ---
 
-## Step 3 — VCF Postprocessing
+## Step 3 — VCF Filtering & Phasing
 
 **Snakefile:** `workflow/rules/vcf_processing.smk` | **Target:** `vcf_all`
 
-Filters variants (QUAL ≥ 20, DP 10–100, 10 nuclear chromosomes + MT + chloroplast), phases haplotypes with WhatsHap, and annotates variant consequences with SnpEff.
-
-### One-time SnpEff setup
-
-```shell
-./docker/run.sh snpEff download Sorghum_bicolor
-```
-
-The database is stored in `${SNPEFF_DIR}/data/Sorghum_bicolor/`. A chromosome synonym file is required because VCF contig IDs (e.g. `NC_012870.2`) differ from SnpEff's numeric names (`1`, `2`, …). Pre-generated files are at `workflow/scripts/vcf_chr_list.txt` and `workflow/scripts/snpeff_db_chr_list.txt`. To regenerate them:
-
-```shell
-# VCF contig names (from any sample VCF header)
-bcftools view -h results/vcf/SBC4.vcf.gz | grep "^##contig" > workflow/scripts/vcf_chr_list.txt
-
-# SnpEff chromosome list (trim file after the last contig entry to avoid bloat)
-./docker/run.sh snpEff dump Sorghum_bicolor > workflow/scripts/snpeff_db_chr_list.txt
-
-# Build the synonym key
-python3 workflow/scripts/creating_synonyms_chr.py
-```
-
-### Run VCF postprocessing
+Reheaders each Clair3 VCF with its sample name, filters variants (QUAL ≥ 20, DP 10–100), restricts to the 10 nuclear chromosomes + MT + chloroplast, and phases haplotypes read-backed with WhatsHap.
 
 ```shell
 ./docker/snakemake.sh vcf_all --cores 24
 ```
 
 Rules applied in order:
-1. `bcftools reheader` — embed SAMPLE tag in each VCF
-2. Filter to PASS variants on the 10 nuclear chromosomes + organelles
-3. `whatshap phase` — add haplotype information
-4. `snpEff ann` — annotate variant consequences
+1. `reheader_vcf` — replace the generic `SAMPLE` column name with the real sample name
+2. `filter_vcf` — keep PASS variants within the QUAL/DP bounds
+3. `filter_chromosomes` — retain the 10 nuclear chromosomes + MT + chloroplast
+4. `phase_vcf` — WhatsHap read-backed haplotype phasing (per sample, against the reference BAM)
+
+Output: `results/vcf_processing/{sample}.phased.vcf.gz` (+ `.csi`).
 
 ---
 
-## Step 4 — Methylation Calling
+## Step 4 — SnpEff Annotation
+
+**Snakefile:** `workflow/rules/snpeff_annotation.smk` | **Target:** `annotate_vcf`
+
+Splits the four phased VCFs into the 15 **sample-sharing groups** (every non-empty subset of samples) with `bcftools isec`, then annotates each group's variant consequences with SnpEff.
+
+A `{group}` label is the underscore-joined subset of samples in canonical order (`SBC4`, `SBC4_SBC23`, `SBC4_SBC10_SBC11_SBC23`, …). Single-sample groups (e.g. `SBC10`) are that sample's private variants.
+
+### One-time SnpEff database build
+
+SnpEff uses a **custom** database built from the same NCBI GTF as SIFT4G (Step 5), so both tools share NCBI chromosome IDs (`NC_012870.2`, …) — no chromosome-synonym/rename step is needed.
+
+The `snpeff_prep` rule builds the database automatically the first time `annotate_vcf` runs. To build it explicitly:
+
+```shell
+./docker/run.sh bash workflow/scripts/snpeff_prep.sh
+```
+
+The database lands in `resources/snpeff/data/Sorghum_bicolor_NCBIv3/`.
+
+### Run annotation
+
+```shell
+./docker/snakemake.sh annotate_vcf --cores 24
+```
+
+Pipeline: `snpeff_prep` (one-time DB) → `intersect_group` (15 sample-sharing group VCFs) → `annotate_vcf` (SnpEff `ANN` field per group).
+
+Outputs:
+- `results/variant_groups/{group}.vcf.gz` — variants per sample-sharing group
+- `results/snpeff/{group}.annotated.vcf.gz` — SnpEff-annotated group variants (+ per-group `.stats.html`/`.stats.csv`)
+
+---
+
+## Step 5 — SIFT4G Annotation
+
+**Snakefile:** `workflow/rules/sift_annotation.smk` | **Target:** `annotate_sift`
+
+Adds amino-acid–level functional predictions (SIFT score; < 0.05 = DAMAGING) on top of the SnpEff-annotated group VCFs from Step 4.
+
+### One-time SIFT4G database build
+
+The prediction database is built once from the genome FASTA, the NCBI GTF, and the UniRef90 protein set (`prepare_sift_db` → `build_sift_db`; several hours). It is rebuilt only if you remove the sentinel `resources/sift4g/sorghum_db/.setup_done`. The finished DB lands at `resources/sift4g/sorghum_db/NCBIv3/`.
+
+### Run annotation
+
+```shell
+./docker/snakemake.sh annotate_sift --cores 24
+```
+
+For each group, `SIFT4G_Annotator.jar` consumes the SnpEff-annotated VCF and emits a SIFT-annotated VCF plus a `_SIFTannotations.xls` table; the VCF is then sorted, bgzipped, and indexed.
+
+Outputs:
+- `results/sift4g/{group}.sift4g.vcf.gz` — SnpEff + SIFT4G–annotated group variants
+- `results/sift4g/{group}.annotated_SIFTannotations.xls` — per-variant SIFT table
+
+---
+
+## Step 6 — Methylation Calling
 
 **Snakefile:** `workflow/rules/methylation.smk` | **Target:** `methylation_all`
 
@@ -246,7 +285,30 @@ Outputs:
 
 ---
 
-## Step 9 — Structural Variants (Sniffles2 → SnpEff SV→gene table)
+## Step 7 — DMR Analysis (TAA)
+
+**Snakefile:** `workflow/rules/dmr_analysis.smk` | **Target:** `annotate_dmr`
+
+Calls differentially methylated regions (5mC) between samples with DSS, then annotates them to genes. Requires the filtered bedMethyl files from Step 6.
+
+```shell
+# DSS saturates all cores per pair; run with --cores 32 (or match your host) so
+# Snakemake serialises pairs and avoids oversubscription.
+./docker/snakemake.sh annotate_dmr --cores 32
+```
+
+Pipeline: `prepare_dss` (bedMethyl → DSS input, collapsing Watson/Crick CpG pairs) → `run_dss_pair` (DML/DMR per pairwise comparison) → `summarise_dmr` (combine all pairs) → `annotate_dmr` (assign DMRs to genes via strand-aware 2 kbp promoter regions).
+
+Six pairwise comparisons are run: `SBC10_vs_SBC4`, `SBC10_vs_SBC11`, `SBC10_vs_SBC23`, `SBC11_vs_SBC4`, `SBC11_vs_SBC23`, `SBC4_vs_SBC23`.
+
+Outputs:
+- `results/DMR/{pair}.5mC.DMR.tsv`, `{pair}.5mC.DML.tsv` — per-pair DMR/DML calls
+- `results/DMR/DMR_all_combined.tsv`, `DMR_summary.tsv` — combined tables
+- `results/DMR/DMR_annotated.tsv` — DMRs annotated to genes
+
+---
+
+## Step 8 — Structural Variants (Sniffles2 → SnpEff SV→gene table)
 
 **Snakefile:** `workflow/rules/sv_analysis.smk` | **Target:** `sv_all`
 
@@ -289,3 +351,9 @@ Outputs:
 - `results/sv_groups/{group}.vcf.gz` — combined SV VCF split into the 15 sample-sharing groups
 - `results/snpeff_sv/{group}.annotated.vcf.gz` — SnpEff-annotated SV groups
 - `results/sv_genes/{group}.sv_genes.tsv` — SV→gene table (one row per SV–gene, effect/impact, no scoring)
+
+---
+
+## Multi-omics Gene Ranking (manual)
+
+The final integration — ranking candidate genes across the genomic (Steps 4–5), epigenomic (Step 7), and SV (Step 8) layers plus the ATTED-II co-expression network — is **not** part of the Snakemake pipeline. It is performed manually in a notebook environment from the layer outputs above. The standalone helper scripts `workflow/scripts/rank_dmr_genes.py`, `genomics_scoring.py`, and `genomics_scoring_stable.py` are available as references.
