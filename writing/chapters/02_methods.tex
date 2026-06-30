@@ -40,6 +40,16 @@
 % gene neighbourhoods were derived, and what co-expression metric/threshold was applied.
 
 \section{Candidate Gene Prioritisation}
-\hspace{1em}Evidence from the three omics layers was integrated to rank candidate genes underlying the metabolic phenotype of interest. For each gene, signals from variant impact (SnpEff/SIFT4G), proximity to phenotype-associated DMRs, and co-expression with marker genes were combined into a single ranked list. The ranking was implemented with the \texttt{rank\_dmr\_genes.py} and \texttt{build\_ranked\_genes.py} scripts.
-% TODO (ask author): the exact scoring scheme — how each omics layer is weighted/normalised and
-% combined into the final rank.
+\hspace{1em}Candidate genes were ranked by integrating variant evidence, promoter methylation evidence, and module membership into a single score. For each gene $g$:
+\[
+  \text{Score}(g) = \bigl[V(g) + D(g)\bigr] \times \bigl[1 + \beta \cdot M(g)\bigr]
+\]
+where $V(g)$ is the normalised variant score, $D(g)$ is the normalised promoter methylation score, $M(g) \in \{0,1\}$ indicates module membership, and $\beta$ is the module boost parameter (set to 1, so that module genes score at most twice as high as non-module genes with equivalent omics evidence).
+
+\hspace{1em}$V(g)$ was taken from the gene-level maximum impact-weighted variant score normalised by gene length (\texttt{gene\_max\_norm}), produced by \texttt{genomics\_scoring.py} for the relevant variant group. For the stem-juiciness positive control, the input was the SBC4\_SBC10\_SBC23 group (variants shared by all three juicy accessions but absent from dry SBC11); for the TAA analysis, the group corresponding to the high-TAA accessions. The score ranges from 0 to 1 across all genes in the group.
+
+\hspace{1em}$D(g)$ was derived from the DMR analysis. For each gene, the largest absolute methylation difference ($|\Delta\text{Methy}|$) among its promoter-overlapping DMRs in the relevant phenotypic contrasts was extracted and normalised to 0--1 across all genes with at least one promoter DMR; genes with no promoter DMR received $D(g) = 0$.
+
+\hspace{1em}The module $M$ was defined independently for each phenotype. For the stem-juiciness positive control, the module comprises the sorghum homologs of the characterised Arabidopsis dPCD executor genes: ribonuclease-3-like proteins (RNS3; \texttt{LOC8063515}, \texttt{LOC8063317}, \texttt{LOC8077825}), serine carboxypeptidase-like 48 (SCPL48; \texttt{LOC8074232}), and aspartic proteinase-3-like proteins (PASPA3; \texttt{LOC8058198}, \texttt{LOC110430277}, \texttt{LOC110433911}), identified by sequence orthology \cite{olvera-carrillo_conserved_2015}. For the TAA analysis, the module is assembled from isomerase-family genes with a mutual-rank co-expression z-score $\geq 4.0$ relative to phytochrome-regulated genes in ATTED-II, reflecting the reported phytochrome-dependent regulation of aconitate isomerase activity \cite{eprintsev_aconitate_2021}.
+
+\hspace{1em}Structural variant evidence was not incorporated into the score, as SV calls are sparse and their effect categories are too coarse for quantitative normalisation. SVs overlapping candidate genes in the relevant group are instead reported alongside the ranked list as supplementary evidence.
