@@ -1,6 +1,5 @@
 import re
 from datetime import datetime
-from itertools import combinations
 from pathlib import Path
 
 WDIR        = str(Path(workflow.basedir).parent)
@@ -11,62 +10,34 @@ LOG_DIR     = f"{WDIR}/workflow/logs"
 
 config.setdefault("WDIR", WDIR)
 
-# ── Variant intersection groups ────────────────────────────────────────────────
-# Every non-empty subset of SAMPLES (the full UpSet decomposition: 4 private +
-# 6 pairs + 4 triples + 1 quad = 15 groups). Each group is labelled by its member
-# samples joined with "_" in canonical SAMPLES order, and carries the bcftools
-# isec presence pattern (1=present/0=absent, positional over SAMPLES) plus the
-# 1-based -w write index (first member) used to emit the records.
-def _build_vargroups(samples):
-    """label -> {"pattern": "1011", "w": 1} for all 15 non-empty subsets.
-
-    Defined as a function so loop temporaries (notably ``_pattern``) do not leak
-    into the workflow's global namespace — a leaked ``_pattern`` global collides
-    with the reserved first argument of Snakemake's internal ``format()`` and
-    breaks shell-command formatting in every rule.
-    """
-    groups = {}
-    for k in range(1, len(samples) + 1):
-        for combo in combinations(range(len(samples)), k):
-            label   = "_".join(samples[i] for i in combo)
-            pattern = "".join("1" if i in combo else "0" for i in range(len(samples)))
-            groups[label] = {"pattern": pattern, "w": combo[0] + 1}
-    return groups
-
-VARGROUPS       = _build_vargroups(SAMPLES)   # label -> {"pattern": "1011", "w": 1}
-VARGROUP_LABELS = list(VARGROUPS)
-
 # ── Paths shared across multiple rule files ────────────────────────────────────
 PHASED_VCF_DIR   = f"{WDIR}/results/vcf_processing"
-VARGROUP_DIR     = f"{WDIR}/results/variant_groups"
 SNPEFF_ANNOT_DIR = f"{WDIR}/results/snpeff"
 SIFT_DIR         = f"{WDIR}/results/sift4g"
+SV_DIR           = f"{WDIR}/results/sv_calling"
+SV_SNPEFF_DIR    = f"{WDIR}/results/snpeff_sv"
+COMBINED_DIR     = f"{WDIR}/results/combined"
 DMR_DIR          = f"{WDIR}/results/DMR"
 REF              = f"{WDIR}/resources/ref/GCF_000003195.3_Sorghum_bicolor_NCBIv3_genomic.fna"
 
-# Constrain wildcards so {group} matches a known label (longest-first to avoid a
-# prefix like SBC4 shadowing SBC4_SBC10) and {sample} stays a single sample.
+# Merged multi-sample source-of-truth (all four samples, canonical SAMPLES order).
+MERGED_PHASED_VCF = f"{PHASED_VCF_DIR}/merged.phased.vcf.gz"
+
+# Constrain {sample} to a single sample (grouping — and the {group} wildcard — removed).
 wildcard_constraints:
-    group  = "|".join(sorted(map(re.escape, VARGROUP_LABELS), key=len, reverse=True)),
     sample = "|".join(SAMPLES),
 
 rule all:
     input:
-        # expand(f"{PHASED_VCF_DIR}/{{sample}}.phased.vcf.gz", sample=SAMPLES),
-        # expand(f"{PHASED_VCF_DIR}/{{sample}}.phased.vcf.gz.csi", sample=SAMPLES),
-        # expand(f"{SIFT_DIR}/{{group}}.sift4g.vcf.gz", group=VARGROUP_LABELS),   # sift_annotation.smk
-        # expand(f"{DMR_DIR}/{{pair}}.5mC.DMR.tsv", pair=PAIRS),         # dmr_analysis.smk
-        f"{DMR_DIR}/DMR_annotated.tsv",
-        # SV sample-sharing groups (pull in the combined + per-sample Sniffles2 calls).
-        # Path strings because sv_analysis.smk is included below this rule.
-        expand(f"{WDIR}/results/sv_groups/{{group}}.vcf.gz", group=VARGROUP_LABELS),  # sv_analysis.smk
+        # expand(f"{DMR_DIR}/{{pair}}.5mC.DMR.tsv", pair=PAIRS), f"{DMR_DIR}/DMR_annotated.tsv", # DMR analysis
+        # Genomic-layer deliverable: SNP (SnpEff+SIFT) and SV (SnpEff) annotations
+        # concatenated into one multi-sample VCF.
+        f"{COMBINED_DIR}/all.annotated.vcf.gz",
 
 
 include: "rules/reads_preprocessing.smk"
 include: "rules/variant_analysis.smk"
-include: "rules/vcf_processing.smk"
-include: "rules/methylation.smk"
-include: "rules/snpeff_annotation.smk"
-include: "rules/sift_annotation.smk"
-include: "rules/dmr_analysis.smk"
 include: "rules/sv_analysis.smk"
+include: "rules/vcf_annotation.smk"
+include: "rules/methylation.smk"
+include: "rules/dmr_analysis.smk"
