@@ -758,8 +758,8 @@
       \strng{authornamehash}{2881fbee5cbadbc41989c6cb5f6f6167}
       \strng{authorfullhash}{300d908c741ec45b9dad7ea5f57f0e7d}
       \strng{authorfullhashraw}{300d908c741ec45b9dad7ea5f57f0e7d}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{issn}{0032-0889, 1532-2548}
@@ -784,6 +784,139 @@
       \endverb
       \verb{url}
       \verb https://academic.oup.com/plphys/article/169/4/2684-2699/6114019
+      \endverb
+    \endentry
+    \entry{obayashi_atted-ii_2022}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=144c5253ccd0f2ac9bf1db4e001a4f7a}{%
+           family={Obayashi},
+           familyi={O\bibinitperiod},
+           given={Takeshi},
+           giveni={T\bibinitperiod}}}%
+        {{hash=f5a40632eaf8d0e3bf05fba0fcb68feb}{%
+           family={Hibara},
+           familyi={H\bibinitperiod},
+           given={Himiko},
+           giveni={H\bibinitperiod}}}%
+        {{hash=7cd70d465bf58b77a0615875a3641e83}{%
+           family={Kagaya},
+           familyi={K\bibinitperiod},
+           given={Yuki},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=abbe2d373c73d1874a97057b89c753b0}{%
+           family={Aoki},
+           familyi={A\bibinitperiod},
+           given={Yuichi},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=13754f0ed00cc308af370313b7d065d0}{%
+           family={Kinoshita},
+           familyi={K\bibinitperiod},
+           given={Kengo},
+           giveni={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{7956c7240ee0ff1be52b3f78f077d94c}
+      \strng{fullhash}{352844ef91bb27a869dc56274d1ee349}
+      \strng{fullhashraw}{352844ef91bb27a869dc56274d1ee349}
+      \strng{bibnamehash}{352844ef91bb27a869dc56274d1ee349}
+      \strng{authorbibnamehash}{352844ef91bb27a869dc56274d1ee349}
+      \strng{authornamehash}{7956c7240ee0ff1be52b3f78f077d94c}
+      \strng{authorfullhash}{352844ef91bb27a869dc56274d1ee349}
+      \strng{authorfullhashraw}{352844ef91bb27a869dc56274d1ee349}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{ATTED-II (https://atted.jp) is a gene coexpression database for nine plant species based on publicly available RNAseq and microarray data. One of the challenges in constructing condition-independent coexpression data based on publicly available gene expression data is managing the inherent sampling bias. Here, we report ATTED-II version 11, wherein we adopted a coexpression calculation methodology to balance the samples using principal component analysis and ensemble calculation. This approach has two advantages. First, omitting principal components with low contribution rates reduces the main contributors of noise. Second, balancing large differences in contribution rates enables considering various sample conditions entirely. In addition, based on RNAseq- and microarray-based coexpression data, we provide species-representative, integrated coexpression information to enhance the efficiency of interspecies comparison of the coexpression data. These coexpression data are provided as a standardized z-score to facilitate integrated analysis with different data sources. We believe that with these improvements, ATTED-II is more valuable and powerful for supporting interspecies comparative studies and integrated analyses using heterogeneous data.}
+      \field{issn}{1471-9053}
+      \field{journaltitle}{Plant and Cell Physiology}
+      \field{month}{6}
+      \field{number}{6}
+      \field{shorttitle}{{ATTED}-{II} v11}
+      \field{title}{{ATTED}-{II} v11: {A} {Plant} {Gene} {Coexpression} {Database} {Using} a {Sample} {Balancing} {Technique} by {Subagging} of {Principal} {Components}}
+      \field{urlday}{13}
+      \field{urlmonth}{10}
+      \field{urlyear}{2025}
+      \field{volume}{63}
+      \field{year}{2022}
+      \field{urldateera}{ce}
+      \field{pages}{869\bibrangedash 881}
+      \range{pages}{13}
+      \verb{doi}
+      \verb 10.1093/pcp/pcac041
+      \endverb
+      \verb{file}
+      \verb PDF:/Users/daffaaprilio/Zotero/storage/IHZNYDVH/Obayashi et al. - 2022 - ATTED-II v11 A Plant Gene Coexpression Database Using a Sample Balancing Technique by Subagging of .pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1093/pcp/pcac041
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1093/pcp/pcac041
+      \endverb
+    \endentry
+    \entry{igamberdiev_phytochromemediated_2014}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=cd183d219a34652b52acd7bccd24e369}{%
+           family={Igamberdiev},
+           familyi={I\bibinitperiod},
+           given={Abir\bibnamedelima U.},
+           giveni={A\bibinitperiod\bibinitdelim U\bibinitperiod}}}%
+        {{hash=f9d479c58bb80ff2417276d0b41d07a9}{%
+           family={Eprintsev},
+           familyi={E\bibinitperiod},
+           given={Alexander\bibnamedelima T.},
+           giveni={A\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
+        {{hash=8419ee77366958fbe89c91d46fe7cade}{%
+           family={Fedorin},
+           familyi={F\bibinitperiod},
+           given={Dmitry\bibnamedelima N.},
+           giveni={D\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=ae561ac78588b16ed2678e25b59f2878}{%
+           family={Popov},
+           familyi={P\bibinitperiod},
+           given={Vasily\bibnamedelima N.},
+           giveni={V\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+      }
+      \list{language}{1}{%
+        {en}%
+      }
+      \strng{namehash}{39989968c8dab8fd7e6d5d187da2539b}
+      \strng{fullhash}{06e5a12103788aba1909bd540568b109}
+      \strng{fullhashraw}{06e5a12103788aba1909bd540568b109}
+      \strng{bibnamehash}{06e5a12103788aba1909bd540568b109}
+      \strng{authorbibnamehash}{06e5a12103788aba1909bd540568b109}
+      \strng{authornamehash}{39989968c8dab8fd7e6d5d187da2539b}
+      \strng{authorfullhash}{06e5a12103788aba1909bd540568b109}
+      \strng{authorfullhashraw}{06e5a12103788aba1909bd540568b109}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The expression of genes encoding various enzymes participating in photosynthetic and respiratory metabolism is regulated by light via the phytochrome system. While many photosynthetic, photorespiratory and some respiratory enzymes, such as the rotenone-insensitive NADH and NADPH dehydrogenases and the alternative oxidase, are stimulated by light, succinate dehydrogenase, subunits of the pyruvate dehydrogenase complex, cytochrome oxidase and fumarase are inhibited via the phytochrome mechanism. The effect of light, therefore, imposes limitations on the tricarboxylic acid cycle and on the mitochondrial electron transport coupled to ATP synthesis, while the non-coupled pathways become activated. Phytochrome-mediated regulation of gene expression also creates characteristic distribution patterns of photosynthetic, photorespiratory and respiratory enzymes across the leaf generating different populations of mitochondria, either enriched by glycine decarboxylase (in the upper part) or by succinate dehydrogenase (in the bottom part of the leaf).}
+      \field{issn}{0140-7791, 1365-3040}
+      \field{journaltitle}{Plant, Cell \& Environment}
+      \field{month}{2}
+      \field{number}{2}
+      \field{title}{Phytochrome‐mediated regulation of plant respiration and photorespiration}
+      \field{urlday}{3}
+      \field{urlmonth}{6}
+      \field{urlyear}{2026}
+      \field{volume}{37}
+      \field{year}{2014}
+      \field{urldateera}{ce}
+      \field{pages}{290\bibrangedash 299}
+      \range{pages}{10}
+      \verb{doi}
+      \verb 10.1111/pce.12155
+      \endverb
+      \verb{file}
+      \verb PDF:/Users/daffaaprilio/Zotero/storage/AWXJJWPW/Igamberdiev et al. - 2014 - Phytochrome‐mediated regulation of plant respiration and photorespiration.pdf:application/pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://onlinelibrary.wiley.com/doi/10.1111/pce.12155
+      \endverb
+      \verb{url}
+      \verb https://onlinelibrary.wiley.com/doi/10.1111/pce.12155
       \endverb
     \endentry
   \enddatalist

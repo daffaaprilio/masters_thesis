@@ -4,33 +4,22 @@
 \contentsline {section}{\numberline {1.2}Research context}{2}{section.1.2}%
 \contentsline {section}{\numberline {1.3}Research Objective}{3}{section.1.3}%
 \contentsline {section}{\numberline {1.4}Methods Overview}{3}{section.1.4}%
-\contentsline {chapter}{\numberline {2}Materials and Methods}{5}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Plant Material and Sampling}{5}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Sequencing}{5}{section.2.2}%
-\contentsline {section}{\numberline {2.3}Variant Annotation}{5}{section.2.3}%
-\contentsline {section}{\numberline {2.4}DMR Analysis}{5}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Co-expression data}{6}{section.2.5}%
-\contentsline {section}{\numberline {2.6}Candidate Gene Prioritisation}{6}{section.2.6}%
-\contentsline {chapter}{\numberline {3}Results}{7}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Sequencing Quality and Read Depth}{7}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Variant Landscape}{7}{section.3.2}%
-\contentsline {subsection}{\numberline {3.2.1}SNP and Indel Distribution}{7}{subsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.2.2}Functional Annotation}{7}{subsection.3.2.2}%
-\contentsline {subsection}{\numberline {3.2.3}Private Variants per Sample}{7}{subsection.3.2.3}%
-\contentsline {section}{\numberline {3.3}Methylation Landscape}{7}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}Genome-wide 5mC Profiles}{7}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Differentially Methylated Regions}{7}{subsection.3.3.2}%
-\contentsline {section}{\numberline {3.4}TAA-Associated Candidate Genes}{7}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Variant Prioritisation}{7}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Homologous TAA-Related Genes}{7}{subsection.3.4.2}%
-\contentsline {section}{\numberline {3.5}Sorgoleone Biosynthetic Pathway}{7}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Pathway Variants in SBC Samples}{7}{subsection.3.5.1}%
-\contentsline {chapter}{\numberline {4}Discussion}{8}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Variant Architecture Across TAA Phenotypes}{8}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Epigenetic Regulation and Methylation Patterns}{8}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Candidate Genes for TAA Production and Secretion}{8}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Sorgoleone Pathway Integrity}{8}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Limitations}{8}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Future Directions}{8}{section.4.6}%
-\contentsline {chapter}{\numberline {5}Conclusion}{9}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusion}{10}{chapter.6}%
+\contentsline {chapter}{\numberline {2}Materials and Methods}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Plant Material and Sampling}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Sequencing}{4}{section.2.2}%
+\contentsline {section}{\numberline {2.3}SNP Calling and Annotation}{4}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Structural Variant Calling and Annotation}{4}{section.2.4}%
+\contentsline {section}{\numberline {2.5}DMR Analysis}{5}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Co-expression data}{5}{section.2.6}%
+\contentsline {chapter}{\numberline {3}Results}{6}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Sequencing Quality and Read Depth}{6}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Variant Landscape}{6}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Methylation Landscape}{6}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Discussion}{7}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Variant Architecture Across TAA Phenotypes}{7}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Epigenetic Regulation and Methylation Patterns}{7}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Candidate Genes for TAA Production and Secretion}{7}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Sorgoleone Pathway Integrity}{7}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Limitations}{7}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Future Directions}{7}{section.4.6}%
+\contentsline {chapter}{\numberline {5}Conclusion}{8}{chapter.5}%

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  29 JUN 2026 15:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.29 (TeX Live 2026/Homebrew) (preloaded format=pdflatex 2026.3.4)  1 JUL 2026 23:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -741,9 +741,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 
 
-] [3]) [4
-
-]
+]) [3]
 \openout2 = `chapters/02_methods.aux'.
 
  (./chapters/02_methods.tex
@@ -752,17 +750,17 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-[5
+[4
 
 
 
 
-]) [6]
+]) [5]
 \openout2 = `chapters/03_results.aux'.
 
  (./chapters/03_results.tex
 Chapter 3.
-) [7
+) [6
 
 
 
@@ -773,23 +771,18 @@ Chapter 3.
 
  (./chapters/04_discussion.tex
 Chapter 4.
-[8
+) [7
 
 
 
-
-
-]
-Chapter 5.
-) [9
 
 
 ]
 \openout2 = `chapters/05_conclusion.aux'.
 
  (./chapters/05_conclusion.tex
-Chapter 6.
-) [10
+Chapter 5.
+) [8
 
 
 
@@ -801,19 +794,25 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2026-01-19>
  ***********
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 2CF8040206C83982FBC14EE6E9B6A085;6054.
+(rerunfilecheck)             Checksum: 5E1D244E439CAC93CBDCDA64CFEB2A66;4035.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 21746 strings out of 467525
- 384568 string characters out of 5408440
- 1290429 words of memory out of 5000000
- 50142 multiletter control sequences out of 15000+600000
- 650571 words of font info for 167 fonts, out of 8000000 for 9000
+ 21705 strings out of 467525
+ 384140 string characters out of 5408440
+ 1289533 words of memory out of 5000000
+ 50124 multiletter control sequences out of 15000+600000
+ 648759 words of font info for 160 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,8n,79p,2474b,1852s stack positions out of 10000i,1000n,20000p,200000b,200000s
+
+pdfTeX warning (dest): name{cite.0@igamberdiev_phytochromemediated_2014} has been referenced but does not exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{cite.0@obayashi_atted-ii_2022} has been referenced but does not exist, replaced by a fixed one
+
 
 pdfTeX warning (dest): name{cite.0@olvera-carrillo_conserved_2015} has been referenced but does not exist, replaced by a fixed one
 
@@ -847,11 +846,11 @@ pdfTeX warning (dest): name{cite.0@guo_efficient_2026} has been referenced but d
 
 pdfTeX warning (dest): name{cite.0@bruni_aconitic_2022} has been referenced but does not exist, replaced by a fixed one
 
-</opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbi1095.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on thesis.pdf (11 pages, 320799 bytes).
+</opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></opt/homebrew/Cellar/texlive/20260301/share/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on thesis.pdf (9 pages, 270330 bytes).
 PDF statistics:
- 373 PDF objects out of 1000 (max. 8388607)
- 322 compressed objects within 4 object streams
- 59 named destinations out of 1000 (max. 500000)
- 47897 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 298 PDF objects out of 1000 (max. 8388607)
+ 254 compressed objects within 3 object streams
+ 48 named destinations out of 1000 (max. 500000)
+ 43713 words of extra memory for PDF output out of 51595 (max. 10000000)
 
