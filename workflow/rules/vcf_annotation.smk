@@ -219,14 +219,16 @@ rule sift_merged:
 # ── SV annotation + combine ────────────────────────────────────────────────────
 
 rule annotate_sv:
-    """SnpEff-annotate the combined multi-sample SV VCF — SnpEff only (SIFT4G is not
-    meaningful for structural variants). Reuses annotate_vcf.sh + the same SnpEff DB as
-    the SNP track, so SV ANN gene IDs (LOC*) line up with the SNP annotations. SnpEff
-    classifies each SV's per-gene consequence (transcript_ablation, exon_loss,
-    feature_fusion for BND, duplication/inversion for DUP/INV, …)."""
+    """SnpEff-annotate the mega-SV-filtered combined multi-sample SV VCF — SnpEff only
+    (SIFT4G is not meaningful for structural variants). Reuses annotate_vcf.sh + the same
+    SnpEff DB as the SNP track, so SV ANN gene IDs (LOC*) line up with the SNP annotations.
+    SnpEff classifies each SV's per-gene consequence (transcript_ablation, exon_loss,
+    feature_fusion for BND, duplication/inversion for DUP/INV, …). Input is
+    combined.sniffles.filtered.vcf.gz (mega-SVs removed by filter_combined_sv), which
+    keeps the per-gene ANN explosion — and thus all.annotated.vcf.gz — tractable."""
     input:
-        vcf     = f"{SV_DIR}/combined.sniffles.vcf.gz",
-        tbi     = f"{SV_DIR}/combined.sniffles.vcf.gz.tbi",
+        vcf     = f"{SV_DIR}/combined.sniffles.filtered.vcf.gz",
+        tbi     = f"{SV_DIR}/combined.sniffles.filtered.vcf.gz.tbi",
         db_flag = f"{SNPEFF_DIR}/data/Sorghum_bicolor_NCBIv3/sequence.NC_012870.2.bin",
     output:
         vcf = f"{SV_SNPEFF_DIR}/combined.annotated.vcf.gz",

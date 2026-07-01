@@ -13,6 +13,7 @@ workflow/logs/
 analysis/logs/
 analysis/figures/
 analysis/.trash/
+analysis/data/
 
 *.pdf
 *.xlsx
