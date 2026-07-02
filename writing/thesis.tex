@@ -1,14 +1,17 @@
-\documentclass[11pt, a4paper, twocolumn]{report}
+\documentclass[11pt, a4paper]{report}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{graphicx}      % figures
 \usepackage{amsmath}       % math
+\usepackage{amssymb}       % \checkmark
 \usepackage{hyperref}      % clickable links/TOC
 \usepackage[backend=biber, style=ieee]{biblatex}
 \addbibresource{references.bib}
 \usepackage{booktabs}      % nice tables
 \usepackage{tabularx}      % full-width tables
+\usepackage{float}         % [H] exact figure placement
+\usepackage{subcaption}    % side-by-side subfigures
 \usepackage{geometry}      % margins
 \usepackage{titlesec}       % customizing sections text formatting
 \usepackage{microtype}      % for 2-column layout page (idk how it works tho)
@@ -19,7 +22,7 @@
 \usepackage{csquotes}
 \titleformat{\chapter}{\normalfont\bfseries}{}{0pt}{\huge}
 \titleformat{\section}{\sffamily\bfseries}{}{0pt}{}
-\titleformat{\subsection}{\normalfont\bfseries\itshape}{}{0pt}{}
+\titleformat{\subsection}{\normalfont\itshape}{}{0pt}{}
 \geometry{margin=1.2cm, footskip=0.6cm}
 
 \begin{document}
@@ -31,5 +34,6 @@
 \include{chapters/03_results}
 \include{chapters/04_discussion}
 \include{chapters/05_conclusion}
+\include{chapters/06_appendix}
 
 \end{document}

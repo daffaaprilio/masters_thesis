@@ -1,9 +1,116 @@
 \chapter{Results}
 
 \section{Sequencing Quality and Read Depth}
+% TODO: Read yield & length
+%   - Total reads and total bases per sample (post-basecalling)
+%   - Read length: mean, median, N50
+%   - Duplex read yield/rate (% duplex vs simplex)
+% TODO: Read quality
+%   - Mean/median Q score per sample
+%   - % reads passing a quality threshold (e.g., Q >= 10)
+% TODO: Alignment
+%   - Mapping rate (% reads aligned to BTx623 reference)
+%   - Mean mapping quality (MAPQ)
+% TODO: Modified-base calling
+%   - % of bases with MM/ML tags present (confirms methylation calling succeeded, cf. `modkit summary` check)
+% TODO: SBC11-specific note
+%   - Combined yield/depth after merging the three libraries (r0075, r0078, r0078-2)
+% TODO: Depth interpretation (after table below is filled in)
+%   - Note on mean-vs-stdev gap between "10 largest contigs" and "all contigs" (likely small/unplaced contigs or organellar DNA)
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\begin{table}[htbp]
+    \centering
+    \caption{Read depth summary statistics per sample, restricted to the 10 largest contigs and across all contigs.}
+    \label{tab:read-depth-summary}
+    \begin{tabularx}{\columnwidth}{l YYY}
+        \toprule
+        Sample & Mean & Median & Stdev \\
+        \midrule
+        \multicolumn{4}{c}{\textit{10 Largest Contigs}} \\
+        SBC4  & 23.86 & 24.00 & 36.24 \\
+        SBC10 & 21.88 & 22.00 & 20.46 \\
+        SBC11 & 26.18 & 26.00 & 50.95 \\
+        SBC23 & 15.29 & 15.00 & 21.79 \\
+        \midrule
+        \multicolumn{4}{c}{\textit{All Contigs}} \\
+        SBC4  & 26.99 & 24.00 & 138.71 \\
+        SBC10 & 22.88 & 22.00 & 46.79 \\
+        SBC11 & 30.31 & 26.00 & 185.77 \\
+        SBC23 & 17.12 & 15.00 & 83.84 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\hspace{1em}Long-read Oxford Nanopore Technology sequencing of the four accessions yielded a desirable read depth, with mean coverage across the ten largest contigs ranging from 15.29$\times$ (SBC23) to 26.18$\times$ (SBC11) (Table~\ref{tab:read-depth-summary}). These ten largest contigs correspond to the ten nuclear chromosomes of the BTx623 reference assembly, each spanning tens of megabases and together representing the chromosome-scale portion of the genome; the mitochondrial and chloroplast genomes, together with a number of small unplaced scaffolds, are considerably shorter and are therefore only captured once all contigs are considered. When depth is instead computed across all contigs, the mean coverage per sample increases modestly (17.12--30.31$\times$), but the standard deviation increases sharply relative to the nuclear-chromosome-only figures.
 
 \section{Variant Landscape}
+\hspace{1em}Variants were called for each accession against the BTx623 reference and annotated for functional consequence with SnpEff, yielding between 2.14 million (SBC23) and 2.95 million (SBC4) variants per accession. For each variant carried by a given accession, the most severe predicted impact among its annotated effects was retained, and these were summarised into SnpEff's four impact categories: HIGH, MODERATE, LOW, and MODIFIER (Figure~\ref{fig:effect-impact-combined}). The distribution is dominated by MODIFIER-impact variants (96.3--96.4\% of calls in every accession), consistent with the expectation that most genomic variation in a whole-genome resequencing experiment falls outside coding sequence -- in intergenic, intronic, or up-/downstream regions. Variants predicted to alter protein sequence without disrupting the reading frame (LOW and MODERATE impact, e.g.\ synonymous and missense changes) each account for a further 1.6--1.8\%, while HIGH-impact variants -- those predicted to severely disrupt gene function, such as stop-gains, frameshifts, or splice-site disruptions -- are rare, at 0.23--0.24\% of calls. Critically, this aggregate impact distribution is essentially uniform across all four accessions irrespective of TAA or juiciness phenotype, indicating that phenotypic differences are not reflected in the overall severity profile of each accession's variant set; any phenotype-associated signal must instead be sought in the identity and sharing pattern of specific variants and the genes they affect, which is the basis for the candidate gene ranking presented in the following chapter.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig01_effect_impact_combined.png}
+    \caption{Effect impact distribution per sample, computed from the combined annotated VCF.}
+    \label{fig:effect-impact-combined}
+\end{figure}
 
 \section{Methylation Landscape}
+\hspace{1em}Genome-wide 5mC methylation levels were computed for each accession from the bedmethyl pileups, stratified by sequence context (CpG, CHG, and CHH) (Figure~\ref{fig:context-methylation-level}). All four accessions show the same characteristic plant methylation architecture, with mean methylation highest at CpG sites (53--59\%), intermediate at CHG sites (28--33\%), and lowest at CHH sites (1.2--1.5\%). This CpG $>$ CHG $\gg$ CHH ordering mirrors the distinct maintenance pathways that act on each context in plants and confirms that the modified-base calls recovered from duplex ONT sequencing reproduce the expected genome-wide methylation landscape. As with the variant impact distribution, the context-level methylation profile is broadly similar across accessions, with only modest inter-accession variation (e.g.\ CpG methylation ranging from 53.3\% in SBC10 to 58.5\% in SBC23); this baseline landscape motivates the differentially methylated region (DMR) analysis presented later, which localises phenotype-associated methylation changes to specific genomic regions rather than genome-wide shifts.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig02_context_methylation_level.png}
+    \caption{Methylation level by genomic context per sample.}
+    \label{fig:context-methylation-level}
+\end{figure}
 
+\section{Positive control: D-gene}
+\subsection{Variant analysis}
+\hspace{1em}Candidate variant sites for the juicy phenotype were selected under the assumption that juiciness arises from loss of function in one or more dPCD module genes. Wild-type sorghum is dry \cite{fujimoto_transcriptional_2018}, and SBC11 is the only dry accession in the panel, so its dPCD module genes are expected to remain functional and wild-type. Variant sites found in SBC11 were therefore excluded from the selection: a loss-of-function change already present in this wild-type-like accession cannot explain why the other three accessions instead present as juicy. In practice, this was implemented by retaining only rows of the combined VCF in which SBC11's genotype does not carry the alternate allele (homozygous reference \texttt{0/0} or missing \texttt{./.}) while at least one juicy accession does, yielding 3,187,499 candidate variant sites carried forward for downstream analysis.
+
+\hspace{1em}After the VCF file that is expected to contain only variant sites associated to the juicy stem phenotype is obtained, each variant record was parsed and converted from one row per variant into one row per (variant, gene) pair. A single variant can carry multiple SnpEff \texttt{ANN} entries -- one per overlapping transcript or gene -- so these were first grouped by gene identifier; for genes with more than one candidate annotation, a single representative entry was retained using a deterministic priority: transcripts with a matching SIFT4G prediction (joined on the shared allele and transcript identifiers) were preferred, followed by the most severe impact category (HIGH $>$ MODERATE $>$ LOW $>$ MODIFIER), the original SnpEff annotation order, and finally protein-coding transcripts over other biotypes. Annotations mapping to ambiguous, fused, or multi-gene identifiers (containing a hyphen or ampersand, e.g.\ structural-variant fusion or intergenic labels) were discarded, retaining only unambiguous single-gene assignments. This reduction converts the variant-level VCF into a variant--gene table, so that a variant spanning several genes contributes an independent, appropriately prioritised annotation to each, yielding 2{,}180{,}854 variant--gene rows carried forward for gene-level scoring.
+
+\hspace{1em}Each variant--gene row was then assigned a numeric score reflecting its predicted functional severity, so that genes could be ranked by their most damaging variant. SnpEff's four impact categories were mapped to equal-width quarter-bands spanning $[0,1]$ in increasing order of severity (MODIFIER: 0--0.25; LOW: 0.25--0.50; MODERATE: 0.50--0.75; HIGH: 0.75--1.00), with a variant's score defaulting to its band's midpoint. For MODERATE-impact (missense) variants with a matching SIFT4G prediction, the score was instead placed continuously within the MODERATE band in proportion to the SIFT4G damaging score, so that missense variants predicted deleterious by SIFT4G score closer to the HIGH boundary than those predicted tolerated, rather than collapsing all missense variants to the same band-midpoint value. Variant--gene rows were then collapsed to one row per gene by retaining only the single highest-scoring (most damaging) variant affecting each gene -- a maximum, or worst-variant, model of gene disruption -- and genes were ranked in descending order of this score, yielding 31{,}468 scored candidate genes.
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/fig03_variant_score.png}
+        \caption{Variant-level score}
+        \label{fig:variant-score}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/fig03a_gene_score.png}
+        \caption{Gene-level score}
+        \label{fig:gene-score}
+    \end{subfigure}
+    \caption{Distribution of variant-level scores (a) and the resulting gene-level scores after collapsing to the maximum per gene (b).}
+    \label{fig:variant-gene-score}
+\end{figure}
+
+\subsection{DMR analysis}
+\hspace{1em}Candidate genes from the methylation layer were selected under the same wild-type logic as the variant analysis: SBC11 is the dry, wild-type-like accession in which the dPCD module is expected to remain active, whereas the module is expected to be transcriptionally silenced in the juicy accessions. Candidate causative genes are therefore defined as genes whose promoter region is hypermethylated in either SBC4, SBC10, and SBC23 within the pairwise comparison of each against SBC11. This yielded 6{,}961 promoter DMRs hypomethylated in SBC11, collapsing (on the largest absolute methylation difference per gene where a gene was hit by more than one such DMR) to 5{,}367 candidate genes.
+
+\subsection{Gene co-expression analysis}
+\hspace{1em}The co-expression layer of the positive control follows the guilt-by-association design used to identify MYB28 and MYB29 as regulators of the aliphatic glucosinolate biosynthesis pathway in \textit{Arabidopsis}: querying a co-expression network with a pathway's known biosynthetic genes and looking for transcription factors consistently co-expressed with them \cite{hirai_omicsbased_2007}. The same design was applied here to nominate the D-gene, using the literature-curated \textit{Sorghum bicolor} dPCD gene module as the query set. dPCD is triggered by transcription factors of the NAC family \cite{olvera-carrillo_conserved_2015}; of the 66 genes in the dPCD module, 5 are NAC-family transcription factors, so the true D-gene is expected to be one of these five, distinguished by being the most consistently co-expressed with the remaining 61 module genes.
+
+\hspace{1em}Co-expression data for the dPCD module were obtained from ATTED-II's Edge Annotation feature, which returns, for a queried gene set, every pairwise co-expression edge among its members as a z-transformed co-expression score. Because co-expression is symmetric, each edge was mirrored so that either gene could serve as the transcription-factor endpoint, and the edges were then restricted to the five NAC transcription factors against the other 61 module genes, arranged into a transcription-factor-by-target co-expression matrix. Each of the 61 non-transcription-factor module genes was treated as a voter ranking the five candidate transcription factors by co-expression strength (rank 1 = strongest co-expression partner for that gene), and these per-gene rankings were aggregated by taking each transcription factor's mean rank across all 61 voters. The transcription factor with the lowest mean rank, which can be said as the most consistently co-expressed with the rest of the dPCD module, is nominated as the most probable D-gene candidate from the co-expression layer.
+
+\begin{table}[htbp]
+    \centering
+    \caption{The five NAC-family transcription factors in the dPCD module, ranked by mean co-expression rank (mean MR) across the other 61 module genes. Lower mean MR indicates more consistent co-expression with the module; mean coex and st.\ dev.\ coex are the mean and standard deviation of the z-transformed co-expression score across the 61 module genes.}
+    \label{tab:dgene-coexpression-ranking}
+    \begin{tabularx}{\columnwidth}{c l l YYY}
+        \toprule
+        Rank & TF & Gene name & Mean MR & Mean coex & St. dev. coex \\
+        \midrule
+        1 & LOC8080837 & protein NTM1-like 9 & 2.5000 & 0.6650 & 1.187661 \\
+        2 & LOC8078577 & NAC domain-containing protein 79 & 2.8125 & 0.3900 & 1.063328 \\
+        3 & LOC8083682 & NAC domain-containing protein 79 & 2.8375 & 0.4700 & 0.959487 \\
+        4 & LOC8067634 & NAC domain-containing protein 77 & 3.2375 & 0.1175 & 0.941871 \\
+        5 & LOC8069252 & NAC domain-containing protein 69 & 3.6125 & -0.1700 & 0.963487 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
