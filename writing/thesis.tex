@@ -10,8 +10,10 @@
 \addbibresource{references.bib}
 \usepackage{booktabs}      % nice tables
 \usepackage{tabularx}      % full-width tables
+\usepackage{longtable}     % multi-page tables (appendix)
 \usepackage{float}         % [H] exact figure placement
 \usepackage{subcaption}    % side-by-side subfigures
+\usepackage{makecell}      % manual line breaks inside table cells
 \usepackage{geometry}      % margins
 \usepackage{titlesec}       % customizing sections text formatting
 \usepackage{microtype}      % for 2-column layout page (idk how it works tho)
@@ -23,7 +25,7 @@
 \titleformat{\chapter}{\normalfont\bfseries}{}{0pt}{\huge}
 \titleformat{\section}{\sffamily\bfseries}{}{0pt}{}
 \titleformat{\subsection}{\normalfont\itshape}{}{0pt}{}
-\geometry{margin=1.2cm, footskip=0.6cm}
+\geometry{margin=2.54cm}
 
 \begin{document}
 
@@ -34,6 +36,9 @@
 \include{chapters/03_results}
 \include{chapters/04_discussion}
 \include{chapters/05_conclusion}
+
+\printbibliography[title={References}]
+
 \include{chapters/06_appendix}
 
 \end{document}

@@ -1477,17 +1477,17 @@
       \verb https://onlinelibrary.wiley.com/doi/10.1007/s40484-019-0183-8
       \endverb
     \endentry
-    \entry{hirai_omicsbased_2007}{article}{}{}
+    \entry{hirai_omics-based_2007}{article}{}{}
       \name{author}{14}{}{%
         {{hash=15b3a3bede0614a4c36dd2e322e747e7}{%
            family={Hirai},
            familyi={H\bibinitperiod},
            given={Masami\bibnamedelima Yokota},
            giveni={M\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
-        {{hash=b484c1b6da9bb9f41c725025dcfdee46}{%
+        {{hash=f8c811c9c6622e8ea0123686ca12b114}{%
            family={Sugiyama},
            familyi={S\bibinitperiod},
-           given={Kazuki},
+           given={Kenjiro},
            giveni={K\bibinitperiod}}}%
         {{hash=53e60458c3b111b13d5d284c254a0da8}{%
            family={Sawada},
@@ -1504,15 +1504,15 @@
            familyi={O\bibinitperiod},
            given={Takeshi},
            giveni={T\bibinitperiod}}}%
-        {{hash=535b63082a2cf15160f6ed3b4f6dfc35}{%
+        {{hash=44d5ef12006ef885d346541303b0a318}{%
            family={Suzuki},
            familyi={S\bibinitperiod},
-           given={Atsushi},
+           given={Akane},
            giveni={A\bibinitperiod}}}%
-        {{hash=55d384f4476fa6ff1000aae49c2fa4b2}{%
+        {{hash=9d9af2bef2ac203ef487a7b8b84a49df}{%
            family={Araki},
            familyi={A\bibinitperiod},
-           given={Ryouichi},
+           given={Ryoichi},
            giveni={R\bibinitperiod}}}%
         {{hash=815659c0feae66ec8ef49406bc65f291}{%
            family={Sakurai},
@@ -1534,10 +1534,10 @@
            familyi={G\bibinitperiod},
            given={Hideki},
            giveni={H\bibinitperiod}}}%
-        {{hash=e420fe8cab5b56495f756ac2add86ae4}{%
+        {{hash=a0764a45525ee52633aafdfc61f2295d}{%
            family={Nishizawa},
            familyi={N\bibinitperiod},
-           given={Osamu\bibnamedelima I.},
+           given={Osamu\bibnamedelima Ishizaki},
            giveni={O\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
         {{hash=b8497af79a8a463638008bce3d1082fd}{%
            family={Shibata},
@@ -1550,20 +1550,25 @@
            given={Kazuki},
            giveni={K\bibinitperiod}}}%
       }
+      \list{language}{1}{%
+        {eng}%
+      }
       \strng{namehash}{fc7ec94e6ce132ac2be708c92149a4d4}
-      \strng{fullhash}{d062a036d33af2f59d53ffa598a8d07b}
-      \strng{fullhashraw}{d062a036d33af2f59d53ffa598a8d07b}
+      \strng{fullhash}{e37c6fed242049ce2c286d3b85669544}
+      \strng{fullhashraw}{e37c6fed242049ce2c286d3b85669544}
       \strng{bibnamehash}{fc7ec94e6ce132ac2be708c92149a4d4}
       \strng{authorbibnamehash}{fc7ec94e6ce132ac2be708c92149a4d4}
       \strng{authornamehash}{fc7ec94e6ce132ac2be708c92149a4d4}
-      \strng{authorfullhash}{d062a036d33af2f59d53ffa598a8d07b}
-      \strng{authorfullhashraw}{d062a036d33af2f59d53ffa598a8d07b}
+      \strng{authorfullhash}{e37c6fed242049ce2c286d3b85669544}
+      \strng{authorfullhashraw}{e37c6fed242049ce2c286d3b85669544}
       \field{sortinit}{3}
       \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{issn}{0027-8424, 1091-6490}
-      \field{journaltitle}{Proceedings of the National Academy of Sciences}
+      \field{abstract}{Understanding plant metabolism as an integrated system is essential for metabolic engineering aimed at the effective production of compounds useful to human life and the global environment. The "omics" approach integrates transcriptome and metabolome data into a single data set and can lead to the identification of unknown genes and their regulatory networks involved in metabolic pathways of interest. One of the intriguing, although poorly described metabolic pathways in plants is the biosynthesis of glucosinolates (GSLs), a group of bioactive secondary products derived from amino acids that are found in the family Brassicaceae. Here we report the discovery of two R2R3-Myb transcription factors that positively control the biosynthesis of GSLs in Arabidopsis thaliana by an integrated omics approach. Combined transcriptome coexpression analysis of publicly available, condition-independent data and the condition-specific (i.e., sulfur-deficiency) data identified Myb28 and Myb29 as candidate transcription factor genes specifically involved in the regulation of aliphatic GSL production. Analysis of a knockout mutant and ectopic expression of the gene demonstrated that Myb28 is a positive regulator for basal-level production of aliphatic GSLs. Myb29 presumably plays an accessory function for methyl jasmonate-mediated induction of a set of aliphatic GSL biosynthetic genes. Overexpression of Myb28 in Arabidopsis-cultured suspension cells, which do not normally synthesize GSLs, resulted in the production of large amounts of GSLs, suggesting the possibility of efficient industrial production of GSLs by manipulation of these transcription factors. A working model for regulation of GSL production involving these genes, renamed Production of Methionine-Derived Glucosinolate (PMG) 1 and 2, are postulated.}
+      \field{annotation}{This paper is an example on how to use the coexpression data information from ATTED-II. Moreover, this paper also aligns with the そびたー project, in terms of regulation and biosynthesis.}
+      \field{issn}{0027-8424}
+      \field{journaltitle}{Proceedings of the National Academy of Sciences of the United States of America}
       \field{month}{4}
       \field{number}{15}
       \field{title}{Omics-based identification of {Arabidopsis} {Myb} transcription factors regulating aliphatic glucosinolate biosynthesis}
@@ -1574,12 +1579,10 @@
       \verb{doi}
       \verb 10.1073/pnas.0611629104
       \endverb
-      \verb{urlraw}
-      \verb https://pnas.org/doi/full/10.1073/pnas.0611629104
+      \verb{file}
+      \verb Full Text:/Users/daffa/Zotero/storage/8LX6BKWJ/Hirai et al. - 2007 - Omics-based identification of Arabidopsis Myb transcription factors regulating aliphatic glucosinola.pdf:application/pdf
       \endverb
-      \verb{url}
-      \verb https://pnas.org/doi/full/10.1073/pnas.0611629104
-      \endverb
+      \keyw{Arabidopsis,Arabidopsis Proteins,Biosynthetic Pathways,Chromatography,Liquid,Glucosinolates,Histone Acetyltransferases,JSPP poster references,Mass Spectrometry,Models,Biological,Proteomics,Transcription Factors}
     \endentry
   \enddatalist
 \endrefsection

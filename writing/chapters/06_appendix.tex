@@ -1,32 +1,218 @@
 \chapter{Appendix}
 
-\section{Extended Sequencing Quality Metrics}
+% \section{Extended Sequencing Quality Metrics}
 % TODO: Read yield & length per accession (total reads, total bases, mean/median/N50 read length)
 % TODO: Read quality (mean/median Q score, % reads >= Q10)
 % TODO: Alignment statistics (mapping rate, mean MAPQ)
 % TODO: Modified-base (5mC) calling coverage summary (modkit summary output)
 
-\clearpage
-\section{Full Sample-Sharing Variant Group Sizes}
+\subsection{Read Depth by Chromosomal Position}
+\hspace{1em}Per-base coverage depth along each of the ten largest chromosomes/contigs, for each of the four sequenced libraries (SBC11 shown for its \texttt{r0074} library; the two remaining SBC11 libraries, \texttt{r0078} and \texttt{r0078-2}, are merged into the same BAM prior to variant calling and methylation calling, see README.md Step 1).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/figA_SBC4_depth.png}
+    \caption{SBC4 (\texttt{r0074}) coverage depth per chromosome.}
+    \label{fig:depth-sbc4}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/figA3_SBC23_depth.png}
+    \caption{SBC10 (\texttt{r0066}) coverage depth per chromosome.}
+    \label{fig:depth-sbc10}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/figA2_SBC11_depth.png}
+    \caption{SBC11 coverage depth per chromosome.}
+    \label{fig:depth-sbc11}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/figA1_SBC10_depth.png}
+    \caption{SBC23 (\texttt{r0076}) coverage depth per chromosome.}
+    \label{fig:depth-sbc23}
+\end{figure}
+
+% \clearpage
+% \section{Full Sample-Sharing Variant Group Sizes}
 % TODO: Table of all fifteen sample-sharing group sizes (SNV/indel and SV tracks),
 %       from the combined annotated VCF, GT-based exact membership
 
 \clearpage
 \section{dPCD Gene Module (Literature Curation)}
-% TODO: Full table of dPCD module genes: AGI identifier, Arabidopsis gene name,
-%       sorghum EGI ortholog(s), sorghum gene name, source reference
+\hspace{1em}The dPCD (developmentally programmed cell death) module used as the query set for the D-gene positive control (Section~3.2) was assembled in two tiers. First, a small set of conserved dPCD indicator genes was taken directly from \citeauthor{olvera-carrillo_conserved_2015}'s literature review of PCD marker genes conserved across plant developmental and environmental cell-death programmes \cite{olvera-carrillo_conserved_2015}, with sorghum orthologs identified manually (Table~\ref{tab:dpcd-conserved}). Second, this core set was expanded to a broader 66-gene module (Table~\ref{tab:dpcd-broad}) by mapping every \textit{Arabidopsis thaliana} ortholog family member to \textit{Sorghum bicolor} via Ensembl Plants BioMart, then resolving each SORBI stable ID to its EGI (\texttt{LOC}-prefixed) identifier using the NCBI \texttt{gene\_info} table for \textit{Sorghum bicolor} (taxonomy ID 4558); 113 of 125 SORBI IDs mapped to an EGI, yielding 66 unique sorghum genes across 33 distinct AGI ortholog groups. This 66-gene module is the one used throughout the enrichment tests and co-expression analysis in Section~3.2.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Conserved dPCD indicator genes curated from \citeauthor{olvera-carrillo_conserved_2015} \cite{olvera-carrillo_conserved_2015}, with \textit{Sorghum bicolor} orthologs identified manually.}
+    \label{tab:dpcd-conserved}
+    \begin{tabularx}{\textwidth}{l X l X}
+        \toprule
+        AGI & Name & Homologs in sorghum (EGI) & Name in sorghum \\
+        \midrule
+        AT1G26820 & ribonuclease 3 & LOC8063515, LOC8063317, LOC8077825 & ribonuclease 1, ribonuclease 3, ribonuclease 1 \\
+        AT1G11190 & bifunctional nuclease i & -- & -- \\
+        AT5G04200 & metacaspase 9 & -- & -- \\
+        AT3G45010 & serine carboxypeptidase-like 48 & LOC8074232 & serine carboxypeptidase-like \\
+        AT1G62290 & Saposin-like aspartyl protease family protein & LOC8058198, LOC110430277, LOC110433911 & aspartic proteinase oryzasin-1, aspartic proteinase-like, aspartic proteinase-like \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+\begin{longtable}{l p{5.5cm} l p{4.5cm}}
+    \caption{Broader 66-gene dPCD module: \textit{Arabidopsis}--\textit{Sorghum bicolor} orthologs of the conserved dPCD genes, mapped via Ensembl Plants BioMart and resolved to sorghum EGI identifiers via NCBI \texttt{gene\_info} (taxid 4558). This is the query module used in the enrichment and co-expression analyses of Section~3.2.} \label{tab:dpcd-broad} \\
+    \toprule
+    AGI & Arabidopsis gene name/description & Sorghum EGI & Sorghum gene name \\
+    \midrule
+    \endfirsthead
+    \multicolumn{4}{c}{\tablename\ \thetable{} -- continued} \\
+    \toprule
+    AGI & Arabidopsis gene name/description & Sorghum EGI & Sorghum gene name \\
+    \midrule
+    \endhead
+    \bottomrule
+    \endfoot
+    AT1G11190 & bifunctional nuclease i & LOC8079545 & endonuclease 1 \\
+        AT1G13990 & plant/protein & LOC8082132 & uncharacterized LOC8082132 \\
+        AT1G30900 & VACUOLAR SORTING RECEPTOR 6 & LOC8063954 & vacuolar-sorting receptor 7 \\
+        AT1G30900 & VACUOLAR SORTING RECEPTOR 6 & LOC8069390 & vacuolar-sorting receptor 6 \\
+        AT1G55265 & DUF538 family protein, putative (Protein of unknown function, DUF538) & LOC8062965 & uncharacterized protein At5g01610 \\
+        AT1G55760 & BTB/POZ domain-containing protein & LOC8055228 & BTB/POZ domain-containing protein At1g55760 \\
+        AT1G69610 & zinc finger FYVE domain protein, putative (DUF1666) & LOC8060245 & uncharacterized LOC8060245 \\
+        AT1G77280 & kinase with adenine nucleotide alpha hydrolases-like domain-containing protein & LOC110435763 & probable serine/threonine-protein kinase PBL26 \\
+        AT1G77280 & kinase with adenine nucleotide alpha hydrolases-like domain-containing protein & LOC8076307 & probable receptor-like serine/threonine-protein kinase At5g57670 \\
+        AT2G20320 & DENN (AEX-3) domain-containing protein & LOC8080568 & uncharacterized LOC8080568 \\
+        AT2G28110 & Exostosin family protein & LOC8059512 & probable glucuronosyltransferase Os03g0107900 \\
+        AT2G30140 & UDP-Glycosyltransferase superfamily protein & LOC8055263 & UDP-glycosyltransferase 87A2 \\
+        AT2G30140 & UDP-Glycosyltransferase superfamily protein & LOC8077041 & UDP-glycosyltransferase 87A2 \\
+        AT2G30140 & UDP-Glycosyltransferase superfamily protein & LOC8082410 & UDP-glycosyltransferase 87A2 \\
+        AT3G04060 & NAC domain containing protein 46 & LOC8055787 & protein CUP-SHAPED COTYLEDON 1 \\
+        AT3G04060 & NAC domain containing protein 46 & LOC8066642 & NAC domain-containing protein 100 \\
+        AT3G04060 & NAC domain containing protein 46 & LOC8067634 & NAC domain-containing protein 77 \\
+        AT3G04060 & NAC domain containing protein 46 & LOC8068292 & NAC domain-containing protein 48 \\
+        AT3G04060 & NAC domain containing protein 46 & LOC8078577 & NAC domain-containing protein 79 \\
+        AT3G04060 & NAC domain containing protein 46 & LOC8083682 & NAC domain-containing protein 79 \\
+        AT3G04060 & NAC domain containing protein 46 & LOC8085048 & NAC domain-containing protein 100 \\
+        AT3G21550 & transmembrane protein, putative (DUF679 domain membrane protein 2) & LOC8072211 & uncharacterized LOC8072211 \\
+        AT3G21550 & transmembrane protein, putative (DUF679 domain membrane protein 2) & LOC8082599 & uncharacterized LOC8082599 \\
+        AT3G23920 & beta-amylase 1 & LOC8070506 & beta-amylase 1, chloroplastic \\
+        AT3G23920 & beta-amylase 1 & LOC8080586 & beta-amylase 1, chloroplastic \\
+        AT3G56170 & Ca-2+ dependent nuclease & LOC8055513 & probable staphylococcal-like nuclease CAN2 \\
+        AT3G56170 & Ca-2+ dependent nuclease & LOC8078504 & probable staphylococcal-like nuclease CAN1 \\
+        AT3G56240 & copper chaperone & LOC8059624 & copper transport protein ATX1 \\
+        AT3G61960 & Protein kinase superfamily protein & LOC8085724 & serine/threonine-protein kinase ATG1a \\
+        AT4G04460 & Saposin-like aspartyl protease family protein & LOC110430129 & aspartic proteinase oryzasin-1 \\
+        AT4G04460 & Saposin-like aspartyl protease family protein & LOC110434033 & aspartic proteinase oryzasin-1-like \\
+        AT4G04460 & Saposin-like aspartyl protease family protein & LOC8058198 & aspartic proteinase oryzasin-1 \\
+        AT4G16690 & methyl esterase 16 & LOC8067621 & methylesterase 17 \\
+        AT4G16690 & methyl esterase 16 & LOC8083012 & methylesterase 17 \\
+        AT4G33040 & Thioredoxin superfamily protein & LOC8055717 & glutaredoxin-C7 \\
+        AT4G33040 & Thioredoxin superfamily protein & LOC8084345 & monothiol glutaredoxin-S2 \\
+        AT5G01540 & lectin receptor kinase a4.1 & LOC8074090 & probably inactive leucine-rich repeat receptor-like protein kinase At3g28040 \\
+        AT5G10300 & methyl esterase 5 & LOC110430518 & probable esterase PIR7A \\
+        AT5G10300 & methyl esterase 5 & LOC110434008 & probable esterase PIR7A \\
+        AT5G10300 & methyl esterase 5 & LOC8054727 & salicylic acid-binding protein 2 \\
+        AT5G10300 & methyl esterase 5 & LOC8059419 & probable esterase PIR7A \\
+        AT5G10300 & methyl esterase 5 & LOC8059420 & esterase PIR7B \\
+        AT5G10300 & methyl esterase 5 & LOC8074999 & methylesterase 7 \\
+        AT5G10300 & methyl esterase 5 & LOC8077663 & probable esterase PIR7A \\
+        AT5G13180 & NAC domain containing protein 83 & LOC8069252 & NAC domain-containing protein 69 \\
+        AT5G13180 & NAC domain containing protein 83 & LOC8080837 & protein NTM1-like 9 \\
+        AT5G13820 & telomeric DNA binding protein 1 & LOC8073576 & telomere-binding protein 1 \\
+        AT5G13820 & telomeric DNA binding protein 1 & LOC8081507 & telomere repeat-binding protein 5 \\
+        AT5G38710 & Methylenetetrahydrofolate reductase family protein & LOC8058116 & proline dehydrogenase 2, mitochondrial \\
+        AT5G39610 & NAC domain containing protein 6 & LOC8060238 & NAC domain-containing protein 92 \\
+        AT5G39610 & NAC domain containing protein 6 & LOC8075407 & NAC domain-containing protein 83 \\
+        AT5G44480 & NAD(P)-binding Rossmann-fold superfamily protein & LOC8079909 & probable UDP-arabinose 4-epimerase 1 \\
+        AT5G44480 & NAD(P)-binding Rossmann-fold superfamily protein & LOC8081102 & probable UDP-arabinose 4-epimerase 3 \\
+        AT5G50260 & Cysteine proteinases superfamily protein & LOC8058001 & thiol protease SEN102 \\
+        AT5G50260 & Cysteine proteinases superfamily protein & LOC8059337 & thiol protease SEN102 \\
+        AT5G50260 & Cysteine proteinases superfamily protein & LOC8061628 & ervatamin-B \\
+        AT5G50260 & Cysteine proteinases superfamily protein & LOC8062405 & ervatamin-B \\
+        AT5G50260 & Cysteine proteinases superfamily protein & LOC8072214 & ervatamin-B \\
+        AT5G50260 & Cysteine proteinases superfamily protein & LOC8072215 & ervatamin-B \\
+        AT5G50260 & Cysteine proteinases superfamily protein & LOC8078699 & cysteine proteinase EP-B 2 \\
+        AT5G50260 & Cysteine proteinases superfamily protein & LOC8081265 & cysteine proteinase EP-B 2 \\
+        AT5G54870 & inositol-1,4,5-trisphosphate 5-phosphatase & LOC110433817 & uncharacterized LOC110433817 \\
+        AT5G62680 & Major facilitator superfamily protein & LOC8054157 & protein NRT1/ PTR FAMILY 2.11 \\
+        AT5G62680 & Major facilitator superfamily protein & LOC8063655 & protein NRT1/ PTR FAMILY 2.11 \\
+        AT5G62680 & Major facilitator superfamily protein & LOC8065254 & protein NRT1/ PTR FAMILY 2.9 \\
+        AT5G62680 & Major facilitator superfamily protein & LOC8086108 & protein NRT1/ PTR FAMILY 2.9 \\
+\end{longtable}
 
 \clearpage
-\section{Full Differentially Methylated Region (DMR) Table}
+\section{Candidate Causative Gene Rankings}
+\hspace{1em}This section collects the per-gene candidate rankings underlying the summary statistics reported in Section~3 for both case studies. The full genome-wide ranked score tables are large (tens of thousands of rows) and are therefore provided as supplementary TSV files rather than typeset in full; this section reports the dPCD-module-restricted views of that data that are small enough to print.
+
+% \subsection{Stem juiciness (D-gene)}
+% TODO: attach full 31,468-gene variant-score TSV (df_genes from analysis/positive_control.ipynb,
+%       cells 3-10) as a supplementary file. Not yet regenerated on this machine: the extraction
+%       (`bcftools view -i 'GT[2]!="alt" && (GT[0]="alt" || GT[1]="alt" || GT[3]="alt")'` on
+%       results/combined/all.annotated.vcf.gz, run via ./docker/run.sh) has not been re-run since
+%       the notebook was last executed, so no on-disk TSV of the full ranked table currently exists.
+%       results/gene_score/SBC11.gene_max.tsv is NOT a substitute -- it scores SBC11-private
+%       variants (opposite hypothesis direction), not the union-of-non-SBC11-groups variants
+%       used in the notebook and reported in Section 3.2 (only 52/66 module genes overlap it,
+%       vs. 65/66 in the actual df_genes table).
+% TODO: dPCD-module rows of that same ranked table (gene, score, percentile, rank for the 66
+%       module genes) -- also blocked on the same regeneration step above.
+
+\hspace{1em}Table~\ref{tab:dgene-dmr-module} lists the 12 dPCD module genes recovered among the methylation layer's candidate genes: those with a promoter hypomethylated in SBC11 relative to at least one juicy accession (see Section~3.2, DMR layer enrichment test), out of the 16 module genes testable in the DMR universe.
+
+\begin{table}[htbp]
+    \centering
+    \caption{dPCD module genes with a promoter hypomethylated in the dry accession SBC11 relative to a juicy accession (SBC4, SBC10, or SBC23), sorted by absolute methylation difference. One row per gene (the strongest such DMR is kept where a gene had more than one). Chromosomes are numbered per the SnpEff synonym table (Chr1 = \texttt{NC\_012870.2}, ..., Chr10 = \texttt{NC\_012879.2}). diff.\ Methy is mean promoter methylation in the first-listed accession of the Contrast column minus the second-listed accession, so a positive value means SBC11 is hypomethylated relative to SBC10, and a negative value means SBC11 is hypomethylated relative to SBC4/SBC23.}
+    \label{tab:dgene-dmr-module}
+    \footnotesize
+    \begin{tabularx}{\textwidth}{l l X l r l}
+        \toprule
+        EGI & AGI & Gene name & Position & diff.\ Methy & Contrast \\
+        \midrule
+        LOC8074999 & AT5G10300 & methylesterase 7 & Chr3:49630947-49631250 & 0.314 & SBC10 vs SBC11 \\
+        LOC110430518 & AT5G10300 & probable esterase PIR7A & Chr9:45900934-45901371 & 0.301 & SBC10 vs SBC11 \\
+        LOC8077663 & AT5G10300 & probable esterase PIR7A & Chr9:45985967-45986406 & -0.203 & SBC11 vs SBC23 \\
+        LOC8055263 & AT2G30140 & UDP-glycosyltransferase 87A2 & Chr3:65384444-65384853 & -0.172 & SBC11 vs SBC23 \\
+        LOC8055513 & AT3G56170 & probable staphylococcal-like nuclease CAN2 & Chr8:674887-675254 & -0.167 & SBC11 vs SBC4 \\
+        LOC8076307 & AT1G77280 & probable receptor-like serine/threonine-protein kinase At5g57670 & Chr8:6159540-6159716 & -0.159 & SBC11 vs SBC23 \\
+        LOC8080568 & AT2G20320 & uncharacterized LOC8080568 & Chr1:77371961-77372164 & -0.159 & SBC11 vs SBC23 \\
+        LOC8074090 & AT5G01540 & probably inactive leucine-rich repeat receptor-like protein kinase At3g28040 & Chr3:73450003-73450178 & 0.142 & SBC10 vs SBC11 \\
+        LOC8083682 & AT3G04060 & NAC domain-containing protein 79 & Chr1:67342115-67342402 & 0.137 & SBC10 vs SBC11 \\
+        LOC8081265 & AT5G50260 & cysteine proteinase EP-B 2 & Chr1:4435339-4435418 & 0.134 & SBC10 vs SBC11 \\
+        LOC8081507 & AT5G13820 & telomere repeat-binding protein 5 & Chr1:70239159-70239499 & 0.133 & SBC10 vs SBC11 \\
+        LOC8059624 & AT3G56240 & copper transport protein ATX1 & Chr4:51360648-51360754 & -0.131 & SBC11 vs SBC4 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
+
+% \subsection{TAA (aconitate isomerase)}
+% TODO: full 31,468-gene variant-score TSV for the TAA case (df_genes from analysis/taa.ipynb,
+%       SBC10-private variants) -- blocked on the same regeneration step as the D-gene table above.
+% TODO: DMR-promoter candidate genes hypomethylated in SBC10 (the low-TAA accession) --
+%       computable now from results/DMR/DMR_annotated.tsv without Docker, but unlike the D-gene
+%       case there is no literature-curated module to restrict the table to (Section 3.3 notes
+%       no gene module is known for TAA biosynthesis), so the full candidate list would run to
+%       thousands of rows. Report back: should this be (a) the full list as a supplementary TSV,
+%       (b) restricted to the 461-gene isomerase-family candidate list from Section 3.3 (source
+%       file analysis/data/sorghum_isomerase.txt is not present on this machine), or (c) a top-N
+%       cutoff table?
+
+% \clearpage
+% \section{Full Differentially Methylated Region (DMR) Table}
 % TODO: Complete annotated DMR table (chr, start, end, diff.Methy, direction,
-%       sample pair, feature, gene) across all six pairwise comparisons
+%       sample pair, feature, gene) across all six pairwise comparisons.
+%       results/DMR/DMR_annotated.tsv (152,254 rows) already exists and is available as a
+%       supplementary file; too large to typeset here in full.
 
-\clearpage
-\section{Co-expression Network and KEGG Evaluation Details}
+% \clearpage
+% \section{Co-expression Network and KEGG Evaluation Details}
 % TODO: ATTED-II network construction parameters, KEGG pathway evaluation
 %       methodology, and full per-pathway evaluation scores
 
-\clearpage
-\section{TAA Aconitate Isomerase Candidate Ranking}
+% \clearpage
+% \section{TAA Aconitate Isomerase Candidate Ranking}
 % TODO: Full ranked table of isomerase-family genes by co-expression with the
 %       phytochrome-regulated proxy module

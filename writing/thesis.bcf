@@ -2406,8 +2406,18 @@
     <bcf:citekey order="27" intorder="1">feng_differential_2019</bcf:citekey>
     <bcf:citekey order="28" intorder="1">obayashi_atted-ii_2022</bcf:citekey>
     <bcf:citekey order="29" intorder="1">fujimoto_transcriptional_2018</bcf:citekey>
-    <bcf:citekey order="30" intorder="1">hirai_omicsbased_2007</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">hirai_omics-based_2007</bcf:citekey>
     <bcf:citekey order="31" intorder="1">olvera-carrillo_conserved_2015</bcf:citekey>
+    <bcf:citekey order="32" intorder="1">eprintsev_aconitate_2021</bcf:citekey>
+    <bcf:citekey order="33" intorder="1">igamberdiev_phytochromemediated_2014</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">fujimoto_transcriptional_2018</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">olvera-carrillo_conserved_2015</bcf:citekey>
+    <bcf:citekey order="36" intorder="1">olvera-carrillo_conserved_2015</bcf:citekey>
+    <bcf:citekey order="37" intorder="1">olvera-carrillo_conserved_2015</bcf:citekey>
+    <bcf:citekey order="38" intorder="1">olvera-carrillo_conserved_2015</bcf:citekey>
+    <bcf:citekey order="39" intorder="1">olvera-carrillo_conserved_2015</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">olvera-carrillo_conserved_2015</bcf:citekey>
+    <bcf:citekey order="41" intorder="1">olvera-carrillo_conserved_2015</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
@@ -2419,4 +2429,14 @@
     </bcf:sort>
   </bcf:sortingtemplate>
   <!-- DATALISTS -->
+  <bcf:datalist section="0"
+                name="none/global//global/global/global"
+                type="entry"
+                sortingtemplatename="none"
+                sortingnamekeytemplatename="global"
+                labelprefix=""
+                uniquenametemplatename="global"
+                labelalphanametemplatename="global"
+                namehashtemplatename="global">
+  </bcf:datalist>
 </bcf:controlfile>
