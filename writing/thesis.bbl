@@ -19,7 +19,150 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global/global}
-    \entry{bruni_aconitic_2022}{article}{}{}
+    \entry{silvaProgressChallengesSorghum2022a}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=91905a80ea1863123dac785e88662e79}{%
+           family={Silva},
+           familyi={S\bibinitperiod},
+           given={Tallyta\bibnamedelima N},
+           giveni={T\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
+        {{hash=aee777d5ba8264e78d0c09f5429d1739}{%
+           family={Thomas},
+           familyi={T\bibinitperiod},
+           given={Jason\bibnamedelima B},
+           giveni={J\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
+        {{hash=55ca790fbfb72000bbbd5640bcff00ed}{%
+           family={Dahlberg},
+           familyi={D\bibinitperiod},
+           given={Jeff},
+           giveni={J\bibinitperiod}}}%
+        {{hash=852336c7efcebf85764351d5603ec4f2}{%
+           family={Rhee},
+           familyi={R\bibinitperiod},
+           given={Seung\bibnamedelima Y},
+           giveni={S\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+        {{hash=4cdbb2505c1b6378e637b45385ef4303}{%
+           family={Mortimer},
+           familyi={M\bibinitperiod},
+           given={Jenny\bibnamedelima C},
+           giveni={J\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=1d2f25bea3a338d678e8fde7a159c63f}{%
+           family={Lunn},
+           familyi={L\bibinitperiod},
+           given={John},
+           giveni={J\bibinitperiod}}}%
+      }
+      \strng{namehash}{3d6a02193efba0ac3cd8b7c6b5e8358f}
+      \strng{fullhash}{3213f870ae1cfd1024b23075960f1a9b}
+      \strng{fullhashraw}{3213f870ae1cfd1024b23075960f1a9b}
+      \strng{bibnamehash}{3213f870ae1cfd1024b23075960f1a9b}
+      \strng{authorbibnamehash}{3213f870ae1cfd1024b23075960f1a9b}
+      \strng{authornamehash}{3d6a02193efba0ac3cd8b7c6b5e8358f}
+      \strng{authorfullhash}{3213f870ae1cfd1024b23075960f1a9b}
+      \strng{authorfullhashraw}{3213f870ae1cfd1024b23075960f1a9b}
+      \strng{editorbibnamehash}{1d2f25bea3a338d678e8fde7a159c63f}
+      \strng{editornamehash}{1d2f25bea3a338d678e8fde7a159c63f}
+      \strng{editorfullhash}{1d2f25bea3a338d678e8fde7a159c63f}
+      \strng{editorfullhashraw}{1d2f25bea3a338d678e8fde7a159c63f}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Sorghum [Sorghum bicolor (L.) Moench] is the fifth most important cereal crop globally by harvested area and production. Its drought and heat tolerance allow high yields with minimal input. It is a promising biomass crop for the production of biofuels and bioproducts. In addition, as an annual diploid with a relatively small genome compared with other C4 grasses, and excellent germplasm diversity, sorghum is an excellent research species for other C4 crops such as maize. As a result, an increasing number of researchers are looking to test the transferability of findings from other organisms such as Arabidopsis thaliana and Brachypodium distachyon to sorghum, as well as to engineer new biomass sorghum varieties. Here, we provide an overview of sorghum as a multipurpose feedstock crop which can support the growing bioeconomy, and as a monocot research model system. We review what makes sorghum such a successful crop and identify some key traits for future improvement. We assess recent progress in sorghum transformation and highlight how transformation limitations still restrict its widespread adoption. Finally, we summarize available sorghum genetic, genomic, and bioinformatics resources. This review is intended for researchers new to sorghum research, as well as those wishing to include non-food and forage applications in their research.}
+      \field{day}{27}
+      \field{issn}{0022-0957, 1460-2431}
+      \field{journaltitle}{Journal of Experimental Botany}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{3}
+      \field{title}{Progress and Challenges in Sorghum Biotechnology, a Multipurpose Feedstock for the Bioeconomy}
+      \field{urlday}{13}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{volume}{73}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{646\bibrangedash 664}
+      \range{pages}{19}
+      \verb{doi}
+      \verb 10.1093/jxb/erab450
+      \endverb
+      \verb{file}
+      \verb /Users/daffa/Zotero/storage/HP64R5KW/Silva et al. - 2022 - Progress and challenges in sorghum biotechnology, a multipurpose feedstock for the bioeconomy.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://academic.oup.com/jxb/article/73/3/646/6395838
+      \endverb
+      \verb{url}
+      \verb https://academic.oup.com/jxb/article/73/3/646/6395838
+      \endverb
+    \endentry
+    \entry{chibrikovSweetSorghumJuice2024}{article}{}{}
+      \name{author}{3}{}{%
+        {{hash=8be8e5752641c053e313d3f8fdc0c4c6}{%
+           family={Chibrikov},
+           familyi={C\bibinitperiod},
+           given={Vadym},
+           giveni={V\bibinitperiod}}}%
+        {{hash=8c2830e4f3ae76e2e409dca3d0f83580}{%
+           family={Vakuliuk},
+           familyi={V\bibinitperiod},
+           given={Polina},
+           giveni={P\bibinitperiod}}}%
+        {{hash=f3bcc01b1d234a26ac4a41915377f1c1}{%
+           family={Sobczuk},
+           familyi={S\bibinitperiod},
+           given={Henryk},
+           giveni={H\bibinitperiod}}}%
+      }
+      \strng{namehash}{f7de586dfb83b8a08a6fbd8d5f234907}
+      \strng{fullhash}{35620ee05ffacddacb5139daf71e118c}
+      \strng{fullhashraw}{35620ee05ffacddacb5139daf71e118c}
+      \strng{bibnamehash}{35620ee05ffacddacb5139daf71e118c}
+      \strng{authorbibnamehash}{35620ee05ffacddacb5139daf71e118c}
+      \strng{authornamehash}{f7de586dfb83b8a08a6fbd8d5f234907}
+      \strng{authorfullhash}{35620ee05ffacddacb5139daf71e118c}
+      \strng{authorfullhashraw}{35620ee05ffacddacb5139daf71e118c}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Sweet sorghum is a promising biomaterial, considering its nutritional and energy value, unpretentiousness in cultivation and its promising economic parameters of processing. the concentrate of sweet sorghum juice is an outstanding material for food purposes, meeting the emerging trends of the industry. this review presents data on the physicochemical properties of sweet sorghum juice and sirup, as well as technological details on the processes of its pretreatment, clarification, and concentration. Physicochemical properties of raw juice of sweet sorghum, as well as purified juice and sirup, are discussed in terms of material pretreatment, methods of clarification and concentration, and storage conditions. comprehensive theoretical principles, methodological details and explanations of the consistency of sweet sorghum juice processing are given. this work focuses entirely on the relationship between sweet sorghum juice treatment methods and its composition and provides versatile source of information for food science community, farmers, and entrepreneurs.}
+      \field{day}{20}
+      \field{issn}{1040-8398, 1549-7852}
+      \field{journaltitle}{Critical Reviews in Food Science and Nutrition}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{number}{32}
+      \field{shortjournal}{Critical Reviews in Food Science and Nutrition}
+      \field{shorttitle}{Sweet Sorghum Juice Clarification and Concentration}
+      \field{title}{Sweet Sorghum Juice Clarification and Concentration: A Review}
+      \field{urlday}{13}
+      \field{urlmonth}{7}
+      \field{urlyear}{2026}
+      \field{volume}{64}
+      \field{year}{2024}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{11850\bibrangedash 11870}
+      \range{pages}{21}
+      \verb{doi}
+      \verb 10.1080/10408398.2023.2245033
+      \endverb
+      \verb{file}
+      \verb /Users/daffa/Zotero/storage/FZQKFUWP/Chibrikov et al. - 2024 - Sweet sorghum juice clarification and concentration a review.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.tandfonline.com/doi/full/10.1080/10408398.2023.2245033
+      \endverb
+      \verb{url}
+      \verb https://www.tandfonline.com/doi/full/10.1080/10408398.2023.2245033
+      \endverb
+    \endentry
+    \entry{bruniAconiticAcidRecovery2022a}{article}{}{}
       \name{author}{2}{}{%
         {{hash=0914dfa5a1f55ec2aacb3b324d937610}{%
            family={Bruni},
@@ -32,9 +175,6 @@
            given={K.\bibnamedelimi Thomas},
            giveni={K\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
       }
-      \list{language}{1}{%
-        {en}%
-      }
       \strng{namehash}{a5e2359866537e20d96dfae2a87af415}
       \strng{fullhash}{a5e2359866537e20d96dfae2a87af415}
       \strng{fullhashraw}{a5e2359866537e20d96dfae2a87af415}
@@ -43,21 +183,25 @@
       \strng{authornamehash}{a5e2359866537e20d96dfae2a87af415}
       \strng{authorfullhash}{a5e2359866537e20d96dfae2a87af415}
       \strng{authorfullhashraw}{a5e2359866537e20d96dfae2a87af415}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{abstract}{Aconitic acid (propene-1,2,3-tricarboxylic acid) is the most prevalent 6-carbon organic acid that accumulates in sugarcane and sweet sorghum. As a top value-added chemical, aconitic acid may function as a chemical precursor or intermediate for high-value downstream industrial and biological applications. These downstream applications include use as a bio-based plasticizer, cross-linker, and the formation of valuable and multi-functional polyesters that have also been used in tissue engineering. Aconitic acid also plays various biological roles within cells as an intermediate in the tricarboxylic acid cycle and in conferring unique survival advantages to some plants as an antifeedant, antifungal, and means of storing ﬁxed pools of carbon. Aconitic acid has also been reported as a fermentation inhibitor, anti-inﬂammatory, and a potential nematicide. Since aconitic acid can be sustainably sourced from renewable, inexpensive sources such as sugarcane, molasses, and sweet sorghum syrup, there is enormous potential to provide multiple streams of additional income to the sugar industry through downstream industrial and biological applications that we discuss in this review.}
+      \field{abstract}{Aconitic acid (propene-1,2,3-tricarboxylic acid) is the most prevalent 6-carbon organic acid that accumulates in sugarcane and sweet sorghum. As a top value-added chemical, aconitic acid may function as a chemical precursor or intermediate for high-value downstream industrial and biological applications. These downstream applications include use as a bio-based plasticizer, cross-linker, and the formation of valuable and multi-functional polyesters that have also been used in tissue engineering. Aconitic acid also plays various biological roles within cells as an intermediate in the tricarboxylic acid cycle and in conferring unique survival advantages to some plants as an antifeedant, antifungal, and means of storing fixed pools of carbon. Aconitic acid has also been reported as a fermentation inhibitor, anti-inflammatory, and a potential nematicide. Since aconitic acid can be sustainably sourced from renewable, inexpensive sources such as sugarcane, molasses, and sweet sorghum syrup, there is enormous potential to provide multiple streams of additional income to the sugar industry through downstream industrial and biological applications that we discuss in this review.}
+      \field{day}{16}
       \field{issn}{2304-8158}
       \field{journaltitle}{Foods}
+      \field{langid}{english}
       \field{month}{2}
       \field{number}{4}
-      \field{title}{Aconitic {Acid} {Recovery} from {Renewable} {Feedstock} and {Review} of {Chemical} and {Biological} {Applications}}
+      \field{shortjournal}{Foods}
+      \field{title}{Aconitic {{Acid Recovery}} from {{Renewable Feedstock}} and {{Review}} of {{Chemical}} and {{Biological Applications}}}
       \field{urlday}{28}
       \field{urlmonth}{5}
       \field{urlyear}{2026}
       \field{volume}{11}
       \field{year}{2022}
+      \field{dateera}{ce}
       \field{urldateera}{ce}
       \field{pages}{573}
       \range{pages}{1}
@@ -65,7 +209,7 @@
       \verb 10.3390/foods11040573
       \endverb
       \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/DKL6PS8Q/Bruni and Klasson - 2022 - Aconitic Acid Recovery from Renewable Feedstock and Review of Chemical and Biological Applications.pdf:application/pdf
+      \verb /Users/daffa/Zotero/storage/DKL6PS8Q/Bruni and Klasson - 2022 - Aconitic Acid Recovery from Renewable Feedstock and Review of Chemical and Biological Applications.pdf
       \endverb
       \verb{urlraw}
       \verb https://www.mdpi.com/2304-8158/11/4/573
@@ -73,1516 +217,6 @@
       \verb{url}
       \verb https://www.mdpi.com/2304-8158/11/4/573
       \endverb
-    \endentry
-    \entry{guo_efficient_2026}{article}{}{}
-      \name{author}{1}{}{%
-        {{hash=679db2f94589601ca543b352a85b856e}{%
-           family={Guo},
-           familyi={G\bibinitperiod},
-           given={Leilei},
-           giveni={L\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{679db2f94589601ca543b352a85b856e}
-      \strng{fullhash}{679db2f94589601ca543b352a85b856e}
-      \strng{fullhashraw}{679db2f94589601ca543b352a85b856e}
-      \strng{bibnamehash}{679db2f94589601ca543b352a85b856e}
-      \strng{authorbibnamehash}{679db2f94589601ca543b352a85b856e}
-      \strng{authornamehash}{679db2f94589601ca543b352a85b856e}
-      \strng{authorfullhash}{679db2f94589601ca543b352a85b856e}
-      \strng{authorfullhashraw}{679db2f94589601ca543b352a85b856e}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Efficient trans-aconitic acid production using systematically metabolic engineered {Escherichia} coli}
-      \field{year}{2026}
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/3HMN29H2/Guo - 2026 - Efficient trans-aconitic acid production using systematically metabolic engineered Escherichia coli.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://pmc.ncbi.nlm.nih.gov/articles/PMC12492653/
-      \endverb
-      \verb{url}
-      \verb https://pmc.ncbi.nlm.nih.gov/articles/PMC12492653/
-      \endverb
-    \endentry
-    \entry{igamberdiev_organic_2016}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=cd183d219a34652b52acd7bccd24e369}{%
-           family={Igamberdiev},
-           familyi={I\bibinitperiod},
-           given={Abir\bibnamedelima U.},
-           giveni={A\bibinitperiod\bibinitdelim U\bibinitperiod}}}%
-        {{hash=f9d479c58bb80ff2417276d0b41d07a9}{%
-           family={Eprintsev},
-           familyi={E\bibinitperiod},
-           given={Alexander\bibnamedelima T.},
-           giveni={A\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{86c0d5087c5638b1511874d0fb6e181e}
-      \strng{fullhash}{86c0d5087c5638b1511874d0fb6e181e}
-      \strng{fullhashraw}{86c0d5087c5638b1511874d0fb6e181e}
-      \strng{bibnamehash}{86c0d5087c5638b1511874d0fb6e181e}
-      \strng{authorbibnamehash}{86c0d5087c5638b1511874d0fb6e181e}
-      \strng{authornamehash}{86c0d5087c5638b1511874d0fb6e181e}
-      \strng{authorfullhash}{86c0d5087c5638b1511874d0fb6e181e}
-      \strng{authorfullhashraw}{86c0d5087c5638b1511874d0fb6e181e}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{shorttitle}
-      \field{abstract}{Organic acids are synthesized in plants as a result of the incomplete oxidation of photosynthetic products and represent the stored pools of ﬁxed carbon accumulated due to different transient times of conversion of carbon compounds in metabolic pathways. When redox level in the cell increases, e.g., in conditions of active photosynthesis, the tricarboxylic acid (TCA) cycle in mitochondria is transformed to a partial cycle supplying citrate for the synthesis of 2-oxoglutarate and glutamate (citrate valve), while malate is accumulated and participates in the redox balance in different cell compartments (via malate valve). This results in malate and citrate frequently being the most accumulated acids in plants. However, the intensity of reactions linked to the conversion of these compounds can cause preferential accumulation of other organic acids, e.g., fumarate or isocitrate, in higher concentrations than malate and citrate. The secondary reactions, associated with the central metabolic pathways, in particularly with the TCA cycle, result in accumulation of other organic acids that are derived from the intermediates of the cycle. They form the additional pools of ﬁxed carbon and stabilize the TCA cycle. Trans-aconitate is formed from citrate or cis-aconitate, accumulation of hydroxycitrate can be linked to metabolism of 2-oxoglutarate, while 4-hydroxy-2oxoglutarate can be formed from pyruvate and glyoxylate. Glyoxylate, a product of either glycolate oxidase or isocitrate lyase, can be converted to oxalate. Malonate is accumulated at high concentrations in legume plants. Organic acids play a role in plants in providing redox equilibrium, supporting ionic gradients on membranes, and acidiﬁcation of the extracellular medium.}
-      \field{issn}{1664-462X}
-      \field{journaltitle}{Frontiers in Plant Science}
-      \field{month}{7}
-      \field{shorttitle}{Organic {Acids}}
-      \field{title}{Organic {Acids}: {The} {Pools} of {Fixed} {Carbon} {Involved} in {Redox} {Regulation} and {Energy} {Balance} in {Higher} {Plants}}
-      \field{urlday}{29}
-      \field{urlmonth}{5}
-      \field{urlyear}{2026}
-      \field{volume}{7}
-      \field{year}{2016}
-      \field{urldateera}{ce}
-      \verb{doi}
-      \verb 10.3389/fpls.2016.01042
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/XKVHJQVU/Igamberdiev and Eprintsev - 2016 - Organic Acids The Pools of Fixed Carbon Involved in Redox Regulation and Energy Balance in Higher P.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb http://journal.frontiersin.org/Article/10.3389/fpls.2016.01042/abstract
-      \endverb
-      \verb{url}
-      \verb http://journal.frontiersin.org/Article/10.3389/fpls.2016.01042/abstract
-      \endverb
-    \endentry
-    \entry{igamberdiev_citrate_2020}{article}{}{}
-      \name{author}{1}{}{%
-        {{hash=cd183d219a34652b52acd7bccd24e369}{%
-           family={Igamberdiev},
-           familyi={I\bibinitperiod},
-           given={Abir\bibnamedelima U.},
-           giveni={A\bibinitperiod\bibinitdelim U\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{cd183d219a34652b52acd7bccd24e369}
-      \strng{fullhash}{cd183d219a34652b52acd7bccd24e369}
-      \strng{fullhashraw}{cd183d219a34652b52acd7bccd24e369}
-      \strng{bibnamehash}{cd183d219a34652b52acd7bccd24e369}
-      \strng{authorbibnamehash}{cd183d219a34652b52acd7bccd24e369}
-      \strng{authornamehash}{cd183d219a34652b52acd7bccd24e369}
-      \strng{authorfullhash}{cd183d219a34652b52acd7bccd24e369}
-      \strng{authorfullhashraw}{cd183d219a34652b52acd7bccd24e369}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{While in heterotrophic cells and in darkness mitochondria serve as main producers of energy, during photosynthesis this function is transferred to chloroplasts and the main role of mitochondria in bioenergetics turns to be the balance of the level of phosphorylation of adenylates and of reduction of pyridine nucleotides to avoid over-energization of the cell and optimize major metabolic ﬂuxes. This is achieved via the establishment and regulation of local equilibria of the tricarboxylic acid (TCA) cycle enzymes malate dehydrogenase and fumarase in one branch and aconitase and isocitrate dehydrogenase in another branch. In the conditions of elevation of redox level, the TCA cycle is transformed into a non-cyclic open structure (hemicycle) leading to the export of the tricarboxylic acid (citrate) to the cytosol and to the accumulation of the dicarboxylic acids (malate and fumarate). While the buildup of NADPH in chloroplasts provides operation of the malate valve leading to establishment of NADH/NAD+ ratios in diﬀerent cell compartments, the production of NADH by mitochondria drives citrate export by establishing conditions for the operation of the citrate valve. The latter regulates the intercompartmental NADPH/NADP+ ratio and contributes to the biosynthesis of amino acids and other metabolic products during photosynthesis.}
-      \field{issn}{15677249}
-      \field{journaltitle}{Mitochondrion}
-      \field{month}{5}
-      \field{title}{Citrate valve integrates mitochondria into photosynthetic metabolism}
-      \field{urlday}{3}
-      \field{urlmonth}{6}
-      \field{urlyear}{2026}
-      \field{volume}{52}
-      \field{year}{2020}
-      \field{urldateera}{ce}
-      \field{pages}{218\bibrangedash 230}
-      \range{pages}{13}
-      \verb{doi}
-      \verb 10.1016/j.mito.2020.04.003
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/WKMIWFWT/Igamberdiev - 2020 - Citrate valve integrates mitochondria into photosynthetic metabolism.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://linkinghub.elsevier.com/retrieve/pii/S1567724919303423
-      \endverb
-      \verb{url}
-      \verb https://linkinghub.elsevier.com/retrieve/pii/S1567724919303423
-      \endverb
-    \endentry
-    \entry{igamberdiev_mitochondria_2023}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=cd183d219a34652b52acd7bccd24e369}{%
-           family={Igamberdiev},
-           familyi={I\bibinitperiod},
-           given={Abir\bibnamedelima U},
-           giveni={A\bibinitperiod\bibinitdelim U\bibinitperiod}}}%
-        {{hash=e130f2f3836f8869b223474fb5ed8c05}{%
-           family={Bykova},
-           familyi={B\bibinitperiod},
-           given={Natalia\bibnamedelima V},
-           giveni={N\bibinitperiod\bibinitdelim V\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{7c902d6520d46545210373958136b202}
-      \strng{fullhash}{7c902d6520d46545210373958136b202}
-      \strng{fullhashraw}{7c902d6520d46545210373958136b202}
-      \strng{bibnamehash}{7c902d6520d46545210373958136b202}
-      \strng{authorbibnamehash}{7c902d6520d46545210373958136b202}
-      \strng{authornamehash}{7c902d6520d46545210373958136b202}
-      \strng{authorfullhash}{7c902d6520d46545210373958136b202}
-      \strng{authorfullhashraw}{7c902d6520d46545210373958136b202}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{shorttitle}
-      \field{abstract}{In photosynthetic tissues in the light, the function of energy production is associated primarily with chloroplasts, while mitochondrial metabolism adjusts to balance ATP supply, regulate the reduction level of pyridine nucleotides, and optimize major metabolic fluxes. The tricarboxylic acid cycle in the light transforms into a noncyclic open structure (hemicycle) maintained primarily by the influx of malate and the export of citrate to the cytosol. The exchange of malate and citrate forms the basis of feeding redox energy from the chloroplast into the cytosolic pathways. This supports the level of NADPH in different compartments, contributes to the biosynthesis of amino acids, and drives secondary metabolism via a supply of substrates for 2-oxoglutarate-dependent dioxygenase and for cytochrome P450-catalyzed monooxygenase reactions. This results in the maintenance of redox and energy balance in photosynthetic plant cells and in the formation of numerous bioactive compounds specific to any particular plant species. The noncoupled mitochondrial respiration operates in coordination with the malate and citrate valves and supports intensive fluxes of respiration and photorespiration. The metabolic system of plants has features associated with the remarkable metabolic plasticity of mitochondria that permit the use of energy accumulated during photosynthesis in a way that all anabolic and catabolic pathways become optimized and coordinated.}
-      \field{issn}{0032-0889, 1532-2548}
-      \field{journaltitle}{Plant Physiology}
-      \field{month}{4}
-      \field{number}{4}
-      \field{shorttitle}{Mitochondria in photosynthetic cells}
-      \field{title}{Mitochondria in photosynthetic cells: {Coordinating} redox control and energy balance}
-      \field{urlday}{2}
-      \field{urlmonth}{6}
-      \field{urlyear}{2026}
-      \field{volume}{191}
-      \field{year}{2023}
-      \field{urldateera}{ce}
-      \field{pages}{2104\bibrangedash 2119}
-      \range{pages}{16}
-      \verb{doi}
-      \verb 10.1093/plphys/kiac541
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/P8PRMJ4R/Igamberdiev and Bykova - 2023 - Mitochondria in photosynthetic cells Coordinating redox control and energy balance.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://academic.oup.com/plphys/article/191/4/2104/6849551
-      \endverb
-      \verb{url}
-      \verb https://academic.oup.com/plphys/article/191/4/2104/6849551
-      \endverb
-    \endentry
-    \entry{remus-borel_aconitate_2009}{article}{}{}
-      \name{author}{3}{}{%
-        {{hash=ab749ec50fb1efbc2281842dc1e92b03}{%
-           family={Rémus-Borel},
-           familyi={R\bibinithyphendelim B\bibinitperiod},
-           given={Wilfried},
-           giveni={W\bibinitperiod}}}%
-        {{hash=df41076b76421fbde8d521f624a65f46}{%
-           family={Menzies},
-           familyi={M\bibinitperiod},
-           given={James\bibnamedelima G.},
-           giveni={J\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
-        {{hash=fc6fe402dbd2e42337307efae763ed6f}{%
-           family={Bélanger},
-           familyi={B\bibinitperiod},
-           given={Richard\bibnamedelima R.},
-           giveni={R\bibinitperiod\bibinitdelim R\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{5439d2cefd5cc91fe8002bbc5f54b4b1}
-      \strng{fullhash}{ce54160ba66c89bb61da7521dc30feaa}
-      \strng{fullhashraw}{ce54160ba66c89bb61da7521dc30feaa}
-      \strng{bibnamehash}{ce54160ba66c89bb61da7521dc30feaa}
-      \strng{authorbibnamehash}{ce54160ba66c89bb61da7521dc30feaa}
-      \strng{authornamehash}{5439d2cefd5cc91fe8002bbc5f54b4b1}
-      \strng{authorfullhash}{ce54160ba66c89bb61da7521dc30feaa}
-      \strng{authorfullhashraw}{ce54160ba66c89bb61da7521dc30feaa}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{The accumulation of 5,6-O-methyl trans-aconitate in wheat was previously found to be linked with the presence of powdery mildew (Blumeria graminis) and silicon (Si) feeding. In this work, we sought to determine if trans-aconitate (TA) could act as a precursor of methylated forms of TA in wheat and if a relationship existed between Si treatment, disease development, TA and methyl TA concentration within wheat leaves. In absence of infection, TA concentration increased over time regardless of Si feeding. By contrast, TA concentration remained fairly constant over time in both Si and Si+-infected plants but Si+ plants had a signiﬁcantly lower level than Si plants. Conversely, methyl TA concentration increased in wheat leaves in response to infection and was linked to wheat’s increased resistance induced by Si. The effect of Si feeding was only noticeable on methyl TA concentration in presence of the fungus. This suggests that Si does not act directly on TA concentration in leaves but somehow accentuate the production of methyl TA in stressed plants. Based on the concurrent increase in methyl TA and leveling off of TA concentration, it appears that the latter, instead of accumulating, is used by diseased plants to produce antifungal methylated forms of TA that would act as phytoalexins to limit disease development, a phenomenon more pronounced in plants treated with Si.}
-      \field{issn}{01761617}
-      \field{journaltitle}{Journal of Plant Physiology}
-      \field{month}{9}
-      \field{number}{13}
-      \field{title}{Aconitate and methyl aconitate are modulated by silicon in powdery mildew-infected wheat plants}
-      \field{urlday}{29}
-      \field{urlmonth}{5}
-      \field{urlyear}{2026}
-      \field{volume}{166}
-      \field{year}{2009}
-      \field{urldateera}{ce}
-      \field{pages}{1413\bibrangedash 1422}
-      \range{pages}{10}
-      \verb{doi}
-      \verb 10.1016/j.jplph.2009.02.011
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/N9BMHAMX/Rémus-Borel et al. - 2009 - Aconitate and methyl aconitate are modulated by silicon in powdery mildew-infected wheat plants.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://linkinghub.elsevier.com/retrieve/pii/S0176161709000972
-      \endverb
-      \verb{url}
-      \verb https://linkinghub.elsevier.com/retrieve/pii/S0176161709000972
-      \endverb
-    \endentry
-    \entry{hattori_probing_2001}{article}{}{}
-      \name{author}{1}{}{%
-        {{hash=151d46b13e689b36cb4a5f82745164e3}{%
-           family={Hattori},
-           familyi={H\bibinitperiod},
-           given={Makoto},
-           giveni={M\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{151d46b13e689b36cb4a5f82745164e3}
-      \strng{fullhash}{151d46b13e689b36cb4a5f82745164e3}
-      \strng{fullhashraw}{151d46b13e689b36cb4a5f82745164e3}
-      \strng{bibnamehash}{151d46b13e689b36cb4a5f82745164e3}
-      \strng{authorbibnamehash}{151d46b13e689b36cb4a5f82745164e3}
-      \strng{authornamehash}{151d46b13e689b36cb4a5f82745164e3}
-      \strng{authorfullhash}{151d46b13e689b36cb4a5f82745164e3}
-      \strng{authorfullhashraw}{151d46b13e689b36cb4a5f82745164e3}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{shorttitle}
-      \field{abstract}{The feeding activity of Nilaparvata lugens (Stål) (Homoptera: Delphacidae) was compared on the barnyard grass, Echinochloa Crus-galli var. oryzicola, which contains an antifeedant, (E)-aconitic acid, and on resistant (bph4) and susceptible rice varieties using an AC electronic monitoring system (EMS). N. lugens made more frequent probes on the barnyard grass and the resistant rice than on the susceptible rice. Mean duration of probes tended to be the shortest and the percentage of probes that consisted of the primarily salivation phase only was the highest on the barnyard grass, followed by the resistant rice. The most distinct difference in N. lugens feeding activities between the barnyard grass and the resistant rice was the frequency of the primarily ingestion phase. On the barnyard grass, the insect was rarely successful in achieving the primarily ingestion phase, indicating that probing was interrupted before the arrival of the stylets at the sieve elements. On the other hand, on the resistant rice the primarily ingestion phase was observed as frequently as it was on the susceptible rice. However, it stopped within 5 min on the resistant rice in most cases. Probing activities were strongly inhibited by 1\% (E)-aconitic acid diluted with distilled water. The inhibitory effect was considerably mitigated when diluted with 15\% sucrose. These results suggest that on the barnyard grass, interruption of probing activity by (E)-aconitic acid can occur in stylet pathway tissues rather than in ingestion tissues (e.g. the phloem where sucrose is located).}
-      \field{issn}{0003-6862, 1347-605X}
-      \field{journaltitle}{Applied Entomology and Zoology}
-      \field{number}{1}
-      \field{shorttitle}{Probing behavior of the brown planthopper, {Nilaparvata} lugens {Stal}({Homoptera}}
-      \field{title}{Probing behavior of the brown planthopper, {Nilaparvata} lugens {Stal}({Homoptera}: {Delphacidae}) on a non-host barnyard grass, and resistant and susceptible varieties of rice.}
-      \field{urlday}{31}
-      \field{urlmonth}{5}
-      \field{urlyear}{2026}
-      \field{volume}{36}
-      \field{year}{2001}
-      \field{urldateera}{ce}
-      \field{pages}{83\bibrangedash 89}
-      \range{pages}{7}
-      \verb{doi}
-      \verb 10.1303/aez.2001.83
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/8EK8D6XA/Hattori - 2001 - Probing behavior of the brown planthopper, Nilaparvata lugens Stal(Homoptera Delphacidae) on a non-.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb http://www.jstage.jst.go.jp/article/aez/36/1/36_1_83/_article
-      \endverb
-      \verb{url}
-      \verb http://www.jstage.jst.go.jp/article/aez/36/1/36_1_83/_article
-      \endverb
-    \endentry
-    \entry{bortolo_trans-aconitic_2018}{article}{}{}
-      \name{author}{10}{}{%
-        {{hash=5086a02b951835530d690ff8dc54f736}{%
-           family={Bortolo},
-           familyi={B\bibinitperiod},
-           given={Tiara\bibnamedelimb Da\bibnamedelimb Silva\bibnamedelima Coelho},
-           giveni={T\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim S\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
-        {{hash=7ea966eaa739e4ba2fc0b75264d81b53}{%
-           family={Marchiosi},
-           familyi={M\bibinitperiod},
-           given={Rogério},
-           giveni={R\bibinitperiod}}}%
-        {{hash=b859a3444361aa47500a8a8b654f3ac6}{%
-           family={Viganó},
-           familyi={V\bibinitperiod},
-           given={Joselaine},
-           giveni={J\bibinitperiod}}}%
-        {{hash=bd4b89c6033ff867609172d4422e5f87}{%
-           family={Siqueira-Soares},
-           familyi={S\bibinithyphendelim S\bibinitperiod},
-           given={Rita\bibnamedelimb De\bibnamedelima Cássia},
-           giveni={R\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
-        {{hash=b6a3df22cb8a5e258dd141b0719d754c}{%
-           family={Ferro},
-           familyi={F\bibinitperiod},
-           given={Ana\bibnamedelima Paula},
-           giveni={A\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
-        {{hash=3d5234fdac8a650dd9cf7ed7e3e6816f}{%
-           family={Barreto},
-           familyi={B\bibinitperiod},
-           given={Gabriela\bibnamedelima Elen},
-           giveni={G\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
-        {{hash=3d53b5b84da68d98704671e3a5b2ab0f}{%
-           family={Bido},
-           familyi={B\bibinitperiod},
-           given={Graciene\bibnamedelimb De\bibnamedelima Souza},
-           giveni={G\bibinitperiod\bibinitdelim D\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
-        {{hash=e52692a370d4f9e709af1975428e6637}{%
-           family={Abrahão},
-           familyi={A\bibinitperiod},
-           given={Josielle},
-           giveni={J\bibinitperiod}}}%
-        {{hash=f3885d3ee54baa9f71f9d9147d4340f8}{%
-           family={Dos\bibnamedelima Santos},
-           familyi={D\bibinitperiod\bibinitdelim S\bibinitperiod},
-           given={Wanderley\bibnamedelima Dantas},
-           giveni={W\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
-        {{hash=1d5d9fc5185e6f7ee9dd781c8f8d888c}{%
-           family={Ferrarese-Filho},
-           familyi={F\bibinithyphendelim F\bibinitperiod},
-           given={Osvaldo},
-           giveni={O\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{4346af2414ceedac85c75f11b45a8906}
-      \strng{fullhash}{155c952e18450a679849c0b1b84f64b2}
-      \strng{fullhashraw}{155c952e18450a679849c0b1b84f64b2}
-      \strng{bibnamehash}{4346af2414ceedac85c75f11b45a8906}
-      \strng{authorbibnamehash}{4346af2414ceedac85c75f11b45a8906}
-      \strng{authornamehash}{4346af2414ceedac85c75f11b45a8906}
-      \strng{authorfullhash}{155c952e18450a679849c0b1b84f64b2}
-      \strng{authorfullhashraw}{155c952e18450a679849c0b1b84f64b2}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{Grasses producing trans-aconitic acid, a geometric isomer of cis-aconitic acid, are often used in Glycine max rotation systems. However, the eﬀects of trans-aconitic acid on Glycine max are unknown. We conducted a hydroponic experiment to evaluate the eﬀects of 2.5–10 mM trans-aconitic acid on Glycine max growth and photosynthesis. The results revealed that the enhanced H2O2 production in the roots increased the membrane permeability and reduced the water uptake. These eﬀects culminated with a reduced stomatal conductance (gs), which seems to be the main cause for a decreased photosynthetic rate (A). Due to low gs, the limited CO2 assimilation may have overexcited the photosystems, as indicated by the high production of H2O2 in leaves. After 96 h of incubation, and due to H2O2-induced damage to photosystems, a probable non-stomatal limitation for photosynthesis contributed to reducing A. This is corroborated by the signiﬁcant decrease in the quantum yield of electron ﬂow through photosystem II in vivo (ΦPSII) and the chlorophyll content. Taken together, the damage to the root system and photosynthetic apparatus caused by trans-aconitic acid signiﬁcantly reduced the Glycine max plant growth.}
-      \field{issn}{09819428}
-      \field{journaltitle}{Plant Physiology and Biochemistry}
-      \field{month}{11}
-      \field{title}{Trans-aconitic acid inhibits the growth and photosynthesis of {Glycine} max}
-      \field{urlday}{31}
-      \field{urlmonth}{5}
-      \field{urlyear}{2026}
-      \field{volume}{132}
-      \field{year}{2018}
-      \field{urldateera}{ce}
-      \field{pages}{490\bibrangedash 496}
-      \range{pages}{7}
-      \verb{doi}
-      \verb 10.1016/j.plaphy.2018.09.036
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/355HHSTU/Bortolo et al. - 2018 - Trans-aconitic acid inhibits the growth and photosynthesis of Glycine max.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://linkinghub.elsevier.com/retrieve/pii/S0981942818304352
-      \endverb
-      \verb{url}
-      \verb https://linkinghub.elsevier.com/retrieve/pii/S0981942818304352
-      \endverb
-    \endentry
-    \entry{eprintsev_aconitate_2021}{article}{}{}
-      \name{author}{4}{}{%
-        {{hash=f9d479c58bb80ff2417276d0b41d07a9}{%
-           family={Eprintsev},
-           familyi={E\bibinitperiod},
-           given={Alexander\bibnamedelima T.},
-           giveni={A\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
-        {{hash=8419ee77366958fbe89c91d46fe7cade}{%
-           family={Fedorin},
-           familyi={F\bibinitperiod},
-           given={Dmitry\bibnamedelima N.},
-           giveni={D\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
-        {{hash=4666f40dde5ba22c1e1751f180551681}{%
-           family={Dobychina},
-           familyi={D\bibinitperiod},
-           given={Maria\bibnamedelima A.},
-           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
-        {{hash=cd183d219a34652b52acd7bccd24e369}{%
-           family={Igamberdiev},
-           familyi={I\bibinitperiod},
-           given={Abir\bibnamedelima U.},
-           giveni={A\bibinitperiod\bibinitdelim U\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{dfbe94bd89495b468fdb1bbb7e46b317}
-      \strng{fullhash}{4a8ff9f05cb1c9de0cb5269387a21baa}
-      \strng{fullhashraw}{4a8ff9f05cb1c9de0cb5269387a21baa}
-      \strng{bibnamehash}{4a8ff9f05cb1c9de0cb5269387a21baa}
-      \strng{authorbibnamehash}{4a8ff9f05cb1c9de0cb5269387a21baa}
-      \strng{authornamehash}{dfbe94bd89495b468fdb1bbb7e46b317}
-      \strng{authorfullhash}{4a8ff9f05cb1c9de0cb5269387a21baa}
-      \strng{authorfullhashraw}{4a8ff9f05cb1c9de0cb5269387a21baa}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{shorttitle}
-      \field{abstract}{Aconitate isomerase (EC 5.3.3.7) interconverts cis- and trans-isomers of aconitic acid. Expression of the gene encoding this enzyme was studied in maize (Zea mays L.) leaves depending on light regime. Aconitate isomerase was induced by white and by red light indicating the involvement of phytochrome in the regulation of gene expression. The enzyme was partially purified from maize leaves. The value of Km was 0.75 mM with cis-aconitate and 0.92 mM with trans-aconitate, pH optimum was 8.0–8.2 with both substrates, citrate and malate suppressed its activity. It is concluded that aconitate isomerase actively participates in the interconversion of cisand trans-aconitate in the light providing a possibility of using the pool of trans-aconitate for the regulation of the tricarboxylic acid cycle activity and mediating citrate/isocitrate supply for the biosynthetic and signaling purposes in photosynthetic cells.}
-      \field{issn}{01761617}
-      \field{journaltitle}{Journal of Plant Physiology}
-      \field{month}{2}
-      \field{shorttitle}{Aconitate isomerase from maize leaves}
-      \field{title}{Aconitate isomerase from maize leaves: {Light}-dependent expression and kinetic properties}
-      \field{urlday}{1}
-      \field{urlmonth}{6}
-      \field{urlyear}{2026}
-      \field{volume}{257}
-      \field{year}{2021}
-      \field{urldateera}{ce}
-      \field{pages}{153350}
-      \range{pages}{1}
-      \verb{doi}
-      \verb 10.1016/j.jplph.2020.153350
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/SH9AHEMW/Eprintsev et al. - 2021 - Aconitate isomerase from maize leaves Light-dependent expression and kinetic properties.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://linkinghub.elsevier.com/retrieve/pii/S0176161720302406
-      \endverb
-      \verb{url}
-      \verb https://linkinghub.elsevier.com/retrieve/pii/S0176161720302406
-      \endverb
-    \endentry
-    \entry{fujimoto_transcriptional_2018}{article}{}{}
-      \name{author}{20}{}{%
-        {{hash=73ce26b4903d26685ab932d36d513d90}{%
-           family={Fujimoto},
-           familyi={F\bibinitperiod},
-           given={Masaru},
-           giveni={M\bibinitperiod}}}%
-        {{hash=7ec7216fae8bdce44c8cb37d83e12ef4}{%
-           family={Sazuka},
-           familyi={S\bibinitperiod},
-           given={Takashi},
-           giveni={T\bibinitperiod}}}%
-        {{hash=6ab6875640f8f7db8a5e24316af431b6}{%
-           family={Oda},
-           familyi={O\bibinitperiod},
-           given={Yoshihisa},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=0443b0ba767e3246d074ade83fb605ea}{%
-           family={Kawahigashi},
-           familyi={K\bibinitperiod},
-           given={Hiroyuki},
-           giveni={H\bibinitperiod}}}%
-        {{hash=b073f89db58ae3c5b1dae8829473a4b6}{%
-           family={Wu},
-           familyi={W\bibinitperiod},
-           given={Jianzhong},
-           giveni={J\bibinitperiod}}}%
-        {{hash=02be6f0c9cd227efde74630933a0749e}{%
-           family={Takanashi},
-           familyi={T\bibinitperiod},
-           given={Hideki},
-           giveni={H\bibinitperiod}}}%
-        {{hash=2e8b9fd8d9d2f080bcd8db4831dc28aa}{%
-           family={Ohnishi},
-           familyi={O\bibinitperiod},
-           given={Takayuki},
-           giveni={T\bibinitperiod}}}%
-        {{hash=4fb63af5bea1ed9c73f3717fe37f65ae}{%
-           family={Yoneda},
-           familyi={Y\bibinitperiod},
-           given={Jun-ichi},
-           giveni={J\bibinithyphendelim i\bibinitperiod}}}%
-        {{hash=2f55c167ef87acdf6ebbbeeadf9b023e}{%
-           family={Ishimori},
-           familyi={I\bibinitperiod},
-           given={Motoyuki},
-           giveni={M\bibinitperiod}}}%
-        {{hash=93c67c945b8414023fed45e64ad5341e}{%
-           family={Kajiya-Kanegae},
-           familyi={K\bibinithyphendelim K\bibinitperiod},
-           given={Hiromi},
-           giveni={H\bibinitperiod}}}%
-        {{hash=ae6508dac73584f951de218dcf1cb6d2}{%
-           family={Hibara},
-           familyi={H\bibinitperiod},
-           given={Ken-ichiro},
-           giveni={K\bibinithyphendelim i\bibinitperiod}}}%
-        {{hash=b8e615edefcee69c9c4fd45dcb321555}{%
-           family={Ishizuna},
-           familyi={I\bibinitperiod},
-           given={Fumiko},
-           giveni={F\bibinitperiod}}}%
-        {{hash=c03850a450ffbafa1ca570e35cb486ab}{%
-           family={Ebine},
-           familyi={E\bibinitperiod},
-           given={Kazuo},
-           giveni={K\bibinitperiod}}}%
-        {{hash=7aec9b43aa676c1e978bceab1155c7c2}{%
-           family={Ueda},
-           familyi={U\bibinitperiod},
-           given={Takashi},
-           giveni={T\bibinitperiod}}}%
-        {{hash=748d411a93c888ce683bf7cb3a21281a}{%
-           family={Tokunaga},
-           familyi={T\bibinitperiod},
-           given={Tsuyoshi},
-           giveni={T\bibinitperiod}}}%
-        {{hash=afa3c5e3af3ea95faaa4bc5042ce1a2b}{%
-           family={Iwata},
-           familyi={I\bibinitperiod},
-           given={Hiroyoshi},
-           giveni={H\bibinitperiod}}}%
-        {{hash=dde4aec5bf565bc60d4eae1d48156f42}{%
-           family={Matsumoto},
-           familyi={M\bibinitperiod},
-           given={Takashi},
-           giveni={T\bibinitperiod}}}%
-        {{hash=174f0caf1f5101b24b6b1bc7f9c2a4cd}{%
-           family={Kasuga},
-           familyi={K\bibinitperiod},
-           given={Shigemitsu},
-           giveni={S\bibinitperiod}}}%
-        {{hash=a692c6cffbfbb8e270c6c9e5cede6a3b}{%
-           family={Yonemaru},
-           familyi={Y\bibinitperiod},
-           given={Jun-ichi},
-           giveni={J\bibinithyphendelim i\bibinitperiod}}}%
-        {{hash=3050db64eae50c9e7085feaea0c496a5}{%
-           family={Tsutsumi},
-           familyi={T\bibinitperiod},
-           given={Nobuhiro},
-           giveni={N\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{a62bca18614b7ffb27ca67061408a24e}
-      \strng{fullhash}{511a227ea603a8bc5a5380d176cd422b}
-      \strng{fullhashraw}{511a227ea603a8bc5a5380d176cd422b}
-      \strng{bibnamehash}{a62bca18614b7ffb27ca67061408a24e}
-      \strng{authorbibnamehash}{a62bca18614b7ffb27ca67061408a24e}
-      \strng{authornamehash}{a62bca18614b7ffb27ca67061408a24e}
-      \strng{authorfullhash}{511a227ea603a8bc5a5380d176cd422b}
-      \strng{authorfullhashraw}{511a227ea603a8bc5a5380d176cd422b}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{Significance Sugar and ethanol productivity from the sugar juice of grass stems depends on their water content. Pith parenchyma cells function as a water storage tissue in plant stems, and the death of these cells reduces stem water content. In this study, we identified a gene, long referred to as D , in a promising energy grass, Sorghum bicolor , that is responsible for reducing stem water content. D and its Arabidopsis ortholog encode master transcriptional switches that induce programmed death of stem pith parenchyma cells by activating autolytic enzymes. Identifying D as the gene involved in programmed death of plant pith parenchyma cells will provide an approach to breeding crops for sugar and ethanol production. , Pith parenchyma cells store water in various plant organs. These cells are especially important for producing sugar and ethanol from the sugar juice of grass stems. In many plants, the death of pith parenchyma cells reduces their stem water content. Previous studies proposed that a hypothetical D gene might be responsible for the death of stem pith parenchyma cells in Sorghum bicolor , a promising energy grass, although its identity and molecular function are unknown. Here, we identify the D gene and note that it is located on chromosome 6 in agreement with previous predictions. Sorghum varieties with a functional D allele had stems enriched with dry, dead pith parenchyma cells, whereas those with each of six independent nonfunctional D alleles had stems enriched with juicy, living pith parenchyma cells. D expression was spatiotemporally coupled with the appearance of dead, air-filled pith parenchyma cells in sorghum stems. Among D homologs that are present in flowering plants, Arabidopsis ANAC074 also is required for the death of stem pith parenchyma cells. D and ANAC074 encode previously uncharacterized NAC transcription factors and are sufficient to ectopically induce programmed death of Arabidopsis culture cells via the activation of autolytic enzymes. Taken together, these results indicate that D and its Arabidopsis ortholog, ANAC074 , are master transcriptional switches that induce programmed death of stem pith parenchyma cells. Thus, targeting the D gene will provide an approach to breeding crops for sugar and ethanol production.}
-      \field{issn}{0027-8424, 1091-6490}
-      \field{journaltitle}{Proceedings of the National Academy of Sciences}
-      \field{month}{9}
-      \field{number}{37}
-      \field{title}{Transcriptional switch for programmed cell death in pith parenchyma of sorghum stems}
-      \field{urlday}{22}
-      \field{urlmonth}{5}
-      \field{urlyear}{2026}
-      \field{volume}{115}
-      \field{year}{2018}
-      \field{urldateera}{ce}
-      \verb{doi}
-      \verb 10.1073/pnas.1807501115
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/P38GFXJ5/Fujimoto et al. - 2018 - Transcriptional switch for programmed cell death in pith parenchyma of sorghum stems.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://pnas.org/doi/full/10.1073/pnas.1807501115
-      \endverb
-      \verb{url}
-      \verb https://pnas.org/doi/full/10.1073/pnas.1807501115
-      \endverb
-    \endentry
-    \entry{olvera-carrillo_conserved_2015}{article}{}{}
-      \name{author}{13}{}{%
-        {{hash=d8341decd115318e20f44be06b01fda9}{%
-           family={Olvera-Carrillo},
-           familyi={O\bibinithyphendelim C\bibinitperiod},
-           given={Yadira},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=5f392f741ea188fc1db394037cd4fd3e}{%
-           family={Van\bibnamedelima Bel},
-           familyi={V\bibinitperiod\bibinitdelim B\bibinitperiod},
-           given={Michiel},
-           giveni={M\bibinitperiod}}}%
-        {{hash=6736167af62384442c48fd5185014b93}{%
-           family={Van\bibnamedelima Hautegem},
-           familyi={V\bibinitperiod\bibinitdelim H\bibinitperiod},
-           given={Tom},
-           giveni={T\bibinitperiod}}}%
-        {{hash=4d37989a0f98b788d059b76d28654ca8}{%
-           family={Fendrych},
-           familyi={F\bibinitperiod},
-           given={Matyas},
-           giveni={M\bibinitperiod}}}%
-        {{hash=85a5891048b3fd533ad54824dce82b5a}{%
-           family={Van\bibnamedelima Durme},
-           familyi={V\bibinitperiod\bibinitdelim D\bibinitperiod},
-           given={Matthias},
-           giveni={M\bibinitperiod}}}%
-        {{hash=0c6b34d459f11d0f098aa9eaf57fd7d0}{%
-           family={Huysmans},
-           familyi={H\bibinitperiod},
-           given={Marlies},
-           giveni={M\bibinitperiod}}}%
-        {{hash=a5a14b174a73f4d125b1a57a75a1db70}{%
-           family={Šimášková},
-           familyi={Š\bibinitperiod},
-           given={Mária},
-           giveni={M\bibinitperiod}}}%
-        {{hash=f0cdfc5306718937f6bf92fee49f48c1}{%
-           family={Buscaill},
-           familyi={B\bibinitperiod},
-           given={Pierre},
-           giveni={P\bibinitperiod}}}%
-        {{hash=1a1f355e14d9c12e0b665a18c6c66ef9}{%
-           family={Rivas},
-           familyi={R\bibinitperiod},
-           given={Susana},
-           giveni={S\bibinitperiod}}}%
-        {{hash=3688be2ee557b0476db6b5b6196f457a}{%
-           family={Coll},
-           familyi={C\bibinitperiod},
-           given={Nuria\bibnamedelima S.},
-           giveni={N\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
-        {{hash=b4a04cb245ece2e771e331dd691351fb}{%
-           family={Maere},
-           familyi={M\bibinitperiod},
-           given={Steven},
-           giveni={S\bibinitperiod}}}%
-        {{hash=05e686305545cde9d9e4ca0e15fea76f}{%
-           family={Coppens},
-           familyi={C\bibinitperiod},
-           given={Frederik},
-           giveni={F\bibinitperiod}}}%
-        {{hash=2efaae4ecb63830b567a76f217f0e64a}{%
-           family={Nowack},
-           familyi={N\bibinitperiod},
-           given={Moritz\bibnamedelima K},
-           giveni={M\bibinitperiod\bibinitdelim K\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{2881fbee5cbadbc41989c6cb5f6f6167}
-      \strng{fullhash}{300d908c741ec45b9dad7ea5f57f0e7d}
-      \strng{fullhashraw}{300d908c741ec45b9dad7ea5f57f0e7d}
-      \strng{bibnamehash}{2881fbee5cbadbc41989c6cb5f6f6167}
-      \strng{authorbibnamehash}{2881fbee5cbadbc41989c6cb5f6f6167}
-      \strng{authornamehash}{2881fbee5cbadbc41989c6cb5f6f6167}
-      \strng{authorfullhash}{300d908c741ec45b9dad7ea5f57f0e7d}
-      \strng{authorfullhashraw}{300d908c741ec45b9dad7ea5f57f0e7d}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{issn}{0032-0889, 1532-2548}
-      \field{journaltitle}{Plant Physiology}
-      \field{month}{10}
-      \field{title}{A conserved core of {PCD} indicator genes discriminates developmentally and environmentally induced programmed cell death in plants}
-      \field{urlday}{23}
-      \field{urlmonth}{6}
-      \field{urlyear}{2026}
-      \field{year}{2015}
-      \field{urldateera}{ce}
-      \field{pages}{pp.00769.2015}
-      \range{pages}{-1}
-      \verb{doi}
-      \verb 10.1104/pp.15.00769
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/EZZQH6EX/Olvera-Carrillo et al. - 2015 - A conserved core of PCD indicator genes discriminates developmentally and environmentally induced pr.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://academic.oup.com/plphys/article/169/4/2684-2699/6114019
-      \endverb
-      \verb{url}
-      \verb https://academic.oup.com/plphys/article/169/4/2684-2699/6114019
-      \endverb
-    \endentry
-    \entry{obayashi_atted-ii_2022}{article}{}{}
-      \name{author}{5}{}{%
-        {{hash=144c5253ccd0f2ac9bf1db4e001a4f7a}{%
-           family={Obayashi},
-           familyi={O\bibinitperiod},
-           given={Takeshi},
-           giveni={T\bibinitperiod}}}%
-        {{hash=f5a40632eaf8d0e3bf05fba0fcb68feb}{%
-           family={Hibara},
-           familyi={H\bibinitperiod},
-           given={Himiko},
-           giveni={H\bibinitperiod}}}%
-        {{hash=7cd70d465bf58b77a0615875a3641e83}{%
-           family={Kagaya},
-           familyi={K\bibinitperiod},
-           given={Yuki},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=abbe2d373c73d1874a97057b89c753b0}{%
-           family={Aoki},
-           familyi={A\bibinitperiod},
-           given={Yuichi},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=13754f0ed00cc308af370313b7d065d0}{%
-           family={Kinoshita},
-           familyi={K\bibinitperiod},
-           given={Kengo},
-           giveni={K\bibinitperiod}}}%
-      }
-      \strng{namehash}{7956c7240ee0ff1be52b3f78f077d94c}
-      \strng{fullhash}{352844ef91bb27a869dc56274d1ee349}
-      \strng{fullhashraw}{352844ef91bb27a869dc56274d1ee349}
-      \strng{bibnamehash}{352844ef91bb27a869dc56274d1ee349}
-      \strng{authorbibnamehash}{352844ef91bb27a869dc56274d1ee349}
-      \strng{authornamehash}{7956c7240ee0ff1be52b3f78f077d94c}
-      \strng{authorfullhash}{352844ef91bb27a869dc56274d1ee349}
-      \strng{authorfullhashraw}{352844ef91bb27a869dc56274d1ee349}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{shorttitle}
-      \field{abstract}{ATTED-II (https://atted.jp) is a gene coexpression database for nine plant species based on publicly available RNAseq and microarray data. One of the challenges in constructing condition-independent coexpression data based on publicly available gene expression data is managing the inherent sampling bias. Here, we report ATTED-II version 11, wherein we adopted a coexpression calculation methodology to balance the samples using principal component analysis and ensemble calculation. This approach has two advantages. First, omitting principal components with low contribution rates reduces the main contributors of noise. Second, balancing large differences in contribution rates enables considering various sample conditions entirely. In addition, based on RNAseq- and microarray-based coexpression data, we provide species-representative, integrated coexpression information to enhance the efficiency of interspecies comparison of the coexpression data. These coexpression data are provided as a standardized z-score to facilitate integrated analysis with different data sources. We believe that with these improvements, ATTED-II is more valuable and powerful for supporting interspecies comparative studies and integrated analyses using heterogeneous data.}
-      \field{issn}{1471-9053}
-      \field{journaltitle}{Plant and Cell Physiology}
-      \field{month}{6}
-      \field{number}{6}
-      \field{shorttitle}{{ATTED}-{II} v11}
-      \field{title}{{ATTED}-{II} v11: {A} {Plant} {Gene} {Coexpression} {Database} {Using} a {Sample} {Balancing} {Technique} by {Subagging} of {Principal} {Components}}
-      \field{urlday}{13}
-      \field{urlmonth}{10}
-      \field{urlyear}{2025}
-      \field{volume}{63}
-      \field{year}{2022}
-      \field{urldateera}{ce}
-      \field{pages}{869\bibrangedash 881}
-      \range{pages}{13}
-      \verb{doi}
-      \verb 10.1093/pcp/pcac041
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/IHZNYDVH/Obayashi et al. - 2022 - ATTED-II v11 A Plant Gene Coexpression Database Using a Sample Balancing Technique by Subagging of .pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://doi.org/10.1093/pcp/pcac041
-      \endverb
-      \verb{url}
-      \verb https://doi.org/10.1093/pcp/pcac041
-      \endverb
-    \endentry
-    \entry{igamberdiev_phytochromemediated_2014}{article}{}{}
-      \name{author}{4}{}{%
-        {{hash=cd183d219a34652b52acd7bccd24e369}{%
-           family={Igamberdiev},
-           familyi={I\bibinitperiod},
-           given={Abir\bibnamedelima U.},
-           giveni={A\bibinitperiod\bibinitdelim U\bibinitperiod}}}%
-        {{hash=f9d479c58bb80ff2417276d0b41d07a9}{%
-           family={Eprintsev},
-           familyi={E\bibinitperiod},
-           given={Alexander\bibnamedelima T.},
-           giveni={A\bibinitperiod\bibinitdelim T\bibinitperiod}}}%
-        {{hash=8419ee77366958fbe89c91d46fe7cade}{%
-           family={Fedorin},
-           familyi={F\bibinitperiod},
-           given={Dmitry\bibnamedelima N.},
-           giveni={D\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
-        {{hash=ae561ac78588b16ed2678e25b59f2878}{%
-           family={Popov},
-           familyi={P\bibinitperiod},
-           given={Vasily\bibnamedelima N.},
-           giveni={V\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{39989968c8dab8fd7e6d5d187da2539b}
-      \strng{fullhash}{06e5a12103788aba1909bd540568b109}
-      \strng{fullhashraw}{06e5a12103788aba1909bd540568b109}
-      \strng{bibnamehash}{06e5a12103788aba1909bd540568b109}
-      \strng{authorbibnamehash}{06e5a12103788aba1909bd540568b109}
-      \strng{authornamehash}{39989968c8dab8fd7e6d5d187da2539b}
-      \strng{authorfullhash}{06e5a12103788aba1909bd540568b109}
-      \strng{authorfullhashraw}{06e5a12103788aba1909bd540568b109}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{The expression of genes encoding various enzymes participating in photosynthetic and respiratory metabolism is regulated by light via the phytochrome system. While many photosynthetic, photorespiratory and some respiratory enzymes, such as the rotenone-insensitive NADH and NADPH dehydrogenases and the alternative oxidase, are stimulated by light, succinate dehydrogenase, subunits of the pyruvate dehydrogenase complex, cytochrome oxidase and fumarase are inhibited via the phytochrome mechanism. The effect of light, therefore, imposes limitations on the tricarboxylic acid cycle and on the mitochondrial electron transport coupled to ATP synthesis, while the non-coupled pathways become activated. Phytochrome-mediated regulation of gene expression also creates characteristic distribution patterns of photosynthetic, photorespiratory and respiratory enzymes across the leaf generating different populations of mitochondria, either enriched by glycine decarboxylase (in the upper part) or by succinate dehydrogenase (in the bottom part of the leaf).}
-      \field{issn}{0140-7791, 1365-3040}
-      \field{journaltitle}{Plant, Cell \& Environment}
-      \field{month}{2}
-      \field{number}{2}
-      \field{title}{Phytochrome‐mediated regulation of plant respiration and photorespiration}
-      \field{urlday}{3}
-      \field{urlmonth}{6}
-      \field{urlyear}{2026}
-      \field{volume}{37}
-      \field{year}{2014}
-      \field{urldateera}{ce}
-      \field{pages}{290\bibrangedash 299}
-      \range{pages}{10}
-      \verb{doi}
-      \verb 10.1111/pce.12155
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/AWXJJWPW/Igamberdiev et al. - 2014 - Phytochrome‐mediated regulation of plant respiration and photorespiration.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://onlinelibrary.wiley.com/doi/10.1111/pce.12155
-      \endverb
-      \verb{url}
-      \verb https://onlinelibrary.wiley.com/doi/10.1111/pce.12155
-      \endverb
-    \endentry
-    \entry{li_minimap2_2018}{article}{}{}
-      \name{author}{1}{}{%
-        {{hash=466d90849ccf7e74e32d338b7c35491d}{%
-           family={Li},
-           familyi={L\bibinitperiod},
-           given={Heng},
-           giveni={H\bibinitperiod}}}%
-      }
-      \name{editor}{1}{}{%
-        {{hash=225813922672dfe23fe2441db84b3f96}{%
-           family={Birol},
-           familyi={B\bibinitperiod},
-           given={Inanc},
-           giveni={I\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{466d90849ccf7e74e32d338b7c35491d}
-      \strng{fullhash}{466d90849ccf7e74e32d338b7c35491d}
-      \strng{fullhashraw}{466d90849ccf7e74e32d338b7c35491d}
-      \strng{bibnamehash}{466d90849ccf7e74e32d338b7c35491d}
-      \strng{authorbibnamehash}{466d90849ccf7e74e32d338b7c35491d}
-      \strng{authornamehash}{466d90849ccf7e74e32d338b7c35491d}
-      \strng{authorfullhash}{466d90849ccf7e74e32d338b7c35491d}
-      \strng{authorfullhashraw}{466d90849ccf7e74e32d338b7c35491d}
-      \strng{editorbibnamehash}{225813922672dfe23fe2441db84b3f96}
-      \strng{editornamehash}{225813922672dfe23fe2441db84b3f96}
-      \strng{editorfullhash}{225813922672dfe23fe2441db84b3f96}
-      \strng{editorfullhashraw}{225813922672dfe23fe2441db84b3f96}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{shorttitle}
-      \field{abstract}{Motivation: Recent advances in sequencing technologies promise ultra-long reads of 100 kb in average, full-length mRNA or cDNA reads in high throughput and genomic contigs over 100 Mb in length. Existing alignment programs are unable or inefﬁcient to process such data at scale, which presses for the development of new alignment algorithms.}
-      \field{issn}{1367-4803, 1367-4811}
-      \field{journaltitle}{Bioinformatics}
-      \field{month}{9}
-      \field{number}{18}
-      \field{shorttitle}{Minimap2}
-      \field{title}{Minimap2: pairwise alignment for nucleotide sequences}
-      \field{urlday}{2}
-      \field{urlmonth}{7}
-      \field{urlyear}{2026}
-      \field{volume}{34}
-      \field{year}{2018}
-      \field{urldateera}{ce}
-      \field{pages}{3094\bibrangedash 3100}
-      \range{pages}{7}
-      \verb{doi}
-      \verb 10.1093/bioinformatics/bty191
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/QK8P65PD/Li - 2018 - Minimap2 pairwise alignment for nucleotide sequences.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://academic.oup.com/bioinformatics/article/34/18/3094/4994778
-      \endverb
-      \verb{url}
-      \verb https://academic.oup.com/bioinformatics/article/34/18/3094/4994778
-      \endverb
-    \endentry
-    \entry{li_sequence_2009}{article}{}{}
-      \name{author}{10}{}{%
-        {{hash=466d90849ccf7e74e32d338b7c35491d}{%
-           family={Li},
-           familyi={L\bibinitperiod},
-           given={Heng},
-           giveni={H\bibinitperiod}}}%
-        {{hash=c23c544be69d5a11f41e88573fa31b66}{%
-           family={Handsaker},
-           familyi={H\bibinitperiod},
-           given={Bob},
-           giveni={B\bibinitperiod}}}%
-        {{hash=9230f619f70697545cc3d441515b3bc9}{%
-           family={Wysoker},
-           familyi={W\bibinitperiod},
-           given={Alec},
-           giveni={A\bibinitperiod}}}%
-        {{hash=773b22b5aaacf32d8c73f8bda3f26c01}{%
-           family={Fennell},
-           familyi={F\bibinitperiod},
-           given={Tim},
-           giveni={T\bibinitperiod}}}%
-        {{hash=c42a336d28e60e0158ab76e19b82bc1e}{%
-           family={Ruan},
-           familyi={R\bibinitperiod},
-           given={Jue},
-           giveni={J\bibinitperiod}}}%
-        {{hash=599684aecac812346c723706355c1f0f}{%
-           family={Homer},
-           familyi={H\bibinitperiod},
-           given={Nils},
-           giveni={N\bibinitperiod}}}%
-        {{hash=2ba433e428dec3ec900179ed16e29032}{%
-           family={Marth},
-           familyi={M\bibinitperiod},
-           given={Gabor},
-           giveni={G\bibinitperiod}}}%
-        {{hash=8adf88b4bd2c9785ddad5bfa05221f24}{%
-           family={Abecasis},
-           familyi={A\bibinitperiod},
-           given={Goncalo},
-           giveni={G\bibinitperiod}}}%
-        {{hash=517afe729b2eb59735ba80628d943bb0}{%
-           family={Durbin},
-           familyi={D\bibinitperiod},
-           given={Richard},
-           giveni={R\bibinitperiod}}}%
-        {{hash=5a4c30fb59cead631879602dd24d84fd}{%
-           family={{1000 Genome Project Data Processing Subgroup}},
-           familyi={1\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{7de69ceef8abd6e58f52a4fffba20d8e}
-      \strng{fullhash}{a642fa256cc5b21623dbb36d518f2cf2}
-      \strng{fullhashraw}{a642fa256cc5b21623dbb36d518f2cf2}
-      \strng{bibnamehash}{7de69ceef8abd6e58f52a4fffba20d8e}
-      \strng{authorbibnamehash}{7de69ceef8abd6e58f52a4fffba20d8e}
-      \strng{authornamehash}{7de69ceef8abd6e58f52a4fffba20d8e}
-      \strng{authorfullhash}{a642fa256cc5b21623dbb36d518f2cf2}
-      \strng{authorfullhashraw}{a642fa256cc5b21623dbb36d518f2cf2}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{Summary: The Sequence Alignment/Map (SAM) format is a generic alignment format for storing read alignments against reference sequences, supporting short and long reads (up to 128 Mbp) produced by different sequencing platforms. It is ﬂexible in style, compact in size, efﬁcient in random access and is the format in which alignments from the 1000 Genomes Project are released. SAMtools implements various utilities for post-processing alignments in the SAM format, such as indexing, variant caller and alignment viewer, and thus provides universal tools for processing read alignments.}
-      \field{issn}{1367-4811, 1367-4803}
-      \field{journaltitle}{Bioinformatics}
-      \field{month}{8}
-      \field{number}{16}
-      \field{title}{The {Sequence} {Alignment}/{Map} format and {SAMtools}}
-      \field{urlday}{2}
-      \field{urlmonth}{7}
-      \field{urlyear}{2026}
-      \field{volume}{25}
-      \field{year}{2009}
-      \field{urldateera}{ce}
-      \field{pages}{2078\bibrangedash 2079}
-      \range{pages}{2}
-      \verb{doi}
-      \verb 10.1093/bioinformatics/btp352
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/R2EA6VYQ/Li et al. - 2009 - The Sequence AlignmentMap format and SAMtools.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://academic.oup.com/bioinformatics/article/25/16/2078/204688
-      \endverb
-      \verb{url}
-      \verb https://academic.oup.com/bioinformatics/article/25/16/2078/204688
-      \endverb
-    \endentry
-    \entry{zheng_symphonizing_2022}{article}{}{}
-      \name{author}{6}{}{%
-        {{hash=23e8f01237cdd80b50d6306466cf5424}{%
-           family={Zheng},
-           familyi={Z\bibinitperiod},
-           given={Zhenxian},
-           giveni={Z\bibinitperiod}}}%
-        {{hash=3f09405532667f7580e830c9d2766e63}{%
-           family={Li},
-           familyi={L\bibinitperiod},
-           given={Shumin},
-           giveni={S\bibinitperiod}}}%
-        {{hash=131acde3f4bb4469a5a8aff4799477fc}{%
-           family={Su},
-           familyi={S\bibinitperiod},
-           given={Junhao},
-           giveni={J\bibinitperiod}}}%
-        {{hash=9adf747f95a85fa93bd4fc2fb21df98f}{%
-           family={Leung},
-           familyi={L\bibinitperiod},
-           given={Amy\bibnamedelima Wing-Sze},
-           giveni={A\bibinitperiod\bibinitdelim W\bibinithyphendelim S\bibinitperiod}}}%
-        {{hash=d553e31130f8ae527e291c0bda6324fe}{%
-           family={Lam},
-           familyi={L\bibinitperiod},
-           given={Tak-Wah},
-           giveni={T\bibinithyphendelim W\bibinitperiod}}}%
-        {{hash=69c87e8088b6df1a462123a5f76a7285}{%
-           family={Luo},
-           familyi={L\bibinitperiod},
-           given={Ruibang},
-           giveni={R\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{d76de4840b748854db1300f65c8c16ff}
-      \strng{fullhash}{1924f73f2fcd5044e667768a4559411a}
-      \strng{fullhashraw}{1924f73f2fcd5044e667768a4559411a}
-      \strng{bibnamehash}{1924f73f2fcd5044e667768a4559411a}
-      \strng{authorbibnamehash}{1924f73f2fcd5044e667768a4559411a}
-      \strng{authornamehash}{d76de4840b748854db1300f65c8c16ff}
-      \strng{authorfullhash}{1924f73f2fcd5044e667768a4559411a}
-      \strng{authorfullhashraw}{1924f73f2fcd5044e667768a4559411a}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{issn}{2662-8457}
-      \field{journaltitle}{Nature Computational Science}
-      \field{month}{12}
-      \field{number}{12}
-      \field{title}{Symphonizing pileup and full-alignment for deep learning-based long-read variant calling}
-      \field{urlday}{2}
-      \field{urlmonth}{7}
-      \field{urlyear}{2026}
-      \field{volume}{2}
-      \field{year}{2022}
-      \field{urldateera}{ce}
-      \field{pages}{797\bibrangedash 803}
-      \range{pages}{7}
-      \verb{doi}
-      \verb 10.1038/s43588-022-00387-x
-      \endverb
-      \verb{file}
-      \verb media-1:/Users/daffa/Zotero/storage/HXAG74C5/media-1.pdf:application/pdf;PDF:/Users/daffa/Zotero/storage/QC47DUMW/Zheng et al. - Symphonizing pileup and full-alignment for deep learning-based long-read variant calling.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://www.nature.com/articles/s43588-022-00387-x
-      \endverb
-      \verb{url}
-      \verb https://www.nature.com/articles/s43588-022-00387-x
-      \endverb
-    \endentry
-    \entry{smolka_detection_2024}{article}{}{}
-      \name{author}{14}{}{%
-        {{hash=fd10d97663b091fc2491ba1be59271bc}{%
-           family={Smolka},
-           familyi={S\bibinitperiod},
-           given={Moritz},
-           giveni={M\bibinitperiod}}}%
-        {{hash=d5be972ffc0899d674970407d3e33c9b}{%
-           family={Paulin},
-           familyi={P\bibinitperiod},
-           given={Luis\bibnamedelima F.},
-           giveni={L\bibinitperiod\bibinitdelim F\bibinitperiod}}}%
-        {{hash=cb9086cafa7d7f62010d4fceb819a8fa}{%
-           family={Grochowski},
-           familyi={G\bibinitperiod},
-           given={Christopher\bibnamedelima M.},
-           giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-        {{hash=6577395cca8b5e19f34826652abbd7c1}{%
-           family={Horner},
-           familyi={H\bibinitperiod},
-           given={Dominic\bibnamedelima W.},
-           giveni={D\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
-        {{hash=282d5bd7a3478597fe614087617a49ab}{%
-           family={Mahmoud},
-           familyi={M\bibinitperiod},
-           given={Medhat},
-           giveni={M\bibinitperiod}}}%
-        {{hash=b1618cb73cba82071db9c7c1f2423301}{%
-           family={Behera},
-           familyi={B\bibinitperiod},
-           given={Sairam},
-           giveni={S\bibinitperiod}}}%
-        {{hash=b8dc397a1e07241b68d44e0b4c4e0d06}{%
-           family={Kalef-Ezra},
-           familyi={K\bibinithyphendelim E\bibinitperiod},
-           given={Ester},
-           giveni={E\bibinitperiod}}}%
-        {{hash=a1b4a92778fab127945590c7ad15e1e3}{%
-           family={Gandhi},
-           familyi={G\bibinitperiod},
-           given={Mira},
-           giveni={M\bibinitperiod}}}%
-        {{hash=b3c46640ac6550619acb550b542d8541}{%
-           family={Hong},
-           familyi={H\bibinitperiod},
-           given={Karl},
-           giveni={K\bibinitperiod}}}%
-        {{hash=1dd5050cb2790ebac15fafdacf8ca5d4}{%
-           family={Pehlivan},
-           familyi={P\bibinitperiod},
-           given={Davut},
-           giveni={D\bibinitperiod}}}%
-        {{hash=e26d63618070337a74576ab09c1e9950}{%
-           family={Scholz},
-           familyi={S\bibinitperiod},
-           given={Sonja\bibnamedelima W.},
-           giveni={S\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
-        {{hash=43c99d0962d25a7274dd4b6d63690440}{%
-           family={Carvalho},
-           familyi={C\bibinitperiod},
-           given={Claudia\bibnamedelimb M.\bibnamedelimi B.},
-           giveni={C\bibinitperiod\bibinitdelim M\bibinitperiod\bibinitdelim B\bibinitperiod}}}%
-        {{hash=5957792baa33393108e441cdf023cac8}{%
-           family={Proukakis},
-           familyi={P\bibinitperiod},
-           given={Christos},
-           giveni={C\bibinitperiod}}}%
-        {{hash=629ad5213446f3b705e3c3640f676942}{%
-           family={Sedlazeck},
-           familyi={S\bibinitperiod},
-           given={Fritz\bibnamedelima J.},
-           giveni={F\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{8676f5225965e7e413618efac6722117}
-      \strng{fullhash}{b9f027d1ce55afc9a2c4589cd255b376}
-      \strng{fullhashraw}{b9f027d1ce55afc9a2c4589cd255b376}
-      \strng{bibnamehash}{8676f5225965e7e413618efac6722117}
-      \strng{authorbibnamehash}{8676f5225965e7e413618efac6722117}
-      \strng{authornamehash}{8676f5225965e7e413618efac6722117}
-      \strng{authorfullhash}{b9f027d1ce55afc9a2c4589cd255b376}
-      \strng{authorfullhashraw}{b9f027d1ce55afc9a2c4589cd255b376}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{Abstract Calling structural variations (SVs) is technically challenging, but using long reads remains the most accurate way to identify complex genomic alterations. Here we present Sniffles2, which improves over current methods by implementing a repeat aware clustering coupled with a fast consensus sequence and coverage-adaptive filtering. Sniffles2 is 11.8 times faster and 29\% more accurate than state-of-the-art SV callers across different coverages (5–50×), sequencing technologies (ONT and HiFi) and SV types. Furthermore, Sniffles2 solves the problem of family-level to population-level SV calling to produce fully genotyped VCF files. Across 11 probands, we accurately identified causative SVs around MECP2 , including highly complex alleles with three overlapping SVs. Sniffles2 also enables the detection of mosaic SVs in bulk long-read data. As a result, we identified multiple mosaic SVs in brain tissue from a patient with multiple system atrophy. The identified SV showed a remarkable diversity within the cingulate cortex, impacting both genes involved in neuron function and repetitive elements.}
-      \field{issn}{1087-0156, 1546-1696}
-      \field{journaltitle}{Nature Biotechnology}
-      \field{month}{10}
-      \field{number}{10}
-      \field{title}{Detection of mosaic and population-level structural variants with {Sniffles2}}
-      \field{urlday}{26}
-      \field{urlmonth}{6}
-      \field{urlyear}{2026}
-      \field{volume}{42}
-      \field{year}{2024}
-      \field{urldateera}{ce}
-      \field{pages}{1571\bibrangedash 1580}
-      \range{pages}{10}
-      \verb{doi}
-      \verb 10.1038/s41587-023-02024-y
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/AAFCFCA9/Smolka et al. - 2024 - Detection of mosaic and population-level structural variants with Sniffles2.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://www.nature.com/articles/s41587-023-02024-y
-      \endverb
-      \verb{url}
-      \verb https://www.nature.com/articles/s41587-023-02024-y
-      \endverb
-    \endentry
-    \entry{cingolani_program_2012}{article}{}{}
-      \name{author}{9}{}{%
-        {{hash=5449af036149435c96d4911adac457f3}{%
-           family={Cingolani},
-           familyi={C\bibinitperiod},
-           given={Pablo},
-           giveni={P\bibinitperiod}}}%
-        {{hash=43f121ef633680372c81fc2bc99df69e}{%
-           family={Platts},
-           familyi={P\bibinitperiod},
-           given={Adrian},
-           giveni={A\bibinitperiod}}}%
-        {{hash=16cea339f965356b149f84d947edee40}{%
-           family={Wang},
-           familyi={W\bibinitperiod},
-           given={Le\bibnamedelima Lily},
-           giveni={L\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
-        {{hash=333d757c5ebbebad4d768b193ecf5ca4}{%
-           family={Coon},
-           familyi={C\bibinitperiod},
-           given={Melissa},
-           giveni={M\bibinitperiod}}}%
-        {{hash=ccd0b22f2fc612d541f779e753d15adf}{%
-           family={Nguyen},
-           familyi={N\bibinitperiod},
-           given={Tung},
-           giveni={T\bibinitperiod}}}%
-        {{hash=4e88ce0c92dee10d4aade33ca947a19c}{%
-           family={Wang},
-           familyi={W\bibinitperiod},
-           given={Luan},
-           giveni={L\bibinitperiod}}}%
-        {{hash=d198d2515dea56755f17b54366dba22a}{%
-           family={Land},
-           familyi={L\bibinitperiod},
-           given={Susan\bibnamedelima J.},
-           giveni={S\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
-        {{hash=7d8579ec2cf4dbb937c1988ddc33f251}{%
-           family={Lu},
-           familyi={L\bibinitperiod},
-           given={Xiangyi},
-           giveni={X\bibinitperiod}}}%
-        {{hash=2b73abbb81c4734841f459cd51de80c2}{%
-           family={Ruden},
-           familyi={R\bibinitperiod},
-           given={Douglas\bibnamedelima M.},
-           giveni={D\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{631006c7a171a5d6cf4ac5b9bf1ed35d}
-      \strng{fullhash}{12c0b7b3e0f9aca080701152acd769c3}
-      \strng{fullhashraw}{12c0b7b3e0f9aca080701152acd769c3}
-      \strng{bibnamehash}{631006c7a171a5d6cf4ac5b9bf1ed35d}
-      \strng{authorbibnamehash}{631006c7a171a5d6cf4ac5b9bf1ed35d}
-      \strng{authornamehash}{631006c7a171a5d6cf4ac5b9bf1ed35d}
-      \strng{authorfullhash}{12c0b7b3e0f9aca080701152acd769c3}
-      \strng{authorfullhashraw}{12c0b7b3e0f9aca080701152acd769c3}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{shorttitle}
-      \field{issn}{1933-6934, 1933-6942}
-      \field{journaltitle}{Fly}
-      \field{month}{4}
-      \field{number}{2}
-      \field{shorttitle}{A program for annotating and predicting the effects of single nucleotide polymorphisms, {SnpEff}}
-      \field{title}{A program for annotating and predicting the effects of single nucleotide polymorphisms, {SnpEff}: {SNPs} in the genome of {Drosophila} melanogaster strain w$^{\textrm{1118}}$ ; iso-2; iso-3}
-      \field{urlday}{2}
-      \field{urlmonth}{7}
-      \field{urlyear}{2026}
-      \field{volume}{6}
-      \field{year}{2012}
-      \field{urldateera}{ce}
-      \field{pages}{80\bibrangedash 92}
-      \range{pages}{13}
-      \verb{doi}
-      \verb 10.4161/fly.19695
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/D5C4F2V2/Cingolani et al. - 2012 - A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff SNPs.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://www.tandfonline.com/doi/full/10.4161/fly.19695
-      \endverb
-      \verb{url}
-      \verb https://www.tandfonline.com/doi/full/10.4161/fly.19695
-      \endverb
-    \endentry
-    \entry{vaser_sift_2016}{article}{}{}
-      \name{author}{5}{}{%
-        {{hash=31b5d5b9745b8e5cafa7aa44746fb0bc}{%
-           family={Vaser},
-           familyi={V\bibinitperiod},
-           given={Robert},
-           giveni={R\bibinitperiod}}}%
-        {{hash=3c8e1986310ab110b4f3b9902f7a1c72}{%
-           family={Adusumalli},
-           familyi={A\bibinitperiod},
-           given={Swarnaseetha},
-           giveni={S\bibinitperiod}}}%
-        {{hash=531f4a18286ac259c584e252ed1eb81e}{%
-           family={Leng},
-           familyi={L\bibinitperiod},
-           given={Sim\bibnamedelima Ngak},
-           giveni={S\bibinitperiod\bibinitdelim N\bibinitperiod}}}%
-        {{hash=968bf8c42c3de85f6e6b4b2d68439680}{%
-           family={Sikic},
-           familyi={S\bibinitperiod},
-           given={Mile},
-           giveni={M\bibinitperiod}}}%
-        {{hash=fd3bcd334a1f9350e00f784af7482683}{%
-           family={Ng},
-           familyi={N\bibinitperiod},
-           given={Pauline\bibnamedelima C},
-           giveni={P\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{97636ee622d8fff32772bc15fc6b0e03}
-      \strng{fullhash}{da238ff70d4e9e6c761591989026b3c9}
-      \strng{fullhashraw}{da238ff70d4e9e6c761591989026b3c9}
-      \strng{bibnamehash}{da238ff70d4e9e6c761591989026b3c9}
-      \strng{authorbibnamehash}{da238ff70d4e9e6c761591989026b3c9}
-      \strng{authornamehash}{97636ee622d8fff32772bc15fc6b0e03}
-      \strng{authorfullhash}{da238ff70d4e9e6c761591989026b3c9}
-      \strng{authorfullhashraw}{da238ff70d4e9e6c761591989026b3c9}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{issn}{1754-2189, 1750-2799}
-      \field{journaltitle}{Nature Protocols}
-      \field{month}{1}
-      \field{number}{1}
-      \field{title}{{SIFT} missense predictions for genomes}
-      \field{urlday}{2}
-      \field{urlmonth}{7}
-      \field{urlyear}{2026}
-      \field{volume}{11}
-      \field{year}{2016}
-      \field{urldateera}{ce}
-      \field{pages}{1\bibrangedash 9}
-      \range{pages}{9}
-      \verb{doi}
-      \verb 10.1038/nprot.2015.123
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/UNFNTCQ4/Vaser et al. - 2016 - SIFT missense predictions for genomes.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://www.nature.com/articles/nprot.2015.123
-      \endverb
-      \verb{url}
-      \verb https://www.nature.com/articles/nprot.2015.123
-      \endverb
-    \endentry
-    \entry{feng_differential_2019}{article}{}{}
-      \name{author}{2}{}{%
-        {{hash=b0e8e4c399a2cfa6f86a3bed624f666c}{%
-           family={Feng},
-           familyi={F\bibinitperiod},
-           given={Hao},
-           giveni={H\bibinitperiod}}}%
-        {{hash=d0d5a12b1f5bae45ea7780158b3b35c8}{%
-           family={Wu},
-           familyi={W\bibinitperiod},
-           given={Hao},
-           giveni={H\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {en}%
-      }
-      \strng{namehash}{9506df0ed6785fa845eec53d49b9986f}
-      \strng{fullhash}{9506df0ed6785fa845eec53d49b9986f}
-      \strng{fullhashraw}{9506df0ed6785fa845eec53d49b9986f}
-      \strng{bibnamehash}{9506df0ed6785fa845eec53d49b9986f}
-      \strng{authorbibnamehash}{9506df0ed6785fa845eec53d49b9986f}
-      \strng{authornamehash}{9506df0ed6785fa845eec53d49b9986f}
-      \strng{authorfullhash}{9506df0ed6785fa845eec53d49b9986f}
-      \strng{authorfullhashraw}{9506df0ed6785fa845eec53d49b9986f}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{Bisulfite sequencing (BS-seq) technology measures DNA methylation at single nucleotide resolution. A key task in BS-seq data analysis is to identify differentially methylation (DM) under different conditions. Here we provide a tutorial for BS-seq DM analysis using Bioconductor package DSS. DSS uses a beta-binomial model to characterize the sequence counts from BS-seq, and implements rigorous statistical method for hypothesis testing. It provides flexible functionalities for a variety of DM analyses.}
-      \field{issn}{2095-4689, 2095-4697}
-      \field{journaltitle}{Quantitative Biology}
-      \field{month}{12}
-      \field{number}{4}
-      \field{title}{Differential methylation analysis for bisulfite sequencing using {DSS}}
-      \field{urlday}{2}
-      \field{urlmonth}{7}
-      \field{urlyear}{2026}
-      \field{volume}{7}
-      \field{year}{2019}
-      \field{urldateera}{ce}
-      \field{pages}{327\bibrangedash 334}
-      \range{pages}{8}
-      \verb{doi}
-      \verb 10.1007/s40484-019-0183-8
-      \endverb
-      \verb{file}
-      \verb PDF:/Users/daffa/Zotero/storage/RSP24KDU/Feng and Wu - 2019 - Differential methylation analysis for bisulfite sequencing using DSS.pdf:application/pdf
-      \endverb
-      \verb{urlraw}
-      \verb https://onlinelibrary.wiley.com/doi/10.1007/s40484-019-0183-8
-      \endverb
-      \verb{url}
-      \verb https://onlinelibrary.wiley.com/doi/10.1007/s40484-019-0183-8
-      \endverb
-    \endentry
-    \entry{hirai_omics-based_2007}{article}{}{}
-      \name{author}{14}{}{%
-        {{hash=15b3a3bede0614a4c36dd2e322e747e7}{%
-           family={Hirai},
-           familyi={H\bibinitperiod},
-           given={Masami\bibnamedelima Yokota},
-           giveni={M\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
-        {{hash=f8c811c9c6622e8ea0123686ca12b114}{%
-           family={Sugiyama},
-           familyi={S\bibinitperiod},
-           given={Kenjiro},
-           giveni={K\bibinitperiod}}}%
-        {{hash=53e60458c3b111b13d5d284c254a0da8}{%
-           family={Sawada},
-           familyi={S\bibinitperiod},
-           given={Yuji},
-           giveni={Y\bibinitperiod}}}%
-        {{hash=33ac77a9391aa9d385ecb74cd898ed79}{%
-           family={Tohge},
-           familyi={T\bibinitperiod},
-           given={Takayuki},
-           giveni={T\bibinitperiod}}}%
-        {{hash=144c5253ccd0f2ac9bf1db4e001a4f7a}{%
-           family={Obayashi},
-           familyi={O\bibinitperiod},
-           given={Takeshi},
-           giveni={T\bibinitperiod}}}%
-        {{hash=44d5ef12006ef885d346541303b0a318}{%
-           family={Suzuki},
-           familyi={S\bibinitperiod},
-           given={Akane},
-           giveni={A\bibinitperiod}}}%
-        {{hash=9d9af2bef2ac203ef487a7b8b84a49df}{%
-           family={Araki},
-           familyi={A\bibinitperiod},
-           given={Ryoichi},
-           giveni={R\bibinitperiod}}}%
-        {{hash=815659c0feae66ec8ef49406bc65f291}{%
-           family={Sakurai},
-           familyi={S\bibinitperiod},
-           given={Nozomu},
-           giveni={N\bibinitperiod}}}%
-        {{hash=8887d4a77131dbe9429d3ab3b0269ef5}{%
-           family={Suzuki},
-           familyi={S\bibinitperiod},
-           given={Hideyuki},
-           giveni={H\bibinitperiod}}}%
-        {{hash=87c108e2dd37f28845e4080cbe5f0f84}{%
-           family={Aoki},
-           familyi={A\bibinitperiod},
-           given={Koh},
-           giveni={K\bibinitperiod}}}%
-        {{hash=fd90471cd2e9c92996113dc85d834a2c}{%
-           family={Goda},
-           familyi={G\bibinitperiod},
-           given={Hideki},
-           giveni={H\bibinitperiod}}}%
-        {{hash=a0764a45525ee52633aafdfc61f2295d}{%
-           family={Nishizawa},
-           familyi={N\bibinitperiod},
-           given={Osamu\bibnamedelima Ishizaki},
-           giveni={O\bibinitperiod\bibinitdelim I\bibinitperiod}}}%
-        {{hash=b8497af79a8a463638008bce3d1082fd}{%
-           family={Shibata},
-           familyi={S\bibinitperiod},
-           given={Daisuke},
-           giveni={D\bibinitperiod}}}%
-        {{hash=4577e9d513946838970a62d8daec1ccb}{%
-           family={Saito},
-           familyi={S\bibinitperiod},
-           given={Kazuki},
-           giveni={K\bibinitperiod}}}%
-      }
-      \list{language}{1}{%
-        {eng}%
-      }
-      \strng{namehash}{fc7ec94e6ce132ac2be708c92149a4d4}
-      \strng{fullhash}{e37c6fed242049ce2c286d3b85669544}
-      \strng{fullhashraw}{e37c6fed242049ce2c286d3b85669544}
-      \strng{bibnamehash}{fc7ec94e6ce132ac2be708c92149a4d4}
-      \strng{authorbibnamehash}{fc7ec94e6ce132ac2be708c92149a4d4}
-      \strng{authornamehash}{fc7ec94e6ce132ac2be708c92149a4d4}
-      \strng{authorfullhash}{e37c6fed242049ce2c286d3b85669544}
-      \strng{authorfullhashraw}{e37c6fed242049ce2c286d3b85669544}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{abstract}{Understanding plant metabolism as an integrated system is essential for metabolic engineering aimed at the effective production of compounds useful to human life and the global environment. The "omics" approach integrates transcriptome and metabolome data into a single data set and can lead to the identification of unknown genes and their regulatory networks involved in metabolic pathways of interest. One of the intriguing, although poorly described metabolic pathways in plants is the biosynthesis of glucosinolates (GSLs), a group of bioactive secondary products derived from amino acids that are found in the family Brassicaceae. Here we report the discovery of two R2R3-Myb transcription factors that positively control the biosynthesis of GSLs in Arabidopsis thaliana by an integrated omics approach. Combined transcriptome coexpression analysis of publicly available, condition-independent data and the condition-specific (i.e., sulfur-deficiency) data identified Myb28 and Myb29 as candidate transcription factor genes specifically involved in the regulation of aliphatic GSL production. Analysis of a knockout mutant and ectopic expression of the gene demonstrated that Myb28 is a positive regulator for basal-level production of aliphatic GSLs. Myb29 presumably plays an accessory function for methyl jasmonate-mediated induction of a set of aliphatic GSL biosynthetic genes. Overexpression of Myb28 in Arabidopsis-cultured suspension cells, which do not normally synthesize GSLs, resulted in the production of large amounts of GSLs, suggesting the possibility of efficient industrial production of GSLs by manipulation of these transcription factors. A working model for regulation of GSL production involving these genes, renamed Production of Methionine-Derived Glucosinolate (PMG) 1 and 2, are postulated.}
-      \field{annotation}{This paper is an example on how to use the coexpression data information from ATTED-II. Moreover, this paper also aligns with the そびたー project, in terms of regulation and biosynthesis.}
-      \field{issn}{0027-8424}
-      \field{journaltitle}{Proceedings of the National Academy of Sciences of the United States of America}
-      \field{month}{4}
-      \field{number}{15}
-      \field{title}{Omics-based identification of {Arabidopsis} {Myb} transcription factors regulating aliphatic glucosinolate biosynthesis}
-      \field{volume}{104}
-      \field{year}{2007}
-      \field{pages}{6478\bibrangedash 6483}
-      \range{pages}{6}
-      \verb{doi}
-      \verb 10.1073/pnas.0611629104
-      \endverb
-      \verb{file}
-      \verb Full Text:/Users/daffa/Zotero/storage/8LX6BKWJ/Hirai et al. - 2007 - Omics-based identification of Arabidopsis Myb transcription factors regulating aliphatic glucosinola.pdf:application/pdf
-      \endverb
-      \keyw{Arabidopsis,Arabidopsis Proteins,Biosynthetic Pathways,Chromatography,Liquid,Glucosinolates,Histone Acetyltransferases,JSPP poster references,Mass Spectrometry,Models,Biological,Proteomics,Transcription Factors}
     \endentry
   \enddatalist
 \endrefsection
