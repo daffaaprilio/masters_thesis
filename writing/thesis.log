@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.30)  13 JUL 2026 14:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.30)  15 JUL 2026 10:38
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -825,16 +825,12 @@ Chapter 1.
 ]
 \openout2 = `chapters/02_methods.aux'.
 
- (./chapters/02_methods.tex)
-\openout2 = `chapters/03_results.aux'.
-
- (./chapters/03_results.tex)
-\openout2 = `chapters/04_discussion.aux'.
-
- (./chapters/04_discussion.tex)
-\openout2 = `chapters/05_conclusion.aux'.
-
- (./chapters/05_conclusion.tex)
+ (./chapters/02_methods.tex
+Chapter 2.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmss' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
@@ -845,6 +841,25 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 
 
+
+]
+
+[4]
+
+[5])
+
+[6]
+\openout2 = `chapters/03_results.aux'.
+
+ (./chapters/03_results.tex)
+\openout2 = `chapters/04_discussion.aux'.
+
+ (./chapters/04_discussion.tex)
+\openout2 = `chapters/05_conclusion.aux'.
+
+ (./chapters/05_conclusion.tex)
+
+[7
 
 
 
@@ -858,32 +873,100 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 
 ]
+
+[8]
 \openout2 = `chapters/06_appendix.aux'.
 
- (./chapters/06_appendix.tex) (./thesis.aux (./chapters/00_title.aux) (./chapters/01_introduction.aux) (./chapters/02_methods.aux) (./chapters/03_results.aux) (./chapters/04_discussion.aux) (./chapters/05_conclusion.aux) (./chapters/06_appendix.aux))
+ (./chapters/06_appendix.tex
+Chapter 3.
+<figures/figA_SBC4_depth.png, id=223, 1011.78pt x 1192.455pt>
+File: figures/figA_SBC4_depth.png Graphic file (type png)
+<use figures/figA_SBC4_depth.png>
+Package pdftex.def Info: figures/figA_SBC4_depth.png  used on input line 14.
+(pdftex.def)             Requested size: 452.96826pt x 533.8523pt.
+
+
+[9
+
+
+]
+<figures/figA3_SBC23_depth.png, id=229, 1011.78pt x 1192.455pt>
+File: figures/figA3_SBC23_depth.png Graphic file (type png)
+<use figures/figA3_SBC23_depth.png>
+Package pdftex.def Info: figures/figA3_SBC23_depth.png  used on input line 21.
+(pdftex.def)             Requested size: 452.96826pt x 533.8523pt.
+
+
+[10 <./figures/figA_SBC4_depth.png>]
+<figures/figA2_SBC11_depth.png, id=235, 1011.78pt x 1192.455pt>
+File: figures/figA2_SBC11_depth.png Graphic file (type png)
+<use figures/figA2_SBC11_depth.png>
+Package pdftex.def Info: figures/figA2_SBC11_depth.png  used on input line 28.
+(pdftex.def)             Requested size: 452.96826pt x 533.8523pt.
+
+
+[11 <./figures/figA3_SBC23_depth.png>]
+<figures/figA1_SBC10_depth.png, id=242, 1011.78pt x 1192.455pt>
+File: figures/figA1_SBC10_depth.png Graphic file (type png)
+<use figures/figA1_SBC10_depth.png>
+Package pdftex.def Info: figures/figA1_SBC10_depth.png  used on input line 35.
+(pdftex.def)             Requested size: 452.96826pt x 533.8523pt.
+
+
+[12 <./figures/figA2_SBC11_depth.png>]
+
+[13 <./figures/figA1_SBC10_depth.png>]
+Overfull \hbox (8.00607pt too wide) in alignment at lines 49--54
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (8.00607pt too wide) in alignment at lines 54--59
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (8.00607pt too wide) in alignment at lines 59--61
+ [] [] [] [] 
+ []
+
+
+Overfull \hbox (8.00607pt too wide) in alignment at lines 61--128
+ [] [] [] [] 
+ []
+
+[14
+
+] [15]
+
+[16]
+
+[17
+
+]) (./thesis.aux (./chapters/00_title.aux) (./chapters/01_introduction.aux) (./chapters/02_methods.aux) (./chapters/03_results.aux) (./chapters/04_discussion.aux) (./chapters/05_conclusion.aux) (./chapters/06_appendix.aux))
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 4D47AFB7107A54A21B0D2C438B3C2BD0;103.
+(rerunfilecheck)             Checksum: 721C410639433929C41FF1061BAF7A69;2434.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 23880 strings out of 473190
- 418348 string characters out of 5715800
- 1298263 words of memory out of 5000000
- 46692 multiletter control sequences out of 15000+600000
- 579449 words of font info for 134 fonts, out of 8000000 for 9000
+ 24173 strings out of 473190
+ 425441 string characters out of 5715800
+ 1344474 words of memory out of 5000000
+ 46818 multiletter control sequences out of 15000+600000
+ 585824 words of font info for 195 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,5n,81p,1938b,1810s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on thesis.pdf (4 pages, 205765 bytes).
+ 75i,10n,93p,1938b,1844s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
+Output written on thesis.pdf (18 pages, 3350351 bytes).
 PDF statistics:
- 110 PDF objects out of 1000 (max. 8388607)
- 79 compressed objects within 1 object stream
- 10 named destinations out of 1000 (max. 500000)
- 41481 words of extra memory for PDF output out of 42996 (max. 10000000)
+ 361 PDF objects out of 1000 (max. 8388607)
+ 298 compressed objects within 3 object streams
+ 57 named destinations out of 1000 (max. 500000)
+ 45693 words of extra memory for PDF output out of 51595 (max. 10000000)
 
