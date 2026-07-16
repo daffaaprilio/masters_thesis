@@ -135,7 +135,7 @@ fig.set_size_inches(13, 6)
 
 axes_dict["intersections"].set_title(
     f"Variant set intersections — four sorghum accessions"
-    f"  (n = {total:,} records, SNP + INDEL + SV, combined annotated VCF)",
+    f"  (n = {total:,} sites)",
     fontsize=10, pad=8,
 )
 
