@@ -343,6 +343,16 @@ OUTPUT chapters/03_results.aux
 INPUT ./chapters/03_results.tex
 INPUT ./chapters/03_results.tex
 INPUT chapters/03_results.tex
+INPUT ./figures/fig01_effect_impact_combined.png
+INPUT ./figures/fig01_effect_impact_combined.png
+INPUT ./figures/fig01_effect_impact_combined.png
+INPUT ./figures/fig01_effect_impact_combined.png
+INPUT ./figures/fig01_effect_impact_combined.png
+INPUT ./figures/fig02_context_methylation_level.png
+INPUT ./figures/fig02_context_methylation_level.png
+INPUT ./figures/fig02_context_methylation_level.png
+INPUT ./figures/fig02_context_methylation_level.png
+INPUT ./figures/fig02_context_methylation_level.png
 INPUT ./chapters/04_discussion.tex
 INPUT ./chapters/04_discussion.tex
 OUTPUT chapters/04_discussion.aux

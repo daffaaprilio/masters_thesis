@@ -1,67 +1,85 @@
-% \chapter{Results}
+\chapter{Results}
 
-% \section{Sequencing Quality and Read Depth}
-% % TODO: Read yield & length
-% %   - Total reads and total bases per sample (post-basecalling)
-% %   - Read length: mean, median, N50
-% %   - Duplex read yield/rate (% duplex vs simplex)
-% % TODO: Read quality
-% %   - Mean/median Q score per sample
-% %   - % reads passing a quality threshold (e.g., Q >= 10)
-% % TODO: Alignment
-% %   - Mapping rate (% reads aligned to BTx623 reference)
-% %   - Mean mapping quality (MAPQ)
-% % TODO: Modified-base calling
-% %   - % of bases with MM/ML tags present (confirms methylation calling succeeded, cf. `modkit summary` check)
-% % TODO: SBC11-specific note
-% %   - Combined yield/depth after merging the three libraries (r0075, r0078, r0078-2)
-% % TODO: Depth interpretation (after table below is filled in)
-% %   - Note on mean-vs-stdev gap between "10 largest contigs" and "all contigs" (likely small/unplaced contigs or organellar DNA)
-% \newcolumntype{Y}{>{\centering\arraybackslash}X}
-% \begin{table}[htbp]
-%     \centering
-%     \caption{Read depth summary statistics per sample, restricted to the 10 largest contigs and across all contigs.}
-%     \label{tab:read-depth-summary}
-%     \begin{tabularx}{\columnwidth}{l YYY}
-%         \toprule
-%         Sample & Mean & Median & Stdev \\
-%         \midrule
-%         \multicolumn{4}{c}{\textit{10 Largest Contigs}} \\
-%         SBC4  & 23.86 & 24.00 & 36.24 \\
-%         SBC10 & 21.88 & 22.00 & 20.46 \\
-%         SBC11 & 26.18 & 26.00 & 50.95 \\
-%         SBC23 & 15.29 & 15.00 & 21.79 \\
-%         \midrule
-%         \multicolumn{4}{c}{\textit{All Contigs}} \\
-%         SBC4  & 26.99 & 24.00 & 138.71 \\
-%         SBC10 & 22.88 & 22.00 & 46.79 \\
-%         SBC11 & 30.31 & 26.00 & 185.77 \\
-%         SBC23 & 17.12 & 15.00 & 83.84 \\
-%         \bottomrule
-%     \end{tabularx}
-% \end{table}
+\section{Sequencing Quality and Read Depth}
+% TODO: Read yield & length
+%   - Total reads and total bases per sample (post-basecalling)
+%   - Read length: mean, median, N50
+%   - Duplex read yield/rate (% duplex vs simplex)
+% TODO: Read quality
+%   - Mean/median Q score per sample
+%   - % reads passing a quality threshold (e.g., Q >= 10)
+% TODO: Alignment
+%   - Mapping rate (% reads aligned to BTx623 reference)
+%   - Mean mapping quality (MAPQ)
+% TODO: Modified-base calling
+%   - % of bases with MM/ML tags present (confirms methylation calling succeeded, cf. `modkit summary` check)
+% TODO: SBC11-specific note
+%   - Combined yield/depth after merging the three libraries (r0075, r0078, r0078-2)
+% TODO: Depth interpretation (after table below is filled in)
+%   - Note on mean-vs-stdev gap between "10 largest contigs" and "all contigs" (likely small/unplaced contigs or organellar DNA)
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+\begin{table}[htbp]
+    \centering
+    \caption{Read depth summary statistics per sample, restricted to the 10 largest contigs and across all contigs.}
+    \label{tab:read-depth-summary}
+    \begin{tabularx}{\columnwidth}{l YYY}
+        \toprule
+        Sample & Mean & Median & Stdev \\
+        \midrule
+        \multicolumn{4}{c}{\textit{10 Largest Contigs}} \\
+        SBC4  & 23.86 & 24.00 & 36.24 \\
+        SBC10 & 21.88 & 22.00 & 20.46 \\
+        SBC11 & 26.18 & 26.00 & 50.95 \\
+        SBC23 & 15.29 & 15.00 & 21.79 \\
+        \midrule
+        \multicolumn{4}{c}{\textit{All Contigs}} \\
+        SBC4  & 26.99 & 24.00 & 138.71 \\
+        SBC10 & 22.88 & 22.00 & 46.79 \\
+        SBC11 & 30.31 & 26.00 & 185.77 \\
+        SBC23 & 17.12 & 15.00 & 83.84 \\
+        \bottomrule
+    \end{tabularx}
+\end{table}
 
-% \hspace{1em}Long-read Oxford Nanopore Technology sequencing of the four accessions yielded a desirable read depth, with mean coverage across the ten largest contigs ranging from 15.29$\times$ (SBC23) to 26.18$\times$ (SBC11) (Table~\ref{tab:read-depth-summary}). These ten largest contigs correspond to the ten nuclear chromosomes of the BTx623 reference assembly, each spanning tens of megabases and together representing the chromosome-scale portion of the genome; the mitochondrial and chloroplast genomes, together with a number of small unplaced scaffolds, are considerably shorter and are therefore only captured once all contigs are considered. When depth is instead computed across all contigs, the mean coverage per sample increases modestly (17.12--30.31$\times$), but the standard deviation increases sharply relative to the nuclear-chromosome-only figures.
+\hspace{1em}Long-read Oxford Nanopore Technology sequencing of the four accessions yielded a desirable read depth, with mean coverage across the ten largest contigs ranging from 15.29$\times$ (SBC23) to 26.18$\times$ (SBC11) (Table~\ref{tab:read-depth-summary}). These ten largest contigs correspond to the ten nuclear chromosomes of the BTx623 reference assembly, each spanning tens of megabases and together representing the chromosome-scale portion of the genome; the mitochondrial and chloroplast genomes, together with a number of small unplaced scaffolds, are considerably shorter and are therefore only captured once all contigs are considered. When depth is instead computed across all contigs, the mean coverage per sample increases modestly (17.12--30.31$\times$), but the standard deviation increases sharply relative to the nuclear-chromosome-only figures (Appendix \ref{fig:depth-sbc4} - \ref{fig:depth-sbc23}).
 
-% \section{Variant Landscape}
-% \hspace{1em}Variants were called for each accession against the BTx623 reference and annotated for functional consequence with SnpEff, yielding between 2.14 million (SBC23) and 2.95 million (SBC4) variants per accession. For each variant carried by a given accession, the most severe predicted impact among its annotated effects was retained, and these were summarised into SnpEff's four impact categories: HIGH, MODERATE, LOW, and MODIFIER (Figure~\ref{fig:effect-impact-combined}). The distribution is dominated by MODIFIER-impact variants (96.3--96.4\% of calls in every accession), consistent with the expectation that most genomic variation in a whole-genome resequencing experiment falls outside coding sequence -- in intergenic, intronic, or up-/downstream regions. Variants predicted to alter protein sequence without disrupting the reading frame (LOW and MODERATE impact, e.g.\ synonymous and missense changes) each account for a further 1.6--1.8\%, while HIGH-impact variants -- those predicted to severely disrupt gene function, such as stop-gains, frameshifts, or splice-site disruptions -- are rare, at 0.23--0.24\% of calls. Critically, this aggregate impact distribution is essentially uniform across all four accessions irrespective of TAA or juiciness phenotype, indicating that phenotypic differences are not reflected in the overall severity profile of each accession's variant set; any phenotype-associated signal must instead be sought in the identity and sharing pattern of specific variants and the genes they affect, which is the basis for the candidate gene ranking presented in the following chapter.
+\section{Variant Landscape}
+\hspace{1em}Variants were called for each accession against the BTx623 reference and annotated for functional consequence with SnpEff, yielding between 2.14 million (SBC23) and 2.95 million (SBC4) variants per accession (Table~\ref{tab:variant-counts}). For each variant carried by a given accession, the most severe predicted impact among its annotated effects was retained, and these were summarised into SnpEff's four impact categories: HIGH, MODERATE, LOW, and MODIFIER (Figure~\ref{fig:effect-impact-combined}). The distribution is dominated by MODIFIER-impact variants (96.3--96.4\% of calls in every accession), consistent with the expectation that most genomic variation in a whole-genome resequencing experiment falls outside coding sequence -- in intergenic, intronic, or up-/downstream regions. Variants predicted to alter protein sequence without disrupting the reading frame (LOW and MODERATE impact, e.g.\ synonymous and missense changes) each account for a further 1.6--1.8\%, while HIGH-impact variants, those predicted to severely disrupt gene function, such as stop-gains, frameshifts, or splice-site disruptions, are rare, at 0.23--0.24\% of calls.
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.4\textwidth]{figures/fig01_effect_impact_combined.png}
-%     \caption{Effect impact distribution per sample, computed from the combined annotated VCF.}
-%     \label{fig:effect-impact-combined}
-% \end{figure}
+\begin{table}[htbp]
+    \centering
+    \begin{tabularx}{0.4\columnwidth}{c Y}
+        \toprule
+        Sample & Variants \\
+        \midrule
+        SBC4  & 2{,}952{,}598 \\
+        SBC10 & 2{,}181{,}149 \\
+        SBC11 & 2{,}381{,}391 \\
+        SBC23 & 2{,}140{,}298 \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Total number of variants called per accession, from the combined annotated VCF.}
+    \label{tab:variant-counts}
+\end{table}
 
-% \section{Methylation Landscape}
-% \hspace{1em}Genome-wide 5mC methylation levels were computed for each accession from the bedmethyl pileups, stratified by sequence context (CpG, CHG, and CHH) (Figure~\ref{fig:context-methylation-level}). All four accessions show the same characteristic plant methylation architecture, with mean methylation highest at CpG sites (53--59\%), intermediate at CHG sites (28--33\%), and lowest at CHH sites (1.2--1.5\%). This CpG $>$ CHG $\gg$ CHH ordering mirrors the distinct maintenance pathways that act on each context in plants and confirms that the modified-base calls recovered from duplex ONT sequencing reproduce the expected genome-wide methylation landscape. As with the variant impact distribution, the context-level methylation profile is broadly similar across accessions, with only modest inter-accession variation (e.g.\ CpG methylation ranging from 53.3\% in SBC10 to 58.5\% in SBC23); this baseline landscape motivates the differentially methylated region (DMR) analysis presented later, which localises phenotype-associated methylation changes to specific genomic regions rather than genome-wide shifts.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{figures/fig01_effect_impact_combined.png}
+    \caption{Effect impact distribution per sample, computed from the combined annotated VCF.}
+    \label{fig:effect-impact-combined}
+\end{figure}
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=0.6\textwidth]{figures/fig02_context_methylation_level.png}
-%     \caption{Methylation level by genomic context per sample.}
-%     \label{fig:context-methylation-level}
-% \end{figure}
+\hspace{1em}Test
+
+\section{Methylation Landscape}
+\hspace{1em}Genome-wide 5mC methylation levels were computed for each accession from the bedmethyl pileups, stratified by sequence context (CpG, CHG, and CHH) (Figure~\ref{fig:context-methylation-level}). All four accessions show the same characteristic plant methylation architecture, with mean methylation highest at CpG sites (53--59\%), intermediate at CHG sites (28--33\%), and lowest at CHH sites (1.2--1.5\%). This CpG $>$ CHG $\gg$ CHH ordering mirrors the distinct maintenance pathways that act on each context in plants and confirms that the modified-base calls recovered from duplex ONT sequencing reproduce the expected genome-wide methylation landscape. As with the variant impact distribution, the context-level methylation profile is broadly similar across accessions, with only modest inter-accession variation (e.g.\ CpG methylation ranging from 53.3\% in SBC10 to 58.5\% in SBC23); this baseline landscape motivates the differentially methylated region (DMR) analysis presented later, which localises phenotype-associated methylation changes to specific genomic regions rather than genome-wide shifts.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{figures/fig02_context_methylation_level.png}
+    \caption{Methylation level by genomic context per sample.}
+    \label{fig:context-methylation-level}
+\end{figure}
 
 % \section{Positive control: D-gene}
 % \subsection{Variant analysis}

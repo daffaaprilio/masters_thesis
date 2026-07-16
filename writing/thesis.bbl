@@ -77,6 +77,7 @@
       \field{langid}{english}
       \field{month}{1}
       \field{number}{3}
+      \field{shortjournal}{J. Exp. Bot.}
       \field{title}{Progress and Challenges in Sorghum Biotechnology, a Multipurpose Feedstock for the Bioeconomy}
       \field{urlday}{13}
       \field{urlmonth}{7}
@@ -137,7 +138,7 @@
       \field{langid}{english}
       \field{month}{12}
       \field{number}{32}
-      \field{shortjournal}{Critical Reviews in Food Science and Nutrition}
+      \field{shortjournal}{Crit. Rev. Food Sci. Nutr.}
       \field{shorttitle}{Sweet Sorghum Juice Clarification and Concentration}
       \field{title}{Sweet Sorghum Juice Clarification and Concentration: A Review}
       \field{urlday}{13}
@@ -194,7 +195,6 @@
       \field{langid}{english}
       \field{month}{2}
       \field{number}{4}
-      \field{shortjournal}{Foods}
       \field{title}{Aconitic {{Acid Recovery}} from {{Renewable Feedstock}} and {{Review}} of {{Chemical}} and {{Biological Applications}}}
       \field{urlday}{28}
       \field{urlmonth}{5}
@@ -352,7 +352,7 @@
       \field{journaltitle}{Plant and Cell Physiology}
       \field{month}{6}
       \field{number}{6}
-      \field{shortjournal}{Plant Cell Physiol}
+      \field{shortjournal}{Plant Cell Physiol.}
       \field{shorttitle}{{{ATTED-II}} V11}
       \field{title}{{{ATTED-II}} V11: {{A Plant Gene Coexpression Database Using}} a {{Sample Balancing Technique}} by {{Subagging}} of {{Principal Components}}}
       \field{urlday}{13}
@@ -525,7 +525,7 @@
       \field{journaltitle}{Journal of Plant Physiology}
       \field{langid}{english}
       \field{month}{2}
-      \field{shortjournal}{Journal of Plant Physiology}
+      \field{shortjournal}{J. Plant Physiol.}
       \field{shorttitle}{Aconitate Isomerase from Maize Leaves}
       \field{title}{Aconitate Isomerase from Maize Leaves: {{Light-dependent}} Expression and Kinetic Properties}
       \field{urlday}{1}
@@ -582,6 +582,7 @@
       \field{langid}{english}
       \field{month}{4}
       \field{number}{4}
+      \field{shortjournal}{Plant Physiol.}
       \field{shorttitle}{Mitochondria in Photosynthetic Cells}
       \field{title}{Mitochondria in Photosynthetic Cells: {{Coordinating}} Redox Control and Energy Balance}
       \field{urlday}{2}
@@ -931,7 +932,7 @@
       \field{langid}{english}
       \field{month}{12}
       \field{number}{12}
-      \field{shortjournal}{Nat Comput Sci}
+      \field{shortjournal}{Nat. Comput. Sci.}
       \field{title}{Symphonizing Pileup and Full-Alignment for Deep Learning-Based Long-Read Variant Calling}
       \field{urlday}{2}
       \field{urlmonth}{7}
@@ -1046,7 +1047,7 @@
       \field{langid}{english}
       \field{month}{10}
       \field{number}{10}
-      \field{shortjournal}{Nat Biotechnol}
+      \field{shortjournal}{Nat. Biotechnol.}
       \field{title}{Detection of Mosaic and Population-Level Structural Variants with {{Sniffles2}}}
       \field{urlday}{26}
       \field{urlmonth}{6}
@@ -1135,7 +1136,7 @@
       \field{langid}{english}
       \field{month}{4}
       \field{number}{2}
-      \field{shortjournal}{Fly}
+      \field{shortjournal}{Fly (Austin)}
       \field{shorttitle}{A Program for Annotating and Predicting the Effects of Single Nucleotide Polymorphisms, {{SnpEff}}}
       \field{title}{A Program for Annotating and Predicting the Effects of Single Nucleotide Polymorphisms, {{SnpEff}}: {{SNPs}} in the Genome of {{Drosophila}} Melanogaster Strain W{\textsuperscript{1118}} ; Iso-2; Iso-3}
       \field{urlday}{2}
@@ -1205,7 +1206,7 @@
       \field{langid}{english}
       \field{month}{1}
       \field{number}{1}
-      \field{shortjournal}{Nat Protoc}
+      \field{shortjournal}{Nat. Protoc.}
       \field{title}{{{SIFT}} Missense Predictions for Genomes}
       \field{urlday}{2}
       \field{urlmonth}{7}
