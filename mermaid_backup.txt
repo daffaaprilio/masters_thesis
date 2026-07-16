@@ -1,0 +1,54 @@
+flowchart TB
+%%  subgraph ACC["Four sorghum accessions"]
+%%         SBC04["SBC04"]
+%%         SBC10["SBC10"]
+%%         SBC11["SBC11"]
+%%         SBC23["SBC23"]
+%%   end
+%%  subgraph SBC10RES["SBC10 analysis outputs"]
+%%         SBC10DMR["Differential methylation\nSBC10 vs others"]
+%%         VARPSBC10["SBC10-private variants"]
+%%   end
+%%     SBC10 -- "ONT R10.4.1 duplex" --> SEQ["Long-read sequencing\n(Dorado v1.3.0, SUP model)"]
+%%     SBC04 -- "ONT R10.4.1 duplex" --> SEQ
+%%     SBC11 -- "ONT R10.4.1 duplex" --> SEQ
+%%     SBC23 -- "ONT R10.4.1 duplex" --> SEQ
+%%     SEQ -- BTx623 reference genome --> VAR["Variant calling\n(Clair3)"]
+%%     SEQ --> METH["Methylation profiling\n(modkit pileup)"]
+%%     METH --> DMR["Differential methylation analysis\n(R DSS package)"]
+%%     VAR --> VCFP["VCF Processing\n(i.e., filtering, WhatsHap phasing)"]
+%%     VCFP --> ISEC["Sample-private variant profiling\n(bcftools isec)"]
+%%     DMR --> SBC10DMR
+%%     ISEC --> VARPSBC10
+
+ subgraph s1["Genomics approach"]
+        VARPSBC10["Candidate causative variants"]
+        ANNOTVARPSBC10["Annotated variant sites"]
+        VARGENES["Genes containing variant sites"]
+        VARGENESSORT["Ranked genes list from genomics"]
+  end
+ subgraph s2["Epigenomics approach"]
+        DMRGENES["Genes with\nDMR-ed promoter"]
+        DMRGENESSORT["Ranked genes list from epigenomics"]
+  end
+ subgraph s3["Refining search with co-expression data"]
+        KNOWNGENE["Known genes whose expression pattern mirrors the observed phenotype"]
+        LIT["Literature"]
+        KNOWNCOEX["Genes co-expressed with those known genes"]
+  end
+
+    VARPSBC10 -- SnpEFF & SIFT annotation --> ANNOTVARPSBC10
+    ANNOTVARPSBC10 -- "Variant sites  to genes" --> VARGENES
+    VARGENES -- "Sorted by combined SnpEFF & SIFT score" --> VARGENESSORT
+    VARGENESSORT --> REFININGGENOME["Ranked genomics candidate genes list"]
+    LIT --> KNOWNGENE
+    KNOWNGENE -- "Search for co-expressed genes with ATTED-II" --> KNOWNCOEX
+    KNOWNCOEX --> REFININGEPIGENOME["Integrate ranked candidate genes list with co-expressed gene modules"]
+    KNOWNCOEX --> REFININGGENOME   
+    DMRGENES -- "Sorted by methylation difference value" --> DMRGENESSORT
+    DMRGENESSORT --> REFININGEPIGENOME["Ranked epigenomics candidate genes list"]
+    
+    style s3 fill:#e6e6e6
+    style REFININGGENOME fill:#dff0ff
+    style REFININGEPIGENOME fill:#dff0ff
+    %%     style ACC fill:#e6e6e6

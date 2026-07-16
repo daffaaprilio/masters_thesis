@@ -2,12 +2,14 @@
 """
 Variant intersection UpSet plot across four sorghum samples.
 
-Reads the intersected variant groups produced by the main pipeline
-(rule intersect_group → results/variant_groups/{group}.vcf.gz). Each group VCF
-is one UpSet cell: its member samples define the membership and its record count
-(read straight from the VCF index — no decompression) is the intersection size.
-This script does NOT run bcftools isec itself; run the pipeline first so the
-group VCFs exist.
+Reads the pipeline's final combined multi-sample VCF (rule annotate_all →
+results/combined/all.annotated.vcf.gz), which concatenates both tracks into one
+file: the SNP/indel track (SnpEff+SIFT4G, merged.sift4g.vcf.gz) and the SV track
+(SnpEff, snpeff_sv/combined.annotated.vcf.gz). There is no per-group VCF to read
+counts from anymore — each record's group membership is derived on the fly from
+its genotypes (a sample "has" a record if its GT carries an ALT allele, i.e. HET
+or HOM_ALT; "./." and "0/0" don't count), the same GT-presence semantics the
+pipeline itself uses to split SV records into sample-sharing groups.
 
 Run via:
     ./docker/run.sh python3 workflow/scripts/variant_upset.py
@@ -15,19 +17,20 @@ Run via:
 Output: analysis/figures/variant_upset.png
 """
 
-import subprocess
 import logging
 import warnings
+from collections import Counter
 from datetime import datetime
 from itertools import combinations
 from pathlib import Path
 
+import cyvcf2
 import matplotlib.pyplot as plt
 from upsetplot import UpSet, from_memberships
 
 # ── Config ─────────────────────────────────────────────────────────────────────
 ROOT         = Path(__file__).resolve().parent.parent.parent
-VARGROUP_DIR = ROOT / "results/variant_groups"
+COMBINED_VCF = ROOT / "results/combined/all.annotated.vcf.gz"
 OUT_DIR      = ROOT / "analysis/figures"
 LOG_DIR      = ROOT / "analysis/logs"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -65,55 +68,60 @@ plt.rcParams.update({
 })
 
 
-# ── Read intersection sizes from the pipeline's group VCFs ──────────────────────
-def count_records(vcf: Path) -> int:
-    """Number of variant records in a bgzipped+indexed VCF, read from its index."""
-    result = subprocess.run(
-        ["bcftools", "index", "--nrecords", str(vcf)],
-        check=True, capture_output=True, text=True,
-    )
-    return int(result.stdout.strip())
+# ── Tally intersection sizes directly from genotypes ────────────────────────────
+# cyvcf2 gt_types encoding: 0=HOM_REF, 1=HET, 2=UNKNOWN (missing), 3=HOM_ALT.
+HAS_ALT = (1, 3)
 
-
-logging.info(f"Reading intersected variant groups from {VARGROUP_DIR}")
-
-memberships: list[list[str]] = []
-counts: list[int] = []
-missing: list[Path] = []
-
-# Every non-empty subset of SAMPLES, in canonical order — mirrors VARGROUPS in
-# workflow/Snakefile so the {group}.vcf.gz filenames line up.
-for k in range(1, len(SAMPLES) + 1):
-    for combo in combinations(range(len(SAMPLES)), k):
-        members = [SAMPLES[i] for i in combo]
-        label   = "_".join(members)
-        vcf     = VARGROUP_DIR / f"{label}.vcf.gz"
-        if not vcf.exists():
-            missing.append(vcf)
-            continue
-        n = count_records(vcf)
-        memberships.append([SAMPLE_LABELS[s] for s in members])
-        counts.append(n)
-        logging.info(f"  {label:<28}  {n:>10,}")
-
-if missing:
-    listing = "\n".join(f"  - {p}" for p in missing)
+if not COMBINED_VCF.exists():
     raise SystemExit(
-        f"Missing {len(missing)} group VCF(s):\n{listing}\n"
-        "Run the pipeline first to produce them, e.g.:\n"
-        "  ./docker/run.sh snakemake <results/variant_groups/{group}.vcf.gz ...>"
+        f"Missing combined VCF: {COMBINED_VCF}\n"
+        "Run the pipeline first, e.g.:\n"
+        "  ./docker/run.sh snakemake results/combined/all.annotated.vcf.gz --cores <N>"
     )
 
-total = sum(counts)
-logging.info(f"Total variant sites across all groups: {total:,}")
+logging.info(f"Reading combined VCF: {COMBINED_VCF}")
+vcf = cyvcf2.VCF(str(COMBINED_VCF))
+sample_idx = [vcf.samples.index(s) for s in SAMPLES]
+
+counts: Counter = Counter()
+n_snp = n_sv = n_no_member = 0
+
+for rec in vcf:
+    gt = rec.gt_types
+    members = tuple(s for s, i in zip(SAMPLES, sample_idx) if gt[i] in HAS_ALT)
+    if not members:
+        n_no_member += 1
+        continue
+    counts[members] += 1
+    if rec.INFO.get("SVTYPE") is not None:
+        n_sv += 1
+    else:
+        n_snp += 1
+
+if n_no_member:
+    logging.warning(f"{n_no_member:,} record(s) had no ALT-carrying sample; skipped")
+
+total = n_snp + n_sv
+logging.info(f"Total variant records: {total:,}  ({n_snp:,} SNP/INDEL, {n_sv:,} SV)")
 
 # ── Build UpSet data ───────────────────────────────────────────────────────────
-# One row per membership combination; the value is that combination's site count.
-data = from_memberships(memberships, data=counts)
+# Every non-empty subset of SAMPLES, in canonical order — same 15 groups used
+# elsewhere in the pipeline (results/variant_groups, results/sv_groups labels).
+memberships: list[list[str]] = []
+group_counts: list[int] = []
+for k in range(1, len(SAMPLES) + 1):
+    for combo in combinations(SAMPLES, k):
+        n = counts.get(combo, 0)
+        memberships.append([SAMPLE_LABELS[s] for s in combo])
+        group_counts.append(n)
+        logging.info(f"  {'_'.join(combo):<28}  {n:>10,}")
+
+# One row per membership combination; the value is that combination's record count.
+data = from_memberships(memberships, data=group_counts)
 
 # ── Plot ───────────────────────────────────────────────────────────────────────
 # Let upsetplot own the figure to avoid GridSpec conflicts with a pre-created fig.
-# subset_size="sum" sums each combination's site count (one row per combination).
+# subset_size="sum" sums each combination's record count (one row per combination).
 upset = UpSet(
     data,
     subset_size="sum",
@@ -127,7 +135,7 @@ fig.set_size_inches(13, 6)
 
 axes_dict["intersections"].set_title(
     f"Variant set intersections — four sorghum accessions"
-    f"  (n = {total:,} sites, SNP + INDEL, phased VCFs)",
+    f"  (n = {total:,} records, SNP + INDEL + SV, combined annotated VCF)",
     fontsize=10, pad=8,
 )
 
