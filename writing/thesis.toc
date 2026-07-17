@@ -23,8 +23,14 @@
 \contentsline {subsection}{\numberline {3.5.1}Variant analysis}{15}{subsection.3.5.1}%
 \contentsline {subsection}{\numberline {3.5.2}Differentially methylated region analysis}{16}{subsection.3.5.2}%
 \contentsline {subsection}{\numberline {3.5.3}Gene co-expression analysis}{17}{subsection.3.5.3}%
-\contentsline {chapter}{\numberline {4}Appendix}{21}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Read Depth by Chromosomal Position}{21}{section.4.1}%
-\contentsline {section}{\numberline {4.2}dPCD Gene Module (Literature Curation)}{26}{section.4.2}%
-\contentsline {section}{\numberline {4.3}dPCD gene module co-expression network}{29}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Phytochrome-Upregulated Gene Module (Literature Curation)}{30}{section.4.4}%
+\contentsline {chapter}{\numberline {4}Discussion}{19}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Construction of the platform}{19}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Limitation}{20}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Future direction}{20}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Conclusion}{20}{section.4.4}%
+\contentsline {chapter}{\numberline {A}Appendix}{25}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Read Depth by Chromosomal Position}{25}{section.A.1}%
+\contentsline {section}{\numberline {A.2}dPCD Gene Module (Literature Curation)}{30}{section.A.2}%
+\contentsline {section}{\numberline {A.3}dPCD gene module co-expression network}{33}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Phytochrome-Upregulated Gene Module (Literature Curation)}{34}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Supplementary Candidate Gene Lists}{35}{section.A.5}%
