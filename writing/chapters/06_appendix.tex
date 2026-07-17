@@ -128,6 +128,17 @@
 \end{longtable}
 
 \clearpage
+\section{dPCD gene module co-expression network}
+\hspace{1em}To query the 66 genes in the dPCD gene module, sorghum gene ID from the previous table (Table~\ref{tab:dpcd-broad}) is fed into the query box of the ATTED-II NetworkDrawer (\url{https://atted.jp/top_draw/#NetworkDrawer}). Query genes are indicated in bold outline. Green, yellow, white, and grey colors indicate predicted subcellular localizations (TargetP) of the genes in the chloroplast, mitochondria, endoplasmic reticulum, and other organelles.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\columnwidth]{figures/dpcd_module.png}
+    \caption{Co-expression network of all 66 genes in the dPCD module}
+    \label{fig:dpcd-module}
+\end{figure}
+
+\clearpage
 \section{Phytochrome-Upregulated Gene Module (Literature Curation)}
 \hspace{1em}The phytochrome-upregulated module used as the co-expression query set for the TAA case study's aconitate isomerase candidate ranking was curated from \textit{Arabidopsis thaliana} genes reported to be induced by red light more strongly than by far-red light \cite{eprintsevAconitateIsomeraseMaize2021, igamberdievMitochondriaPhotosyntheticCells2023}, then mapped to \textit{Sorghum bicolor} orthologs via Ensembl Plants BioMart and resolved to sorghum EGI identifiers using the NCBI \texttt{gene\_info} table for \textit{Sorghum bicolor} (taxonomy ID 4558). Of the four literature-curated \textit{Arabidopsis} genes, three had an identifiable sorghum ortholog (Table~\ref{tab:phy-module}); the fourth, the aquaporin gene AT2G16850, had no identifiable sorghum ortholog and was excluded. This 3-gene module is the co-expression query set used to rank isomerase-family candidates for aconitate isomerase.
 

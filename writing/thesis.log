@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.30)  16 JUL 2026 09:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.5.30)  17 JUL 2026 15:02
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -566,53 +566,59 @@ Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen186
 \c@nlinenum=\count437
 \TeXr@lab=\toks30
+) (/usr/local/texlive/2025/texmf-dist/tex/latex/multirow/multirow.sty
+Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
+\multirow@colwidth=\skip83
+\multirow@cntb=\count438
+\multirow@dima=\skip84
+\bigstrutjot=\dimen187
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2020/01/02 v5.9 Page Geometry
  (/usr/local/texlive/2025/texmf-dist/tex/generic/iftex/ifvtex.sty
 Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
-\Gm@cnth=\count438
-\Gm@cntv=\count439
-\c@Gm@tempcnt=\count440
-\Gm@bindingoffset=\dimen187
-\Gm@wd@mp=\dimen188
-\Gm@odd@mp=\dimen189
-\Gm@even@mp=\dimen190
-\Gm@layoutwidth=\dimen191
-\Gm@layoutheight=\dimen192
-\Gm@layouthoffset=\dimen193
-\Gm@layoutvoffset=\dimen194
+\Gm@cnth=\count439
+\Gm@cntv=\count440
+\c@Gm@tempcnt=\count441
+\Gm@bindingoffset=\dimen188
+\Gm@wd@mp=\dimen189
+\Gm@odd@mp=\dimen190
+\Gm@even@mp=\dimen191
+\Gm@layoutwidth=\dimen192
+\Gm@layoutheight=\dimen193
+\Gm@layouthoffset=\dimen194
+\Gm@layoutvoffset=\dimen195
 \Gm@dimlist=\toks31
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/titlesec/titlesec.sty
 Package: titlesec 2025/01/04 v2.17 Sectioning titles
 \ttl@box=\box64
-\beforetitleunit=\skip83
-\aftertitleunit=\skip84
-\ttl@plus=\dimen195
-\ttl@minus=\dimen196
+\beforetitleunit=\skip85
+\aftertitleunit=\skip86
+\ttl@plus=\dimen196
+\ttl@minus=\dimen197
 \ttl@toksa=\toks32
-\titlewidth=\dimen197
-\titlewidthlast=\dimen198
-\titlewidthfirst=\dimen199
+\titlewidth=\dimen198
+\titlewidthlast=\dimen199
+\titlewidthfirst=\dimen256
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype.sty
 Package: microtype 2025/02/11 v3.2a Micro-typographical refinements (RS)
 \MT@toks=\toks33
 \MT@tempbox=\box65
-\MT@count=\count441
+\MT@count=\count442
 LaTeX Info: Redefining \noprotrusionifhmode on input line 1087.
 LaTeX Info: Redefining \leftprotrusion on input line 1088.
 \MT@prot@toks=\toks34
 LaTeX Info: Redefining \rightprotrusion on input line 1107.
 LaTeX Info: Redefining \textls on input line 1449.
-\MT@outer@kern=\dimen256
+\MT@outer@kern=\dimen257
 LaTeX Info: Redefining \microtypecontext on input line 2053.
 LaTeX Info: Redefining \textmicrotypecontext on input line 2070.
-\MT@listname@count=\count442
+\MT@listname@count=\count443
  (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype-pdftex.def
 File: microtype-pdftex.def 2025/02/11 v3.2a Definitions specific to pdftex (RS)
 LaTeX Info: Redefining \lsstyle on input line 944.
 LaTeX Info: Redefining \lslig on input line 944.
-\MT@outer@space=\skip85
+\MT@outer@space=\skip87
 )
 Package microtype Info: Loading configuration file microtype.cfg.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/microtype/microtype.cfg
@@ -623,12 +629,12 @@ LaTeX Info: Redefining \microtypesetup on input line 3065.
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 ) (/usr/local/texlive/2025/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2025/02/14 v25.4 The multilingual framework for pdfLaTeX, LuaLaTeX and XeLaTeX
-\babel@savecnt=\count443
-\U@D=\dimen257
+\babel@savecnt=\count444
+\U@D=\dimen258
 \l@unhyphenated=\language91
  (/usr/local/texlive/2025/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read3
-\bbl@dirlevel=\count444
+\bbl@dirlevel=\count445
  (/usr/local/texlive/2025/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
@@ -642,12 +648,12 @@ Package babel Info: Importing font and identification data for english
 (babel)             from babel-en.ini. Reported on input line 11.
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/csquotes/csquotes.sty
 Package: csquotes 2024-04-04 v5.2o context-sensitive quotations (JAW)
-\csq@reset=\count445
-\csq@gtype=\count446
-\csq@glevel=\count447
-\csq@qlevel=\count448
-\csq@maxlvl=\count449
-\csq@tshold=\count450
+\csq@reset=\count446
+\csq@gtype=\count447
+\csq@glevel=\count448
+\csq@qlevel=\count449
+\csq@maxlvl=\count450
+\csq@tshold=\count451
 \csq@ltx@everypar=\toks35
  (/usr/local/texlive/2025/texmf-dist/tex/latex/csquotes/csquotes.def
 File: csquotes.def 2024-04-04 v5.2o csquotes generic definitions (JAW)
@@ -664,36 +670,36 @@ Package csquotes Info: Redefining alias 'default' -> 'english'.
  (./thesis.aux (./chapters/00_title.aux) (./chapters/01_introduction.aux) (./chapters/02_methods.aux) (./chapters/03_results.aux) (./chapters/04_discussion.aux) (./chapters/05_conclusion.aux) (./chapters/06_appendix.aux))
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
  (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count451
-\scratchdimen=\dimen258
+\scratchcounter=\count452
+\scratchdimen=\dimen259
 \scratchbox=\box66
-\nofMPsegments=\count452
-\nofMParguments=\count453
+\nofMPsegments=\count453
+\nofMParguments=\count454
 \everyMPshowfont=\toks36
-\MPscratchCnt=\count454
-\MPscratchDim=\dimen259
-\MPnumerator=\count455
-\makeMPintoPDFobject=\count456
+\MPscratchCnt=\count455
+\MPscratchDim=\dimen260
+\MPnumerator=\count456
+\makeMPintoPDFobject=\count457
 \everyMPtoPDFconversion=\toks37
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -701,7 +707,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 30.
+Package hyperref Info: Link coloring OFF on input line 31.
  (./thesis.out) (./thesis.out)
 \@outlinefile=\write4
 \openout4 = `thesis.out'.
@@ -719,8 +725,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'thesis.bbl' found.
  (./thesis.bbl)
-Package biblatex Info: Reference section=0 on input line 30.
-Package biblatex Info: Reference segment=0 on input line 30.
+Package biblatex Info: Reference section=0 on input line 31.
+Package biblatex Info: Reference segment=0 on input line 31.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
@@ -758,20 +764,20 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Info: Redefining \microtypecontext on input line 30.
-Package microtype Info: Applying patch `item' on input line 30.
-Package microtype Info: Applying patch `toc' on input line 30.
-Package microtype Info: Applying patch `eqnum' on input line 30.
-Package microtype Info: Applying patch `footnote' on input line 30.
-Package microtype Info: Applying patch `verbatim' on input line 30.
-LaTeX Info: Redefining \microtypesetup on input line 30.
+LaTeX Info: Redefining \microtypecontext on input line 31.
+Package microtype Info: Applying patch `item' on input line 31.
+Package microtype Info: Applying patch `toc' on input line 31.
+Package microtype Info: Applying patch `eqnum' on input line 31.
+Package microtype Info: Applying patch `footnote' on input line 31.
+Package microtype Info: Applying patch `verbatim' on input line 31.
+LaTeX Info: Redefining \microtypesetup on input line 31.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 30.
+LaTeX Info: Redefining \showhyphens on input line 31.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -807,7 +813,7 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.34 \include{chapters/01_introduction}
+l.35 \include{chapters/01_introduction}
                                         [1
 
 
@@ -831,10 +837,6 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmss' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
 
 
 [3
@@ -843,6 +845,11 @@ Package microtype Info: Loading generic protrusion settings for font family
 
 
 ]
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
 
 [4]
 
@@ -861,21 +868,83 @@ Chapter 3.
 
 
 ]
-<figures/fig01_effect_impact_combined.png, id=198, 382.0674pt x 335.8146pt>
+<figures/fig01_effect_impact_combined.png, id=258, 382.0674pt x 335.8146pt>
 File: figures/fig01_effect_impact_combined.png Graphic file (type png)
 <use figures/fig01_effect_impact_combined.png>
 Package pdftex.def Info: figures/fig01_effect_impact_combined.png  used on input line 67.
 (pdftex.def)             Requested size: 181.18454pt x 159.24713pt.
-<figures/fig02_context_methylation_level.png, id=201, 500.5902pt x 319.9152pt>
+<figures/all_variant_upset.png, id=261, 939.51pt x 433.62pt>
+File: figures/all_variant_upset.png Graphic file (type png)
+<use figures/all_variant_upset.png>
+Package pdftex.def Info: figures/all_variant_upset.png  used on input line 76.
+(pdftex.def)             Requested size: 452.96826pt x 209.06154pt.
+
+
+[8 <./figures/fig01_effect_impact_combined.png>]
+<figures/fig02_context_methylation_level.png, id=269, 500.5902pt x 319.9152pt>
 File: figures/fig02_context_methylation_level.png Graphic file (type png)
 <use figures/fig02_context_methylation_level.png>
-Package pdftex.def Info: figures/fig02_context_methylation_level.png  used on input line 79.
+Package pdftex.def Info: figures/fig02_context_methylation_level.png  used on input line 86.
 (pdftex.def)             Requested size: 271.7837pt x 173.69864pt.
 
 
-[8 <./figures/fig01_effect_impact_combined.png>])
+[9 <./figures/all_variant_upset.png> <./figures/fig02_context_methylation_level.png>]
 
-[9 <./figures/fig02_context_methylation_level.png>]
+[10]
+<figures/fig03_variant_score.png, id=284, 570.933pt x 354.123pt>
+File: figures/fig03_variant_score.png Graphic file (type png)
+<use figures/fig03_variant_score.png>
+Package pdftex.def Info: figures/fig03_variant_score.png  used on input line 127.
+(pdftex.def)             Requested size: 217.42282pt x 134.8545pt.
+<figures/fig03a_gene_score.png, id=285, 570.933pt x 354.123pt>
+File: figures/fig03a_gene_score.png Graphic file (type png)
+<use figures/fig03a_gene_score.png>
+Package pdftex.def Info: figures/fig03a_gene_score.png  used on input line 134.
+(pdftex.def)             Requested size: 217.42282pt x 134.8545pt.
+<figures/fig03d_variant_score.png, id=286, 570.933pt x 354.123pt>
+File: figures/fig03d_variant_score.png Graphic file (type png)
+<use figures/fig03d_variant_score.png>
+Package pdftex.def Info: figures/fig03d_variant_score.png  used on input line 146.
+(pdftex.def)             Requested size: 217.42282pt x 134.8545pt.
+<figures/fig03e_gene_score.png, id=287, 570.933pt x 354.123pt>
+File: figures/fig03e_gene_score.png Graphic file (type png)
+<use figures/fig03e_gene_score.png>
+Package pdftex.def Info: figures/fig03e_gene_score.png  used on input line 153.
+(pdftex.def)             Requested size: 217.42282pt x 134.8545pt.
+
+
+[11 <./figures/fig03_variant_score.png> <./figures/fig03a_gene_score.png> <./figures/fig03d_variant_score.png> <./figures/fig03e_gene_score.png>]
+
+[12]
+
+[13]
+<figures/dpcd_module_8083682.png, id=322, 568.962pt x 343.173pt>
+File: figures/dpcd_module_8083682.png Graphic file (type png)
+<use figures/dpcd_module_8083682.png>
+Package pdftex.def Info: figures/dpcd_module_8083682.png  used on input line 269.
+(pdftex.def)             Requested size: 452.96826pt x 273.2192pt.
+
+
+[14 <./figures/dpcd_module_8083682.png>]
+<figures/fig03b_variant_score.png, id=337, 570.933pt x 354.123pt>
+File: figures/fig03b_variant_score.png Graphic file (type png)
+<use figures/fig03b_variant_score.png>
+Package pdftex.def Info: figures/fig03b_variant_score.png  used on input line 321.
+(pdftex.def)             Requested size: 217.42282pt x 134.8545pt.
+<figures/fig03c_gene_score.png, id=338, 570.933pt x 354.123pt>
+File: figures/fig03c_gene_score.png Graphic file (type png)
+<use figures/fig03c_gene_score.png>
+Package pdftex.def Info: figures/fig03c_gene_score.png  used on input line 328.
+(pdftex.def)             Requested size: 217.42282pt x 134.8545pt.
+
+
+[15 <./figures/fig03b_variant_score.png> <./figures/fig03c_gene_score.png>]
+
+[16])
+
+[17]
+
+[18]
 \openout2 = `chapters/04_discussion.aux'.
 
  (./chapters/04_discussion.tex)
@@ -883,7 +952,7 @@ Package pdftex.def Info: figures/fig02_context_methylation_level.png  used on in
 
  (./chapters/05_conclusion.tex)
 
-[10
+[19
 
 
 
@@ -895,48 +964,48 @@ Package pdftex.def Info: figures/fig02_context_methylation_level.png  used on in
 
 ]
 
-[11]
+[20]
 \openout2 = `chapters/06_appendix.aux'.
 
  (./chapters/06_appendix.tex
 Chapter 4.
-<figures/figA_SBC4_depth.png, id=271, 1011.78pt x 1192.455pt>
+<figures/figA_SBC4_depth.png, id=430, 1011.78pt x 1192.455pt>
 File: figures/figA_SBC4_depth.png Graphic file (type png)
 <use figures/figA_SBC4_depth.png>
 Package pdftex.def Info: figures/figA_SBC4_depth.png  used on input line 14.
 (pdftex.def)             Requested size: 452.96826pt x 533.8523pt.
 
 
-[12
+[21
 
 
 ]
-<figures/figA3_SBC23_depth.png, id=277, 1011.78pt x 1192.455pt>
+<figures/figA3_SBC23_depth.png, id=435, 1011.78pt x 1192.455pt>
 File: figures/figA3_SBC23_depth.png Graphic file (type png)
 <use figures/figA3_SBC23_depth.png>
 Package pdftex.def Info: figures/figA3_SBC23_depth.png  used on input line 21.
 (pdftex.def)             Requested size: 452.96826pt x 533.8523pt.
 
 
-[13 <./figures/figA_SBC4_depth.png>]
-<figures/figA2_SBC11_depth.png, id=283, 1011.78pt x 1192.455pt>
+[22 <./figures/figA_SBC4_depth.png>]
+<figures/figA2_SBC11_depth.png, id=441, 1011.78pt x 1192.455pt>
 File: figures/figA2_SBC11_depth.png Graphic file (type png)
 <use figures/figA2_SBC11_depth.png>
 Package pdftex.def Info: figures/figA2_SBC11_depth.png  used on input line 28.
 (pdftex.def)             Requested size: 452.96826pt x 533.8523pt.
 
 
-[14 <./figures/figA3_SBC23_depth.png>]
-<figures/figA1_SBC10_depth.png, id=290, 1011.78pt x 1192.455pt>
+[23 <./figures/figA3_SBC23_depth.png>]
+<figures/figA1_SBC10_depth.png, id=448, 1011.78pt x 1192.455pt>
 File: figures/figA1_SBC10_depth.png Graphic file (type png)
 <use figures/figA1_SBC10_depth.png>
 Package pdftex.def Info: figures/figA1_SBC10_depth.png  used on input line 35.
 (pdftex.def)             Requested size: 452.96826pt x 533.8523pt.
 
 
-[15 <./figures/figA2_SBC11_depth.png>]
+[24 <./figures/figA2_SBC11_depth.png>]
 
-[16 <./figures/figA1_SBC10_depth.png>]
+[25 <./figures/figA1_SBC10_depth.png>]
 Overfull \hbox (8.00607pt too wide) in alignment at lines 49--54
  [] [] [] [] 
  []
@@ -956,13 +1025,23 @@ Overfull \hbox (8.00607pt too wide) in alignment at lines 61--128
  [] [] [] [] 
  []
 
-[17
+[26
 
-] [18]
+] [27]
 
-[19]
+[28]
+<figures/dpcd_module.png, id=477, 909.3975pt x 975.645pt>
+File: figures/dpcd_module.png Graphic file (type png)
+<use figures/dpcd_module.png>
+Package pdftex.def Info: figures/dpcd_module.png  used on input line 136.
+(pdftex.def)             Requested size: 452.96826pt x 485.9753pt.
 
-[20
+
+[29
+
+ <./figures/dpcd_module.png>]
+
+[30
 
 ]) (./thesis.aux (./chapters/00_title.aux) (./chapters/01_introduction.aux) (./chapters/02_methods.aux) (./chapters/03_results.aux) (./chapters/04_discussion.aux) (./chapters/05_conclusion.aux) (./chapters/06_appendix.aux))
  ***********
@@ -970,24 +1049,24 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: D726442E019E0D6C49969836C03D6CB4;3051.
+(rerunfilecheck)             Checksum: 1623A92D6C7D40D1A353643A3F30F1AB;5652.
 Package logreq Info: Writing requests to 'thesis.run.xml'.
 \openout1 = `thesis.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 24208 strings out of 473190
- 426420 string characters out of 5715800
- 1344917 words of memory out of 5000000
- 46842 multiletter control sequences out of 15000+600000
- 585824 words of font info for 195 fonts, out of 8000000 for 9000
+ 24443 strings out of 473190
+ 431831 string characters out of 5715800
+ 1351028 words of memory out of 5000000
+ 47021 multiletter control sequences out of 15000+600000
+ 586231 words of font info for 202 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,10n,93p,1938b,1844s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,18n,93p,1931b,1844s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx1728.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfbx2074.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfcc1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0700.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm0800.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfsx1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfti1095.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb>
-Output written on thesis.pdf (21 pages, 3412953 bytes).
+Output written on thesis.pdf (31 pages, 4815919 bytes).
 PDF statistics:
- 411 PDF objects out of 1000 (max. 8388607)
- 340 compressed objects within 4 object streams
- 68 named destinations out of 1000 (max. 500000)
- 45735 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 586 PDF objects out of 1000 (max. 8388607)
+ 484 compressed objects within 5 object streams
+ 107 named destinations out of 1000 (max. 500000)
+ 45876 words of extra memory for PDF output out of 51595 (max. 10000000)
 

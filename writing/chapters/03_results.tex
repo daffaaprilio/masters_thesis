@@ -69,7 +69,14 @@
     \label{fig:effect-impact-combined}
 \end{figure}
 
-\hspace{1em}Test
+\hspace{1em}Associating variant sites with the phenotype of interest is performed through a process called variant set intersections. For each variant record in the combined annotated VCF, the subset of accessions whose genotype carries the alternate allele (heterozygous or homozygous alternate) was determined, and records were partitioned according to this exact sample-sharing pattern into the fifteen possible non-empty subsets of the four accessions, so that a variant carried by, for example, SBC4 and SBC23 alone contributes only to that combination and not to any overlapping combination (Figure~\ref{fig:upset-plot}). Because each accession's TAA concentration and juice production phenotype is known beforehand, a given intersection can be read as a phenotype contrast: variants shared by the three TAA-high accessions (SBC4, SBC11, SBC23) but absent from the TAA-low accession (SBC10) are candidates for TAA-associated variation, etc. The size of each intersection therefore defines the starting pool of candidate variant sites carried forward into the gene-level scoring described in the following chapter.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/all_variant_upset.png}
+    \caption{Intersecting variant sites from four sample VCF files.}
+    \label{fig:upset-plot}
+\end{figure}
 
 \section{Methylation Landscape}
 \hspace{1em}Genome-wide 5mC methylation levels were computed for each accession from the bedmethyl pileups, stratified by sequence context (CpG, CHG, and CHH) (Figure~\ref{fig:context-methylation-level}). All four accessions show the same characteristic plant methylation architecture, with mean methylation highest at CpG sites (53--59\%), intermediate at CHG sites (28--33\%), and lowest at CHH sites (1.2--1.5\%). This CpG $>$ CHG $\gg$ CHH ordering mirrors the distinct maintenance pathways that act on each context in plants and confirms that the modified-base calls recovered from duplex ONT sequencing reproduce the expected genome-wide methylation landscape. As with the variant impact distribution, the context-level methylation profile is broadly similar across accessions, with only modest inter-accession variation (e.g.\ CpG methylation ranging from 53.3\% in SBC10 to 58.5\% in SBC23); this baseline landscape motivates the differentially methylated region (DMR) analysis presented later, which localises phenotype-associated methylation changes to specific genomic regions rather than genome-wide shifts.
@@ -81,44 +88,190 @@
     \label{fig:context-methylation-level}
 \end{figure}
 
-% \section{Positive control: D-gene}
-% \subsection{Variant analysis}
-% \hspace{1em}Candidate variant sites for the juicy phenotype were selected under the assumption that juiciness arises from loss of function in one or more dPCD module genes. Wild-type sorghum is dry \cite{fujimoto_transcriptional_2018}, and SBC11 is the only dry accession in the panel, so its dPCD module genes are expected to remain functional and wild-type. Variant sites found in SBC11 were therefore excluded from the selection: a loss-of-function change already present in this wild-type-like accession cannot explain why the other three accessions instead present as juicy. In practice, this was implemented by retaining only rows of the combined VCF in which SBC11's genotype does not carry the alternate allele (homozygous reference \texttt{0/0} or missing \texttt{./.}) while at least one juicy accession does, yielding 3,187,499 candidate variant sites carried forward for downstream analysis.
+\section{Demonstration of the platform -- dPCD gene module}
+\subsection{Variant analysis}
+\hspace{1em}The reference strain, BTx623, has juicy phenotype (Juice ++) \cite{zhangSweetSorghumOriginated2018}, and SBC11 is the only dry accession in the panel. Hence, variant sites exclusively found in SBC11 but not in the other samples' VCF are selected as candidate variant sites for stem dryness phenotype. Conversely, a variant site is selected as a candidate for the stem extra juiciness phenotype if it is absent from SBC11 while present in at least one of the three juicy accessions, yielding the seven possible sharing patterns among SBC4, SBC10, and SBC23 (Table~\ref{tab:candidate-patterns}).
 
-% \hspace{1em}After the VCF file that is expected to contain only variant sites associated to the juicy stem phenotype is obtained, each variant record was parsed and converted from one row per variant into one row per (variant, gene) pair. A single variant can carry multiple SnpEff \texttt{ANN} entries -- one per overlapping transcript or gene -- so these were first grouped by gene identifier; for genes with more than one candidate annotation, a single representative entry was retained using a deterministic priority: transcripts with a matching SIFT4G prediction (joined on the shared allele and transcript identifiers) were preferred, followed by the most severe impact category (HIGH $>$ MODERATE $>$ LOW $>$ MODIFIER), the original SnpEff annotation order, and finally protein-coding transcripts over other biotypes. Annotations mapping to ambiguous, fused, or multi-gene identifiers (containing a hyphen or ampersand, e.g.\ structural-variant fusion or intergenic labels) were discarded, retaining only unambiguous single-gene assignments. This reduction converts the variant-level VCF into a variant--gene table, so that a variant spanning several genes contributes an independent, appropriately prioritised annotation to each, yielding 2{,}180{,}854 variant--gene rows carried forward for gene-level scoring.
+\begin{table}[htbp]
+    \centering
+    \begin{tabularx}{\columnwidth}{l YYYY}
+        \toprule
+        Associated trait & \makecell{\textbf{SBC4} \\ Juice ++} & \makecell{\textbf{SBC10} \\ Juice +++} & \makecell{\textbf{SBC11} \\ Juice --} & \makecell{\textbf{SBC23} \\ Juice ++} \\
+        \midrule
+        Stem dryness & $\times$ & $\times$ & $\bigcirc$ & $\times$ \\
+        \midrule
+        \multirow{7}{*}{\shortstack{Stem extra \\ juiciness}}
+         & $\bigcirc$ & $\bigcirc$ & $\times$ & $\bigcirc$ \\
+         & $\bigcirc$ & $\bigcirc$ & $\times$ & $\times$ \\
+         & $\bigcirc$ & $\times$   & $\times$ & $\bigcirc$ \\
+         & $\times$   & $\bigcirc$ & $\times$ & $\bigcirc$ \\
+         & $\bigcirc$ & $\times$   & $\times$ & $\times$ \\
+         & $\times$   & $\bigcirc$ & $\times$ & $\times$ \\
+         & $\times$   & $\times$   & $\times$ & $\bigcirc$ \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Sample-sharing patterns defining candidate variant sites for the two demonstration phenotypes. $\bigcirc$ marks accessions in which the variant is required to be present (ALT-carrying genotype); $\times$ marks accessions in which it is required to be absent. The reference genome, BTx623, is Juice + in all cases and is not part of the sample-sharing pattern itself.}
+    \label{tab:candidate-patterns}
+\end{table}
 
-% \hspace{1em}Each variant--gene row was then assigned a numeric score reflecting its predicted functional severity, so that genes could be ranked by their most damaging variant. SnpEff's four impact categories were mapped to equal-width quarter-bands spanning $[0,1]$ in increasing order of severity (MODIFIER: 0--0.25; LOW: 0.25--0.50; MODERATE: 0.50--0.75; HIGH: 0.75--1.00), with a variant's score defaulting to its band's midpoint. For MODERATE-impact (missense) variants with a matching SIFT4G prediction, the score was instead placed continuously within the MODERATE band in proportion to the SIFT4G damaging score, so that missense variants predicted deleterious by SIFT4G score closer to the HIGH boundary than those predicted tolerated, rather than collapsing all missense variants to the same band-midpoint value. Variant--gene rows were then collapsed to one row per gene by retaining only the single highest-scoring (most damaging) variant affecting each gene -- a maximum, or worst-variant, model of gene disruption -- and genes were ranked in descending order of this score, yielding 31{,}468 scored candidate genes.
+% \hspace{1em}Candidate variant sites for the juicy phenotype were selected under the assumption that juiciness arises from loss of function in one or more dPCD module genes. Wild-type sorghum is dry \cite{fujimotoTranscriptionalSwitchProgrammed2018}, and SBC11 is the only dry accession in the panel, so its dPCD module genes are expected to remain functional and wild-type. Variant sites found in SBC11 were therefore excluded from the selection: a loss-of-function change already present in this wild-type-like accession cannot explain why the other three accessions instead present as juicy. In practice, this was implemented by retaining only rows of the combined VCF in which SBC11's genotype does not carry the alternate allele (homozygous reference \texttt{0/0} or missing \texttt{./.}) while at least one juicy accession does, yielding 3,187,499 candidate variant sites carried forward for downstream analysis.
 
-% \begin{figure}[H]
-%     \centering
-%     \begin{subfigure}[t]{0.48\textwidth}
-%         \centering
-%         \includegraphics[width=\textwidth]{figures/fig03_variant_score.png}
-%         \caption{Variant-level score}
-%         \label{fig:variant-score}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}[t]{0.48\textwidth}
-%         \centering
-%         \includegraphics[width=\textwidth]{figures/fig03a_gene_score.png}
-%         \caption{Gene-level score}
-%         \label{fig:gene-score}
-%     \end{subfigure}
-%     \caption{Distribution of variant-level scores (a) and the resulting gene-level scores after collapsing to the maximum per gene (b).}
-%     \label{fig:variant-gene-score}
-% \end{figure}
+\hspace{1em}From the combined VCF file, variants correpond to the stem dryness and extra juiciness phenotype are each filtered out into separate phenotype-specific VCF files. Then, for each separate VCF file, each variant record was parsed and converted from one row per variant into one row per (variant, gene) pair. A single variant can carry multiple SnpEff \texttt{ANN} entries (one per overlapping transcript or gene) so these were first grouped by gene identifier; for genes with more than one candidate annotation, a single representative entry was retained using a deterministic priority: transcripts with a matching SIFT4G prediction (joined on the shared allele and transcript identifiers) were preferred, followed by the most severe impact category (HIGH $>$ MODERATE $>$ LOW $>$ MODIFIER), the original SnpEff annotation order, and finally protein-coding transcripts over other biotypes. Annotations mapping to ambiguous, fused, or multi-gene identifiers (containing a hyphen or ampersand, e.g.\ structural-variant fusion or intergenic labels) were discarded, retaining only unambiguous single-gene assignments. This reduction converts the variant-level VCF into a variant--gene table, so that a variant spanning several genes contributes an independent, appropriately prioritised annotation to each, yielding 2,180,854 variant--gene rows carried forward for extra juiciness phenotype candidates gene-level scoring, and 1,712,297 rows for stem dryness.
 
-% \subsection{Differentially methylated region analysis}
-% \hspace{1em}Candidate genes from the methylation layer were selected under the same wild-type logic as the variant analysis: SBC11 is the dry, wild-type-like accession in which the dPCD module is expected to remain active, whereas the module is expected to be transcriptionally silenced in the juicy accessions. Candidate causative genes are therefore defined as genes whose promoter region is hypermethylated in either SBC4, SBC10, and SBC23 within the pairwise comparison of each against SBC11. This yielded 6{,}961 promoter DMRs hypomethylated in SBC11, collapsing (on the largest absolute methylation difference per gene where a gene was hit by more than one such DMR) to 5{,}367 candidate genes.
+\hspace{1em}Each variant--gene row was then assigned a numeric score reflecting its predicted functional severity, so that genes could be ranked by their most damaging variant. SnpEff's four impact categories were mapped to equal-width quarter-bands spanning $[0,1]$ in increasing order of severity (MODIFIER: 0--0.25; LOW: 0.25--0.50; MODERATE: 0.50--0.75; HIGH: 0.75--1.00), with a variant's score defaulting to its band's midpoint. For MODERATE-impact (missense) variants with a matching SIFT4G prediction, the score was instead placed continuously within the MODERATE band in proportion to the SIFT4G damaging score, so that missense variants predicted deleterious by SIFT4G score closer to the HIGH boundary than those predicted tolerated, rather than collapsing all missense variants to the same band-midpoint value. Variant--gene rows were then collapsed to one row per gene by retaining only the single highest-scoring (most damaging) variant affecting each gene, a maximum, or worst-variant, model of gene disruption, and genes were ranked in descending order of this score.
 
-% \subsection{Enrichment test}
-% \hspace{1em}Each omics layer's candidate gene list was tested for enrichment of the dPCD module, using one of two statistical approaches depending on whether that layer's candidates take the form of a ranked list or a plain set. For a plain candidate set, enrichment was assessed with a hypergeometric over-representation test (ORA): given a candidate set, the dPCD module, and a background universe, the module and the candidates were each first restricted to genes present in that universe, and the test then computed $P(X \geq k)$ under the hypergeometric survival function -- the probability of observing at least $k$ module genes among the candidates by chance alone -- together with the expected hit count and the fold enrichment over that expectation.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/fig03_variant_score.png}
+        \caption{Variant-level score}
+        \label{fig:variant-score-extra-juiciness}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/fig03a_gene_score.png}
+        \caption{Gene-level score}
+        \label{fig:gene-score-extra-juiciness}
+    \end{subfigure}
+    \caption{Variant sites for \textbf{stem extra juiciness} phenotype. Distribution of variant-level scores (a) and the resulting gene-level scores after collapsing to the maximum per gene (b).}
+    \label{fig:variant-gene-score-extra-juiciness}
+\end{figure}
 
-% \hspace{1em}The variant layer's candidate genes are already fully ranked by damage score, so enrichment was tested primarily with a one-sided Mann--Whitney U test on gene score percentile, asking whether dPCD module genes rank systematically higher (more damaging) than non-module genes without requiring an arbitrary cutoff. Of the 66 dPCD module genes, 65 were testable within the 31,468-gene ranked list, with a median score percentile of 0.706 among module genes and a statistically significant rank enrichment (Mann--Whitney U, $p = 0.015$). As a secondary, cutoff-based check, every gene annotated HIGH or MODERATE impact (13{,}976 genes) was taken as a hard candidate set and tested with the hypergeometric ORA: 35 of the 65 testable module genes fell among these candidates, against an expectation of 28.87 (1.21-fold enrichment, $p = 0.080$) -- consistent in direction with the rank-based test, though short of significance at this particular cutoff.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/fig03d_variant_score.png}
+        \caption{Variant-level score}
+        \label{fig:variant-score-dryness}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/fig03e_gene_score.png}
+        \caption{Gene-level score}
+        \label{fig:gene-score-dryness}
+    \end{subfigure}
+    \caption{Variant sites for \textbf{stem dryness} phenotype. Distribution of variant-level scores (a) and the resulting gene-level scores after collapsing to the maximum per gene (b).}
+    \label{fig:variant-gene-score-dryness}
+\end{figure}
 
-% \hspace{1em}The DMR layer's 5{,}367 candidate genes form a plain set rather than a ranked list, so enrichment was instead tested with the hypergeometric ORA alone, against a DMR-specific universe restricted to the 6{,}600 genes with a testable promoter DMR in a dry-versus-juicy contrast -- rather than the whole genome, since only these genes could in principle have been selected as candidates. Of the 16 dPCD module genes present in this universe, 12 were recovered among the DMR candidates, against an expectation of 13.01 (0.92-fold enrichment, $p = 0.836$), indicating no enrichment of the dPCD module in the methylation-derived candidate list.
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\columnwidth}{l YY X}
+        \toprule
+        Narrowing down step & Extra juiciness & Dryness & Remarks \\
+        \midrule
+        Variant sites & 2{,}180{,}854 & 1{,}712{,}297 & Number of variants associated with the trait \\
+        Genes & 31{,}468 & 29{,}257 & Convert variants into genes \\
+        Candidate causative genes & \textbf{13{,}718} & \textbf{11{,}356} & Filter only genes with impact score $\geq$ 0.5 \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Narrowing down candidate causative genes for the two demonstration phenotypes, from phenotype-associated variant sites to the final impact-filtered candidate gene list.}
+    \label{tab:narrowing-down-steps-variant}
+\end{table}
 
-% \subsection{Gene co-expression analysis}
+\hspace{1em}Finally, only genes with impact score higher or equal to 0.5 are considered as the candidate causative genes for each phenotype (Table~\ref{tab:narrowing-down-steps-variant}). In total, we prioritized 13,718 and 11,356 candidate genes causative to the stem extra juiciness and dryness phenotype, respectively.
+
+\subsection{Differentially methylated region analysis}
+\hspace{1em}Candidate genes from the methylation layer were selected under the same wild-type logic as the variant analysis. For stem dryness trait, this yielded 6,961 promoter DMRs. And for stem extra juiciness, a total of 1,530 DMRs are obtained. Finally, causative DMRs for both stem dryness and juiciness are converted into genes (Table~\ref{tab:narrowing-down-steps-dmr}).
+
+\begin{table}[H]
+    \centering
+    \begingroup
+    \renewcommand{\arraystretch}{1.52}
+    \begin{tabularx}{\columnwidth}{c Y Y Y Y Y}
+        \toprule
+        \multicolumn{2}{c}{} & \multicolumn{4}{c}{Hypermethylated} \\
+        \cmidrule(l){3-6}
+        \multicolumn{2}{c}{} & \makecell{\textbf{SBC4} \\ Juice ++} & \makecell{\textbf{SBC10} \\ Juice +++} & \makecell{\textbf{SBC11} \\ Juice --} & \makecell{\textbf{SBC23} \\ Juice ++} \\
+        \midrule
+        \multirow{4}{*}{\rotatebox[origin=c]{90}{Hypomethylated}}
+         & \makecell{\textbf{SBC4} \\ Juice ++}  & & & \makecell{DMR for stem \\ extra juiciness} & \\
+         & \makecell{\textbf{SBC10} \\ Juice +++} & & & \makecell{DMR for stem \\ extra juiciness} & \\
+         & \makecell{\textbf{SBC11} \\ Juice --}  & \makecell{DMR for stem \\ dryness} & \makecell{DMR for stem \\ dryness} & & \makecell{DMR for stem \\ dryness} \\
+         & \makecell{\textbf{SBC23} \\ Juice ++}  & & & \makecell{DMR for stem \\ extra juiciness} & \\
+         \bottomrule
+    \end{tabularx}
+    \endgroup
+    \caption{Pairwise DMR comparisons between accessions, arranged by which accession is hypomethylated (rows) versus hypermethylated (columns) at a given promoter DMR. The three comparisons contrasting a juicy accession (hypomethylated) against the dry accession SBC11 (hypermethylated) yield stem extra juiciness candidates; the reverse contrast, SBC11 hypomethylated against a juicy accession hypermethylated, yields stem dryness candidates. Diagonal and unused cells correspond to comparisons not tested.}
+    \label{tab:dmr-comparison-matrix}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\columnwidth}{l YY X}
+        \toprule
+        Narrowing down step & Extra juiciness & Dryness & Remarks \\
+        \midrule
+        DMRs & 1{,}939 & 6{,}961 & Number of variants associated with the trait \\
+        Candidate causative genes & \textbf{1{,}530} & \textbf{5{,}367} & Convert associated DMRs into genes \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Narrowing down candidate causative genes for the two demonstration phenotypes, from phenotype-associated DMRs to the final candidate gene list.}
+    \label{tab:narrowing-down-steps-dmr}
+\end{table}
+
+\subsection{Enrichment test}
+\hspace{1em}Each omics layer's candidate gene list was tested for enrichment of the dPCD module with a hypergeometric over-representation analysis (ORA). Given a candidate gene set of size $n$, the dPCD module, and a fixed background universe of $N = 32{,}945$ annotated sorghum genes containing $K = 66$ module genes, the test computes $P(X \geq k)$ under the hypergeometric survival function -- the probability of observing at least the $k$ module genes actually found among the candidates by chance alone -- together with the expected hit count and the fold enrichment over that expectation. The same fixed background was applied to both omics layers and to both demonstration phenotypes, so that the four tests are directly comparable (Table~\ref{tab:ora-enrichment}).
+
+\hspace{1em}For the variant layer, the candidate set was the impact-filtered candidate causative gene list (score $\geq 0.5$; Table~\ref{tab:narrowing-down-steps-variant}). For the stem extra juiciness phenotype, 35 of the 66 module genes fell among the 13{,}718 variant candidates, against an expectation of 27.48, a modest but statistically significant over-representation (1.27-fold enrichment, $p = 0.041$). For the stem dryness phenotype, 27 module genes fell among the 11{,}356 candidates, against an expectation of 22.75 (1.19-fold, $p = 0.165$) -- consistent in direction with the extra juiciness result, but short of significance.
+
+\hspace{1em}For the DMR layer, the candidate set was the promoter-DMR-derived candidate gene list (Table~\ref{tab:narrowing-down-steps-dmr}). For stem extra juiciness, 4 of the 66 module genes were recovered among the 1{,}530 DMR candidates, against an expectation of 3.07 (1.31-fold, $p = 0.368$); for stem dryness, 12 module genes fell among the 5{,}367 candidates, against an expectation of 10.75 (1.12-fold, $p = 0.388$). Neither methylation-derived candidate list shows significant enrichment of the dPCD module. Overall, only the variant layer for the stem extra juiciness phenotype recovers the dPCD module above chance, a modest but significant signal, while the remaining three tests are enriched in direction only.
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\columnwidth}{l l YYYYY}
+        \toprule
+        Phenotype & Layer & \makecell{Candidates \\ ($n$)} & \makecell{Hits \\ ($k$)} & Expected & \makecell{Fold \\ enrichment} & $p$ \\
+        \midrule
+        \multirow{2}{*}{\shortstack[l]{Stem extra \\ juiciness}}
+          & Variant & 13{,}718 & 35 & 27.48 & 1.27 & \textbf{0.041} \\
+          & DMR     & 1{,}530  & 4  & 3.07  & 1.31 & 0.368 \\
+        \midrule
+        \multirow{2}{*}{Stem dryness}
+          & Variant & 11{,}356 & 27 & 22.75 & 1.19 & 0.165 \\
+          & DMR     & 5{,}367  & 12 & 10.75 & 1.12 & 0.388 \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Hypergeometric over-representation analysis (ORA) of the dPCD module in each omics layer's candidate gene list, for both demonstration phenotypes. All tests share a fixed background of $N = 32{,}945$ annotated sorghum genes containing $K = 66$ dPCD module genes; $n$ is the number of candidate genes, $k$ the number of module genes among them, and the expected count, fold enrichment, and $p$-value (hypergeometric survival, $P(X \geq k)$) follow. Only the variant layer for stem extra juiciness reaches significance ($p < 0.05$, in bold).}
+    \label{tab:ora-enrichment}
+\end{table}
+
+\subsection{Gene co-expression analysis}
+\hspace{1em}To visualize the co-expression network, we queried the 66 genes of the dPCD module using ATTED-II NetworkDrawer feature (Figure~\ref{fig:dpcd-module}). The co-expression network is visualized using parameters: \texttt{Platform}: Automatic; \texttt{Disp. type}: Cytoscape; \texttt{Coex option}: Add many genes; \texttt{PPI option}: Draw PPIs. The co-expression network shows that most of the genes in the module are co-expressed and forming a large cluster, with a very few number of query genes not included (lower part of the image). It is concluded that the genes within the dPCD modules are co-regulated. 
+
+\hspace{1em}dPCD gene module consists of the NAC transcription factor genes and dPCD executor enzymes, such as proteases, nucleases, etc \cite{olvera-carrilloConservedCorePCD2015}. Regardless of the obvious co-regulation (Figure~\ref{fig:dpcd-module}), identifying the roles of transcription factors within the dPCD module is quite difficult, considering the intricate structure of the co-expression network. To further elaborate the relationship between the TF genes and the dPCD executor enzymes, further analysis is required. Within the dPCD gene module, we separated the TF genes from the enzymes, then select edges with considerably higher co-expression strength ($coex(enzyme, TF) \geq 2$).
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\columnwidth}{l X c}
+        \toprule
+        TF gene & Gene name & No. of co-expressed enzymes \\
+        \midrule
+        8080837 & protein NTM1-like 9 & 6 \\
+        \textbf{8083682} & NAC domain-containing protein 79 & \textbf{7} \\
+        8078577 & NAC domain-containing protein 79 & 4 \\
+        8067634 & NAC domain-containing protein 77 & 2 \\
+        8069252 & NAC domain-containing protein 69 & 1 \\
+        \bottomrule
+    \end{tabularx}
+    \caption{The five NAC-family transcription factor genes of the dPCD module, ranked by the number of dPCD executor enzymes they are strongly co-expressed with ($coex(enzyme, TF) \geq 2$). Gene 8083682 (in bold) is co-expressed with the largest number of executor enzymes.}
+    \label{tab:tf-coexpressed-enzymes}
+\end{table}
+
+\hspace{1em}Figure~\ref{fig:dpcd_module_8083682} shows an example of co-expression module centered around a TF gene, NAC domain-containing protein 79 (EGI: 8083682). From this, it is concluded that dPCD gene regulation is highly complex, with dPCD transcription factors co-expressed sparsely within other transcription factors (red outline) as well as dPCD enzymes (blue outline).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{figures/dpcd_module_8083682.png}
+    \caption{Co-expression relationship within the dPCD gene module -- example on NAC domain-containing protein 79 (EGI: 8083682) co-expression cluster. Red outline: TF genes; Blue outline: dPCD enzymes. This network is constructed by querying NAC domain-containing protein 79 (EGI: 8083682) with its 7 co-expressed partners (Table~\ref{tab:tf-coexpressed-enzymes}).}
+    \label{fig:dpcd_module_8083682}
+\end{figure}
+
+% % old co-expression section
 % \hspace{1em}The co-expression layer of the positive control follows the guilt-by-association design used to identify MYB28 and MYB29 as regulators of the aliphatic glucosinolate biosynthesis pathway in \textit{Arabidopsis}: querying a co-expression network with a pathway's known biosynthetic genes and looking for transcription factors consistently co-expressed with them \cite{hirai_omics-based_2007}. The same design was applied here to nominate the D-gene, using the literature-curated \textit{Sorghum bicolor} dPCD gene module as the query set. dPCD is triggered by transcription factors of the NAC family \cite{olvera-carrillo_conserved_2015}; of the 66 genes in the dPCD module, 5 are NAC-family transcription factors, so the true D-gene is expected to be one of these five, distinguished by being the most consistently co-expressed with the remaining 61 module genes.
 
 % \hspace{1em}Co-expression data for the dPCD module were obtained from ATTED-II's Edge Annotation feature, which returns, for a queried gene set, every pairwise co-expression edge among its members as a z-transformed co-expression score. This feature shows pairwise co-expression between the query genes and returns the top 2,000 co-expression pair. Because co-expression is symmetric, each edge was mirrored so that either gene could serve as the transcription-factor endpoint, and the edges were then restricted to the five NAC transcription factors against the other 61 module genes, arranged into a transcription-factor-by-target co-expression matrix. Each of the 61 non-transcription-factor module genes was treated as a voter ranking the five candidate transcription factors by co-expression strength (rank 1 = strongest co-expression partner for that gene), and these per-gene rankings were aggregated by taking each transcription factor's mean rank across all 61 voters. The transcription factor with the lowest mean rank, which can be said as the most consistently co-expressed with the rest of the dPCD module, is nominated as the most probable D-gene candidate from the co-expression layer.
@@ -140,52 +293,118 @@
 %     \end{tabularx}
 % \end{table}
 
-% \section{Aconitate Isomerase and TAA biosynthesis pathway genes identification}
-% \subsection{Variant analysis}
-% \hspace{1em}Candidate variant sites for the TAA phenotype were selected by contrasting the low-TAA accession (SBC10) against the three high-TAA accessions (SBC4, SBC11, SBC23), under the assumption that loss of function in one or more TAA biosynthesis pathway genes specifically in SBC10 gives rise to its low-TAA phenotype. Candidate variant sites were therefore defined as those private to SBC10: carrying the alternate allele in SBC10 while the other three accessions retain the reference allele. In practice, this was implemented by retaining only rows of the combined VCF matching this genotype pattern, yielding 480{,}029 candidate variant sites carried forward for downstream analysis. Using the same variant-to-gene reduction pipeline as the D-gene case study, these were converted to 327{,}868 variant--gene rows, which were then scored and collapsed to one row per gene using the same impact-band scoring scheme, yielding 21{,}928 scored candidate genes (Figure~\ref{fig:taa-variant-gene-score}).
+\section{Application of the platform -- TAA metabolism genes}
+\hspace{1em}The platform is next applied to the TAA concentration phenotype. Unlike the stem juiciness demonstration, no gene of the TAA biosynthesis pathway has been identified in any plant species, so no literature-curated gene module exists to serve as the known-gene set. The over-representation analysis used to evaluate the demonstration (Table~\ref{tab:ora-enrichment}) therefore cannot be applied here, and the variant and DMR layers instead act as hypothesis-generating filters that narrow the genome down to a manageable set of genes potentially involved in TAA metabolism. The co-expression layer is likewise redesigned: rather than querying a known module, it ranks isomerase-family genes by their co-expression with genes known to be upregulated by phytochrome, following the hypothesis that aconitate isomerase expression is light-regulated.
 
-% \begin{figure}[H]
-%     \centering
-%     \begin{subfigure}[t]{0.48\textwidth}
-%         \centering
-%         \includegraphics[width=\textwidth]{figures/fig03b_variant_score.png}
-%         \caption{Variant-level score}
-%         \label{fig:taa-variant-score}
-%     \end{subfigure}
-%     \hfill
-%     \begin{subfigure}[t]{0.48\textwidth}
-%         \centering
-%         \includegraphics[width=\textwidth]{figures/fig03c_gene_score.png}
-%         \caption{Gene-level score}
-%         \label{fig:taa-gene-score}
-%     \end{subfigure}
-%     \caption{Distribution of variant-level scores (a) and the resulting gene-level scores after collapsing to the maximum per gene (b) for the TAA case study.}
-%     \label{fig:taa-variant-gene-score}
-% \end{figure}
+\subsection{Variant analysis}
+\hspace{1em}SBC10 is the only accession in the panel with a low TAA concentration in its stem juice, while the reference strain BTx623 is assumed to carry an average TAA concentration. Candidate variant sites for the low TAA production trait were therefore defined as those private to SBC10: carrying the alternate allele in SBC10 while the three high-TAA accessions retain the reference allele (Table~\ref{tab:taa-candidate-patterns}). This selection follows the assumption that a loss of function occurring in SBC10 alone, in one or more genes of the TAA biosynthesis pathway, gives rise to its low-TAA phenotype. Because only one accession carries the contrasting phenotype, a single sharing pattern qualifies, in contrast to the seven patterns admitted by the stem extra juiciness contrast (Table~\ref{tab:candidate-patterns}).
 
-% \subsection{Differentially methylated region analysis}
-% \hspace{1em}Candidate genes from the methylation layer were selected analogously to the variant layer, contrasting the low-TAA accession (SBC10) against the three high-TAA accessions. Unlike the D-gene case study, no characterized wild-type TAA baseline exists to anchor a directional functional prediction, so candidates were instead defined by differential promoter methylation between the low- and high-TAA groups, following the same directional convention used in the D-gene DMR analysis: genes whose promoter is hypomethylated in SBC10 relative to a high-TAA accession. This yielded 3{,}091 promoter DMRs hypomethylated in SBC10, collapsing (on the largest absolute methylation difference per gene where a gene was hit by more than one such DMR) to 2{,}617 candidate genes.
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\columnwidth}{l YYYY}
+        \toprule
+        Associated trait & \makecell{\textbf{SBC4} \\ TAA ++} & \makecell{\textbf{SBC10} \\ TAA --} & \makecell{\textbf{SBC11} \\ TAA ++} & \makecell{\textbf{SBC23} \\ TAA ++} \\
+        \midrule
+        Low TAA production & $\times$ & $\bigcirc$ & $\times$ & $\times$ \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Sample-sharing pattern defining candidate variant sites for the low TAA production trait. $\bigcirc$ marks accessions in which the variant is required to be present (ALT-carrying genotype); $\times$ marks accessions in which it is required to be absent. The reference genome, BTx623, is assumed TAA + and is not part of the sample-sharing pattern itself.}
+    \label{tab:taa-candidate-patterns}
+\end{table}
 
-% \subsection{Gene co-expression analysis}
-% \hspace{1em}Unlike the D-gene case study, no transcription factor or gene module is yet known to regulate the TAA biosynthesis pathway. Eprintsev et al.\ \cite{eprintsev_aconitate_2021} report that aconitate isomerase expression in maize leaves is induced by white and red light, with far-red light alone producing no significant induction and far-red applied after red light reversing the red-light-induced increase -- a pattern consistent with regulation through a phytochrome-mediated low-fluence response. Igamberdiev et al.\ \cite{igamberdiev_phytochromemediated_2014} similarly describe phytochrome-mediated regulation across a broader set of light-responsive respiratory genes in plant mitochondria. A set of \textit{Arabidopsis} genes reported to show a qualitatively similar light-induction pattern -- stronger induction under red light than under far-red light -- was therefore curated from the literature and mapped to their \textit{Sorghum bicolor} orthologs via BioMart, yielding a proxy module of three sorghum genes: an alternative NAD(P)H-ubiquinone oxidoreductase (LOC8080027, ortholog of \textit{Arabidopsis} AT5G08740), the circadian clock regulator protein CCA1 (LOC8080836, ortholog of AT1G01060), and heat shock protein 82 (LOC8057342, ortholog of AT5G52640); a fourth literature candidate, the \textit{Arabidopsis} aquaporin gene AT2G16850, had no identifiable sorghum ortholog and was excluded. As these orthology-based associations reflect convergence on a shared phytochrome-responsive expression pattern across heterologous species and experimental designs rather than empirically measured co-expression within a single dataset, this proxy module is a lower-confidence substitute for the literature-curated dPCD module used in the D-gene case study, to be weighed against the platform's own co-expression evidence below.
+\hspace{1em}The SBC10-private variants were converted into variant--gene rows, scored, and collapsed to one row per gene using exactly the same procedure as the demonstration phenotypes: the SnpEff \texttt{ANN} entries of each variant were grouped by gene and reduced to a single representative annotation per gene, each variant--gene row was assigned a severity score in the impact band of its predicted effect (refined by the SIFT4G damaging score for missense variants), and each gene retained the score of its most damaging variant (Figure~\ref{fig:taa-variant-gene-score}). Applying the same impact score threshold of 0.5 narrowed 327,868 phenotype-associated variant sites, spread over 21,928 genes, down to 3,032 candidate causative genes for the low TAA production trait (Table~\ref{tab:narrowing-down-steps-variant-taa}). This candidate list is roughly a quarter the size of the stem extra juiciness list (13,718 genes), reflecting the stricter single-accession pattern used here.
 
-% \hspace{1em}Candidate causative genes were defined as every isomerase-family gene annotated in the sorghum genome (461 genes), reflecting the hypothesis that aconitate isomerase is among them, and each was ranked by its co-expression with the three-gene phytochrome-responsive proxy module. Co-expression data were obtained from ATTED-II's z-transformed Mutual Rank neighbourhoods for each proxy module gene, giving each isomerase candidate a co-expression z-score against each module gene; of the 461 candidates, 404 were profiled by ATTED-II, all with co-expression data available against all three module genes.
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/fig03b_variant_score.png}
+        \caption{Variant-level score}
+        \label{fig:taa-variant-score}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{figures/fig03c_gene_score.png}
+        \caption{Gene-level score}
+        \label{fig:taa-gene-score}
+    \end{subfigure}
+    \caption{Variant sites for the \textbf{low TAA production} trait. Distribution of variant-level scores (a) and the resulting gene-level scores after collapsing to the maximum per gene (b).}
+    \label{fig:taa-variant-gene-score}
+\end{figure}
 
-% \hspace{1em}Because a candidate's strongest co-expression score with a single module gene need not reflect consistent co-expression with the whole proxy module, each isomerase candidate was ranked within each proxy module gene's own co-expression neighbourhood (rank 1 = strongest partner for that gene), and these per-gene rankings were aggregated by taking each candidate's mean rank across the three module genes -- the same aggregation used for the D-gene case study's co-expression layer. Table~\ref{tab:taa-coexpression-ranking} reports the five candidates with the lowest (best) mean rank, and therefore the most probable aconitate isomerase candidates by this criterion: inositol-3-phosphate synthase (LOC8155424) ranked first, followed by katanin p60 ATPase-containing subunit A1 (LOC8075731), a DEAD-box ATP-dependent RNA helicase (LOC110433588), achilleol B synthase (LOC8074270), and a second inositol-3-phosphate synthase paralog (LOC110432775). None of these top candidates carry an isomerase annotation specific to the TCA cycle or organic-acid metabolism, consistent with aconitate isomerase remaining unidentified in any plant species.
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\columnwidth}{l Y X}
+        \toprule
+        Narrowing down step & Low TAA production & Remarks \\
+        \midrule
+        Variant sites & 327{,}868 & Number of variants associated with the trait \\
+        Genes & 21{,}928 & Convert variants into genes \\
+        Candidate causative genes & \textbf{3{,}032} & Filter only genes with impact score $\geq$ 0.5 \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Narrowing down candidate causative genes for the low TAA production trait, from phenotype-associated variant sites to the final impact-filtered candidate gene list.}
+    \label{tab:narrowing-down-steps-variant-taa}
+\end{table}
 
-% \begin{table}[htbp]
-%     \centering
-%     \caption{The five isomerase-family candidate genes most consistently co-expressed with the phytochrome-upregulated proxy module, ranked by mean co-expression rank (mean MR) across the three module genes. Lower mean MR indicates more consistent co-expression with the module; mean coex and st.\ dev.\ coex are the mean and standard deviation of the z-transformed co-expression score across the three module genes.}
-%     \label{tab:taa-coexpression-ranking}
-%     \begin{tabularx}{\columnwidth}{c l l YYY}
-%         \toprule
-%         Rank & EGI & Gene name & Mean MR & Mean coex & St. dev. coex \\
-%         \midrule
-%         1 & LOC8155424 & inositol-3-phosphate synthase & 49.0000 & 1.7166 & 1.1096 \\
-%         2 & LOC8075731 & \makecell[lt]{katanin p60 ATPase-containing \\ subunit A1} & 51.5000 & 1.5977 & 1.1115 \\
-%         3 & LOC110433588 & \makecell[lt]{DEAD-box ATP-dependent \\ RNA helicase 40-like} & 52.1667 & 1.3815 & 0.5600 \\
-%         4 & LOC8074270 & achilleol B synthase & 75.1667 & 1.2842 & 1.0730 \\
-%         5 & LOC110432775 & inositol-3-phosphate synthase & 79.1667 & 2.3383 & 2.7016 \\
-%         \bottomrule
-%     \end{tabularx}
-% \end{table}
+\subsection{Differentially methylated region analysis}
+\hspace{1em}Candidate genes from the methylation layer were selected following the same promoter-methylation logic as the demonstration phenotypes, contrasting the low-TAA accession SBC10 against each of the three high-TAA accessions. Under the working assumption that promoter CpG methylation indicates transcriptional repression, a gene is a candidate for the low TAA production trait when its promoter is hypermethylated in SBC10 relative to a high-TAA accession, since repression of a TAA biosynthesis gene in SBC10 alone would be consistent with its reduced TAA concentration. The three pairwise comparisons satisfying this direction (Table~\ref{tab:taa-dmr-comparison-matrix}) yielded 3,091 promoter DMRs, which converted into 2,617 candidate causative genes (Table~\ref{tab:narrowing-down-steps-dmr-taa}).
+
+\begin{table}[H]
+    \centering
+    \begingroup
+    \renewcommand{\arraystretch}{1.52}
+    \begin{tabularx}{\columnwidth}{c Y Y Y Y Y}
+        \toprule
+        \multicolumn{2}{c}{} & \multicolumn{4}{c}{Hypermethylated} \\
+        \cmidrule(l){3-6}
+        \multicolumn{2}{c}{} & \makecell{\textbf{SBC4} \\ TAA ++} & \makecell{\textbf{SBC10} \\ TAA --} & \makecell{\textbf{SBC11} \\ TAA ++} & \makecell{\textbf{SBC23} \\ TAA ++} \\
+        \midrule
+        \multirow{4}{*}{\rotatebox[origin=c]{90}{Hypomethylated}}
+         & \makecell{\textbf{SBC4} \\ TAA ++}  & & \makecell{DMR for \\ low TAA \\ production} & & \\
+         & \makecell{\textbf{SBC10} \\ TAA --} & & & & \\
+         & \makecell{\textbf{SBC11} \\ TAA ++}  & & \makecell{DMR for \\ low TAA \\ production} & & \\
+         & \makecell{\textbf{SBC23} \\ TAA ++}  & & \makecell{DMR for \\ low TAA \\ production} & & \\
+         \bottomrule
+    \end{tabularx}
+    \endgroup
+    \caption{Pairwise DMR comparisons between accessions for the TAA phenotype, arranged by which accession is hypomethylated (rows) versus hypermethylated (columns) at a given promoter DMR. The three comparisons contrasting a high-TAA accession (hypomethylated) against the low-TAA accession SBC10 (hypermethylated) yield low TAA production candidates. Diagonal and unused cells correspond to comparisons not tested.}
+    \label{tab:taa-dmr-comparison-matrix}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\columnwidth}{l Y X}
+        \toprule
+        Narrowing down step & Low TAA production & Remarks \\
+        \midrule
+        DMRs & 3{,}091 & Number of DMRs associated with the trait \\
+        Candidate causative genes & \textbf{2{,}617} & Convert associated DMRs into genes \\
+        \bottomrule
+    \end{tabularx}
+    \caption{Narrowing down candidate causative genes for the low TAA production trait, from phenotype-associated DMRs to the final candidate gene list.}
+    \label{tab:narrowing-down-steps-dmr-taa}
+\end{table}
+
+\subsection{Gene co-expression analysis}
+\hspace{1em}No transcription factor or gene module is known to regulate the TAA biosynthesis pathway, so the co-expression layer cannot be queried with a curated module as it was in the demonstration. Instead, the query set was built from the light-regulation of aconitate isomerase. Eprintsev et al. \cite{eprintsevAconitateIsomeraseMaize2021} reported that aconitate isomerase expression in maize is induced by white and by red light, indicating that its expression is regulated by phytochrome, while a set of \textit{A. thaliana} respiratory enzymes whose expression is likewise induced by light and upregulated by phytochrome is already documented \cite{igamberdievMitochondriaPhotosyntheticCells2023}. Three of these \textit{Arabidopsis} genes have an identifiable \textit{Sorghum bicolor} ortholog and together form the phytochrome-upregulated gene module used here as bait genes (Appendix~\ref{tab:phy-module}): an alternative NAD(P)H-ubiquinone oxidoreductase (EGI: 8080027), the circadian clock regulator protein CCA1 (EGI: 8080836), and heat shock protein 82 (EGI: 8057342).
+
+\hspace{1em}TAA is converted from \textit{cis}-aconitate by an as yet unidentified aconitate isomerase. The target set was therefore defined as every isomerase gene annotated in the sorghum genome by GO annotation, 461 genes in total, reflecting the hypothesis that the aconitate isomerase is among them. Each target gene was then scored by its z-transformed co-expression against each bait gene, and the isomerase most strongly co-expressed with each bait gene was taken as that bait gene's aconitate isomerase candidate (Table~\ref{tab:taa-coexpression-ranking}). The strongest relationship is between heat shock protein 82 and a 70 kDa peptidyl-prolyl isomerase (EGI: 8072909, $z = 8.88$), followed by CCA1 with an inositol-3-phosphate synthase (EGI: 110432775, $z = 5.25$) and the NAD(P)H-ubiquinone oxidoreductase with a putative glucose-6-phosphate 1-epimerase (EGI: 8075824, $z = 4.36$).
+
+\begin{table}[H]
+    \centering
+    \begin{tabularx}{\columnwidth}{Y Y Y >{\raggedright\arraybackslash}X}
+        \toprule
+        \makecell{Co-expression \\ $z$ score} & \makecell{Bait gene \\ (phytochrome- \\ upregulated)} & \makecell{Target gene \\ (isomerase gene)} & Target gene name \\
+        \midrule
+        8.88 & 8057342 & 8072909 & 70 kDa peptidyl-prolyl isomerase \\
+        5.25 & 8080836 & 110432775 & inositol-3-phosphate synthase \\
+        4.36 & 8080027 & 8075824 & putative glucose-6-phosphate 1-epimerase \\
+        \bottomrule
+    \end{tabularx}
+    \caption{The isomerase-family gene most strongly co-expressed with each gene of the phytochrome-upregulated module (Appendix~\ref{tab:phy-module}), out of the 461 isomerase genes annotated in the sorghum genome. Genes are identified by their EGI identifier; the co-expression $z$ score is the z-transformed co-expression score between the bait and target gene.}
+    \label{tab:taa-coexpression-ranking}
+\end{table}
+
+\hspace{1em}Unlike the demonstration, these candidates cannot be validated, as no gene of the TAA biosynthesis pathway is known in any plant species. They are therefore hypotheses to be tested experimentally rather than confirmed candidates. It is also worth noting that the candidates are nominated purely from GO annotation, and none of them carries an isomerase annotation specific to the TCA cycle or to organic-acid metabolism; some, such as the putative glucose-6-phosphate 1-epimerase, are only tentatively annotated. This is consistent with aconitate isomerase remaining unidentified in the sorghum genome, and indeed in any plant genome. Taken together, the three layers narrow the genome down to 3,032 genes carrying a high-impact SBC10-private variant, 2,617 genes with a promoter hypermethylated in SBC10, and a short list of isomerase genes co-expressed with phytochrome-upregulated genes, providing evidence-based starting points for the identification of the TAA biosynthesis pathway.
