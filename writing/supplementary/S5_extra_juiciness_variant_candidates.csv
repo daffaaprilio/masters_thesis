@@ -1,4 +1,4 @@
-ann_gene_id,ann_gene_name,score,percentile,rank,ann_impact,ann_effect,ann_hgvs_p,chrom,pos,sift_score,sift_prediction
+gene_id,gene_name,score,percentile,rank,impact,effect,hgvs_p,chrom,pos,sift_score,sift_prediction
 LOC110429508,LOC110429508,0.875,92.93568069149613,1,HIGH,frameshift_variant,p.Tyr100fs,NC_012877.2,59800110,,NA
 LOC8065225,LOC8065225,0.875,92.93568069149613,1,HIGH,frameshift_variant&synonymous_variant,p.Lys139fs,NC_012877.2,61911347,,
 LOC110437270,LOC110437270,0.875,92.93568069149613,1,HIGH,transcript_ablation,t(NC_012872.2%3BNC_012876.2)(%3BXM_021465655.1:Gln43_Ter318),NC_012872.2,54237943,,

@@ -36,6 +36,12 @@ VARIANT_COLS = ["ann_gene_id", "ann_gene_name", "score", "percentile", "rank",
                 "ann_impact", "ann_effect", "ann_hgvs_p", "chrom", "pos",
                 "sift_score", "sift_prediction"]
 
+# CSV header names, chosen so both file types share `gene_id` and drop the
+# internal `ann_`/`gene_label` prefixes used in the notebooks.
+VARIANT_RENAME = {"ann_gene_id": "gene_id", "ann_gene_name": "gene_name",
+                  "ann_impact": "impact", "ann_effect": "effect",
+                  "ann_hgvs_p": "hgvs_p"}
+
 
 def load_helpers():
     """exec the notebook cell that defines parse_vcf / scoring / merge_to_gene_max."""
@@ -53,7 +59,8 @@ def variant_candidates(ns, vcf_name):
     df_genes = ns["merge_to_gene_max"](ns["scoring"](df))
     cand = df_genes[df_genes["score"] >= 0.5].copy()
     cols = [c for c in VARIANT_COLS if c in cand.columns]
-    return cand[cols].sort_values("score", ascending=False).reset_index(drop=True)
+    return (cand[cols].sort_values("score", ascending=False)
+            .reset_index(drop=True).rename(columns=VARIANT_RENAME))
 
 
 def dmr_candidates(df_dmr, focal, others):
@@ -67,9 +74,11 @@ def dmr_candidates(df_dmr, focal, others):
     contrast["hypo_in_focal"] = contrast["direction"] != f"hyper_{focal}"
     return (contrast[contrast["hypo_in_focal"]]
             .groupby("gene_label")
-            .agg(n_hypo_contrasts=("hypo_in_focal", "sum"), mean_diff=("diff.Methy", "mean"))
-            .sort_values("mean_diff", key=lambda s: s.abs(), ascending=False)
-            .reset_index())
+            .agg(n_supporting_contrasts=("hypo_in_focal", "sum"),
+                 mean_methyl_diff=("diff.Methy", "mean"))
+            .sort_values("mean_methyl_diff", key=lambda s: s.abs(), ascending=False)
+            .reset_index()
+            .rename(columns={"gene_label": "gene_id"}))
 
 
 def main():

@@ -44,7 +44,7 @@
 
 \clearpage
 \section{dPCD Gene Module (Literature Curation)}
-\hspace{1em}The dPCD (developmentally programmed cell death) module used as the query set for the D-gene positive control (Section~3.2) was assembled from \citeauthor{olvera-carrilloConservedCorePCD2015}'s literature review of PCD marker genes conserved across plant developmental and environmental cell-death programmes \cite{olvera-carrilloConservedCorePCD2015}. The module is constructed (Table~\ref{tab:dpcd-broad}) by mapping every \textit{Arabidopsis thaliana} ortholog family member to \textit{Sorghum bicolor} via Ensembl Plants BioMart, then resolving each SORBI stable ID to its EGI identifier. 113 of 125 SORBI IDs mapped to an EGI, yielding 66 unique sorghum genes across 33 distinct AGI ortholog groups. This 66-gene module is the one used throughout the enrichment tests and co-expression analysis in Section~3.2.
+\hspace{1em}The dPCD (developmentally programmed cell death) module used as the query set for the D-gene positive control (Section~3.4) was assembled from \citeauthor{olvera-carrilloConservedCorePCD2015}'s literature review of PCD marker genes conserved across plant developmental and environmental cell-death programmes \cite{olvera-carrilloConservedCorePCD2015}. The module is constructed (Table~\ref{tab:dpcd-broad}) by mapping every \textit{Arabidopsis thaliana} ortholog family member to \textit{Sorghum bicolor} via Ensembl Plants BioMart, then resolving each SORBI stable ID to its EGI identifier. 113 of 125 SORBI IDs mapped to an EGI, yielding 66 unique sorghum genes across 33 distinct AGI ortholog groups. This 66-gene module is the one used throughout the enrichment tests and coexpression analysis in Section~3.2.
 
 \begin{longtable}{l p{5.5cm} l p{4.5cm}}
     \caption{dPCD gene module: \textit{Arabidopsis}--\textit{Sorghum bicolor} orthologs} \label{tab:dpcd-broad} \\
@@ -128,19 +128,19 @@
 \end{longtable}
 
 \clearpage
-\section{dPCD gene module co-expression network}
+\section{dPCD gene module coexpression network}
 \hspace{1em}To query the 66 genes in the dPCD gene module, sorghum gene ID from the previous table (Table~\ref{tab:dpcd-broad}) is fed into the query box of the ATTED-II NetworkDrawer (\url{https://atted.jp/top_draw/#NetworkDrawer}). Query genes are indicated in bold outline. Green, yellow, white, and grey colors indicate predicted subcellular localizations (TargetP) of the genes in the chloroplast, mitochondria, endoplasmic reticulum, and other organelles.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\columnwidth]{figures/dpcd_module.png}
-    \caption{Co-expression network of all 66 genes in the dPCD module}
+    \caption{Coexpression network of all 66 genes in the dPCD module}
     \label{fig:dpcd-module}
 \end{figure}
 
 \clearpage
 \section{Phytochrome-Upregulated Gene Module (Literature Curation)}
-\hspace{1em}The phytochrome-upregulated module used as the co-expression query set for the TAA case study's aconitate isomerase candidate ranking was curated from \textit{Arabidopsis thaliana} genes reported to be induced by red light more strongly than by far-red light \cite{eprintsevAconitateIsomeraseMaize2021, igamberdievMitochondriaPhotosyntheticCells2023,escobarLightRegulationArabidopsis2004, teppermanExpressionProfilingPhyB2004}, then mapped to \textit{Sorghum bicolor} orthologs via Ensembl Plants BioMart and resolved to sorghum EGI identifiers using the NCBI \texttt{gene\_info} table for \textit{Sorghum bicolor} (taxonomy ID 4558). Of the four literature-curated \textit{Arabidopsis} genes, three had an identifiable sorghum ortholog (Table~\ref{tab:phy-module}); the fourth, the aquaporin gene AT2G16850, had no identifiable sorghum ortholog and was excluded. This 3-gene module is the co-expression query set used to rank isomerase-family candidates for aconitate isomerase.
+\hspace{1em}The phytochrome-upregulated module used as the coexpression query set for the TAA case study's aconitate isomerase candidate ranking was curated from \textit{Arabidopsis thaliana} genes reported to be induced by red light more strongly than by far-red light \cite{eprintsevAconitateIsomeraseMaize2021, igamberdievMitochondriaPhotosyntheticCells2023,escobarLightRegulationArabidopsis2004, teppermanExpressionProfilingPhyB2004}, then mapped to \textit{Sorghum bicolor} orthologs via Ensembl Plants BioMart and resolved to sorghum EGI identifiers using the NCBI \texttt{gene\_info} table for \textit{Sorghum bicolor} (taxonomy ID 4558). Of the four literature-curated \textit{Arabidopsis} genes, three had an identifiable sorghum ortholog (Table~\ref{tab:phy-module}); the fourth, the aquaporin gene AT2G16850, had no identifiable sorghum ortholog and was excluded. This 3-gene module is the coexpression query set used to rank isomerase-family candidates for aconitate isomerase.
 
 \begin{table}[htbp]
     \centering
@@ -159,7 +159,7 @@
 
 \clearpage
 \section{Supplementary Candidate Gene Lists}
-\hspace{1em}Each phenotype's candidate causative gene lists run to thousands of genes and are therefore provided as supplementary CSV files rather than typeset here. Table~\ref{tab:supp-gene-lists} lists the files and their contents. The variant lists contain every gene whose most damaging variant scores $\geq 0.5$ (the MODERATE and HIGH impact bands), which is the candidate list the over-representation analysis in Section~3 is run on; each row gives the gene identifier, its score, percentile and rank, the SnpEff effect and impact of its most damaging variant, that variant's position, and the SIFT4G score where the variant is a missense change. The DMR lists contain every gene whose promoter is hypomethylated in the contrast accession in at least one phenotype contrast, with the number of contrasts supporting it and the mean methylation difference across them. All gene identifiers are NCBI EGI (\texttt{LOC}) accessions on the \texttt{GCF\_000003195.3} annotation, and all files are sorted with the strongest candidate first.
+\hspace{1em}Each phenotype's candidate gene lists run to thousands of genes and are therefore provided as supplementary CSV files rather than typeset here. Table~\ref{tab:supp-gene-lists} lists the files and their contents. The variant lists contain every gene whose most damaging variant scores $\geq 0.5$ (the MODERATE and HIGH impact bands), which is the candidate list the over-representation analysis in Section~3 is run on; each row gives the gene identifier, its score, percentile and rank, the SnpEff effect and impact of its most damaging variant, that variant's position, and the SIFT4G score where the variant is a missense change. The DMR lists contain every gene whose promoter is differentially methylated in the candidate-defining direction for that phenotype (Tables~\ref{tab:dmr-comparison-matrix} and~\ref{tab:taa-dmr-comparison-matrix}) in at least one phenotype contrast, with the number of contrasts supporting it and the mean methylation difference across them. All gene identifiers are NCBI EGI (\texttt{LOC}) accessions on the \texttt{GCF\_000003195.3} annotation, and all files are sorted with the strongest candidate first.
 
 \begin{table}[htbp]
     \centering
@@ -170,11 +170,11 @@
         File & Contents & Layer & Genes \\
         \midrule
         S1 & TAA: variant candidates (score $\geq 0.5$) & Genomics & 3,032 \\
-        S2 & TAA: promoter hypomethylated in SBC10 & Epigenomics & 2,617 \\
+        S2 & TAA: promoter hypermethylated in SBC10 & Epigenomics & 2,617 \\
         S3 & Stem dryness: variant candidates (score $\geq 0.5$) & Genomics & 11,356 \\
         S4 & Stem dryness: promoter hypomethylated in SBC11 & Epigenomics & 5,367 \\
         S5 & Extra juiciness: variant candidates (score $\geq 0.5$) & Genomics & 13,718 \\
-        S6 & Extra juiciness: promoter hypomethylated in SBC11 & Epigenomics & 5,367 \\
+        S6 & Extra juiciness: promoter hypermethylated in SBC11 & Epigenomics & 5,367 \\
         \bottomrule
     \end{tabularx}
 \end{table}
@@ -243,11 +243,11 @@
 % %       supplementary file; too large to typeset here in full.
 
 % % \clearpage
-% % \section{Co-expression Network and KEGG Evaluation Details}
+% % \section{Coexpression Network and KEGG Evaluation Details}
 % % TODO: ATTED-II network construction parameters, KEGG pathway evaluation
 % %       methodology, and full per-pathway evaluation scores
 
 % % \clearpage
 % % \section{TAA Aconitate Isomerase Candidate Ranking}
-% % TODO: Full ranked table of isomerase-family genes by co-expression with the
+% % TODO: Full ranked table of isomerase-family genes by coexpression with the
 % %       phytochrome-regulated proxy module

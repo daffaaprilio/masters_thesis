@@ -1,4 +1,4 @@
-gene_label,n_hypo_contrasts,mean_diff
+gene_id,n_supporting_contrasts,mean_methyl_diff
 LOC110432674,1,-0.618042310084568
 LOC110437322,1,-0.569947270692667
 LOC110436852,1,-0.569947270692667

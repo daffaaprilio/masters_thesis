@@ -1,36 +1,37 @@
 \babel@toc {english}{}\relax 
-\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}%
-\contentsline {chapter}{\numberline {2}Methods}{3}{chapter.2}%
-\contentsline {section}{\numberline {2.1}Construction of the Platform}{3}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Platform Demonstration and Application}{3}{section.2.2}%
-\contentsline {subsection}{\numberline {2.2.1}Stem juiciness}{3}{subsection.2.2.1}%
-\contentsline {subsection}{\numberline {2.2.2}TAA metabolic pathway}{3}{subsection.2.2.2}%
-\contentsline {section}{\numberline {2.3}Plant Material and Sampling}{4}{section.2.3}%
-\contentsline {section}{\numberline {2.4}Sequencing}{4}{section.2.4}%
-\contentsline {section}{\numberline {2.5}Variant Calling and Annotation}{4}{section.2.5}%
-\contentsline {section}{\numberline {2.6}DMR Calling and Annotation}{5}{section.2.6}%
-\contentsline {section}{\numberline {2.7}Co-expression data}{6}{section.2.7}%
-\contentsline {chapter}{\numberline {3}Results}{7}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Sequencing Quality and Read Depth}{7}{section.3.1}%
-\contentsline {section}{\numberline {3.2}Variant Landscape}{7}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Methylation Landscape}{9}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Demonstration of the platform -- dPCD gene module}{10}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Variant analysis}{10}{subsection.3.4.1}%
-\contentsline {subsection}{\numberline {3.4.2}Differentially methylated region analysis}{12}{subsection.3.4.2}%
-\contentsline {subsection}{\numberline {3.4.3}Enrichment test}{12}{subsection.3.4.3}%
-\contentsline {subsection}{\numberline {3.4.4}Gene co-expression analysis}{13}{subsection.3.4.4}%
-\contentsline {section}{\numberline {3.5}Application of the platform -- TAA metabolism genes}{14}{section.3.5}%
-\contentsline {subsection}{\numberline {3.5.1}Variant analysis}{15}{subsection.3.5.1}%
-\contentsline {subsection}{\numberline {3.5.2}Differentially methylated region analysis}{16}{subsection.3.5.2}%
-\contentsline {subsection}{\numberline {3.5.3}Gene co-expression analysis}{17}{subsection.3.5.3}%
-\contentsline {chapter}{\numberline {4}Discussion}{19}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Construction of the platform}{19}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Limitation}{20}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Future direction}{20}{section.4.3}%
-\contentsline {section}{\numberline {4.4}Conclusion}{20}{section.4.4}%
-\contentsline {chapter}{\numberline {A}Appendix}{25}{appendix.A}%
-\contentsline {section}{\numberline {A.1}Read Depth by Chromosomal Position}{25}{section.A.1}%
-\contentsline {section}{\numberline {A.2}dPCD Gene Module (Literature Curation)}{30}{section.A.2}%
-\contentsline {section}{\numberline {A.3}dPCD gene module co-expression network}{33}{section.A.3}%
-\contentsline {section}{\numberline {A.4}Phytochrome-Upregulated Gene Module (Literature Curation)}{34}{section.A.4}%
-\contentsline {section}{\numberline {A.5}Supplementary Candidate Gene Lists}{35}{section.A.5}%
+\contentsline {chapter}{Acknowledgement}{2}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}Introduction}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Methods}{4}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Construction of the Platform}{4}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Platform Demonstration and Application}{4}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Stem juiciness}{4}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}TAA metabolic pathway}{4}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}Plant Material and Sampling}{5}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Sequencing}{5}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Variant Calling and Annotation}{5}{section.2.5}%
+\contentsline {section}{\numberline {2.6}DMR Calling and Annotation}{6}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Coexpression data}{7}{section.2.7}%
+\contentsline {chapter}{\numberline {3}Results}{8}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Sequencing Quality and Read Depth}{8}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Variant Landscape}{8}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Methylation Landscape}{10}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Demonstration of the platform -- dPCD gene module}{11}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Variant analysis}{11}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Differentially methylated region analysis}{13}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Enrichment test}{13}{subsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.4.4}Gene coexpression analysis}{14}{subsection.3.4.4}%
+\contentsline {section}{\numberline {3.5}Application of the platform -- TAA metabolism genes}{15}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Variant analysis}{16}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Differentially methylated region analysis}{17}{subsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.5.3}Gene coexpression analysis}{18}{subsection.3.5.3}%
+\contentsline {chapter}{\numberline {4}Discussion}{20}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Construction of the platform}{20}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Limitations}{21}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Future direction}{21}{section.4.3}%
+\contentsline {section}{\numberline {4.4}Conclusion}{21}{section.4.4}%
+\contentsline {chapter}{\numberline {A}Appendix}{26}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Read Depth by Chromosomal Position}{26}{section.A.1}%
+\contentsline {section}{\numberline {A.2}dPCD Gene Module (Literature Curation)}{31}{section.A.2}%
+\contentsline {section}{\numberline {A.3}dPCD gene module coexpression network}{34}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Phytochrome-Upregulated Gene Module (Literature Curation)}{35}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Supplementary Candidate Gene Lists}{36}{section.A.5}%
