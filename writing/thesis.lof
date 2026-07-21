@@ -2,17 +2,17 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Effect impact distribution per sample, computed from the combined annotated VCF.}}{12}{figure.caption.8}%
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Intersecting variant sites from four sample VCF files.}}{13}{figure.caption.9}%
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Methylation level by genomic context per sample.}}{13}{figure.caption.10}%
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Variant sites for \textbf {stem extra juiciness} phenotype. Distribution of variant-level scores (a) and the resulting gene-level scores after collapsing to the maximum per gene (b).}}{15}{figure.caption.12}%
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Variant sites for \textbf {stem dryness} phenotype. Distribution of variant-level scores (a) and the resulting gene-level scores after collapsing to the maximum per gene (b).}}{15}{figure.caption.13}%
-\contentsline {figure}{\numberline {3.6}{\ignorespaces Coexpression relationship within the dPCD gene module -- example on NAC domain-containing protein 79 (EGI: 8083682) coexpression cluster. Red outline: TF genes; Blue outline: dPCD enzymes. This network is constructed by querying NAC domain-containing protein 79 (EGI: 8083682) with its 7 coexpressed partners (Table~\ref {tab:tf-coexpressed-enzymes}).}}{18}{figure.caption.19}%
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Variant sites for the \textbf {low TAA production} trait. Distribution of variant-level scores (a) and the resulting gene-level scores after collapsing to the maximum per gene (b).}}{19}{figure.caption.21}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Effect impact distribution per sample, computed from the combined annotated VCF.}}{14}{figure.caption.8}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Intersecting variant sites from four sample VCF files.}}{15}{figure.caption.9}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Methylation level by genomic context per sample.}}{16}{figure.caption.10}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Variant sites for \textbf {stem extra juiciness} phenotype. Distribution of variant-level scores (a) and the resulting gene-level scores after collapsing to the maximum per gene (b).}}{17}{figure.caption.12}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Variant sites for \textbf {stem dryness} phenotype. Distribution of variant-level scores (a) and the resulting gene-level scores after collapsing to the maximum per gene (b).}}{18}{figure.caption.13}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Coexpression relationship within the dPCD gene module -- example on NAC domain-containing protein 79 (EGI: 8083682) coexpression cluster. Red outline: TF genes; Blue outline: dPCD enzymes. This network is constructed by querying NAC domain-containing protein 79 (EGI: 8083682) with its 7 coexpressed partners (Table~\ref {tab:tf-coexpressed-enzymes}).}}{21}{figure.caption.19}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Variant sites for the \textbf {low TAA production} trait. Distribution of variant-level scores (a) and the resulting gene-level scores after collapsing to the maximum per gene (b).}}{23}{figure.caption.21}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {figure}{\numberline {A.1}{\ignorespaces SBC4 (\texttt {r0074}) coverage depth per chromosome.}}{30}{figure.caption.27}%
-\contentsline {figure}{\numberline {A.2}{\ignorespaces SBC10 (\texttt {r0066}) coverage depth per chromosome.}}{31}{figure.caption.28}%
-\contentsline {figure}{\numberline {A.3}{\ignorespaces SBC11 (\texttt {r0075}, \texttt {r0078}, \texttt {r0078-2}) coverage depth per chromosome.}}{32}{figure.caption.29}%
-\contentsline {figure}{\numberline {A.4}{\ignorespaces SBC23 (\texttt {r0076}) coverage depth per chromosome.}}{33}{figure.caption.30}%
-\contentsline {figure}{\numberline {A.5}{\ignorespaces Coexpression network of all 66 genes in the dPCD module}}{37}{figure.caption.31}%
+\contentsline {figure}{\numberline {A.1}{\ignorespaces SBC4 (\texttt {r0074}) coverage depth per chromosome.}}{33}{figure.caption.27}%
+\contentsline {figure}{\numberline {A.2}{\ignorespaces SBC10 (\texttt {r0066}) coverage depth per chromosome.}}{34}{figure.caption.28}%
+\contentsline {figure}{\numberline {A.3}{\ignorespaces SBC11 (\texttt {r0075}, \texttt {r0078}, \texttt {r0078-2}) coverage depth per chromosome.}}{35}{figure.caption.29}%
+\contentsline {figure}{\numberline {A.4}{\ignorespaces SBC23 (\texttt {r0076}) coverage depth per chromosome.}}{36}{figure.caption.30}%
+\contentsline {figure}{\numberline {A.5}{\ignorespaces Coexpression network of all 66 genes in the dPCD module}}{41}{figure.caption.31}%
