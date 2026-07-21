@@ -7,7 +7,7 @@
 % TODO: Modified-base (5mC) calling coverage summary (modkit summary output)
 
 \section{Read Depth by Chromosomal Position}
-\hspace{1em}Per-base coverage depth along each of the ten largest chromosomes/contigs, for each of the four sequenced libraries (SBC11 shown for its \texttt{r0074} library; the two remaining SBC11 libraries, \texttt{r0078} and \texttt{r0078-2}, are merged into the same BAM prior to variant calling and methylation calling). The other three samples are formatted as Sample (\texttt{library}).
+\hspace{1em}Per-base coverage depth along each of the ten largest chromosomes/contigs, for each of the four accessions (SBC11 shown for its \texttt{r0075} library; the two remaining SBC11 libraries, \texttt{r0078} and \texttt{r0078-2}, are merged into the same BAM prior to variant calling and methylation calling). The other three samples are formatted as Sample (\texttt{library}).
 
 \begin{figure}[H]
     \centering
@@ -26,7 +26,7 @@
 \begin{figure}[H]
     \centering
     \includegraphics[width=\columnwidth]{figures/figA2_SBC11_depth.png}
-    \caption{SBC11 coverage depth per chromosome.}
+    \caption{SBC11 (\texttt{r0075}, \texttt{r0078}, \texttt{r0078-2}) coverage depth per chromosome.}
     \label{fig:depth-sbc11}
 \end{figure}
 
@@ -44,7 +44,8 @@
 
 \clearpage
 \section{dPCD Gene Module (Literature Curation)}
-\hspace{1em}The dPCD (developmentally programmed cell death) module used as the query set for the D-gene positive control (Section~3.4) was assembled from \citeauthor{olvera-carrilloConservedCorePCD2015}'s literature review of PCD marker genes conserved across plant developmental and environmental cell-death programmes \cite{olvera-carrilloConservedCorePCD2015}. The module is constructed (Table~\ref{tab:dpcd-broad}) by mapping every \textit{Arabidopsis thaliana} ortholog family member to \textit{Sorghum bicolor} via Ensembl Plants BioMart, then resolving each SORBI stable ID to its EGI identifier. 113 of 125 SORBI IDs mapped to an EGI, yielding 66 unique sorghum genes across 33 distinct AGI ortholog groups. This 66-gene module is the one used throughout the enrichment tests and coexpression analysis in Section~3.2.
+\label{sec:dpcd-module}
+\hspace{1em}The dPCD (developmentally programmed cell death) module used as the query set for the stem dryness positive control (Section~3.4) was assembled from \citeauthor{olvera-carrilloConservedCorePCD2015}'s literature review of PCD marker genes conserved across plant developmental and environmental cell-death programmes \cite{olvera-carrilloConservedCorePCD2015}. The module is constructed (Table~\ref{tab:dpcd-broad}) by mapping every \textit{Arabidopsis thaliana} ortholog family member to \textit{Sorghum bicolor} via Ensembl Plants BioMart, then resolving each SORBI stable ID to its EGI identifier. 113 of 125 SORBI IDs mapped to an EGI, yielding 66 unique sorghum genes across 33 distinct AGI ortholog groups. This 66-gene module is the one used throughout the enrichment tests and coexpression analysis in Section~3.4.
 
 \begin{longtable}{l p{5.5cm} l p{4.5cm}}
     \caption{dPCD gene module: \textit{Arabidopsis}--\textit{Sorghum bicolor} orthologs} \label{tab:dpcd-broad} \\
@@ -140,6 +141,7 @@
 
 \clearpage
 \section{Phytochrome-Upregulated Gene Module (Literature Curation)}
+\label{sec:phy-module-sec}
 \hspace{1em}The phytochrome-upregulated module used as the coexpression query set for the TAA case study's aconitate isomerase candidate ranking was curated from \textit{Arabidopsis thaliana} genes reported to be induced by red light more strongly than by far-red light \cite{eprintsevAconitateIsomeraseMaize2021, igamberdievMitochondriaPhotosyntheticCells2023,escobarLightRegulationArabidopsis2004, teppermanExpressionProfilingPhyB2004}, then mapped to \textit{Sorghum bicolor} orthologs via Ensembl Plants BioMart and resolved to sorghum EGI identifiers using the NCBI \texttt{gene\_info} table for \textit{Sorghum bicolor} (taxonomy ID 4558). Of the four literature-curated \textit{Arabidopsis} genes, three had an identifiable sorghum ortholog (Table~\ref{tab:phy-module}); the fourth, the aquaporin gene AT2G16850, had no identifiable sorghum ortholog and was excluded. This 3-gene module is the coexpression query set used to rank isomerase-family candidates for aconitate isomerase.
 
 \begin{table}[htbp]
@@ -174,7 +176,7 @@
         S3 & Stem dryness: variant candidates (score $\geq 0.5$) & Genomics & 11,356 \\
         S4 & Stem dryness: promoter hypomethylated in SBC11 & Epigenomics & 5,367 \\
         S5 & Extra juiciness: variant candidates (score $\geq 0.5$) & Genomics & 13,718 \\
-        S6 & Extra juiciness: promoter hypermethylated in SBC11 & Epigenomics & 5,367 \\
+        S6 & Extra juiciness: promoter hypermethylated in SBC11 & Epigenomics & 1,530 \\
         \bottomrule
     \end{tabularx}
 \end{table}
